@@ -181,6 +181,81 @@ nav a.active{color:var(--r);border-color:var(--r)}
 .section{border-bottom:1px solid var(--bdr)}
 footer{padding:16px 18px;font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.08em;color:var(--dim);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--bdr)}
 
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+
+  /* nav */
+  nav a { font-size: 11px; padding: 14px 11px; }
+
+  /* safety bar */
+  .safebar .lbl { font-size: 11px; }
+  .safebar span  { font-size: 12.5px; }
+
+  /* week strip — tighter padding so 7 cols fit */
+  .wc  { padding: 10px 4px; }
+  .wd  { font-size: 9px; }
+  .wt  { font-size: 11px; }
+
+  /* band legend */
+  .leg-name { font-size: 11px; }
+
+  /* typography labels */
+  .t-mono  { font-size: 11px; letter-spacing: .13em; }
+  .t-label { font-size: 10px; }
+
+  /* day header */
+  .day-num   { font-size: 40px; }
+  .day-eye   { font-size: 11px; }
+  .day-focus { font-size: 10px; letter-spacing: .06em; }
+
+  /* warmup */
+  .wu-lbl { font-size: 10px; }
+  .wu-t   { font-size: 11px; }
+
+  /* exercise cards */
+  .exname   { font-size: 16px; }
+  .slbl, .clbl { font-size: 10px; letter-spacing: .12em; }
+  .rest-lbl { font-size: 10px; }
+  .tkey     { font-size: 9px; }
+  .tempo    { font-size: 11px; }
+  .band-txt { font-size: 10px; letter-spacing: .07em; }
+
+  /* accordion — bigger touch target, full width for easy tap */
+  .acc-btn  { font-size: 10px; padding: 11px 14px; width: 100%; justify-content: center; margin-top: 14px; }
+  .prog-lbl { font-size: 10px; }
+  .prog-step .pn { font-size: 11px; }
+
+  /* finisher / swim / hike / rules / nutrition */
+  .fin-lbl  { font-size: 10px; }
+  .sc-t     { font-size: 14px; }
+  .sno-t    { font-size: 10px; }
+  .hike-l   { font-size: 10px; }
+  .hmcard h4 { font-size: 10px; }
+  .mcl      { font-size: 10px; }
+  .ptag     { font-size: 13px; }
+}
+
+/* ── DESKTOP ── */
+@media (min-width: 900px) {
+  body { font-size: 15px; }
+
+  /* macros expand to 4 columns side by side */
+  .macros { grid-template-columns: repeat(4, 1fr); }
+
+  /* day title bigger */
+  .day-title { font-size: 26px; }
+
+  /* exercise name bigger */
+  .exname { font-size: 19px; }
+
+  /* hero text */
+  .hero p { font-size: 15px; max-width: 560px; }
+
+  /* wider swim grid */
+  .sgrid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media print {
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
   body { background: #080810 !important; color: #edeae0 !important; }
