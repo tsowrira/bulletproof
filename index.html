@@ -14,7 +14,7 @@
   --bdr:  #22222e;
   --txt:  #edeae0;
   --dim:  #9896a4;
-  --fade: rgba(237,234,224,0.45);
+  --fade: rgba(237,234,224,0.62);
   --r:    #e8623a;
   --b:    #4a9dba;
   --g:    #7ec98a;
@@ -49,10 +49,10 @@ nav a.active{color:var(--r);border-color:var(--r)}
 
 /* ── HERO ── */
 .hero{padding:42px 18px 36px;border-bottom:1px solid var(--bdr);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 100% 0%,rgba(232,98,58,.08) 0%,transparent 60%);pointer-events:none}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 110% 80% at 110% -10%,rgba(232,98,58,.14) 0%,transparent 62%),radial-gradient(ellipse 60% 50% at -10% 110%,rgba(74,157,186,.07) 0%,transparent 60%);pointer-events:none}
 .hero-eye{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;color:var(--r);margin-bottom:16px;position:relative}
 .hero h1{font-size:clamp(40px,10vw,88px);position:relative}
-.hero h1 em{color:var(--r);font-style:normal}
+.hero h1 em{color:var(--r);font-style:normal;text-shadow:0 0 80px rgba(232,98,58,.5)}
 .hero p{margin-top:14px;font-size:13px;color:var(--dim);max-width:480px;line-height:1.8;position:relative}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;position:relative}
 .pill{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:100px;border:1px solid var(--bdr);color:var(--dim)}
@@ -112,7 +112,7 @@ nav a.active{color:var(--r);border-color:var(--r)}
 .slbl{font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
 .setup{font-size:13.5px;color:rgba(237,234,224,.47);line-height:1.72;margin-bottom:10px}
 .clbl{font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--r);margin-bottom:3px}
-.cue{font-size:13.5px;color:rgba(232,98,58,.88);font-style:italic;padding:8px 12px;border-left:2px solid var(--r);background:rgba(232,98,58,.04);line-height:1.62}
+.cue{font-size:13.5px;color:rgba(232,98,58,.92);font-style:italic;padding:10px 14px;border-left:3px solid var(--r);background:rgba(232,98,58,.05);line-height:1.65;box-shadow:-4px 0 18px rgba(232,98,58,.1)}
 
 /* accordion */
 .acc-btn{display:flex;align-items:center;gap:6px;margin-top:10px;background:none;border:1px solid rgba(126,201,138,.2);color:var(--g);font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;padding:5px 11px;border-radius:3px;cursor:pointer;transition:background .15s}
@@ -180,6 +180,17 @@ nav a.active{color:var(--r);border-color:var(--r)}
 
 .section{border-bottom:1px solid var(--bdr)}
 footer{padding:16px 18px;font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.08em;color:var(--dim);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--bdr)}
+
+/* ── POLISH ── */
+::selection{background:rgba(232,98,58,.28);color:var(--txt)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#2c2c3e;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a50}
+@media(hover:hover){
+  .excard{transition:background .2s}
+  .excard:hover{background:rgba(255,255,255,.018)}
+}
 
 /* ── MOBILE ── */
 @media (max-width: 640px) {
@@ -865,11 +876,19 @@ footer{padding:16px 18px;font-family:'Inter',sans-serif;font-size:8.5px;letter-s
 </footer>
 
 <script>
+// Smooth accordion — convert display:none to max-height transition
+document.querySelectorAll('.prog-block').forEach(b => {
+  b.style.overflow = 'hidden';
+  b.style.maxHeight = '0';
+  b.style.transition = 'max-height .3s ease';
+  b.style.display = '';
+});
+
 function toggle(btn) {
   const block = btn.nextElementSibling;
-  const open = block.style.display !== 'none';
-  block.style.display = open ? 'none' : 'block';
-  btn.classList.toggle('open', !open);
+  const collapsed = block.style.maxHeight === '0px';
+  block.style.maxHeight = collapsed ? block.scrollHeight + 'px' : '0px';
+  btn.classList.toggle('open', collapsed);
 }
 
 // Highlight active nav link on scroll
