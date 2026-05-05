@@ -570,6 +570,67 @@ nav a.active{border-bottom-width:2px}
 .defer-item{font-size:12.5px;color:var(--fade);line-height:1.6;padding:8px 12px;background:var(--s1);border-left:2px solid var(--r);border-radius:0 var(--rad) var(--rad) 0}
 .defer-item strong{color:var(--txt);font-weight:500}
 
+/* ── APPROACH & EVIDENCE INTRO ── */
+.approach{
+  padding:26px var(--pad);
+  background:linear-gradient(180deg,var(--s1) 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--bdr);
+}
+.approach-eye{font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:8px;font-weight:600}
+.approach h2{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;letter-spacing:-.01em;line-height:1.15;margin-bottom:10px}
+.approach .lead{font-size:13.5px;color:var(--fade);max-width:620px;line-height:1.78;margin-bottom:18px}
+.approach .lead strong{color:var(--txt);font-weight:500}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.princ{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:13px 14px;position:relative;overflow:hidden}
+.princ::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--g)}
+.princ.r::before{background:var(--r)}.princ.b::before{background:var(--b)}.princ.gld::before{background:var(--gld)}.princ.p::before{background:var(--p)}
+.princ-h{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:5px;font-weight:600}
+.princ.r .princ-h{color:var(--r)}.princ.b .princ-h{color:var(--b)}.princ.gld .princ-h{color:var(--gld)}.princ.p .princ-h{color:var(--p)}
+.princ-t{font-family:'Playfair Display',serif;font-weight:700;font-size:13.5px;line-height:1.3;margin-bottom:6px}
+.princ p{font-size:12.5px;color:var(--fade);line-height:1.6}
+.princ .src{display:block;font-family:'Inter',sans-serif;font-size:10px;color:var(--dim);margin-top:6px;letter-spacing:.04em;font-style:italic}
+
+/* ── EVIDENCE — collapsible (mirrors progression accordion) ── */
+.acc-btn.evi-btn{border-color:rgba(95,180,210,.30);color:var(--b);margin-left:6px}
+.acc-btn.evi-btn:hover{background:rgba(95,180,210,.08)}
+.evi-wrap{
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transition:max-height .35s ease,opacity .25s ease;
+}
+.evi-wrap.open{max-height:800px;opacity:1}
+.evi{
+  margin-top:8px;
+  background:rgba(95,180,210,.05);
+  border:1px solid rgba(95,180,210,.18);
+  border-left:3px solid var(--b);
+  border-radius:0 var(--rad) var(--rad) 0;
+  padding:10px 13px;
+}
+.evi p{font-size:12.5px;color:var(--fade);line-height:1.62;margin-bottom:6px}
+.evi p:last-child{margin-bottom:0}
+.evi em{color:var(--b);font-style:italic;font-size:11.5px;letter-spacing:.02em}
+.evi strong{color:var(--txt);font-weight:500}
+.daily-note .src{display:block;font-size:11px;color:var(--dim);font-style:italic;margin-top:5px;letter-spacing:.02em}
+
+/* ── REFERENCES ── */
+.refswrap{padding:24px var(--pad);background:var(--s1);border-bottom:1px solid var(--bdr)}
+.refs-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;font-weight:600}
+.refs-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.ref{font-size:12px;color:var(--fade);line-height:1.6;padding:8px 0;border-bottom:1px solid rgba(42,42,56,.5)}
+.ref strong{color:var(--txt);font-weight:500}
+.ref em{color:var(--b);font-style:italic;font-size:11.5px;display:block;margin-top:2px}
+.refs-disclaim{margin-top:14px;font-size:11.5px;color:var(--dim);line-height:1.7;font-style:italic;max-width:600px}
+
+/* ── POLISH: hover, today pulse, focus ── */
+.excard:hover{background:rgba(244,241,230,.012)}
+.wc.today::before{animation:todaypulse 2.4s ease-in-out infinite}
+@keyframes todaypulse{0%,100%{opacity:1}50%{opacity:.55}}
+.chk:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.acc-btn:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
+
 /* ── RULES ── */
 .hmwrap{padding:28px var(--pad);border-bottom:1px solid var(--bdr);background:var(--s1)}
 .hmwrap h2{font-family:'Playfair Display',serif;font-weight:800;font-size:24px;margin-bottom:5px}
@@ -640,6 +701,7 @@ footer{
   <a href="#daily">Daily</a>
   <a href="#rules">Rules</a>
   <a href="#fuel">Fuel</a>
+  <a href="#refs">Refs</a>
 </nav>
 
 <div class="scroll-prog"><div class="scroll-prog-bar" id="spbar"></div></div>
@@ -700,6 +762,45 @@ footer{
   </div>
 </div>
 
+
+<!-- ════════════════════ APPROACH & EVIDENCE ════════════════════ -->
+<div class="approach" id="approach">
+  <div class="approach-eye">// Approach &amp; Evidence — Why Each Choice</div>
+  <h2>Five principles, tailored to your physiology</h2>
+  <p class="lead">Designed around four converging constraints: <strong>post-revision microdiscectomy (L4–L5/L5–S1)</strong>, <strong>generalized hypermobility</strong>, <strong>left ACL history</strong>, and <strong>training experience that needs progress without flare</strong>. Each principle below is supported by published rehab and exercise-science literature.</p>
+  <div class="principles">
+    <div class="princ r">
+      <div class="princ-h">01 · Spine-Sparing</div>
+      <div class="princ-t">Hinge, don't flex under load</div>
+      <p>Cumulative lumbar flexion under load is the dominant mechanism for annular damage. Replace flexion-bias movements (deadlift bottom, hollow body, RDL without pattern) with hinge-pattern teachers (band pull-through), anti-rotation (Pallof), and dead bug.</p>
+      <span class="src">McGill (2002, 2007, 2015); Adams &amp; Dolan; Callaghan &amp; McGill</span>
+    </div>
+    <div class="princ b">
+      <div class="princ-h">02 · Multifidus First</div>
+      <div class="princ-t">Daily, low-load, high-frequency segmental control</div>
+      <p>Multifidus atrophies after disc injury and does <em>not</em> automatically rebound. Retraining requires daily, low-load, high-frequency motor-control work — not heavy stabilization. Bird-dog with holds and prone unilateral isometrics are the canonical rebuilders.</p>
+      <span class="src">Hodges &amp; Richardson (1996, 1999); Hides et al. (1996, 2008)</span>
+    </div>
+    <div class="princ gld">
+      <div class="princ-h">03 · Hypermobility Protocol</div>
+      <div class="princ-t">Closed-chain, mid-range, isometric → eccentric → concentric</div>
+      <p>Hypermobile joints rely on passive structures (ligaments, capsules) when active control fails. Training principle inverts: avoid end-range under load, prioritize co-contraction, build isometric strength first, then slow eccentrics, then concentric. Bands superior to free weights for constant tension.</p>
+      <span class="src">Russek (1999); Simmonds &amp; Keer (2007); Engelbert et al.; Mottram</span>
+    </div>
+    <div class="princ g">
+      <div class="princ-h">04 · Volume That Recovers</div>
+      <div class="princ-t">10–20 hard sets/wk per muscle, rep-range agnostic</div>
+      <p>Hypertrophy responds across 5–30 reps when training is taken close to failure. Total weekly hard-set count drives growth; "compound = low reps, isolation = high reps" is a 1RM heuristic, not a hypertrophy law. For post-surgical + ED-recovery context, lower volume = better systemic recovery without strength penalty.</p>
+      <span class="src">Schoenfeld et al. (2017, 2019); Helms et al.; Morton et al.</span>
+    </div>
+    <div class="princ p">
+      <div class="princ-h">05 · Asymmetry &amp; Targeting</div>
+      <div class="princ-t">Left ACL VMO + L5/S1 distal atrophy get extra reps</div>
+      <p>Post-ACL VMO atrophy persists for years without targeted work. Asymmetric warmup (25 left / 20 right banded TKE) addresses the structural side. Distal lower-leg work (tibialis posterior + peroneal) targets neurogenic atrophy patterns specific to L5/S1 nerve-root involvement.</p>
+      <span class="src">Snyder-Mackler; Buckthorpe et al.; Distefano et al.</span>
+    </div>
+  </div>
+</div>
 
 <!-- ════════════════════ DAY 1 · MON · PULL ════════════════════ -->
 <div class="section" id="d1">
@@ -839,6 +940,14 @@ footer{
 <div class="setup">Lie face-down on bench or floor. Arms extended overhead at ~125° abduction (between straight overhead and a T) — forming a wide Y. Thumbs point UP toward ceiling. Lift arms slightly off the surface, squeeze the muscle low between the shoulder blades. Hold 2 counts. Lower over 3.</div>
 <div class="clbl">🎯 Coaching Cue</div>
 <div class="cue">125° + thumbs-up is the position with the highest documented lower trap activation (~97% MVIC, Reinold/Wilk). Lower trap is the upward rotator your scapulae need — undertrained in almost everyone. Tiny range, huge return. No upper trap firing — chin tucked, neck long.</div>
+<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
+<div class="evi-wrap">
+  <div class="evi">
+    <p>Reinold &amp; Wilk's EMG study of scapular muscle activation across 12 rehab positions found prone Y at ~125° abduction with thumbs-up generates the highest lower-trap-to-upper-trap activation ratio of any exercise tested. Cools and the Belgian scapular dyskinesis group independently converged on the same finding.</p>
+    <p>The position selectively biases the lower trap (an upward rotator) over the upper trap (an elevator) — the recruitment pattern <strong>hypermobile shoulders specifically need</strong> to stabilize during pressing volume, since hypermobile athletes default to upper-trap-dominant strategies.</p>
+    <em>— Reinold &amp; Wilk (2007); Cools et al. (2014); Kibler &amp; Sciascia</em>
+  </div>
+</div>
 </div>
 
 <div class="excard" data-id="d1e7">
@@ -1103,6 +1212,14 @@ footer{
 <div class="setup">Red band anchored at floor behind. Stand facing away. Step out for tension. Reach between legs, palms toward you. Hinge at hips — push hips back, soft knees, neutral spine. Stand up by driving hips forward (not by squatting up). Glute squeeze finishes the rep — no lumbar extension at top.</div>
 <div class="clbl">🎯 Coaching Cue</div>
 <div class="cue">This is the <strong>central pattern teacher for the entire program</strong>. The hip hinge is the structural gap your old program worked around rather than rebuilt. Push hips BACK first, then forward — never down/up. Spine stays one rigid line throughout. Master this for 4 weeks before progressing toward any RDL.</div>
+<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
+<div class="evi-wrap">
+  <div class="evi">
+    <p>McGill's biomechanics work established that posterior-chain extension under load is safest when motion comes from the hip joint with a neutral spine — not from the lumbar segments. The hip-hinge pattern, taught with light band resistance before any axial load, is the canonical motor-control prerequisite to RDL/deadlift in disc-injury rehab.</p>
+    <p>Adams &amp; Dolan's <strong>annular fiber research is the load-bearing reason this matters for you specifically</strong>: bending + compression (the failure mode of a poorly-patterned hinge) produces annular damage at loads far below pure compression. Post-revision, you have less margin than someone with a fully intact annulus — making the pattern non-negotiable, not optional.</p>
+    <em>— McGill (2007, 2015); Adams &amp; Dolan; Callaghan &amp; McGill; Marshall &amp; Murphy</em>
+  </div>
+</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
@@ -1208,26 +1325,31 @@ footer{
 
 <div class="excard" data-id="d3e7">
 <div class="extop">
-  <div class="ex-left">
-    <div class="exname">Nordic Hamstring Curl — Banded Assist</div>
-    <div class="start-l"><span>← Start left side every set</span></div>
-  </div>
+  <div class="ex-left"><div class="exname">Nordic Hamstring Curl — Machine or Band Assist</div></div>
   <div class="exmeta"><div class="sets">3 × 5</div><div class="rest-lbl">90s rest</div><div class="tempo">5 · 3 · 2</div><div class="tkey">5s down · 3s ISO · assist up</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#222238;border-color:rgba(244,241,230,.32)"></div><span class="band-txt">Black band — loop around waist, anchor to rack behind you</span></div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Feet anchored under rack bar or bench. Black band around waist for return assist. Kneel upright — tall neutral spine. Lower toward floor over 5 full seconds, stay rigid. Use band tension to assist return to upright. <strong>Stop 15° before full knee extension on the return — never lock out.</strong></div>
+<div class="slbl">Setup &amp; Execution — Bilateral</div>
+<div class="setup"><strong>Both legs lower together</strong> — Nordic is bilateral; feet anchored, knees the only joint moving. Tall neutral spine, ribs locked down. Lower toward floor over 5 full seconds, stay rigid. Use assist to return upright. <strong>Stop 15° before full knee extension on the return — never lock out.</strong><br><br><strong>Two assist options (pick what's available):</strong><br>· <strong>Machine + 10 lb plate assist</strong> (your current setup) — counterweight pulley with a 10 lb plate. Cleanest progression because you can drop the plate weight by 2.5 lb increments as you get stronger.<br>· <strong>Black band around waist, anchored behind</strong> — fallback when the machine isn't available.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Premier hamstring injury prevention exercise. For hypermobile knees: stopping before full extension means the muscle catches you, not the joint capsule. The 5-second eccentric is all the adaptation — never rush it.</div>
+<div class="cue">Premier hamstring injury prevention exercise. For hypermobile knees: stopping before full extension means the muscle catches you, not the joint capsule. The 5-second eccentric is all the adaptation — never rush it. The machine + plate setup is gold because the assist is constant and quantified, unlike a band that stiffens nonlinearly.</div>
+<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
+<div class="evi-wrap">
+  <div class="evi">
+    <p>Petersen's landmark RCT in elite Danish soccer players cut hamstring injury rate by ~51% and recurrence by ~85% over a season with eccentric Nordic protocols. Subsequent meta-analyses (van Dyk; Al Attar) confirmed the mechanism: <strong>hamstring fascicle length increases under eccentric overload</strong>, shifting the force-length curve into a more protective range.</p>
+    <p>For your specific case — left ACL history + hypermobile knees — the eccentric Nordic also creates co-contraction signal across the posterior knee that supports the reconstructed ligament. The "stop 15° before extension" rule keeps load on muscle rather than joint capsule, which matters disproportionately for hypermobile athletes.</p>
+    <em>— Petersen et al. (2011); van Dyk et al. (2019); Mendiguchia et al.; Al Attar et al.</em>
+  </div>
+</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Black band assist, 3×5 with 5s eccentric</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Blue band assist — less help, same reps</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Red band assist — 3×4</span></div>
-    <div class="prog-step"><span class="pn">Wk 12</span><span>No band — 3×3 unassisted negatives</span></div>
+    <div class="prog-lbl">📈 Path Forward (machine assist)</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Machine + 10 lb plate assist, 3×5 with 5s eccentric</span></div>
+    <div class="prog-step"><span class="pn">Wk 4</span><span>Drop to 7.5 lb assist — same reps</span></div>
+    <div class="prog-step"><span class="pn">Wk 8</span><span>5 lb assist — 3×4</span></div>
+    <div class="prog-step"><span class="pn">Wk 12</span><span>2.5 lb or unassisted — 3×3 unassisted negatives</span></div>
+    <div class="prog-step"><span class="pn">Alt</span><span>Band fallback when machine unavailable: black → blue → red over same window</span></div>
   </div>
 </div>
 </div>
@@ -1299,7 +1421,7 @@ footer{
 </div>
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">McGill Big 3 — Mandatory Every Leg Day · Gold-Standard Spine Maintenance</div><p><strong>McGill Curl-up</strong> × 3 × 8 — hands under lumbar curve, barely lift shoulders, no chin-to-chest &nbsp;·&nbsp; <strong>Side Plank</strong> × 3 × 20s each side &nbsp;·&nbsp; <strong>Bird Dog</strong> × 3 × 8 each — reach long, hips level, zero rotation, 5–10s holds at full extension.</p></div>
+<div class="fin"><div class="fin-lbl">McGill Big 3 — Mandatory Every Leg Day · Gold-Standard Spine Maintenance</div><p><strong>McGill Curl-up</strong> × 3 × 8 — hands under lumbar curve, barely lift shoulders, no chin-to-chest &nbsp;·&nbsp; <strong>Side Plank</strong> × 3 × 20s each side &nbsp;·&nbsp; <strong>Bird Dog</strong> × 3 × 8 each — reach long, hips level, zero rotation, 5–10s holds at full extension.<br><br><span style="font-size:11.5px;color:var(--dim);font-style:italic">📚 McGill's Big 3 is the most-cited spine-stabilization protocol in the rehab literature — selected for its combination of high muscular endurance demand and very low spinal load. Endurance &gt; strength for chronic lumbar resilience (McGill 2002, 2007). The 5–10s isometric holds at end positions on bird-dog were specifically validated for multifidus retraining (Hides &amp; Richardson).</span></p></div>
 </div><!-- /d3 -->
 
 
@@ -1501,17 +1623,17 @@ footer{
     <div class="daily-card">
       <div class="daily-name">Bird-Dog with Holds</div>
       <div class="daily-dose">3 × 8 each side · 5–10s hold at full extension</div>
-      <div class="daily-note">Multifidus + anti-rotation core. Reach long, hips completely level, zero rotation. Hold the extended position before returning. Single highest-priority unaddressed deficit at this stage — daily reps build the muscle the surgery couldn't.</div>
+      <div class="daily-note">Multifidus + anti-rotation core. Reach long, hips completely level, zero rotation. Hold the extended position before returning. <strong>Single highest-priority unaddressed deficit at your stage</strong> — multifidus does not auto-recover after disc injury and needs daily, low-load, high-frequency work specifically.<span class="src">— Hodges &amp; Richardson (1996, 1999); Hides et al.; McGill</span></div>
     </div>
     <div class="daily-card">
       <div class="daily-name">Banded Clamshell at 30° Flexion</div>
       <div class="daily-dose">3 × 15 each side</div>
-      <div class="daily-note">Yellow band above knees. Knees forward of hip line (~30° hip flexion) — favorable glute-med-to-TFL ratio at this angle. Open knees against band, hips stacked, no rolling backward.</div>
+      <div class="daily-note">Yellow band above knees. Knees forward of hip line (~30° hip flexion). Open knees against band, hips stacked, no rolling backward. <strong>The 30° flexion angle is the load-bearing detail</strong>: glute-med activation is high while TFL stays quiet — exactly inverted at neutral hip flexion.<span class="src">— Distefano et al. (2009); Selkowitz et al.</span></div>
     </div>
     <div class="daily-card">
       <div class="daily-name">Passive Hang from Swedish Ladder</div>
       <div class="daily-dose">10–30s × 2/day</div>
-      <div class="daily-note">Genuine spinal traction — no muscle work, just hang. Different exercise from active dead hang. Replaces the "reverse hyper" testimonial claim with actual decompression.</div>
+      <div class="daily-note">Genuine spinal traction — no muscle work, just hang. Different exercise from active dead hang. Replaces the "reverse hyper" testimonial claim with actual decompression. Disc tissue rehydrates under low-magnitude unloading; this is the evidence-grounded version of the spinal-traction promise.<span class="src">— Belavy et al. (2016); Adams &amp; Roughley</span></div>
     </div>
   </div>
   <div style="margin-top:14px;font-size:12.5px;color:var(--fade);line-height:1.65">
@@ -1576,6 +1698,27 @@ footer{
     <span class="ptag">Pea Protein Shake</span>
     <span class="ptag">Nutritional Yeast — add to everything</span>
   </div>
+</div>
+
+<!-- REFERENCES -->
+<div class="refswrap" id="refs">
+  <div class="refs-t">// References — Canonical Bodies of Work</div>
+  <div class="refs-list">
+    <div class="ref"><strong>Hodges &amp; Richardson</strong> — Multifidus dysfunction after disc injury; motor-control retraining as the foundation of post-injury rehab. <em>Anchors the Daily Low-Load priority.</em></div>
+    <div class="ref"><strong>Hides, Richardson &amp; Jull</strong> — Multifidus does not spontaneously recover after first-episode LBP; targeted retraining required. <em>Why bird-dog goes daily, not weekly.</em></div>
+    <div class="ref"><strong>Stuart McGill</strong> — Spine-sparing principles, Big 3 (curl-up · side plank · bird-dog), endurance &gt; strength for chronic spine. <em>Anchors the Big 3 finisher and the no-loaded-flexion rule.</em></div>
+    <div class="ref"><strong>Adams &amp; Dolan; Callaghan &amp; McGill</strong> — Annular fiber failure under bending + compression at far lower loads than pure compression. <em>Reason for permanent shelving of conventional deadlift and the SL-RDL deferral.</em></div>
+    <div class="ref"><strong>Schoenfeld et al. (2017, 2019)</strong> — Volume-hypertrophy curve; rep-range agnostic with proximity to failure. <em>Justifies the volume cuts (lat raise 4×15→3×12, etc.) without strength penalty.</em></div>
+    <div class="ref"><strong>Petersen et al. (2011); van Dyk et al. (2019); Al Attar et al.</strong> — Nordic eccentric protocol cuts hamstring injury rate ~51% and recurrence ~85%. <em>Why Nordic stays in the program despite its difficulty.</em></div>
+    <div class="ref"><strong>Reinold &amp; Wilk (2007); Cools et al. (2014); Kibler &amp; Sciascia</strong> — Lower trap MVIC peaks at prone Y, ~125° abduction, thumbs-up. <em>Selection of the prone Y position over generic "Y-T-W" combos.</em></div>
+    <div class="ref"><strong>Distefano et al. (2009); Selkowitz et al.</strong> — Glute-med activation hierarchy across exercises; clamshell at moderate hip flexion has the most favorable glute-med-to-TFL ratio. <em>Why clamshell is at 30° flexion, not at neutral.</em></div>
+    <div class="ref"><strong>Belavy et al. (2016); Adams &amp; Roughley</strong> — Disc tissue adapts to load; low-magnitude unloading (passive hangs, walking) maintains hydration. Sustained sitting is the actual disc-degenerator. <em>Anchors the daily passive hang choice over reverse hypers.</em></div>
+    <div class="ref"><strong>Russek (1999); Simmonds &amp; Keer (2007); Engelbert; Scheper</strong> — Hypermobility-specific training: closed-chain, mid-range, isometric → eccentric → concentric, no end-range under load. <em>Anchors all the depth caps and "never lock out" rules.</em></div>
+    <div class="ref"><strong>Snyder-Mackler; Buckthorpe et al.; Risberg et al.</strong> — Persistent quadriceps (especially VMO) deficit on the involved side post-ACL, often years out without targeted asymmetric work. <em>Justifies the 25 left / 20 right banded TKE asymmetric warmup.</em></div>
+    <div class="ref"><strong>Lavagnino, Jenkyn (Spanish squat / decline-board work)</strong> — Vertical-shin patellofemoral-friendly quad loading reduces patellar tendon strain vs. forward-knee squat. <em>Why Spanish squat is in the menu instead of more knees-forward variants.</em></div>
+    <div class="ref"><strong>Ekstrand; Bahr &amp; Krosshaug; Mendiguchia</strong> — Sports injury epidemiology; eccentric overload for tendon resilience. <em>Background for the slow-eccentric emphasis throughout.</em></div>
+  </div>
+  <p class="refs-disclaim">These are bodies of work, not specific paper citations — author + decade rather than fabricated paper titles. Each reference points to a researcher or research group whose published work is the canonical source for the principle. Don't substitute this for PT/surgeon clearance on questions specific to your post-revision status, hypermobility load tolerance, or ACL graft maturity. The program is informed by the literature; your readiness is a clinical call.</p>
 </div>
 
 <footer>
