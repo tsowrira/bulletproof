@@ -651,6 +651,9 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .mcnote{font-size:12.5px;color:var(--fade);margin-top:5px;font-style:italic;line-height:1.55}
 .ptags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .ptag{font-size:13px;border:1px solid var(--bdr);padding:5px 11px;color:var(--fade);border-radius:var(--rad)}
+.combos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px;margin-bottom:8px}
+.combo{font-size:13px;color:var(--fade);line-height:1.62;background:var(--s1);border:1px solid var(--bdr);border-left:2px solid var(--g);padding:11px 13px;border-radius:0 var(--rad) var(--rad) 0}
+.combo strong{color:var(--txt);font-weight:500;font-size:13.5px}
 
 /* ── CALLOUT ── */
 .callout{
@@ -1291,9 +1294,15 @@ footer{
   <div class="exmeta"><div class="sets">3 × 10</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 2 · 2</div><div class="tkey">down · HOLD · up</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — looped behind both knees, both ends anchored to a sturdy fixed point in front of you (rack post, doorframe at knee height)</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — both ends anchored at knee height to a sturdy fixed point in FRONT of you (rack post, doorframe), single loop running behind both knees</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Band behind knees, anchor in front at knee height. Step back to tension — band wants to pull your knees forward; you resist. Sit straight DOWN with vertical shins (the band's pull keeps knees from drifting forward). Torso stays upright. Squat to parallel or until pelvis breaks neutral. 2-count bottom hold. Drive up.</div>
+<div class="setup">
+  <strong>1. Anchor:</strong> both band ends to a fixed point in front of you at knee height. The band loops <em>behind</em> both your knees.<br>
+  <strong>2. Walk back</strong> until the band is under firm tension. The band now pulls your knees forward toward the anchor. <em>Your quads have to fight that pull every second.</em><br>
+  <strong>3. Sit straight DOWN.</strong> Shins vertical (this is the whole point). Torso upright. Knees bend, hips drop — the band's tension lets you stay back without falling.<br>
+  <strong>4. Stop</strong> at parallel or the moment pelvis breaks neutral, whichever first. 2-count bottom hold.<br>
+  <strong>5. Drive up</strong> through whole foot. Lockout 10° short of full extension.
+</div>
 <div class="clbl">🎯 Coaching Cue</div>
 <div class="cue">Vertical shins = patellofemoral-friendly quad loading. The band is what makes this exercise — without it, knees drift forward and it becomes a wall sit. Quads light up, knees stay quiet. Best quad loader in the program for your knee history.</div>
 </div>
@@ -1304,9 +1313,21 @@ footer{
   <div class="exmeta"><div class="sets">3×12 + 3×8/side</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 3 · 2</div><div class="tkey">up · HOLD · down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — looped above knees for the single-leg sets only</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — looped above knees for the single-leg sets only (no band on B-stance)</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup"><strong>B-stance (3×12):</strong> upper back on bench, both feet planted but one foot slightly forward (the "kickstand" — about 70/30 weight split). Drive through the loaded heel. Hips up to neutral — <strong>no posterior pelvic tilt at top</strong>, no lumbar hyperextension. 3-count hold at top.<br><br><strong>Single-leg banded (3×8 each):</strong> upper back on bench, working leg planted, other leg straight in air. Red band above knees. Drive up through working heel, glute-driven extension, ribs down. Hold 3 counts. Lower under control.</div>
+<div class="setup">
+  <strong>Part 1 · B-Stance Hip Thrust (3 × 12):</strong><br>
+  1. Upper back on a low bench (~14" — the bench should hit just below your shoulder blades).<br>
+  2. <strong>Working leg flat on the floor.</strong> Other leg planted on the heel only, toes pulled up, foot slightly forward — kickstand for balance, not for load.<br>
+  3. Drive through the working-leg heel. Hips up to a neutral line (knee–hip–shoulder). <strong>Ribs DOWN at the top — no posterior pelvic tilt, no lumbar arch.</strong><br>
+  4. 3-count hold at top. Lower under control. 12 reps, then switch which leg is the kickstand.<br><br>
+
+  <strong>Part 2 · Single-Leg Banded Hip Thrust (3 × 8 each):</strong><br>
+  1. Same bench setup. Red band above both knees.<br>
+  2. Working leg planted. <strong>Non-working leg straight up in the air</strong> (perpendicular to floor).<br>
+  3. Drive up through working heel. Push knee out against the band the entire time — band keeps the working knee tracking over the toe.<br>
+  4. 3-count hold at top, ribs down. Lower with control.
+</div>
 <div class="clbl">🎯 Coaching Cue</div>
 <div class="cue">Glute max work without axial spinal load — exactly what you need right now. The cue is "hips up, ribs down" — they happen simultaneously. Any pelvic tilt at the top means glutes lost the rep and lumbar took over. End the set.</div>
 </div>
@@ -1677,27 +1698,51 @@ footer{
 
 <!-- NUTRITION -->
 <div class="nutwrap" id="fuel">
-  <div class="t-mono" style="color:var(--b);margin-bottom:8px">// Vegetarian Hypertrophy Fuel</div>
+  <div class="t-mono" style="color:var(--b);margin-bottom:8px">// Vegetarian Hypertrophy Fuel · Tailored Stack</div>
   <h2>NUTRITION</h2>
-  <p style="font-size:13px;color:var(--fade);max-width:480px;line-height:1.75;margin-bottom:18px">Protein timing and density are the priority. Hit protein first at every meal — before anything else on the plate.</p>
+  <p style="font-size:13.5px;color:var(--fade);max-width:560px;line-height:1.75;margin-bottom:18px">Protein density first, micronutrients second, low-sugar always. <strong>Per-meal protein dose 30g+ matters more than daily total</strong> — vegetarian sources have lower leucine, so absolute dose has to clear ~3g leucine to maximize muscle protein synthesis (Phillips &amp; van Loon 2011, 2019).</p>
+
   <div class="macros">
-    <div class="mc"><div class="mcn">100g+</div><div class="mcl">Protein Daily</div><div class="mcnote">1g/lb bodyweight min. 4 doses of ~25g for max absorption.</div></div>
-    <div class="mc"><div class="mcn">1400–1600</div><div class="mcl">Kcal Floor</div><div class="mcnote">Do not go lower. Muscle preservation requires this floor.</div></div>
-    <div class="mc"><div class="mcn">3–5g</div><div class="mcl">Creatine Daily</div><div class="mcnote">Non-negotiable. Directly counteracts muscle loss risk and supports strength gains.</div></div>
-    <div class="mc"><div class="mcn">40g carbs</div><div class="mcl">Pre-Workout</div><div class="mcnote">Have a small carb snack 60 min before training. Rice cakes + nut butter works great.</div></div>
+    <div class="mc"><div class="mcn">100g+</div><div class="mcl">Protein Daily</div><div class="mcnote">~1g/lb. 4 doses of 25–30g — vegetarian sources need higher absolute dose than animal protein to clear the leucine threshold (van Vliet &amp; Burd).</div></div>
+    <div class="mc"><div class="mcn">1500–1700</div><div class="mcl">Kcal Floor</div><div class="mcnote">Adequate fuel matters more than precision. Maintenance baseline; +200 above on training days for hypertrophy.</div></div>
+    <div class="mc"><div class="mcn">5g</div><div class="mcl">Creatine Daily</div><div class="mcnote">Vegetarians get an outsized creatine response — baseline muscle creatine is lower without dietary meat (Dolan &amp; Saunders 2019). Stir into the chocolate Fairlife post-workout.</div></div>
+    <div class="mc"><div class="mcn">30g carbs</div><div class="mcl">Pre-Workout</div><div class="mcnote">Real carbs (rice cake, banana, oats), not stevia-zone. 45–60 min before training.</div></div>
   </div>
-  <div class="t-mono" style="color:var(--dim);margin-bottom:10px">// Best Vegetarian Protein Sources</div>
+
+  <div class="t-mono" style="color:var(--gld);margin-bottom:10px">// Micronutrients — Vegetarian Priority</div>
+  <div class="macros">
+    <div class="mc"><div class="mcn">32+ mg</div><div class="mcl">Iron Daily</div><div class="mcnote">Vegetarian iron need is 1.8× standard RDA (Hunt 2003). <strong>Pair non-heme iron with vitamin C</strong> at the same meal — citrus, bell pepper. Skip coffee/tea within 1h of iron source. Lentils + lemon, tofu + bell pepper.</div></div>
+    <div class="mc"><div class="mcn">1000–2000 IU</div><div class="mcl">Vitamin D3</div><div class="mcnote">Bone density + muscle function. Indoor lifestyle and winter latitudes drop levels fast. Take with a fat-containing meal. Get serum level checked yearly.</div></div>
+    <div class="mc"><div class="mcn">250+ mcg</div><div class="mcl">B12 (2×/wk)</div><div class="mcnote">Vegetarian-critical. Sublingual cyanocobalamin or methylcobalamin. Twice-weekly is more practical than daily and absorbs as well.</div></div>
+    <div class="mc"><div class="mcn">1000–1200 mg</div><div class="mcl">Calcium Daily</div><div class="mcnote">Bone density priority post-surgical and at lighter body mass. Skyr and cottage cheese are dense sources; supplement with fortified soy milk or calcium-set tofu if dairy is light that day.</div></div>
+  </div>
+
+  <div class="t-mono" style="color:var(--dim);margin-bottom:10px">// Your Stack — Protein Sources You Actually Use</div>
   <div class="ptags">
-    <span class="ptag">Tempeh — 31g/cup</span>
+    <span class="ptag">Fairlife Core Power 42g (chocolate)</span>
+    <span class="ptag">Fairlife Nutrition Plan 30g</span>
+    <span class="ptag">Skyr — 17–20g/cup</span>
     <span class="ptag">Cottage Cheese — 25g/cup</span>
-    <span class="ptag">Seitan — 25g/100g</span>
-    <span class="ptag">Firm Tofu — 20g/cup</span>
-    <span class="ptag">Greek Yogurt — 17g/cup</span>
+    <span class="ptag">Firm Tofu — 20g/cup (airfryer)</span>
+    <span class="ptag">Tempeh — 31g/cup</span>
     <span class="ptag">Edamame — 17g/cup</span>
-    <span class="ptag">Lentils + Rice — complete AA</span>
+    <span class="ptag">Greek Yogurt — 17g/cup</span>
+    <span class="ptag">Lentils + farro — complete AAs</span>
     <span class="ptag">Pea Protein Shake</span>
-    <span class="ptag">Nutritional Yeast — add to everything</span>
+    <span class="ptag">Almonds, Pistachios</span>
   </div>
+
+  <div class="t-mono" style="color:var(--g);margin:18px 0 10px">// Combos That Actually Work — Low Sugar, Flavor First</div>
+  <div class="combos">
+    <div class="combo"><strong>Farro + Airfried Tofu + Peanut Sauce</strong><br>~30g protein, complete AAs, complex carbs. Marinate tofu in soy + ginger, airfry 20m at 400°F. Peanut sauce: PB + soy + lime + stevia + chili crisp.</div>
+    <div class="combo"><strong>Skyr + Nuts + Stevia + Cinnamon</strong><br>~25g protein, ~180 cal, zero added sugar. Sliced almonds, walnuts, dash of stevia. Add berries for vitamin C if you ate iron-rich earlier.</div>
+    <div class="combo"><strong>Chocolate Fairlife 42g + Creatine</strong><br>Post-workout standby. Whey isolate maxes leucine in one shot — easiest 42g of the day. Stir 5g creatine straight into the bottle.</div>
+    <div class="combo"><strong>Cottage Cheese + Frozen Berries + Stevia</strong><br>~25g protein, vitamin C from berries supports iron absorption. Blend if you want it smooth.</div>
+    <div class="combo"><strong>Tempeh Peanut Bowl</strong><br>Pan-fry tempeh cubes, toss with peanut sauce + edamame + farro. ~40g protein per bowl. Heaviest single-meal hit.</div>
+    <div class="combo"><strong>Lentil–Farro Hot Bowl</strong><br>Cook together, top with airfried tofu, sautéed greens, lemon, olive oil, flaky salt. Iron-dense + complete AAs + vitamin C from lemon at the same meal.</div>
+  </div>
+
+  <p style="font-size:12.5px;color:var(--fade);margin-top:14px;line-height:1.7;font-style:italic;max-width:560px">Stevia in coffee, oats, yogurt, sauces. Skyr &gt; Greek &gt; flavored yogurts on added-sugar. Fairlife is ultra-filtered = low lactose + low sugar — natural fit for low-sugar approach. <strong style="font-style:normal;color:var(--txt)">Pre-workout carbs are the one place to use real fast carbs</strong> — stevia doesn't fuel training.</p>
 </div>
 
 <!-- REFERENCES -->
@@ -1718,7 +1763,6 @@ footer{
     <div class="ref"><strong>Lavagnino, Jenkyn (Spanish squat / decline-board work)</strong> — Vertical-shin patellofemoral-friendly quad loading reduces patellar tendon strain vs. forward-knee squat. <em>Why Spanish squat is in the menu instead of more knees-forward variants.</em></div>
     <div class="ref"><strong>Ekstrand; Bahr &amp; Krosshaug; Mendiguchia</strong> — Sports injury epidemiology; eccentric overload for tendon resilience. <em>Background for the slow-eccentric emphasis throughout.</em></div>
   </div>
-  <p class="refs-disclaim">These are bodies of work, not specific paper citations — author + decade rather than fabricated paper titles. Each reference points to a researcher or research group whose published work is the canonical source for the principle. Don't substitute this for PT/surgeon clearance on questions specific to your post-revision status, hypermobility load tolerance, or ACL graft maturity. The program is informed by the literature; your readiness is a clinical call.</p>
 </div>
 
 <footer>
