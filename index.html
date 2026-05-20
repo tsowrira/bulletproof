@@ -72,19 +72,23 @@ nav{
 nav::-webkit-scrollbar{display:none}
 nav a{
   font-family:'Inter',sans-serif;
-  font-size:9.5px;
-  letter-spacing:.12em;
+  font-size:11px;
+  letter-spacing:.10em;
   text-transform:uppercase;
   color:var(--dim);
-  padding:14px 10px;
-  border-bottom:2px solid transparent;
+  padding:16px 14px;
+  border-bottom:3px solid transparent;
   white-space:nowrap;
   text-decoration:none;
   flex-shrink:0;
   transition:color .15s,border-color .15s;
+  min-height:48px;
+  display:flex;align-items:center;
+  font-weight:500;
 }
 nav a:hover{color:var(--txt)}
-nav a.active{border-bottom-width:2px}
+nav a:active{background:rgba(244,241,230,.04)}
+nav a.active{border-bottom-width:3px;font-weight:700}
 
 /* ── SCROLL PROGRESS ── */
 .scroll-prog{
@@ -199,36 +203,43 @@ nav a.active{border-bottom-width:2px}
   border-bottom:1px solid var(--bdr);
 }
 .wc{
-  padding:11px 4px;
+  padding:14px 4px;
   border-right:1px solid var(--bdr);
   text-align:center;
   position:relative;
   transition:background .2s;
+  min-height:60px;
+  color:inherit;
+  text-decoration:none;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 .wc:last-child{border-right:none}
-.wc.today{background:rgba(255,113,72,.05)}
+.wc:active{background:rgba(244,241,230,.05)}
+.wc.today{background:rgba(255,113,72,.10)}
 .wc.today::before{
   content:'';
   position:absolute;top:0;left:0;right:0;
-  height:2px;
+  height:3px;
   background:var(--r);
 }
 .wd{
   font-family:'Inter',sans-serif;
-  font-size:7.5px;
+  font-size:9px;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--dim);
-  margin-bottom:4px;
+  margin-bottom:5px;
+  font-weight:600;
 }
 .wt{
   font-family:'Playfair Display',serif;
   font-weight:700;
-  font-size:9px;
-  line-height:1.3;
+  font-size:11px;
+  line-height:1.25;
 }
-@media(min-width:420px){.wt{font-size:9.5px}.wd{font-size:8px}}
-@media(min-width:560px){.wt{font-size:11px}.wc{padding:13px 7px}}
+@media(min-width:420px){.wt{font-size:12px}.wd{font-size:10px}}
+@media(min-width:560px){.wt{font-size:13px}.wc{padding:16px 7px}}
 
 /* ── BAND LEGEND ── */
 .legend{
@@ -318,16 +329,16 @@ nav a.active{border-bottom-width:2px}
 }
 .wu-item{
   display:flex;
-  gap:10px;
-  font-size:13.5px;
-  color:var(--fade);
-  margin-bottom:6px;
+  gap:12px;
+  font-size:15px;
+  color:var(--txt);
+  margin-bottom:9px;
   line-height:1.6;
   align-items:flex-start;
 }
 .wu-t{
   font-family:'Inter',sans-serif;
-  font-size:10px;
+  font-size:12px;
   color:var(--gld);
   white-space:nowrap;
   padding-top:2px;
@@ -384,34 +395,35 @@ nav a.active{border-bottom-width:2px}
   gap:3px;
   flex-shrink:0;
 }
-.sets{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:var(--txt);white-space:nowrap}
-.rest-lbl{font-family:'Inter',sans-serif;font-size:9px;color:var(--dim);white-space:nowrap}
+.sets{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--txt);white-space:nowrap}
+.rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
-  font-family:'Inter',sans-serif;font-size:10.5px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
   color:var(--gld);background:var(--s2);
   border:1px solid var(--bdr);
-  padding:2px 8px;border-radius:3px;white-space:nowrap;
+  padding:4px 9px;border-radius:3px;white-space:nowrap;
 }
-.tkey{font-family:'Inter',sans-serif;font-size:8px;color:var(--dim);text-align:right}
+.tkey{display:none}
 
-/* check button */
+/* check button — sized for sweaty thumb on phone */
 .chk{
-  width:32px;height:32px;
+  width:48px;height:48px;
   border-radius:50%;
-  border:1.5px solid var(--bdr);
+  border:2px solid var(--bdr);
   background:none;
   cursor:pointer;
   flex-shrink:0;
   color:var(--dim);
-  font-size:14px;
+  font-size:22px;
   line-height:1;
-  transition:all .2s;
+  transition:all .15s;
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
   display:flex;align-items:center;justify-content:center;
 }
 .chk:hover{border-color:var(--g);color:var(--g)}
-.excard.done .chk{border-color:var(--g);background:rgba(148,217,158,.14);color:var(--g)}
+.chk:active{transform:scale(.92);background:rgba(148,217,158,.10)}
+.excard.done .chk{border-color:var(--g);background:rgba(148,217,158,.18);color:var(--g)}
 
 /* band badge */
 .band-badge{
@@ -425,7 +437,7 @@ nav a.active{border-bottom-width:2px}
   margin-bottom:10px;
 }
 .band-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1.5px solid rgba(244,241,230,.20)}
-.band-txt{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--b);line-height:1.55}
+.band-txt{font-family:'Inter',sans-serif;font-size:14px;color:#a5d0e1;line-height:1.55;font-weight:500}
 
 /* start-left badge */
 .start-l{
@@ -455,44 +467,47 @@ nav a.active{border-bottom-width:2px}
   border-radius:0 var(--rad) var(--rad) 0;
 }
 .caveat-t{
-  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
-  letter-spacing:.15em;text-transform:uppercase;
-  color:var(--gld);margin-bottom:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gld);margin-bottom:6px;
 }
-.caveat p{font-size:12.5px;color:var(--fade);line-height:1.65}
+.caveat p{font-size:15px;color:var(--txt);line-height:1.6}
 .caveat strong{color:var(--gld);font-weight:600}
 
-/* content labels */
-.slbl{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;font-weight:500}
-.setup{font-size:13.5px;color:var(--fade);line-height:1.75;margin-bottom:12px}
-.clbl{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--r);margin-bottom:4px;font-weight:500}
+/* content labels — bigger eyebrows for mid-set wayfinding */
+.slbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;font-weight:600}
+.setup{font-size:16px;color:var(--txt);line-height:1.65;margin-bottom:14px}
+.clbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:6px;font-weight:600}
 .cue{
-  font-size:13.5px;color:rgba(255,113,72,.95);font-style:italic;
-  padding:9px 13px;
-  border-left:2px solid var(--r);
-  background:rgba(255,113,72,.06);
-  line-height:1.65;
+  font-size:16px;color:#ffb59d;
+  padding:12px 14px;
+  border-left:3px solid var(--r);
+  background:rgba(255,113,72,.10);
+  line-height:1.6;
   border-radius:0 var(--rad) var(--rad) 0;
+  font-weight:500;
 }
 
-/* accordion — CSS transition, no display:none */
+/* accordion — bigger tap target */
 .acc-btn{
-  display:flex;align-items:center;gap:7px;
+  display:flex;align-items:center;gap:10px;
   margin-top:12px;
   background:none;
   border:1px solid rgba(148,217,158,.25);
   color:var(--g);
-  font-family:'Inter',sans-serif;font-size:8.5px;
-  letter-spacing:.15em;text-transform:uppercase;
-  padding:7px 12px;border-radius:var(--rad);
+  font-family:'Inter',sans-serif;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:12px 16px;border-radius:var(--rad);
   cursor:pointer;
   transition:background .15s;
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
-  min-height:36px;
+  min-height:48px;
+  font-weight:600;
 }
 .acc-btn:hover{background:rgba(148,217,158,.08)}
-.acc-btn .arr{transition:transform .25s;font-style:normal;font-size:10px}
+.acc-btn:active{background:rgba(148,217,158,.16)}
+.acc-btn .arr{transition:transform .25s;font-style:normal;font-size:14px}
 .acc-btn.open .arr{transform:rotate(180deg)}
 .prog-wrap{
   overflow:hidden;
@@ -673,6 +688,84 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 /* ── MISC ── */
 .section{border-bottom:1px solid var(--bdr)}
 
+/* ── REST TIMER ── */
+.rest-lbl{
+  background:rgba(95,180,210,.08);
+  border:1px solid rgba(95,180,210,.22);
+  color:#a5d0e1;
+  font-weight:600;
+  padding:6px 10px;
+  border-radius:4px;
+  min-height:36px;
+  min-width:64px;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  font-variant-numeric:tabular-nums;
+  transition:all .15s;
+  user-select:none;
+}
+.rest-lbl:active{transform:scale(.96)}
+.rest-lbl.running{background:rgba(255,113,72,.16);border-color:var(--r);color:#ffb59d}
+.rest-lbl.done{background:rgba(148,217,158,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
+@keyframes restdone{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* ── DAY-JUMP FAB ── */
+.day-jump{
+  position:fixed;
+  bottom:max(20px, env(safe-area-inset-bottom));
+  right:16px;
+  z-index:97;
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(20,20,32,.94);
+  border:1.5px solid var(--bdr);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:var(--txt);
+  font-family:'Inter',sans-serif;
+  font-size:10px;letter-spacing:.10em;font-weight:700;
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,0,0,.6);
+  -webkit-tap-highlight-color:transparent;
+}
+.day-jump.show{display:flex}
+.day-jump:active{transform:scale(.94)}
+.day-jump[data-day="d1"]{border-color:var(--r);color:var(--r)}
+.day-jump[data-day="d2"]{border-color:var(--b);color:var(--b)}
+.day-jump[data-day="d3"]{border-color:var(--gld);color:var(--gld)}
+.day-jump[data-day="d4"]{border-color:var(--p);color:var(--p)}
+.day-jump[data-day="d5"]{border-color:var(--g);color:var(--g)}
+
+/* ── DAY COMPLETE BANNER ── */
+.day-complete{
+  display:none;
+  padding:18px var(--pad);
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  font-size:13px;letter-spacing:.06em;color:var(--g);
+  background:rgba(148,217,158,.08);
+  border-top:1px solid rgba(148,217,158,.22);
+  border-bottom:1px solid rgba(148,217,158,.22);
+}
+.day-complete.shown{display:block}
+
+/* ── CLEAR-BTN (footer) ── */
+.clear-btn{
+  margin-top:14px;
+  align-self:flex-start;
+  min-height:48px;padding:12px 20px;
+  background:transparent;
+  border:1px solid rgba(255,113,72,.3);
+  color:rgba(255,113,72,.75);
+  font-family:'Inter',sans-serif;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  border-radius:var(--rad);
+  cursor:pointer;
+  font-weight:600;
+}
+.clear-btn:active{background:rgba(255,113,72,.10)}
+
 footer{
   padding:18px var(--pad);
   font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.08em;color:var(--dim);
@@ -738,17 +831,16 @@ footer{
 
 <!-- CHECK STATUS -->
 <div class="check-status">
-  <span>✓ Tap circle to check off · <span class="reset-info">auto-resets after 3h or at midnight</span></span>
-  <button onclick="clearAllChecks()">Clear all</button>
+  <span>✓ Tap circle to check off · <span class="reset-info" id="resetCountdown">no progress saved</span></span>
 </div>
 
 <!-- WEEK STRIP -->
 <div class="week">
-  <div class="wc" id="wc-1"><div class="wd">Mon</div><div class="wt" style="color:var(--r)">Pull &amp;<br>Posterior</div></div>
-  <div class="wc" id="wc-2"><div class="wd">Tue</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></div>
-  <div class="wc" id="wc-3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Legs A —<br>Essentials</div></div>
-  <div class="wc" id="wc-4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Swim<br>or Legs B</div></div>
-  <div class="wc" id="wc-5"><div class="wd">Fri</div><div class="wt" style="color:var(--g)">Skill &amp;<br>Handstand</div></div>
+  <a class="wc" id="wc-1" href="#d1"><div class="wd">Mon</div><div class="wt" style="color:var(--r)">Pull &amp;<br>Posterior</div></a>
+  <a class="wc" id="wc-2" href="#d2"><div class="wd">Tue</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></a>
+  <a class="wc" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Legs A —<br>Essentials</div></a>
+  <a class="wc" id="wc-4" href="#d4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Swim<br>or Legs B</div></a>
+  <a class="wc" id="wc-5" href="#d5"><div class="wd">Fri</div><div class="wt" style="color:var(--g)">Skill &amp;<br>Handstand</div></a>
   <div class="wc" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Hike 🥾</div></div>
   <div class="wc" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
@@ -999,6 +1091,7 @@ footer{
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Core Finisher</div><p><strong>Dead Bug</strong> × 3 × 8 each side — exhale fully before every rep. Lower back pressed flat to floor the entire time. Slow contralateral extension. Stop any rep immediately if back lifts.</p></div>
+<div class="day-complete" data-day="d1"></div>
 </div><!-- /d1 -->
 
 
@@ -1152,6 +1245,7 @@ footer{
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Core Finisher</div><p><strong>Dead Bug</strong> × 3 × 8 each side — exhale fully before every rep. Lower back pressed flat to floor the entire time. Slow contralateral extension. Stop any rep immediately if back lifts.</p></div>
+<div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
 
@@ -1366,6 +1460,7 @@ footer{
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">McGill Big 3 — Descending Pyramid · Wed Only · Gold-Standard Spine Maintenance</div><p><strong>Curl-up</strong>: 1 × 5 / 1 × 3 / 1 × 1 — 10-second hold per rep, hands under lumbar curve, barely lift shoulders, no chin-to-chest &nbsp;·&nbsp; <strong>Side Plank</strong>: 1 × 20s / 1 × 15s / 1 × 10s each side &nbsp;·&nbsp; <strong>Bird Dog</strong>: 1 × 5 / 1 × 3 / 1 × 1 each — reach long, hips level, zero rotation, 10s hold at full extension.<br><br><span style="font-size:11.5px;color:var(--dim);font-style:italic">📚 The 5/3/1 descending pyramid with 10s holds is McGill's actual prescription (Low Back Disorders 2nd ed.) — selected to bias endurance fiber recruitment without fatigue carryover into the next training day. Daily Low-Load's bird-dog covers the daily multifidus dose; this Wed finisher is the higher-quality endurance bout. 3×8 sets at lower hold-time was the over-prescription this corrects.</span></p></div>
+<div class="day-complete" data-day="d3"></div>
 </div><!-- /d3 -->
 
 
@@ -1532,6 +1627,7 @@ footer{
 
 <div class="fin"><div class="fin-lbl">Legs B Finisher — Side-Plank Only</div><p><strong>Side Plank — endurance hold</strong> · 2 × 30s each side. Test L vs R: if one side gives out &gt;15% faster, log it. McGill side-bridge endurance is the protective variable for the QL/oblique sling (McGill et al., Clin Biomech 1999). <em>Why no curl-up/bird-dog here:</em> Daily Low-Load already covers those daily; Wed Legs A finisher handles the higher-quality endurance bout. Side plank gets the standalone slot to address the lateral-chain endurance gap.</p></div>
 
+<div class="day-complete" data-day="d4"></div>
 </div><!-- /d4 -->
 
 
@@ -1745,6 +1841,7 @@ footer{
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Shoulder Armor Finisher</div><p><strong>Band pull-apart</strong> × 3 × 20 yellow band + <strong>wrist cooldown</strong> — reverse prayer stretch, wrist circles, finger stretches × 2 min. Your wrists bear full body weight every skill session.</p></div>
+<div class="day-complete" data-day="d5"></div>
 </div><!-- /d5 -->
 
 
@@ -1989,7 +2086,11 @@ footer{
 <footer>
   <span>BULLETPROOF SYSTEM · REVISED MAY 2026 · LEG-DAY SPLIT + STANFORD PT SYNC</span>
   <span>BANDS + BODYWEIGHT · JOINT-SMART PROTOCOL · 5 TRAINING DAYS</span>
+  <button class="clear-btn" onclick="confirmClearAll()">Reset all checkmarks</button>
 </footer>
+
+<!-- DAY-JUMP FAB -->
+<button class="day-jump" id="dayJump" aria-label="Jump to top of current day">↑ Day</button>
 
 <script>
 // ── Accordion (CSS transition, no display:none) ──
@@ -2056,12 +2157,148 @@ function clearAllChecks() {
   localStorage.removeItem('bp-done');
   document.querySelectorAll('.excard.done').forEach(card => card.classList.remove('done'));
   document.querySelectorAll('.chk').forEach(b => b.textContent = '○');
+  updateDayComplete();
+  updateResetCountdown();
 }
 window.clearAllChecks = clearAllChecks;
+
+function confirmClearAll() {
+  if (confirm('Reset every checkmark for today?')) clearAllChecks();
+}
+window.confirmClearAll = confirmClearAll;
 
 applyState();
 // Re-check expiry every 60s in case the page is left open across the boundary
 setInterval(applyState, 60 * 1000);
+
+// ── Reset countdown ──
+function updateResetCountdown() {
+  const el = document.getElementById('resetCountdown');
+  if (!el) return;
+  const saved = readSaved();
+  const ts = Object.values(saved).map(v => v && v.t).filter(Boolean);
+  if (!ts.length) { el.textContent = 'no progress saved'; return; }
+  const oldest = Math.min(...ts);
+  const midnight = new Date(oldest).setHours(24,0,0,0);
+  const expireAt = Math.min(oldest + RESET_HOURS*3600*1000, midnight);
+  const mins = Math.max(0, Math.round((expireAt - Date.now())/60000));
+  if (mins < 60) el.textContent = `resets in ${mins} min`;
+  else el.textContent = `resets in ${Math.floor(mins/60)}h ${mins%60}m`;
+}
+updateResetCountdown();
+setInterval(updateResetCountdown, 30 * 1000);
+
+// ── Day completion sentinels ──
+function updateDayComplete() {
+  document.querySelectorAll('.day-complete').forEach(el => {
+    const dayId = el.dataset.day;
+    const cards = document.querySelectorAll(`#${dayId} .excard`);
+    if (!cards.length) return;
+    const done = [...cards].filter(c => c.classList.contains('done')).length;
+    if (done === cards.length && done > 0) {
+      el.classList.add('shown');
+      el.textContent = `✓ Day ${dayId.slice(1)} complete · ${done} exercises done`;
+    } else {
+      el.classList.remove('shown');
+      el.textContent = '';
+    }
+  });
+}
+// Hook into toggleDone
+const _origToggleDone = window.toggleDone;
+window.toggleDone = function(btn){
+  _origToggleDone(btn);
+  updateDayComplete();
+  updateResetCountdown();
+  requestWakeLock();
+};
+updateDayComplete();
+
+// ── Rest timers (tap any .rest-lbl to start countdown) ──
+function parseRestSeconds(text){
+  const m = text.match(/(\d+(?:\.\d+)?)\s*(min|s)/i);
+  if (!m) return 60;
+  return Math.round(parseFloat(m[1]) * (m[2].toLowerCase().startsWith('min') ? 60 : 1));
+}
+document.querySelectorAll('.rest-lbl').forEach(el => {
+  // Skip the .rest-lbl uses that aren't timer-style (none in current markup, all are exercise rest)
+  const raw = el.textContent.trim();
+  const seconds = parseRestSeconds(raw);
+  el.dataset.rest = seconds;
+  el.dataset.label = raw;
+  el.setAttribute('role','button');
+  el.setAttribute('tabindex','0');
+  el.setAttribute('aria-label', `Start ${seconds} second rest timer`);
+  let interval = null, remaining = 0;
+  function reset(){
+    if (interval) { clearInterval(interval); interval = null; }
+    el.classList.remove('running','done');
+    el.textContent = el.dataset.label;
+  }
+  function tick(){
+    remaining--;
+    el.textContent = remaining + 's';
+    if (remaining <= 0) {
+      clearInterval(interval); interval = null;
+      el.classList.remove('running'); el.classList.add('done');
+      el.textContent = 'GO';
+      if (navigator.vibrate) navigator.vibrate([100,80,100,80,200]);
+      setTimeout(reset, 4000);
+    }
+  }
+  el.addEventListener('click', () => {
+    if (interval) { reset(); return; }
+    remaining = parseInt(el.dataset.rest);
+    el.classList.add('running'); el.classList.remove('done');
+    el.textContent = remaining + 's';
+    requestWakeLock();
+    interval = setInterval(tick, 1000);
+  });
+});
+
+// ── Day-jump FAB ──
+const dayJump = document.getElementById('dayJump');
+let _currentDay = null;
+const dayJumpObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      _currentDay = e.target.id;
+      dayJump.dataset.day = _currentDay;
+      dayJump.classList.add('show');
+    }
+  });
+}, { threshold: 0.05 });
+dayIds.forEach(id => { const el = document.getElementById(id); if (el) dayJumpObs.observe(el); });
+if (dayJump) dayJump.addEventListener('click', () => {
+  if (_currentDay) document.getElementById(_currentDay).scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+// ── Wake lock during workout (screen stays on) ──
+let _wakeLock = null;
+async function requestWakeLock(){
+  if (!('wakeLock' in navigator) || _wakeLock) return;
+  try {
+    _wakeLock = await navigator.wakeLock.request('screen');
+    _wakeLock.addEventListener('release', () => { _wakeLock = null; });
+  } catch(e) { /* iOS Safari <16.4 or denied — silent */ }
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && Object.keys(readSaved()).length) {
+    requestWakeLock();
+  }
+});
+// If she returns to page with active checkmarks, re-request lock
+if (Object.keys(readSaved()).length) requestWakeLock();
+
+// ── Scroll to last-checked exercise on load ──
+(function scrollToLast(){
+  const saved = readSaved();
+  const entries = Object.entries(saved).filter(e => e[1] && e[1].t).sort((a,b) => b[1].t - a[1].t);
+  if (!entries.length) return;
+  const [lastId] = entries[0];
+  const card = document.querySelector(`[data-id="${lastId}"]`);
+  if (card && !location.hash) card.scrollIntoView({behavior:'auto', block:'center'});
+})();
 
 // ── Scroll progress bar ──
 window.addEventListener('scroll', function() {
