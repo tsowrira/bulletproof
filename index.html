@@ -72,7 +72,7 @@ nav{
 nav::-webkit-scrollbar{display:none}
 nav a{
   font-family:'Inter',sans-serif;
-  font-size:11px;
+  font-size:12px;
   letter-spacing:.10em;
   text-transform:uppercase;
   color:var(--dim);
@@ -128,7 +128,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   color:var(--fade);
   background:rgba(255,113,72,.07);
   border:1px solid rgba(255,113,72,.18);
-  padding:3px 9px;
+  padding:5px 11px;
   border-radius:20px;
 }
 
@@ -167,7 +167,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;position:relative}
 .pill{
   font-family:'Inter',sans-serif;
-  font-size:8.5px;
+  font-size:10px;
   letter-spacing:.1em;
   text-transform:uppercase;
   padding:5px 12px;
@@ -240,6 +240,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 }
 @media(min-width:420px){.wt{font-size:12px}.wd{font-size:10px}}
 @media(min-width:560px){.wt{font-size:13px}.wc{padding:16px 7px}}
+@media(max-width:380px){.wt{font-size:10px}.wd{font-size:8px}.wc{padding:10px 2px}}
 
 /* ── BAND LEGEND ── */
 .legend{
@@ -281,7 +282,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   font-family:'Playfair Display',serif;
   font-weight:800;
   font-size:56px;
-  opacity:.08;
+  opacity:.11;
   flex-shrink:0;
   line-height:.88;
   user-select:none;
@@ -384,18 +385,18 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .exname{
   font-family:'Playfair Display',serif;
   font-weight:700;
-  font-size:18px;
-  line-height:1.2;
+  font-size:20px;
+  line-height:1.15;
   margin-bottom:6px;
 }
 .exmeta{
   display:flex;
   flex-direction:column;
   align-items:flex-end;
-  gap:3px;
+  gap:6px;
   flex-shrink:0;
 }
-.sets{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--txt);white-space:nowrap}
+.sets{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:var(--txt);white-space:nowrap}
 .rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
   font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
@@ -515,7 +516,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   opacity:0;
   transition:max-height .35s ease,opacity .25s ease;
 }
-.prog-wrap.open{max-height:600px;opacity:1}
+.prog-wrap.open{max-height:1100px;opacity:1}
 .prog-block{
   background:rgba(148,217,158,.05);
   border:1px solid rgba(148,217,158,.16);
@@ -523,7 +524,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   padding:11px 13px;
   margin-top:8px;
 }
-.prog-lbl{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:9px;font-weight:600}
+.prog-lbl{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:9px;font-weight:600}
 .prog-step{
   display:flex;gap:10px;
   font-size:13px;color:var(--fade);
@@ -558,7 +559,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .srow span{font-family:'Inter',sans-serif;font-size:10px;color:var(--p);white-space:nowrap}
 .srule{font-size:13.5px;color:var(--fade);line-height:1.75}
 .sno{background:rgba(255,113,72,.07);border:1px solid rgba(255,113,72,.20);padding:10px 13px;margin-top:11px;border-radius:var(--rad)}
-.sno-t{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--r);margin-bottom:5px;font-weight:600}
+.sno-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--r);margin-bottom:5px;font-weight:600}
 .sno p{font-size:12px;color:var(--fade);line-height:1.6}
 
 /* ── HIKE BAR ── */
@@ -614,7 +615,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   opacity:0;
   transition:max-height .35s ease,opacity .25s ease;
 }
-.evi-wrap.open{max-height:800px;opacity:1}
+.evi-wrap.open{max-height:1400px;opacity:1}
 .evi{
   margin-top:8px;
   background:rgba(95,180,210,.05);
@@ -678,7 +679,7 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   background:rgba(95,180,210,.07);
   border-radius:0 var(--rad) var(--rad) 0;
 }
-.callout-t{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--b);margin-bottom:6px;font-weight:600}
+.callout-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--b);margin-bottom:6px;font-weight:600}
 .callout p{font-size:13.5px;color:var(--fade);line-height:1.72}
 .callout strong{color:var(--b);font-weight:500}
 .callout.warn{border-color:var(--r);background:rgba(255,113,72,.06)}
@@ -696,8 +697,8 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   font-weight:600;
   padding:6px 10px;
   border-radius:4px;
-  min-height:36px;
-  min-width:64px;
+  min-height:48px;
+  min-width:72px;
   display:inline-flex;align-items:center;justify-content:center;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
@@ -808,23 +809,24 @@ footer{
 <div class="safebar">
   <span class="lbl">✦ Principles</span>
   <span>Neutral spine always</span>
-  <span>No lumbar flex/extension</span>
+  <span>No loaded lumbar flexion — especially the first hour awake</span>
   <span>Never lock out joints</span>
+  <span>Active hangs only — never passive</span>
   <span>Wall handstand only</span>
   <span>No butterfly or breaststroke</span>
-  <span>External load only at PT-cleared doses (5–10 lb, May 2026)</span>
-  <span>Check in with your body throughout</span>
+  <span>Loads at cleared doses — machines + light free weight (Jun 2026)</span>
+  <span>Quiet knee — stop any set at anterior knee pain</span>
   <span>No butt wink</span>
 </div>
 
 <!-- HERO -->
 <div class="hero" id="top">
-  <div class="hero-eye">// Bulletproof · Spine-Safe · Revised May 2026 (Leg-day split + PT load progressions)</div>
+  <div class="hero-eye">// Bulletproof · Spine-Safe · Revised June 2026 (machine-integrated leg days + knee-smart loading)</div>
   <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
-  <p>Every movement screened for spinal safety. Progressions built in. Band setup specified. Bands + bodyweight only. 5 training days. Joint-smart for hypermobility, post-revision spine, ACL history. No figures, no fluff.</p>
+  <p>Every movement screened for spinal safety and active joint control. Progressions built in; loads anchored to current clearances. Bands, bodyweight + cleared machines. 5 training days. Joint-smart for hypermobility, post-revision spine, ACL history, and patellofemoral knee. No figures, no fluff.</p>
   <div class="pills">
     <span class="pill r">Joint-Smart Protocol</span>
-    <span class="pill b">Bands + Bodyweight</span>
+    <span class="pill b">Bands · Bodyweight · Cleared Machines</span>
     <span class="pill g">Wall Handstand Only</span>
     <span class="pill gld">Legs A Wed · Pick One Thu</span>
   </div>
@@ -864,7 +866,7 @@ footer{
 <div class="approach" id="approach">
   <div class="approach-eye">// Approach &amp; Evidence — Why Each Choice</div>
   <h2>Five principles, tailored to your physiology</h2>
-  <p class="lead">Designed around four converging constraints: <strong>post-revision microdiscectomy (L4–L5/L5–S1)</strong>, <strong>generalized hypermobility</strong>, <strong>left ACL history</strong>, and <strong>training experience that needs progress without flare</strong>. Each principle below is supported by published rehab and exercise-science literature.</p>
+  <p class="lead">Designed around five converging constraints: <strong>post-revision lumbar microdiscectomy</strong>, <strong>generalized hypermobility</strong>, <strong>left ACL history</strong>, <strong>a patellofemoral knee that flares with the wrong loading</strong>, and <strong>a return to training that needs progress without flare</strong>. Machines, bands, and bodyweight are each chosen per movement for whichever is safest and most effective — not by dogma. Every principle below is supported by published rehab and exercise-science literature.</p>
   <div class="principles">
     <div class="princ r">
       <div class="princ-h">01 · Spine-Sparing</div>
@@ -886,15 +888,15 @@ footer{
     </div>
     <div class="princ g">
       <div class="princ-h">04 · Volume That Recovers</div>
-      <div class="princ-t">10–20 hard sets/wk per muscle, rep-range agnostic</div>
-      <p>Hypertrophy responds across 5–30 reps when training is taken close to failure. Total weekly hard-set count drives growth; "compound = low reps, isolation = high reps" is a 1RM heuristic, not a hypertrophy law. In a post-surgical context, lower volume = better systemic recovery without a strength penalty.</p>
-      <span class="src">Schoenfeld et al. (2017, 2019); Helms et al.; Morton et al.</span>
+      <div class="princ-t">Start below MEV, climb to 10–20 hard sets/wk per muscle</div>
+      <p>Returning after time off, the tendon is the rate-limiter, not the muscle — volume starts low (~6 sets/muscle/wk) and climbs one set every <em>two</em> weeks early on, not every week. Hypertrophy responds across 5–30 reps near failure; going to failure isn't required (RIR 1–4 is plenty) and costs more recovery. Machines carry the loadable leg work — load climbs in clean increments at low spinal cost.</p>
+      <span class="src">Schoenfeld (2017, 2019); proximity-to-failure meta (2023); volume dose-response meta-regression (2024); Israetel landmarks</span>
     </div>
     <div class="princ p">
       <div class="princ-h">05 · Asymmetry &amp; Targeting</div>
-      <div class="princ-t">Left ACL VMO + L5/S1 distal atrophy get extra reps</div>
-      <p>Post-ACL VMO atrophy persists for years without targeted work. Asymmetric warmup (25 left / 20 right banded TKE) addresses the structural side. Distal lower-leg work (tibialis posterior + peroneal) targets neurogenic atrophy patterns specific to L5/S1 nerve-root involvement.</p>
-      <span class="src">Snyder-Mackler; Buckthorpe et al.; Distefano et al.</span>
+      <div class="princ-t">The weak side earns extra volume — right glute, left VMO, distal foot</div>
+      <p>The right glute (post-surgical atrophy) gets the 2-1 method: two unilateral sets right for every one left, until symmetry returns. Left-ACL VMO atrophy persists for years without targeted work — asymmetric warmup (25 left / 20 right TKE) plus pain-free leg extension addresses it. Distal lower-leg work targets the nerve-recovery atrophy pattern. And hip/glute-med strength <em>is</em> knee medicine — it beats knee-only work for patellofemoral pain.</p>
+      <span class="src">Contreras 2-1 method; Snyder-Mackler; Buckthorpe et al.; Halabi et al. (2025) hip+knee for PFP</span>
     </div>
   </div>
 </div>
@@ -1044,15 +1046,18 @@ footer{
 
 <div class="excard" data-id="d1e5">
 <div class="extop">
-  <div class="ex-left"><div class="exname">Face Pull — Eye Height</div></div>
+  <div class="ex-left">
+    <div class="exname">Cable Face Pull — Rope, Eye Height</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable ~15 lb (PT-cleared) · band = home option</span></div>
+  </div>
   <div class="exmeta"><div class="sets">3 × 15</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — loop through rung at eye level. Grab one end in each hand, palms facing each other. Step back to full tension. Pull to FOREHEAD not nose.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: rope on a high-ish pulley at eye level, ~15 lb. <strong>Home/away:</strong> yellow band looped through a rung at eye level, one end in each hand, palms facing.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Band at eye level. Step back to full tension. Pull to <strong>forehead</strong> (not nose), elbows high and wide. At peak: rotate thumbs behind ears. Elbows stay above shoulder line.</div>
+<div class="setup">Rope (or band) at eye level, step back to full tension. Pull to <strong>forehead</strong> (not nose), elbows high and wide. At peak: rotate thumbs behind ears. Elbows stay above shoulder line. The cable's smoother constant tension makes the external-rotation pattern easier to groove than the band.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue"><strong>External rotation at end range</strong> is the entire point — posterior stability for hypermobile shoulders. Skip it and pressing volume drifts you anterior.</div>
+<div class="cue"><strong>External rotation at end range</strong> is the entire point — posterior stability for hypermobile shoulders. Skip it and pressing volume drifts you anterior. Light and controlled, no jerking into the end range.</div>
 </div>
 
 <div class="excard" data-id="d1e6">
@@ -1189,46 +1194,50 @@ footer{
 <div class="excard" data-id="d2e2">
 <div class="extop">
   <div class="ex-left">
-    <div class="exname">Banded Lateral Raise</div>
+    <div class="exname">Cable Single-Arm Lateral Raise</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable (light) · band = home option</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · HOLD · lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — stand on one end with your SAME-SIDE foot (right foot for right arm, left for left). Hold the other end in your working hand, palm facing your body. Band runs straight up from foot to hand on the same side.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: low pulley, single handle, stand side-on so the cable crosses your body — working arm furthest from the stack, lightest useful pin. <strong>Home/away:</strong> yellow band under the same-side foot, other end in the working hand.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup"><strong>Same-side foot</strong> on band, center of foot. Arm slightly crossed in front (not at side). <strong>Lead with elbow</strong>, not wrist. Raise to shoulder height. Hold 2. 3-count lower. Switch feet between arms.</div>
+<div class="setup">Cable from the low pulley (or band under foot). Arm slightly across the front. <strong>Lead with the elbow</strong>, not the wrist. Raise to <strong>shoulder height — no higher</strong>, hold 2, 3-count lower. Hypermobile shoulder: controlled the whole way, no swing, no shrugging into the trap.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Band stays tight at the <strong>bottom</strong> — that's where dumbbells go slack. Feel the side cap, not the trap.</div>
+<div class="cue">Cable (like the band) stays tight at the <strong>bottom</strong> where dumbbells go slack — that's the point, and why "not much weight but hard" is exactly right. Feel the side-delt cap, not the trap. Keep it light: the delt is small and doesn't need load to fatigue.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
     <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Yellow band under foot, 3×12 with 2s hold</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Double-loop yellow or red band — same reps</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Red band double-loop — 3×10, rebuild to 12</span></div>
+    <div class="prog-step"><span class="pn">Now</span><span>Cable lightest useful pin (or yellow band), 3×12 with 2s hold</span></div>
+    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin only when all 3×12 are clean and shrug-free</span></div>
+    <div class="prog-step"><span class="pn">Form gate</span><span>If the trap takes over or the shoulder shrugs, drop the load — laterals reward control, not weight</span></div>
   </div>
 </div>
 </div>
 
 <div class="excard" data-id="d2e3">
 <div class="extop">
-  <div class="ex-left"><div class="exname">Banded Overhead Tricep Extension</div></div>
+  <div class="ex-left">
+    <div class="exname">Cable Overhead Tricep Extension — Rope</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable rope · band = home option</span></div>
+  </div>
   <div class="exmeta"><div class="sets">3 × 12</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — anchor at FLOOR behind you, face away</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: rope on the low pulley, face away, both ends overhead. <strong>Home/away:</strong> yellow band anchored at the floor behind you, face away.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Band anchored low behind, face away. Both hands overhead, palms forward. <strong>Elbows point forward</strong> — no flare. Extend to 10° short of lockout. 3-count return. Ribs locked down.</div>
+<div class="setup">Rope (or band) from low behind, face away. Both hands overhead, palms forward. <strong>Elbows point forward</strong> — no flare. Extend to 10° short of lockout (never snap the elbow straight). 3-count return. Ribs locked down — no lumbar arch as you reach overhead.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue"><strong>Long head fires only with arm overhead</strong> — that's the horseshoe. Elbows forward the whole rep; flare shifts load off the long head.</div>
+<div class="cue"><strong>Long head fires only with the arm overhead</strong> — that's the horseshoe. Elbows forward the whole rep; flare shifts load off the long head. The overhead reach is why ribs-down matters: don't let the low back arch to chase range.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
     <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Yellow band floor anchor 3×12</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Double-loop yellow — same reps</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Red band single-layer — 3×10, rebuild to 12</span></div>
+    <div class="prog-step"><span class="pn">Now</span><span>Cable rope, light pin, 3×12</span></div>
+    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin when 3×12 is clean and the elbows stay forward</span></div>
+    <div class="prog-step"><span class="pn">Home</span><span>Band: single → double-loop yellow → red as it gets easy</span></div>
   </div>
 </div>
 </div>
@@ -1269,25 +1278,26 @@ footer{
   <div class="day-info">
     <div class="day-eye" style="color:var(--gld)">// Wednesday · Day Three</div>
     <div class="day-title">LEGS A — ESSENTIALS</div>
-    <div class="day-focus">Hinge pattern (PT-progressed) · Glute · Unilateral quad/glute · Hamstring eccentric</div>
+    <div class="day-focus">Hinge pattern (PT-progressed) · Glute-max symmetry (2-1) · Glute medius (machine) · Unilateral quad · Hamstring eccentric</div>
   </div>
 </div>
 
 <div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~55 min</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 12 · Work ~35 · Finisher 6</p>
-  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) McGill finisher — Daily Low-Load covers bird-dog + side plank; this Wed pyramid is the higher-quality bout but skippable · (2) monster walk — glute med covered by Daily clamshell + Thu side-lying abduction · (3) drop a set from Bulgarian (3×8 → 2×8) before cutting it entirely · core kept: hinge first (fresh pattern), Nordic second (fresh eccentric quality), then hip thrust, then BSS.</p>
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~50 min</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 12 · Work ~32 · Finisher 6</p>
+  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) McGill finisher — Daily Low-Load covers bird-dog + side plank; this Wed pyramid is the higher-quality bout but skippable · (2) abductor machine — glute med also gets the Daily clamshell + Thu side-lying abduction · (3) drop a set from Bulgarian (3×8 → 2×8) before cutting it · core kept: hinge first (fresh pattern), Nordic second (fresh eccentric quality), then hip thrust (right-biased), then BSS.</p>
 </div>
 
 <div class="callout" style="border-color:rgba(95,180,210,.28);background:rgba(95,180,210,.06)">
-  <div class="callout-t" style="color:var(--b)">// PT Sync — May 2026 · What Changed &amp; Why</div>
-  <p><strong>Leg day split into two.</strong> The old single 11-exercise Wednesday was the longest session in the week — adherence research (Stults-Kolehmainen) shows session length &gt; 60 min drops compliance sharply. Splitting into Day A (essentials) and Day B (detail, Thu) preserves total weekly volume <em>and</em> bumps loading frequency from 1×/wk → 2×/wk, which Schoenfeld (2016) frequency meta + Hayden et al. post-disc rehab review both favor for hypertrophy and motor learning.</p>
-  <p style="margin-top:6px"><strong>Three PT-prescribed upgrades (Stanford Outpatient Ortho, May 2026):</strong> (1) Hip hinge moved from band pull-through → light hand-held plates (started 2 lb dowel, progressed to 5 lb in clinic, no pain). (2) Single-leg hip thrust loaded to 10 lb. (3) Bulgarian split squat loaded to 10 lb. <strong>Critical layer:</strong> the hand-held plate hinge is <em>not</em> a like-for-like swap for the band — it introduces axial compression and anti-lateral-flexion demand. So tighter ROM, sharper cues. Light load &amp; conservative progression respected.</p>
+  <div class="callout-t" style="color:var(--b)">// PT Sync — June 2026 · What Changed &amp; Why</div>
+  <p><strong>Machines are now in the picture.</strong> The latest clinic block cleared graded machine loading for the lower body — and for a post-revision spine, that's an upgrade, not a compromise: controlled ROM, no balance tax, load that climbs in clean increments at low spinal cost (machine vs free-weight hypertrophy is a statistical tie, so choose by joint cost). Machines carry the loadable leg work; bands + bodyweight stay for the home/away version and the pattern work.</p>
+  <p style="margin-top:6px"><strong>Cleared this block:</strong> hip-abductor machine 50 lb · adductor 35–40 lb · seated leg extension 30 lb (capped 90→45°) · leg curl 25 lb (run <em>lying/prone</em>, see below) · standing calf raise 15 lb · Bulgarian split squat 7.5 lb/hand · glute bridge 15 lb. The hand-held hinge holds at ~5 lb — the disc, not the muscle, sets that pace.</p>
+  <p style="margin-top:6px"><strong>One deliberate deviation from the note:</strong> the clinic listed <em>seated</em> leg curl; this program runs it <em>lying/prone</em> instead. Seated curl puts the hip at 90° and the hamstring pull then tips the pelvis into lumbar flexion right at the operated segment — prone keeps the spine neutral for the same hamstring work. <span style="color:var(--fade)">Worth a one-line mention to your PT next visit — it's a safer route to the same target, not a disagreement about the target.</span></p>
 </div>
 
 <div class="callout warn">
-  <div class="callout-t">⚠ Loading Status — Updated May 2026</div>
-  <p>You're <strong>still not ready for heavy axial load</strong>. Conventional barbell deadlifts are permanently shelved. Loaded RDLs and single-leg RDLs are <strong>deferred until PT/surgeon clearance</strong>. Light hand-held hinges (PT-cleared) are the pattern teacher in the meantime. Trap bar deadlift gating: earliest 9–12 months post-revision, behind functional criteria + clearance.</p>
+  <div class="callout-t">⚠ Loading Status — Updated June 2026</div>
+  <p>Machine loading is cleared and progressing; <strong>heavy axial free-weight load is not</strong>. Conventional barbell deadlifts stay permanently shelved. Loaded RDLs and single-leg RDLs remain <strong>deferred until PT/surgeon clearance</strong> — the hand-held hinge is the pattern teacher meanwhile. Trap-bar <em>from blocks</em> is the eventual on-ramp (raise the bar before adding weight — that removes the at-risk bottom range), earliest behind functional criteria + clearance. The point: machines let you keep building the legs without waiting on the deadlift gate.</p>
 </div>
 
 <div class="wu">
@@ -1387,8 +1397,8 @@ footer{
 <div class="excard" data-id="d3e3">
 <div class="extop">
   <div class="ex-left">
-    <div class="exname">Bulgarian Split Squat — 10 lb (5 lb each hand)</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · May 2026 · 10 lb trialed in clinic, no pain</span></div>
+    <div class="exname">Bulgarian Split Squat — 15 lb (7.5 lb each hand)</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · June 2026 · 7.5 lb/hand cleared in clinic, no pain</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 8 each</div><div class="rest-lbl">90s rest</div><div class="tempo">3 · 2 · 2</div><div class="tkey">down · HOLD · up</div></div>
@@ -1396,14 +1406,14 @@ footer{
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band optional — looped above knees to cue knees-out, especially on LEFT side</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">5 lb each hand, suitcase grip. Rear foot on bench, long front step — <strong>front shin vertical</strong> at bottom. Torso upright. Descend to parallel or neutral pelvis (whichever first). Hold 2. Drive through <strong>front heel</strong>. <strong>Shoulders level</strong> both sides — suitcase load demands anti-lateral-flexion.</div>
+<div class="setup">7.5 lb each hand, suitcase grip. Rear foot on bench, long front step — <strong>front shin vertical</strong> at bottom. Torso upright. Descend to parallel or neutral pelvis (whichever first) — <strong>don't chase depth if the right knee complains</strong>. Hold 2. Drive through <strong>front heel</strong>. <strong>Shoulders level</strong> both sides — suitcase load demands anti-lateral-flexion.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Lower back fires = torso tipped, reset upright. <strong>Watch the left knee</strong> for inward drift — band cues knees-out. <strong>No butt wink at the bottom</strong> — if pelvis tucks under, end the rep and reduce depth. <em>First 2 weeks at this load:</em> 2×10 (matches PT in-clinic dose), then step to 3×8.</div>
+<div class="cue">Lower back fires = torso tipped, reset upright. <strong>Watch the left knee</strong> for inward drift — band cues knees-out. <strong>No butt wink at the bottom</strong> — if pelvis tucks under, end the rep and reduce depth. <em>First 2 weeks at 7.5/hand:</em> 2×8 to bed the load in, then 3×8. Front-foot elevation is the easy regression if the right knee is loud.</div>
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
     <p>Russell et al. (2018) and DeForest et al. compared rear-foot-elevated split squat to back squat at matched relative loads — quad activation was equivalent or higher in the BSS, with substantially lower compressive spinal load. For a post-revision spine that can't accept axial bar load, the BSS <em>is</em> the squat.</p>
-    <p>Schoenfeld 2017/2019 volume-hypertrophy meta supports 2–3 sets at moderate load, near failure, for hypertrophy. The 2×10 from your PT note was an <em>in-clinic load-tolerance trial</em>, not a home-program prescription — 3×8 at the same load is appropriate ongoing programming once tolerated.</p>
+    <p>Schoenfeld 2017/2019 volume-hypertrophy meta supports 2–3 sets at moderate load near failure. The in-clinic trial was a load-tolerance check, not the home dose — 3×8 at the cleared load is the ongoing program once tolerated. With a currently-symptomatic knee, hold depth at/above parallel and elevate the front foot if needed: depth (not the BSS itself) is what provokes patellofemoral pain.</p>
     <em>— Russell et al. (2018); DeForest et al.; Schoenfeld et al. (2017, 2019); McCurdy et al. on unilateral lower-body training</em>
   </div>
 </div>
@@ -1411,11 +1421,11 @@ footer{
 <div class="prog-wrap">
   <div class="prog-block">
     <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence per <a href="#meso" style="color:var(--p)">Mesocycle</a>)</div>
-    <div class="prog-step"><span class="pn">Cadence</span><span>Volume + reps climb within each block; load steps are PT-gated.</span></div>
-    <div class="prog-step"><span class="pn">Wk 1–2</span><span>5 lb each hand, 2×10 (match PT load-tolerance trial)</span></div>
-    <div class="prog-step"><span class="pn">Wk 3+</span><span>5 lb each hand, 3×8 with 2s bottom hold</span></div>
-    <div class="prog-step"><span class="pn">Gate ①</span><span><strong>PT re-clearance required</strong> before 7.5 lb each hand. Wk 6 is a planning marker, not an auto-progression</span></div>
-    <div class="prog-step"><span class="pn">Gate ②</span><span>10 lb each hand only after second PT re-clearance + 4 weeks clean at 7.5 lb. Wk 10 jump doubles the PT-cleared dose — needs sign-off</span></div>
+    <div class="prog-step"><span class="pn">Cadence</span><span>Volume + reps climb within each block; load steps stay PT-gated.</span></div>
+    <div class="prog-step"><span class="pn">Wk 1–2</span><span>7.5 lb each hand, 2×8 to bed the new load in</span></div>
+    <div class="prog-step"><span class="pn">Wk 3+</span><span>7.5 lb each hand, 3×8 with 2s bottom hold</span></div>
+    <div class="prog-step"><span class="pn">Gate ①</span><span><strong>PT re-clearance</strong> before 10 lb each hand — a planning marker, not an auto-progression</span></div>
+    <div class="prog-step"><span class="pn">Knee</span><span>If the right knee is loud: front-foot-elevated split squat, hold load, keep depth ≤ parallel until it settles</span></div>
   </div>
 </div>
 </div>
@@ -1424,17 +1434,17 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Single-Leg Hip Thrust — 10 lb</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · May 2026 · simplified — B-stance dropped, you've outgrown the regression</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ June 2026 · 2-1 method — extra volume on the right to close the post-surgical gap</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
-  <div class="exmeta"><div class="sets">3 × 8 each</div><div class="rest-lbl">75s rest</div><div class="tempo">2 · 3 · 2</div></div>
+  <div class="exmeta"><div class="sets">R 3×8 · L 2×8</div><div class="rest-lbl">75s rest</div><div class="tempo">2 · 3 · 2</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band looped above the knees. <strong>10 lb plate (or 2× 5 lb stacked) wrapped in a folded towel</strong>, placed across the hip crease.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Upper back on a low bench (~14" — bench hits just below shoulder blades). Plate on hip crease, towel padding. Working leg planted, foot flat. <strong>Non-working leg straight up in the air</strong> (perpendicular to floor). Drive up through working heel. <strong>Push knee out against the band</strong> the entire time — band keeps the working knee tracking over the toe. 3-count hold at top, <strong>ribs down</strong>. Hand stays loosely on the plate. Lower with control. <em>First 2 weeks at this load:</em> do 2×10 per side (matches PT in-clinic dose), then step to 3×8.</div>
+<div class="setup">Upper back on a low bench (~14" — bench hits just below shoulder blades). Plate on hip crease, towel padding. Working leg planted, foot flat. <strong>Non-working leg straight up in the air</strong> (perpendicular to floor). Drive up through working heel. <strong>Push knee out against the band</strong> the entire time — band keeps the working knee tracking over the toe. 3-count hold at top, <strong>ribs down</strong>. Hand stays loosely on the plate. Lower with control. <em>Right side leads every round</em> — see the 2-1 cue below.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Glute max work, zero spinal compression. The 10 lb sits on your <strong>hip crease</strong>, not your spine — load vector runs through the femur into the glute, not into the discs. Cue is <strong>"hips up, ribs down"</strong> — simultaneously. Any pelvic tilt at the top = glutes lost the rep, lumbar took over. End the set.</div>
+<div class="cue">Glute-max work, near-zero spinal compression — the 10 lb sits on the <strong>hip crease</strong>, load runs through the femur into the glute, not the discs. <strong>"Hips up, ribs down"</strong> together; any pelvic tilt at the top = lumbar stole the rep, end the set. <strong>2-1 method:</strong> the right glute (post-surgical atrophy) earns the extra set — 3 right : 2 left here, and on a dedicated week push a true 2:1 (4 right : 2 left). Start each round on the right while it's freshest.</div>
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
@@ -1447,25 +1457,41 @@ footer{
 <div class="prog-wrap">
   <div class="prog-block">
     <div class="prog-lbl">📈 Path Forward (SL portion)</div>
-    <div class="prog-step"><span class="pn">Wk 1–2</span><span>10 lb on hips, 2×10 each side (match PT in-clinic trial)</span></div>
-    <div class="prog-step"><span class="pn">Wk 3+</span><span>10 lb, 3×8 each</span></div>
-    <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance required</strong> before 15 lb. Hip thrust load vector is horizontal (low spinal cost) so the gate is conservative but still PT-paced</span></div>
-    <div class="prog-step"><span class="pn">Later</span><span>20 lb or 3-count pause at top with 15 lb — only after re-clearance</span></div>
+    <div class="prog-step"><span class="pn">Now</span><span>10 lb on hips — Right 3×8 · Left 2×8 (2-1 method)</span></div>
+    <div class="prog-step"><span class="pn">+2 wks</span><span>Right 4×8 · Left 2×8 on a dedicated week if the right side tolerates it</span></div>
+    <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance</strong> before 15 lb. Horizontal load vector = low spinal cost, but still PT-paced</span></div>
+    <div class="prog-step"><span class="pn">Symmetry</span><span>Return to even sets once the right glute feels matched to the left</span></div>
   </div>
 </div>
 </div>
 
-<div class="excard" data-id="d3e10">
+<div class="excard" data-id="d3e-abd">
 <div class="extop">
-  <div class="ex-left"><div class="exname">Banded Monster Walk</div></div>
-  <div class="exmeta"><div class="sets">3 × 40 steps</div><div class="rest-lbl">60s rest</div><div class="tempo">CONTROLLED</div></div>
+  <div class="ex-left">
+    <div class="exname">Hip Abductor Machine</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · loadable glute-med · replaces banded monster walk</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">3 × 12–15</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">out · pause · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — around ankles. Red when yellow feels easy.</span></div>
+<div class="caveat">
+  <div class="caveat-t">⚠ The Setup Is the Exercise</div>
+  <p><strong>Lean the torso 10–20° forward</strong> (hinge at the hip, spine neutral — not a slump) and point <strong>toes slightly in</strong>. That combination biases the posterior glute-med fibers and quiets the TFL, which an upright torso recruits instead. <strong>Stop 2–3° short of end-range</strong> — a hypermobile hip never needs end-range joint load. Low back stays on the pad.</p>
+</div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Band around ankles. Slight hip hinge — shallow athletic stance. Walk 10 steps forward, 10 back, then 10 right, 10 left. Band stays taut throughout. Each step deliberate. Hips completely level.</div>
+<div class="setup">Pads on the mid-outer thigh (not the knee). 50 lb. Forward lean, toes-in, low back pressed to the pad. Drive out under control to ~30–40° of movement, 1-count pause, 2-count return — never let the stack drop. Keep the pelvis level; if it hikes, lower the load.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Weak glute medius = compensatory lumbar movement on every step all day long. Strengthening this protects the spine more than almost any core exercise.</div>
+<div class="cue">Glute medius is one of your three flagged gaps — and a weak one lets the lumbar spine compensate on every step all day. This adds <strong>loaded</strong> glute-med volume at low spinal cost; the heavier hypertrophy driver is Thursday's side-lying abduction (highest-MVIC of the lot), and the Daily clamshell grooves the pattern. <strong>Home/away swap:</strong> banded monster walk — 3 × 40 steps (10 each direction), ankle band, hips level.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence)</div>
+    <div class="prog-step"><span class="pn">Now</span><span>50 lb, 3×12–15, forward lean + toes-in</span></div>
+    <div class="prog-step"><span class="pn">Within cap</span><span>Build to 3×15 at RIR 2, then add a 4th set — reps/sets before load</span></div>
+    <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance before exceeding 50 lb</strong> — same rule the free-weight lifts follow</span></div>
+    <div class="prog-step"><span class="pn">Right bias</span><span>Alternate single-leg sets to add reps on the right (pairs with the hip-thrust 2-1)</span></div>
+  </div>
+</div>
 </div>
 
 
@@ -1489,7 +1515,7 @@ footer{
 <div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Swim 45–55 min · Legs B ~35 min</div>
   <p style="font-size:14px;margin:0 0 6px"><strong>Swim:</strong> warmup 300m · drill 4×50m · main 600–800m · pull buoy 4×50m · kick 4×25m · cooldown 200m. Cut from cooldown backward if short.</p>
-  <p style="font-size:14px;margin:0"><strong>Legs B (cut order):</strong> (1) side-plank finisher — Daily Low-Load covers spine work · (2) tib post/peroneal — Daily plantar sensory partly covers · (3) Copenhagen plank · (4) reverse Nordic (alternate weekly anyway) · (5) slant-board squat · core kept: Spanish squat.</p>
+  <p style="font-size:14px;margin:0"><strong>Legs B (cut order):</strong> (1) side-plank finisher — Daily Low-Load covers spine work · (2) tib post/peroneal — Daily plantar sensory partly covers · (3) calf raise · (4) Copenhagen · (5) slant-board squat · core kept: Spanish squat (knee analgesia), leg extension, lying leg curl.</p>
 </div>
 
 <div class="callout" style="border-color:rgba(95,180,210,.28);background:rgba(95,180,210,.06)">
@@ -1541,7 +1567,12 @@ footer{
 
 <!-- ────────── TRACK B · LEGS B ────────── -->
 <div style="margin:28px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(245,208,64,.10);border-left:3px solid var(--gld)">
-  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gld)">Track B · Legs B — Quad Detail + Distal · ~35 min</div>
+  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gld)">Track B · Legs B — Quad + Posterior + Distal · machine-rich · ~40 min</div>
+</div>
+
+<div class="callout warn">
+  <div class="callout-t">⚠ Knee-Smart Order — Right Patellofemoral</div>
+  <p>New right anterior-knee pain changes the order, not the goal. <strong>Spanish-squat isometrics lead</strong> — they blunt knee pain for ~45 min, so the knee is quiet before the loaded work. Quad loading is <strong>capped, not cut</strong>: leg extension 90→45° only, split-squat depth at/above parallel, heel-elevated work kept light. The reverse Nordic is <strong>paused</strong> while the knee is symptomatic (high patellar load) — it's in the Deferred list with its return criteria. And hip/glute-med work <em>is</em> knee medicine: Wednesday's abductor machine + this day's side-lying abduction pull double duty. <strong>0/10 pain on every quad set</strong> — not "push through."</p>
 </div>
 
 <div class="wu">
@@ -1558,8 +1589,11 @@ footer{
 
 <div class="excard" data-id="d4b1">
 <div class="extop">
-  <div class="ex-left"><div class="exname">Spanish Squat — Banded</div></div>
-  <div class="exmeta"><div class="sets">3 × 10</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 2 · 2</div><div class="tkey">down · HOLD · up</div></div>
+  <div class="ex-left">
+    <div class="exname">Spanish Squat — Isometric Hold</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(148,217,158,.10);border:1px solid rgba(148,217,158,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">↺ June 2026 · leads the session · knee analgesia + quad</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">5 × 45s</div><div class="rest-lbl">90s rest</div><div class="tempo">ISO</div><div class="tkey">hold ~60°</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — both ends anchored at knee height to a sturdy fixed point in FRONT of you (rack post, doorframe), single loop running behind both knees</span></div>
@@ -1567,12 +1601,78 @@ footer{
 <div class="setup">
   <strong>1. Anchor:</strong> both band ends to a fixed point in front of you at knee height. The band loops <em>behind</em> both your knees.<br>
   <strong>2. Walk back</strong> until the band is under firm tension. The band now pulls your knees forward toward the anchor. <em>Your quads have to fight that pull every second.</em><br>
-  <strong>3. Sit straight DOWN.</strong> Shins vertical (this is the whole point). Torso upright. Knees bend, hips drop — the band's tension lets you stay back without falling.<br>
-  <strong>4. Stop</strong> at parallel or the moment pelvis breaks neutral, whichever first. 2-count bottom hold.<br>
-  <strong>5. Drive up</strong> through whole foot. Lockout 10° short of full extension.
+  <strong>3. Sit down to ~60° knee bend.</strong> Shins vertical (the whole point). Torso upright. Hold the position — don't bounce.<br>
+  <strong>4. Hold 45 seconds</strong> at roughly 70% effort — hard, but breathing stays steady. Stop short of any pelvis tuck. 5 rounds.<br>
+  <strong>5. Knee-quiet rule:</strong> the hold should <em>reduce</em> knee symptoms, not provoke them. If pain climbs mid-hold, shorten the hold or reduce depth.
 </div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Vertical shins = patellofemoral-friendly quad loading. The band is what makes this exercise — without it, knees drift forward and it becomes a wall sit. Quads light up, knees stay quiet. Best quad loader in the program for your knee history.</div>
+<div class="cue">Vertical shins = patellofemoral-friendly quad loading; the band is what makes it work (without it the knees drift forward into a wall sit). <strong>Heavy isometric holds blunt knee pain for ~45 min afterward</strong> (Rio et al. 2015) — that's why this now <em>leads</em> the session: quiet the knee first, then do the loaded work. Still the best quad loader in the program for your knee.</div>
+</div>
+
+<div class="excard" data-id="d4b-legext">
+<div class="extop">
+  <div class="ex-left">
+    <div class="exname">Seated Leg Extension — 90→45° Only</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · VMO / quad isolation · the "no leg extension with knee pain" rule, busted</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">3 × 12–15</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · hold · 3s down</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat">
+  <div class="caveat-t">⚠ ROM Cap + Pain Rule — Non-Negotiable</div>
+  <p><strong>Work only the 90→45° arc</strong> — start knee bent ~90°, extend to ~45°, stop. <em>Never lock out to 0°.</em> Terminal extension is the smallest patellofemoral contact area (highest stress per pound) <strong>and</strong> the range a hypermobile knee hyperextends into — the cap solves both at once. <strong>Pain rule is 0/10, not "push through 2/10"</strong>: with the left-side VMO deficit, the first twinge ends the set.</p>
+</div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Recline the seat back so it supports the low back; ankle pad on the <strong>distal shin</strong>, not the foot. 30 lb. Press the low back gently into the pad (no anterior pelvic tilt). Extend from ~90° to ~45° only, 2-count hold at the top of the arc, 3-count lower. Breathe — no breath-holding.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue">The cleanest VMO/quad isolation you have — and, contrary to gym lore, <em>not</em> contraindicated for patellofemoral pain (5-year RCT: open-chain matched closed-chain). The fix isn't avoidance, it's the <strong>90→45° cap</strong>. Progress load before widening the arc.</div>
+<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
+<div class="evi-wrap">
+  <div class="evi">
+    <p>A 2025 systematic review (79 studies) found leg extension among the most-prescribed patellofemoral exercises, and a 5-year RCT found open-chain (leg extension) and closed-chain (squat) produce equivalent long-term outcomes. The "leg extension wrecks knees" claim doesn't survive the evidence. Patellofemoral contact stress <em>is</em> highest in terminal extension (45→0°), where contact area is smallest — hence the 90→45° cap, which keeps load in the safe arc.</p>
+    <p>For a hypermobile knee the cap does double duty: it also keeps the joint out of the hyperextension range where passive structures, not muscle, take the load.</p>
+    <em>— Knee-extensor PFP systematic review (Front. Rehab. Sci. 2025); Witvrouw 5-yr OKC-vs-CKC RCT; patellofemoral contact-stress biomechanics</em>
+  </div>
+</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence)</div>
+    <div class="prog-step"><span class="pn">Now</span><span>30 lb, 3×12–15, 90→45° only, 0/10 pain</span></div>
+    <div class="prog-step"><span class="pn">Within cap</span><span>Build reps to 3×15 at RIR 2, then add a 4th set — reps/sets before load</span></div>
+    <div class="prog-step"><span class="pn">Gate · load</span><span><strong>PT re-clearance before exceeding 30 lb</strong></span></div>
+    <div class="prog-step"><span class="pn">Gate · ROM</span><span>Widening past the 90→45° arc is a ROM-cap change — only after 4 weeks pain-free <strong>and</strong> PT sign-off</span></div>
+  </div>
+</div>
+</div>
+
+<div class="excard" data-id="d4b-legcurl">
+<div class="extop">
+  <div class="ex-left">
+    <div class="exname">Lying / Prone Leg Curl</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · hamstring strength · run prone, not seated (spine)</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">3 × 10–12</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">curl · squeeze · 3s lower</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat">
+  <div class="caveat-t">⚠ Prone, Not Seated — Here's Why</div>
+  <p>The clinic listed <em>seated</em> leg curl; run it <strong>lying/prone</strong> instead. Seated puts the hip at 90°, and a hard hamstring contraction there tips the pelvis into <strong>lumbar flexion right at the operated segment</strong>. Prone keeps the hip neutral and the spine in lordosis — same hamstring, lower spinal cost. If only a seated machine is free: recline the seat fully, use a lumbar pad, brace neutral, keep the load light.</p>
+</div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Prone on the pad, hips flat (a small pad under the hips keeps the pelvis neutral). 25 lb. Roller on the <strong>back of the lower shin</strong>, not the calf. Curl the heel toward the glute, 1-count squeeze, <strong>3-count lower</strong>. <strong>Stop ~15° short of full extension</strong> — never let the knee snap straight.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue">The direct fix for the hamstring weakness you've flagged — the concentric strength builder that complements Wednesday's eccentric Nordic. <strong>Don't run this and the Nordic in the same session:</strong> combined eccentric load is too much for a weak, asymmetric hamstring (Nordic = Wed, this = Thu). Weak on the pull-in phase? That's exactly the range this trains. Cramping = drop the load, warm up longer.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence)</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Prone, 25 lb, 3×10–12, 3s eccentric</span></div>
+    <div class="prog-step"><span class="pn">Within cap</span><span>Build to 3×12 at RIR 2, then slow the eccentric to 4s — quality before load</span></div>
+    <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance before exceeding 25 lb</strong></span></div>
+    <div class="prog-step"><span class="pn">Right bias</span><span>Single-leg curls to attack the weaker right hamstring directly</span></div>
+  </div>
+</div>
 </div>
 
 <div class="excard" data-id="d4b2">
@@ -1583,31 +1683,35 @@ footer{
 </div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Heels on slant board (or stack of plates / books, ~25° rise). Feet hip-width. Squat straight down — torso stays vertical, knees can travel forward of toes (this is the point). Descend to parallel or until pelvis breaks neutral. 2-count bottom hold. Drive up.</div>
+<div class="caveat">
+  <div class="caveat-t">⚠ Knee Note — Keep It Light Right Now</div>
+  <p>Heel elevation deliberately lets the knee travel forward — great for VMO, but it also <strong>raises patellofemoral stress</strong>. While the right knee is symptomatic, keep the load light and let the 0/10 rule govern. <strong>Symptomatic? Swap to a lateral step-down from a 6" box</strong> (3×12–15): same VMO + glute-med target at lower patellar load.</p>
+</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Heel elevation lets the knee travel forward and loads the quads (especially VMO/teardrop) directly. Pairs with Spanish squat to round out quad menu without spinal compression. Alternate weekly with wall sits if a session feels heavy.</div>
+<div class="cue">Heel elevation loads the quads (VMO/teardrop) directly. Pairs with the Spanish squat and leg extension to cover the quad without spinal compression. Alternate weekly with wall sits — or the step-down above — if a session feels heavy on the knee.</div>
 </div>
 
-<div class="excard" data-id="d4b3">
+<div class="excard" data-id="d4b-calf">
 <div class="extop">
-  <div class="ex-left"><div class="exname">Reverse Nordic — Partial ROM</div></div>
-  <div class="exmeta"><div class="sets">3 × 6</div><div class="rest-lbl">75s rest</div><div class="tempo">4 · 1 · 2</div><div class="tkey">back · hold · up</div></div>
+  <div class="ex-left">
+    <div class="exname">Standing Calf Raise</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · standing, not seated · right calf + distal chain</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">5 × 10</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">up · hold · 2s down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat">
-  <div class="caveat-t">⚠ Strict Form Rules — Read Before Each Set</div>
-  <p><strong>Partial ROM only.</strong> Kneeling on a <strong>2"+ foam pad</strong> (mandatory — kneeling on hard surface compresses the patella against the floor). <strong>Ribs down, glutes locked</strong> the entire descent — non-negotiable. <strong>Two stop signs, end the rep at whichever fires first:</strong> (1) any sensation in the lower back, or (2) any sense of patellar tracking discomfort. With knee hypermobility + L ACL history, the patellar stop is as important as the lumbar one.</p>
-</div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Kneel on a 2"+ foam pad, knees hip-width, feet pointed back. Quads and glutes squeeze together — ribs pulled DOWN, glutes locked. Lean backward from the knees, body in one straight line from knees to head. 4-count slow descent. Stop well short of horizontal — at first lumbar engagement OR first patellar discomfort. 1-count pause. Squeeze quads to come back upright.</div>
+<div class="setup">Standing calf-raise machine (or a step holding a light dumbbell), 15 lb. Balls of the feet on the edge, heels free. Full range: <strong>stretch down under control, drive all the way up to a hard top squeeze</strong>, 1-count hold. Knees long but soft — not locked. Tall spine; this is axial-light, so no bracing needed.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">VMO / quad teardrop work. Depth target: <strong>deepest position where ribs stay down, zero lumbar engages, AND patella is quiet</strong>. Not deepest possible. If either stop sign fires at week 4, reduce depth by 5° and rebuild — that's the protocol, not a setback.</div>
+<div class="cue"><strong>Standing, not seated</strong> — the gastrocnemius only grows with the knee straight (RCT: standing built ~12% vs seated ~2%). Targets the chronically tight right calf and supports the ankle the nerve-recovery work is rebuilding. One of the few lifts you can add load to quickly.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Partial ROM, 3×6, ribs-down strict</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Add 5° ROM only if form remains clean — never beyond lumbar threshold</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>3-count bottom hold at your tested ROM</span></div>
+    <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence)</div>
+    <div class="prog-step"><span class="pn">Now</span><span>15 lb, 5×10, full stretch + hard top squeeze</span></div>
+    <div class="prog-step"><span class="pn">Within cap</span><span>Build reps/sets at 15 lb — calves tolerate volume well</span></div>
+    <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance before exceeding 15 lb</strong> — calves can then climb faster than the other lifts</span></div>
+    <div class="prog-step"><span class="pn">Later</span><span>Single-leg for symmetry; add a seated calf raise only if you specifically want soleus</span></div>
   </div>
 </div>
 </div>
@@ -1624,7 +1728,7 @@ footer{
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Side plank. Top leg rests on bench at the ankle — not the knee. Bottom leg hangs free. Hold position with full body tension. Hips stay stacked — do not sag or rotate. Build from 20s toward 45s over weeks.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Hip adductors anchor the pelvis and stabilize the spine on every step you take. One of the most important hip stability exercises in this program.</div>
+<div class="cue">Hip adductors anchor the pelvis and stabilize the spine on every step — and the adductor sling is a documented part of your lateral-chain gap. Start from the knee (modified) and build to the full lever. <strong>Gym alternative:</strong> the hip <em>adductor</em> machine (35–40 lb, 3×12–15, neutral spine, don't start at end-range) hits the same target with graded load when you want it.</div>
 </div>
 
 <div class="excard" data-id="d4b5">
@@ -1961,13 +2065,14 @@ footer{
 <div class="deferwrap">
   <div class="defer-t">// Deferred — Not Now</div>
   <div class="defer-list">
-    <div class="defer-item"><strong>Single-leg RDL (any variant):</strong> asymmetric hip hinge under spine engagement — re-herniation mechanism. Re-evaluate after 12 weeks of clean band pull-through and PT clearance.</div>
-    <div class="defer-item"><strong>Loaded RDL:</strong> deferred — light hand-held hinge (PT-cleared, 5 lb each hand) is the pattern teacher in the meantime, progressing through goblet hinge by Wk 12.</div>
+    <div class="defer-item"><strong>Single-leg RDL (any variant):</strong> asymmetric hip hinge under spine engagement — re-herniation mechanism. Re-evaluate after 12 weeks of clean hand-held hinge and PT clearance.</div>
+    <div class="defer-item"><strong>Loaded RDL:</strong> deferred — light hand-held hinge (PT-cleared, ~5 lb each hand) is the pattern teacher in the meantime, progressing to a goblet hinge earliest ~Wk 18 and only on PT sign-off.</div>
     <div class="defer-item"><strong>Conventional barbell deadlift:</strong> permanently shelved.</div>
     <div class="defer-item"><strong>Trap bar deadlift:</strong> earliest 9–12 months post-revision, 5 functional criteria + surgeon clearance.</div>
-    <div class="defer-item"><strong>Reverse hyperextension:</strong> momentum-driven end-range extension is wrong direction for an annular defect. Use passive hang for decompression.</div>
+    <div class="defer-item"><strong>Reverse hyperextension:</strong> momentum-driven end-range extension is the wrong direction for an annular defect. Use the active decompression hang (scaps packed) instead.</div>
     <div class="defer-item"><strong>Hollow body hold:</strong> creates lumbar flexion under load. Pallof and dead bug cover the core demand without it.</div>
     <div class="defer-item"><strong>Curtsy lunge:</strong> transverse-plane knee shear + lumbar rotation — wrong cost/benefit for ACL + hypermobility + post-revision. B-stance hip thrust + Spanish squat + clamshell cover the targets.</div>
+    <div class="defer-item"><strong>Reverse Nordic (temporary):</strong> paused while the right knee is symptomatic — the kneeling lean-back is high patellar-compression load, the wrong direction for current patellofemoral pain. Leg extension (90→45°) + Spanish-squat isometrics cover the VMO/quad target meanwhile. <strong>Returns when:</strong> 2 weeks pain-free on leg extension + slant-board, then re-enter at partial ROM on a foam pad.</div>
     <div class="defer-item"><strong>Passive static stretching:</strong> more passive ROM without control = more instability for hypermobile joints.</div>
   </div>
 </div>
@@ -2023,7 +2128,7 @@ footer{
         <p style="margin:0 0 8px"><strong>Freestanding handstand unlocks at:</strong> 60s wall handstand back-to-wall · 10s chest-to-wall shoulder taps each side · clean wrist tolerance with no flare across 8 consecutive skill sessions.</p>
         <p style="margin:0 0 8px"><strong>Unassisted pistol squat unlocks at ALL of:</strong> heel-tap pistol 3×6 with full body control (no fingertips) · L = R balance time eyes-closed 20s · pain-free Bulgarian split squat 15 lb 3×8 · <strong>single-leg eccentric step-down from 6" box 3×8 with NO knee valgus / NO femoral IR</strong> (Buckthorpe ACL quality-screen) · heel-tap pistol 3×6 at parallel + 1" with counterbalance (depth-tolerance demonstrated).</p>
         <p style="margin:0 0 8px"><strong>Butterfly swim unlocks at:</strong> 12 months post-revision · pain-free lumbar extension end-range in dry-land testing · surgeon clearance (this is a hard "no" until then — repeated lumbar hyperextension under aquatic load is the highest-risk swim stroke for an annular defect).</p>
-        <p style="margin:0 0 8px"><strong>Dance return (Latin/Zumba) unlocks at:</strong> pain-free single-leg balance 60s eyes-open · clean rotational warmup (half-kneeling thoracic rotation 4×/wk × 4 weeks) · pain-free BSS at 10 lb · then start at home, low-impact (no jumps, no spotting turns) for 2 weeks before any class. First class = back row, half-tempo, no full body weight off both feet at once.</p>
+        <p style="margin:0 0 8px"><strong>Dance return (Latin/Zumba) unlocks at:</strong> pain-free single-leg balance 60s eyes-open · clean rotational warmup (half-kneeling thoracic rotation 4×/wk × 4 weeks) · pain-free BSS at 15 lb (7.5/hand) · quiet right knee through a full leg session · then start at home, low-impact (no jumps, no spotting turns) for 2 weeks before any class. First class = back row, half-tempo, no full body weight off both feet at once.</p>
       </div>
     </div>
 
@@ -2060,7 +2165,7 @@ footer{
         <div style="border-left:2px solid var(--gld);padding:11px 13px;background:rgba(245,208,64,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--gld);margin-bottom:4px">Phase 2 — Quietest Window (~10–14 days)</div>
           <p style="margin:0 0 6px">The window where heavy bracing, inversion, and high-impact work are temporarily off the table. Background reason: Valsalva drives intra-abdominal pressure to 100–200 mmHg (Hackett &amp; Chow 2013), and when there's any reason to keep that down, the lifts that demand it have to come out.</p>
-          <p style="margin:0 0 6px"><strong>OUT:</strong> heavy hip thrust · BSS · loaded hinge · Nordic · pull-ups + dead hangs (Valsalva + traction) · wall handstand (inversion) · running · jumping · plyometrics · HIIT · spin bike · flip turns · twisting / lateral-flexion under load.</p>
+          <p style="margin:0 0 6px"><strong>OUT:</strong> heavy hip thrust · BSS · loaded hinge · Nordic · pull-ups + dead hangs (Valsalva + traction) · wall handstand (inversion) · running · jumping · plyometrics · HIIT · spin bike · flip turns · machine ab/adduction at full ROM (pelvic rotation) · twisting / lateral-flexion under load.</p>
           <p style="margin:0"><strong>KEEP:</strong> walking 30–45 min/day. Continuous-lap swim with <strong>open turns only</strong>. Daily Low-Load. Light upper-body band work (face pull, prone Y, banded row) at ≤50% RPE, no breath-holding. Half-kneeling / supported variants only. Moderate exercise during these windows is well-supported by the trials available (e.g. ASRM 2024 RCT) — the framing is "drop intensity, keep moving."</p>
         </div>
         <div style="border-left:2px solid var(--p);padding:11px 13px;background:rgba(180,140,210,.04);border-radius:0 4px 4px 0">
@@ -2080,7 +2185,7 @@ footer{
           <p style="margin:0 0 6px"><strong>CoQ10 ubiquinol:</strong> keep on at 200–400 mg continuously. Mitochondrial support that doesn't need to come off for any phase.</p>
           <p style="margin:0 0 6px"><strong>Vitamin D:</strong> keep at 2000–4000 IU; no phase-specific bolus.</p>
           <p style="margin:0 0 6px"><strong>NAC (optional):</strong> 1.8 g/day from start to end of the active window has been associated with better recovery markers in some clinical contexts (Cheraghi 2016, 2022). Clinician-gated, not a default.</p>
-          <p style="margin:0"><strong>Iron:</strong> recheck serum ferritin 6–8 weeks after stopping any continuous-hormone suppression — the rebound period can run ferritin down silently.</p>
+          <p style="margin:0"><strong>Iron:</strong> recheck serum ferritin periodically — vegetarian athletes are prone to silent depletion, and any hormonal, dietary, or training change can shift it.</p>
         </div>
       </div>
       <p style="margin:14px 0 0;font-size:12.5px;color:var(--fade);font-style:italic">When in doubt in Phase 2 or 3, the default answer is "walk + Daily Low-Load only" — the always-safe floor.</p>
@@ -2096,7 +2201,7 @@ footer{
         </div>
         <div>
           <div style="font-weight:600;color:var(--txt);margin-bottom:4px">Energy availability — eat enough for the work</div>
-          <p style="margin:0">1500 kcal is the low edge for an active 5'0" female. <strong>Cycle regularity is a downstream signal</strong> — if cycle goes irregular during a high-volume training block, energy availability is too low. Add 200–300 kcal/day and recheck in 4–6 weeks (Mountjoy et al. on RED-S).</p>
+          <p style="margin:0">1500 kcal is the low edge for a small-framed active female. <strong>Cycle regularity is a downstream signal</strong> — if cycle goes irregular during a high-volume training block, energy availability is too low. Add 200–300 kcal/day and recheck in 4–6 weeks (Mountjoy et al. on RED-S).</p>
         </div>
       </div>
     </div>
@@ -2132,7 +2237,7 @@ footer{
         </tbody>
       </table>
       <p style="font-size:12.5px;color:var(--fade);margin-top:10px;line-height:1.55">Why 6 weeks not 4: tendon adaptation needs 8+ weeks at a given stimulus (Bohm/Arampatzis 2015 meta; Magnusson &amp; Kjær 2009). A 4-week block deloads tendons before they've adapted; an 8-week block accumulates fatigue on hypermobile joints. 6 lets muscle compound for 2 mesocycles per tendon adaptation window without overshooting joint capacity.</p>
-      <p style="font-size:12.5px;color:var(--fade);margin-top:6px;line-height:1.55">Why ~50% deload not 40%: the 40% number assumes healthy spine + tendons. Post-revision disc + 8-wk tendon timeline + meds-shifted recovery markers = use the conservative end. Israetel's RP framework also uses ~50% of MAV for deload.</p>
+      <p style="font-size:12.5px;color:var(--fade);margin-top:6px;line-height:1.55">Why ~50% deload not 40%: the 40% number assumes healthy spine + tendons. Post-revision disc + 8-wk tendon timeline + individual recovery-marker variability = use the conservative end. Israetel's RP framework also uses ~50% of MAV for deload.</p>
     </div>
 
     <!-- TENDON vs MUSCLE PROGRESSION SPEEDS -->
@@ -2220,12 +2325,12 @@ footer{
       <div style="font-size:13px;line-height:1.55">
         <p style="margin:0 0 6px"><strong>Bulgarian Split Squat (muscle-limited — 6-wk cadence)</strong></p>
         <ul style="margin:0 0 12px;padding-left:18px;line-height:1.65">
-          <li><strong>Wk 1:</strong> 5 lb × 2, 3×8 each side, RIR 3, tempo 3·2·2</li>
-          <li><strong>Wk 2:</strong> 5 lb × 2, 4×8 each side, RIR 3</li>
-          <li><strong>Wk 3:</strong> 5 lb × 2, 4×8 each side + 1 backoff set at 2.5 lb × 2 for 12, RIR 2–3</li>
-          <li><strong>Wk 4:</strong> 5 lb × 2, 4×8 each side, RIR 2, top set push to 9 reps if RIR holds</li>
-          <li><strong>Wk 5 · peak:</strong> 5 lb × 2, 4×9 each side, RIR 1–2 — or if PT re-clearance happened, jump to 7.5 lb × 2 for 3×6 RIR 2</li>
-          <li><strong>Wk 6 · deload:</strong> 5 lb × 2, 2×8 each side, RIR 4–5. Retest single-leg balance EC on Fri.</li>
+          <li><strong>Wk 1:</strong> 7.5 lb × 2, 3×8 each side, RIR 3, tempo 3·2·2</li>
+          <li><strong>Wk 2:</strong> 7.5 lb × 2, 4×8 each side, RIR 3</li>
+          <li><strong>Wk 3:</strong> 7.5 lb × 2, 4×8 each side + 1 backoff set at 5 lb × 2 for 12, RIR 2–3</li>
+          <li><strong>Wk 4:</strong> 7.5 lb × 2, 4×8 each side, RIR 2, top set push to 9 reps if RIR holds</li>
+          <li><strong>Wk 5 · peak:</strong> 7.5 lb × 2, 4×9 each side, RIR 1–2 — or if PT re-clearance happened, step to 10 lb × 2 for 3×6 RIR 2</li>
+          <li><strong>Wk 6 · deload:</strong> 7.5 lb × 2, 2×8 each side, RIR 4–5. Retest single-leg balance EC on Fri.</li>
         </ul>
         <p style="margin:0 0 6px"><strong>Hand-Held Hinge (tendon + disc-limited — 12-wk cadence, holds at 5 lb regardless of "wk")</strong></p>
         <ul style="margin:0;padding-left:18px;line-height:1.65">
@@ -2254,7 +2359,7 @@ footer{
   <div class="hmgrid">
     <div class="hmcard"><h4>Never Lock Out</h4><p>Stop 10–15° before full extension — elbows, knees, hips. The click is capsular loading, not muscular control. That distinction matters for everything.</p></div>
     <div class="hmcard"><h4>Warmup Every Session</h4><p>Hypermobile joints need neural activation before load. This is where hypermobile athletes get hurt. No exceptions.</p></div>
-    <div class="hmcard"><h4>Proprioception Work</h4><p>Eyes-closed balance in every leg warmup retrains position sense. Add random perturbation when possible. Root-cause injury prevention.</p></div>
+    <div class="hmcard"><h4>Proprioception Work</h4><p>Eyes-closed balance + random perturbation retrain position sense. The nuance that matters for you: <strong>active</strong> position sense is good, <strong>passive</strong> end-range sense is the blind spot — stay actively engaged, never relax into end range.</p></div>
     <div class="hmcard"><h4>Isometrics Are Medicine</h4><p>Every hold in this program teaches muscles to fire without passive end-range joint reliance. The core retraining goal.</p></div>
     <div class="hmcard"><h4>No Passive Stretching</h4><p>No yin yoga. No passive splits. No hanging end-range. More passive range without control = more instability.</p></div>
     <div class="hmcard"><h4>Tendons Take 8+ Weeks</h4><p>Muscles adapt in 2–3 weeks. Tendons 8+. When something feels easy, wait 4 more weeks before adding load.</p></div>
@@ -2270,8 +2375,8 @@ footer{
   <p style="font-size:13.5px;color:var(--fade);max-width:560px;line-height:1.75;margin-bottom:18px">Protein density first, micronutrients second, low-sugar always. <strong>Per-meal protein dose 30g+ matters more than daily total</strong> — vegetarian sources have lower leucine, so absolute dose has to clear ~3g leucine to maximize muscle protein synthesis (Phillips &amp; van Loon 2011, 2019).</p>
 
   <div class="macros">
-    <div class="mc"><div class="mcn">110–120g</div><div class="mcl">Protein Daily</div><div class="mcnote">~1.8–2.0 g/kg + 10% vegetarian leucine buffer (Phillips &amp; van Loon 2019; Morton 2018). <strong>Per-meal target depends on source:</strong> dairy/whey meals 25–30g (leucine-dense); tofu/tempeh/lentil meals 35–45g to clear ~3g leucine threshold (van Vliet &amp; Burd). 4 doses across the day.</div></div>
-    <div class="mc"><div class="mcn">1700–2100</div><div class="mcl">Kcal Range</div><div class="mcnote">Floor 1700 on rest days; up to 2100 on lift + skill days. <strong>The risk for your body composition is under-eating, not over.</strong> Lean into adequacy — fat-dense foods (PB, avocado, walnuts, olive oil drizzle on savory) are the easy lever for a 100-lb athlete to hit the upper range without volume bloat.</div></div>
+    <div class="mc"><div class="mcn">110–120g</div><div class="mcl">Protein Daily</div><div class="mcnote">≈2.2–2.5 g/kg — deliberately at the upper end, since under-eating (not over) is the risk for you (Phillips &amp; van Loon 2019; ISSN 2017). <strong>The floor matters more than the ceiling: clear 100g every day before chasing 120.</strong> Per-meal dose by source: dairy/whey 25–30g (leucine-dense); tofu/lentil meals 35–40g to clear the ~2.5–3g leucine threshold (van Vliet &amp; Burd). Dairy carries the leucine load — pair it with any tofu/lentil meal. 4 doses across the day.</div></div>
+    <div class="mc"><div class="mcn">1700–2100</div><div class="mcl">Kcal Range</div><div class="mcnote">Floor 1700 on rest days; up to 2100 on lift + skill days. <strong>The risk for your body composition is under-eating, not over.</strong> Lean into adequacy — fat-dense foods (PB, avocado, walnuts, olive oil drizzle on savory) are the easy lever for a lighter athlete to hit the upper range without volume bloat.</div></div>
     <div class="mc"><div class="mcn">5g</div><div class="mcl">Creatine Daily</div><div class="mcnote">Vegetarians get an outsized response — baseline muscle creatine is lower without dietary meat (Dolan &amp; Saunders 2019). Your product: <strong>Thorne Creatine, orange-pineapple</strong>. Shake into water or chocolate Fairlife. <strong>+16–24 oz water/day</strong> beyond normal — creatine pulls water into muscle, not optional. Optional 20g × 5–7d loading phase for faster saturation; 5g daily reaches saturation in 3–4 wks either way.</div></div>
     <div class="mc"><div class="mcn">40g carbs</div><div class="mcl">Pre-Workout</div><div class="mcnote">Real carbs ~60 min before training. Go-to: <strong>2 rice cakes + 2 Tbsp nut butter</strong>, OR sourdough + sugar-free jam + chia. Not stevia-zone. <strong>LMNT or other electrolyte mix during the session</strong> — you sweat heavier than baseline and the sodium-loss compounds across a 5-day week. Don't train fasted.</div></div>
   </div>
@@ -2343,7 +2448,7 @@ footer{
     <div class="combo"><strong>1:00 PM · Meal 2</strong><br>Lentil-farro bowl OR Madras pouch + sourdough + airfryer tofu. 30–35g protein, vit-C pairing for iron.</div>
     <div class="combo"><strong>4:00–4:30 PM · Pre-WO</strong><br>Rice cakes + PB + collagen + vit C + kiwi/berries. 40g carbs (upper days) / 70g carbs (leg/skill days).</div>
     <div class="combo"><strong>5:00–6:30 PM · Train</strong><br>LMNT during session. Sip 16–20 oz water. Two LMNT on swim/hike days.</div>
-    <div class="combo"><strong>6:45 PM · Post-WO</strong><br>Fairlife 42g (+ 5g creatine when resumed). 24 oz water with it.</div>
+    <div class="combo"><strong>6:45 PM · Post-WO</strong><br>Fairlife 42g + 5g creatine. 24 oz water with it.</div>
     <div class="combo"><strong>8:30 PM · Dinner</strong><br>Coconut-curry tofu OR Thai peanut tofu + farro OR tofu-scramble tortilla. 28–35g protein, fat-dense for the kcal range.</div>
     <div class="combo"><strong>11:30 PM–12:00 AM · Pre-Sleep</strong><br>Skyr + chia + cinnamon (~20g casein) + Thorne magnesium bisglycinate. 30–60 min before bed per Res/Trommelen overnight MPS protocol.</div>
   </div>
@@ -2368,12 +2473,19 @@ footer{
     <div class="ref"><strong>Snyder-Mackler; Buckthorpe et al.; Risberg et al.</strong> — Persistent quadriceps (especially VMO) deficit on the involved side post-ACL, often years out without targeted asymmetric work. <em>Justifies the 25 left / 20 right banded TKE asymmetric warmup.</em></div>
     <div class="ref"><strong>Lavagnino, Jenkyn (Spanish squat / decline-board work)</strong> — Vertical-shin patellofemoral-friendly quad loading reduces patellar tendon strain vs. forward-knee squat. <em>Why Spanish squat is in the menu instead of more knees-forward variants.</em></div>
     <div class="ref"><strong>Ekstrand; Bahr &amp; Krosshaug; Mendiguchia</strong> — Sports injury epidemiology; eccentric overload for tendon resilience. <em>Background for the slow-eccentric emphasis throughout.</em></div>
+    <div class="ref"><strong>Maeo et al. (2021)</strong> — Hamstring hypertrophy is greater with the hip flexed (lengthened) in the leg curl; gastrocnemius grows with the knee straight (standing &gt; seated calf raise). <em>Why the leg curl targets length and the calf raise is done standing.</em></div>
+    <div class="ref"><strong>Knee-extensor PFP systematic review (2025); Witvrouw OKC-vs-CKC 5-yr RCT</strong> — Leg extension is not contraindicated in patellofemoral pain; capping ROM to the 90→45° arc keeps load off the highest-stress range. <em>Anchors the leg-extension reintroduction and the cap.</em></div>
+    <div class="ref"><strong>Rio et al. (2015)</strong> — Heavy isometric holds (5 × 45s) produce ~45 min of analgesia and cortical disinhibition. <em>Why Spanish-squat isometrics lead the knee day.</em></div>
+    <div class="ref"><strong>Halabi et al. (2025)</strong> — Hip + knee strengthening beats knee-only for patellofemoral pain (large pooled effect). <em>Why glute-med work is treated as knee medicine.</em></div>
+    <div class="ref"><strong>Contreras (2-1 method); Plotkin et al. (2023)</strong> — Extra unilateral volume on the weak side restores symmetry; hip thrust ≈ squat for glute-max hypertrophy. <em>Anchors the right-glute 2-1 dosing and the hip-thrust selection.</em></div>
+    <div class="ref"><strong>Resistance-training dose-response &amp; proximity-to-failure meta-analyses (2023–2024)</strong> — Volume drives hypertrophy with diminishing returns; failure isn't required (RIR 1–4); machines ≈ free weights for hypertrophy. <em>Anchors the return-to-training volume ramp and the machine integration.</em></div>
+    <div class="ref"><strong>Wilke (1999) intradiscal pressure; diurnal disc-hydration MRI work</strong> — Seated hamstring contraction at 90° hip flexion drives posterior pelvic tilt / lumbar flexion; morning intradiscal pressure runs far higher. <em>Why the leg curl is run prone, and why loaded flexion is kept out of the first hour awake.</em></div>
   </div>
 </div>
 
 <footer>
-  <span>BULLETPROOF SYSTEM · REVISED MAY 2026 · LEG-DAY SPLIT + STANFORD PT SYNC</span>
-  <span>BANDS + BODYWEIGHT · JOINT-SMART PROTOCOL · 5 TRAINING DAYS</span>
+  <span>BULLETPROOF SYSTEM · REVISED JUNE 2026 · MACHINE-INTEGRATED LEG DAYS + PT SYNC</span>
+  <span>BANDS · BODYWEIGHT · CLEARED MACHINES · JOINT-SMART PROTOCOL · 5 TRAINING DAYS</span>
   <button class="clear-btn" onclick="confirmClearAll()">Reset all checkmarks</button>
 </footer>
 
@@ -2544,6 +2656,10 @@ document.querySelectorAll('.rest-lbl').forEach(el => {
   });
 });
 
+// ── Day / section IDs (declared once — used by both the FAB and the nav observer) ──
+const dayIds = ['d1','d2','d3','d4','d5'];
+const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)'};
+
 // ── Day-jump FAB ──
 const dayJump = document.getElementById('dayJump');
 let _currentDay = null;
@@ -2596,8 +2712,6 @@ window.addEventListener('scroll', function() {
 }, {passive: true});
 
 // ── Active nav link on scroll ──
-const dayIds = ['d1','d2','d3','d4','d5'];
-const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)'};
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
