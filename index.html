@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080810">
+<meta name="theme-color" content="#060611">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Bulletproof · Training Program</title>
@@ -11,28 +11,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:   #080810;
-  --s1:   #0e0e1a;
-  --s2:   #141420;
-  --bdr:  #2a2a38;
-  --txt:  #f4f1e6;
-  --dim:  #c1bfcd;
-  --fade: rgba(244,241,230,0.82);
-  --fade2:rgba(244,241,230,0.66);
-  --r:    #ff7148;
-  --b:    #5fb4d2;
-  --g:    #94d99e;
-  --gld:  #e0bc62;
-  --p:    #c694e3;
+  --bg:   #060611;
+  --s1:   #0c0c1c;
+  --s2:   #14132e;
+  --bdr:  #2c2550;
+  --txt:  #eaf0ff;
+  --dim:  #9aa3c7;
+  --fade: rgba(234,240,255,0.82);
+  --fade2:rgba(234,240,255,0.64);
+  --r:    #ff2e88;
+  --b:    #1fe0ff;
+  --g:    #5dff9f;
+  --gld:  #ffd23a;
+  --p:    #b06bff;
   --pad:  18px;
   --rad:  4px;
+  --glow-r: 0 0 14px rgba(255,46,136,.55);
+  --glow-b: 0 0 14px rgba(31,224,255,.50);
 }
 
 /* ── RESET ── */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  background:var(--bg);
+  background:
+    radial-gradient(ellipse 72% 55% at 10% -6%, rgba(255,46,136,.13), transparent 60%),
+    radial-gradient(ellipse 64% 50% at 106% 10%, rgba(31,224,255,.11), transparent 56%),
+    radial-gradient(ellipse 92% 62% at 50% 119%, rgba(176,107,255,.13), transparent 62%),
+    var(--bg);
+  background-attachment:fixed;
   color:var(--txt);
   font-family:'Inter',sans-serif;
   font-weight:400;
@@ -40,7 +47,7 @@ body{
   font-size:15px;
 }
 @media(min-width:960px){
-  html{background:#04040c}
+  html{background:#04030e}
   body{
     max-width:960px;
     margin:0 auto;
@@ -87,7 +94,7 @@ nav a{
   font-weight:500;
 }
 nav a:hover{color:var(--txt)}
-nav a:active{background:rgba(244,241,230,.04)}
+nav a:active{background:rgba(234,240,255,.04)}
 nav a.active{border-bottom-width:3px;font-weight:700}
 
 /* ── SCROLL PROGRESS ── */
@@ -106,8 +113,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 
 /* ── SAFETY BAR ── */
 .safebar{
-  background:rgba(255,113,72,.06);
-  border-bottom:1px solid rgba(255,113,72,.20);
+  background:rgba(255,46,136,.06);
+  border-bottom:1px solid rgba(255,46,136,.20);
   padding:10px var(--pad);
   display:flex;
   flex-wrap:wrap;
@@ -126,8 +133,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .safebar span{
   font-size:12px;
   color:var(--fade);
-  background:rgba(255,113,72,.07);
-  border:1px solid rgba(255,113,72,.18);
+  background:rgba(255,46,136,.07);
+  border:1px solid rgba(255,46,136,.18);
   padding:5px 11px;
   border-radius:20px;
 }
@@ -142,8 +149,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .hero::before{
   content:'';
   position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 80% at 110% -10%,rgba(255,113,72,.13) 0%,transparent 60%),
-             radial-gradient(ellipse 50% 60% at -20% 130%,rgba(95,180,210,.08) 0%,transparent 60%);
+  background:radial-gradient(ellipse 80% 80% at 110% -10%,rgba(255,46,136,.13) 0%,transparent 60%),
+             radial-gradient(ellipse 50% 60% at -20% 130%,rgba(31,224,255,.08) 0%,transparent 60%);
   pointer-events:none;
 }
 .hero-eye{
@@ -155,7 +162,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   position:relative;
 }
 .hero h1{font-size:clamp(44px,11vw,96px);position:relative}
-.hero h1 em{color:var(--r);font-style:normal}
+.hero h1 em{color:var(--r);font-style:normal;text-shadow:0 0 24px rgba(255,46,136,.55),0 0 50px rgba(255,46,136,.22)}
 .hero p{
   margin-top:14px;
   font-size:13.5px;
@@ -175,10 +182,10 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   border:1px solid var(--bdr);
   color:var(--dim);
 }
-.pill.r{border-color:rgba(255,113,72,.40);color:var(--r)}
-.pill.b{border-color:rgba(95,180,210,.40);color:var(--b)}
-.pill.g{border-color:rgba(148,217,158,.40);color:var(--g)}
-.pill.gld{border-color:rgba(224,188,98,.40);color:var(--gld)}
+.pill.r{border-color:rgba(255,46,136,.40);color:var(--r)}
+.pill.b{border-color:rgba(31,224,255,.40);color:var(--b)}
+.pill.g{border-color:rgba(93,255,159,.40);color:var(--g)}
+.pill.gld{border-color:rgba(255,210,58,.40);color:var(--gld)}
 
 /* ── CHECK STATUS BAR ── */
 .check-status{
@@ -215,8 +222,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   -webkit-tap-highlight-color:transparent;
 }
 .wc:last-child{border-right:none}
-.wc:active{background:rgba(244,241,230,.05)}
-.wc.today{background:rgba(255,113,72,.10)}
+.wc:active{background:rgba(234,240,255,.05)}
+.wc.today{background:rgba(255,46,136,.10)}
 .wc.today::before{
   content:'';
   position:absolute;top:0;left:0;right:0;
@@ -255,7 +262,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   margin-top:12px;
 }
 .leg-item{display:flex;align-items:flex-start;gap:9px}
-.leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:3px;border:2px solid rgba(244,241,230,.18)}
+.leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:3px;border:2px solid rgba(234,240,255,.18)}
 .leg-name{font-family:'Inter',sans-serif;font-size:9.5px;color:var(--fade);margin-bottom:2px;font-weight:500}
 .leg-desc{font-size:12.5px;color:var(--dim);line-height:1.5}
 
@@ -273,11 +280,11 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   position:absolute;top:0;left:0;right:0;
   height:3px;
 }
-#d1 .day-hdr::before{background:var(--r)}
-#d2 .day-hdr::before{background:var(--b)}
-#d3 .day-hdr::before{background:var(--gld)}
-#d4 .day-hdr::before{background:var(--p)}
-#d5 .day-hdr::before{background:var(--g)}
+#d1 .day-hdr::before{background:var(--r);box-shadow:0 0 13px var(--r)}
+#d2 .day-hdr::before{background:var(--b);box-shadow:0 0 13px var(--b)}
+#d3 .day-hdr::before{background:var(--gld);box-shadow:0 0 13px var(--gld)}
+#d4 .day-hdr::before{background:var(--p);box-shadow:0 0 13px var(--p)}
+#d5 .day-hdr::before{background:var(--g);box-shadow:0 0 13px var(--g)}
 .day-num{
   font-family:'Playfair Display',serif;
   font-weight:800;
@@ -348,7 +355,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   font-weight:500;
 }
 .cars-note{
-  background:rgba(224,188,98,.07);
+  background:rgba(255,210,58,.07);
   border-left:2px solid var(--gld);
   padding:9px 13px;
   margin:4px 0 8px;
@@ -372,7 +379,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 }
 .excard:last-child{border-bottom:none}
 .excard.done{opacity:.45}
-.excard.done .exname{text-decoration:line-through;text-decoration-color:rgba(148,217,158,.55)}
+.excard.done .exname{text-decoration:line-through;text-decoration-color:rgba(93,255,159,.55)}
 
 .extop{
   display:flex;
@@ -423,30 +430,30 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   display:flex;align-items:center;justify-content:center;
 }
 .chk:hover{border-color:var(--g);color:var(--g)}
-.chk:active{transform:scale(.92);background:rgba(148,217,158,.10)}
-.excard.done .chk{border-color:var(--g);background:rgba(148,217,158,.18);color:var(--g)}
+.chk:active{transform:scale(.92);background:rgba(93,255,159,.10)}
+.excard.done .chk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g);box-shadow:0 0 14px rgba(93,255,159,.45)}
 
 /* band badge */
 .band-badge{
   display:inline-flex;
   align-items:flex-start;
   gap:7px;
-  background:rgba(95,180,210,.08);
-  border:1px solid rgba(95,180,210,.22);
+  background:rgba(31,224,255,.08);
+  border:1px solid rgba(31,224,255,.22);
   border-radius:var(--rad);
   padding:6px 10px;
   margin-bottom:10px;
 }
-.band-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1.5px solid rgba(244,241,230,.20)}
-.band-txt{font-family:'Inter',sans-serif;font-size:14px;color:#a5d0e1;line-height:1.55;font-weight:500}
+.band-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1.5px solid rgba(234,240,255,.20)}
+.band-txt{font-family:'Inter',sans-serif;font-size:14px;color:#9fe8ff;line-height:1.55;font-weight:500}
 
 /* start-left badge */
 .start-l{
   display:inline-flex;
   align-items:center;
   gap:6px;
-  background:rgba(95,180,210,.08);
-  border:1px solid rgba(95,180,210,.22);
+  background:rgba(31,224,255,.08);
+  border:1px solid rgba(31,224,255,.22);
   border-radius:var(--rad);
   padding:4px 10px;
   margin-bottom:8px;
@@ -461,8 +468,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 /* caveat box (risk-flagged exercises) */
 .caveat{
   margin:8px 0;
-  background:rgba(224,188,98,.08);
-  border:1px solid rgba(224,188,98,.30);
+  background:rgba(255,210,58,.08);
+  border:1px solid rgba(255,210,58,.30);
   border-left:3px solid var(--gld);
   padding:10px 13px;
   border-radius:0 var(--rad) var(--rad) 0;
@@ -480,10 +487,10 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .setup{font-size:16px;color:var(--txt);line-height:1.65;margin-bottom:14px}
 .clbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:6px;font-weight:600}
 .cue{
-  font-size:16px;color:#ffb59d;
+  font-size:16px;color:#ffb3da;
   padding:12px 14px;
   border-left:3px solid var(--r);
-  background:rgba(255,113,72,.10);
+  background:rgba(255,46,136,.10);
   line-height:1.6;
   border-radius:0 var(--rad) var(--rad) 0;
   font-weight:500;
@@ -494,7 +501,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   display:flex;align-items:center;gap:10px;
   margin-top:12px;
   background:none;
-  border:1px solid rgba(148,217,158,.25);
+  border:1px solid rgba(93,255,159,.25);
   color:var(--g);
   font-family:'Inter',sans-serif;font-size:11px;
   letter-spacing:.12em;text-transform:uppercase;
@@ -506,8 +513,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   min-height:48px;
   font-weight:600;
 }
-.acc-btn:hover{background:rgba(148,217,158,.08)}
-.acc-btn:active{background:rgba(148,217,158,.16)}
+.acc-btn:hover{background:rgba(93,255,159,.08)}
+.acc-btn:active{background:rgba(93,255,159,.16)}
 .acc-btn .arr{transition:transform .25s;font-style:normal;font-size:14px}
 .acc-btn.open .arr{transform:rotate(180deg)}
 .prog-wrap{
@@ -518,8 +525,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 }
 .prog-wrap.open{max-height:1100px;opacity:1}
 .prog-block{
-  background:rgba(148,217,158,.05);
-  border:1px solid rgba(148,217,158,.16);
+  background:rgba(93,255,159,.05);
+  border:1px solid rgba(93,255,159,.16);
   border-radius:var(--rad);
   padding:11px 13px;
   margin-top:8px;
@@ -558,7 +565,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .srow:last-child{border-bottom:none}
 .srow span{font-family:'Inter',sans-serif;font-size:10px;color:var(--p);white-space:nowrap}
 .srule{font-size:13.5px;color:var(--fade);line-height:1.75}
-.sno{background:rgba(255,113,72,.07);border:1px solid rgba(255,113,72,.20);padding:10px 13px;margin-top:11px;border-radius:var(--rad)}
+.sno{background:rgba(255,46,136,.07);border:1px solid rgba(255,46,136,.20);padding:10px 13px;margin-top:11px;border-radius:var(--rad)}
 .sno-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--r);margin-bottom:5px;font-weight:600}
 .sno p{font-size:12px;color:var(--fade);line-height:1.6}
 
@@ -580,7 +587,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .daily-note{font-size:12.5px;color:var(--fade);line-height:1.6}
 
 /* ── DEFER LIST ── */
-.deferwrap{padding:22px var(--pad);border-bottom:1px solid var(--bdr);background:rgba(255,113,72,.04)}
+.deferwrap{padding:22px var(--pad);border-bottom:1px solid var(--bdr);background:rgba(255,46,136,.04)}
 .defer-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--r);font-weight:600;margin-bottom:10px}
 .defer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px}
 .defer-item{font-size:12.5px;color:var(--fade);line-height:1.6;padding:8px 12px;background:var(--s1);border-left:2px solid var(--r);border-radius:0 var(--rad) var(--rad) 0}
@@ -607,8 +614,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .princ .src{display:block;font-family:'Inter',sans-serif;font-size:10px;color:var(--dim);margin-top:6px;letter-spacing:.04em;font-style:italic}
 
 /* ── EVIDENCE — collapsible (mirrors progression accordion) ── */
-.acc-btn.evi-btn{border-color:rgba(95,180,210,.30);color:var(--b);margin-left:6px}
-.acc-btn.evi-btn:hover{background:rgba(95,180,210,.08)}
+.acc-btn.evi-btn{border-color:rgba(31,224,255,.30);color:var(--b);margin-left:6px}
+.acc-btn.evi-btn:hover{background:rgba(31,224,255,.08)}
 .evi-wrap{
   overflow:hidden;
   max-height:0;
@@ -618,8 +625,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .evi-wrap.open{max-height:1400px;opacity:1}
 .evi{
   margin-top:8px;
-  background:rgba(95,180,210,.05);
-  border:1px solid rgba(95,180,210,.18);
+  background:rgba(31,224,255,.05);
+  border:1px solid rgba(31,224,255,.18);
   border-left:3px solid var(--b);
   border-radius:0 var(--rad) var(--rad) 0;
   padding:10px 13px;
@@ -640,7 +647,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .refs-disclaim{margin-top:14px;font-size:11.5px;color:var(--dim);line-height:1.7;font-style:italic;max-width:600px}
 
 /* ── POLISH: hover, today pulse, focus ── */
-.excard:hover{background:rgba(244,241,230,.012)}
+.excard:hover{background:rgba(234,240,255,.012)}
 .wc.today::before{animation:todaypulse 2.4s ease-in-out infinite}
 @keyframes todaypulse{0%,100%{opacity:1}50%{opacity:.55}}
 .chk:focus-visible{outline:2px solid var(--g);outline-offset:2px}
@@ -676,13 +683,13 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   margin:12px var(--pad) 0;
   padding:13px 15px;
   border-left:3px solid var(--b);
-  background:rgba(95,180,210,.07);
+  background:rgba(31,224,255,.07);
   border-radius:0 var(--rad) var(--rad) 0;
 }
 .callout-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--b);margin-bottom:6px;font-weight:600}
 .callout p{font-size:13.5px;color:var(--fade);line-height:1.72}
 .callout strong{color:var(--b);font-weight:500}
-.callout.warn{border-color:var(--r);background:rgba(255,113,72,.06)}
+.callout.warn{border-color:var(--r);background:rgba(255,46,136,.06)}
 .callout.warn .callout-t{color:var(--r)}
 .callout.warn strong{color:var(--r)}
 
@@ -691,9 +698,9 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 
 /* ── REST TIMER ── */
 .rest-lbl{
-  background:rgba(95,180,210,.08);
-  border:1px solid rgba(95,180,210,.22);
-  color:#a5d0e1;
+  background:rgba(31,224,255,.08);
+  border:1px solid rgba(31,224,255,.22);
+  color:#9fe8ff;
   font-weight:600;
   padding:6px 10px;
   border-radius:4px;
@@ -707,8 +714,8 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   user-select:none;
 }
 .rest-lbl:active{transform:scale(.96)}
-.rest-lbl.running{background:rgba(255,113,72,.16);border-color:var(--r);color:#ffb59d}
-.rest-lbl.done{background:rgba(148,217,158,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
+.rest-lbl.running{background:rgba(255,46,136,.16);border-color:var(--r);color:#ffb3da}
+.rest-lbl.done{background:rgba(93,255,159,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
 @keyframes restdone{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 
 /* ── DAY-JUMP FAB ── */
@@ -745,9 +752,9 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   text-align:center;
   font-family:'Inter',sans-serif;
   font-size:13px;letter-spacing:.06em;color:var(--g);
-  background:rgba(148,217,158,.08);
-  border-top:1px solid rgba(148,217,158,.22);
-  border-bottom:1px solid rgba(148,217,158,.22);
+  background:rgba(93,255,159,.08);
+  border-top:1px solid rgba(93,255,159,.22);
+  border-bottom:1px solid rgba(93,255,159,.22);
 }
 .day-complete.shown{display:block}
 
@@ -757,15 +764,15 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   align-self:flex-start;
   min-height:48px;padding:12px 20px;
   background:transparent;
-  border:1px solid rgba(255,113,72,.3);
-  color:rgba(255,113,72,.75);
+  border:1px solid rgba(255,46,136,.3);
+  color:rgba(255,46,136,.75);
   font-family:'Inter',sans-serif;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;
   border-radius:var(--rad);
   cursor:pointer;
   font-weight:600;
 }
-.clear-btn:active{background:rgba(255,113,72,.10)}
+.clear-btn:active{background:rgba(255,46,136,.10)}
 
 footer{
   padding:18px var(--pad);
@@ -778,10 +785,10 @@ footer{
 /* ── PRINT ── */
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  body{background:#080810!important;color:#f4f1e6!important;max-width:none!important;border:none!important;box-shadow:none!important}
+  body{background:#060611!important;color:#eaf0ff!important;max-width:none!important;border:none!important;box-shadow:none!important}
   nav,.scroll-prog,.chk,.check-status{display:none!important}
 }
-@page{background:#080810;margin:0}
+@page{background:#060611;margin:0}
 </style>
 </head>
 <body>
@@ -793,9 +800,10 @@ footer{
   <a href="#d1" style="color:var(--r)" id="n-d1">D1 · Pull</a>
   <a href="#d2" style="color:var(--b)" id="n-d2">D2 · Push</a>
   <a href="#d3" style="color:var(--gld)" id="n-d3">D3 · Legs A</a>
-  <a href="#d4" style="color:var(--p)" id="n-d4">D4 · Swim / Legs B</a>
+  <a href="#d4" style="color:var(--p)" id="n-d4">D4 · Legs B</a>
   <a href="#d5" style="color:var(--g)" id="n-d5">D5 · Skill</a>
   <a href="#daily">Daily</a>
+  <a href="#variety" style="color:var(--g)">Variety</a>
   <a href="#safety" style="color:var(--b)">Framework</a>
   <a href="#meso" style="color:var(--p)">Mesocycle</a>
   <a href="#rules">Rules</a>
@@ -841,10 +849,10 @@ footer{
 <div class="week">
   <a class="wc" id="wc-1" href="#d1"><div class="wd">Mon</div><div class="wt" style="color:var(--r)">Pull &amp;<br>Posterior</div></a>
   <a class="wc" id="wc-2" href="#d2"><div class="wd">Tue</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></a>
-  <a class="wc" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Legs A —<br>Essentials</div></a>
-  <a class="wc" id="wc-4" href="#d4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Swim<br>or Legs B</div></a>
+  <a class="wc" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Legs A —<br>Quad/Knee</div></a>
+  <a class="wc" id="wc-4" href="#d4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Legs B —<br>Posterior</div></a>
   <a class="wc" id="wc-5" href="#d5"><div class="wd">Fri</div><div class="wt" style="color:var(--g)">Skill &amp;<br>Handstand</div></a>
-  <div class="wc" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Hike 🥾</div></div>
+  <div class="wc" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Cardio<br>+ skill</div></div>
   <div class="wc" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
 
@@ -852,11 +860,11 @@ footer{
 <div class="legend" id="bands">
   <div class="t-mono" style="color:var(--dim)">// Band Color Guide — Reference Every Session · red and orange are often the same resistance in different brands</div>
   <div class="leg-grid">
-    <div class="leg-item"><div class="leg-dot" style="background:#f5d040"></div><div><div class="leg-name">Yellow — Light</div><div class="leg-desc">Face pulls, pull-aparts, lateral raises, monster walk (start)</div></div></div>
-    <div class="leg-item"><div class="leg-dot" style="background:#ff7148"></div><div><div class="leg-name">Red / Orange — Medium</div><div class="leg-desc">Pull-up assist, rows, Pallof press, lateral raise (progress). Red and orange vary by brand — same resistance tier.</div></div></div>
-    <div class="leg-item"><div class="leg-dot" style="background:#5fb4d2"></div><div><div class="leg-name">Blue — Heavy</div><div class="leg-desc">Pull-up assist (early stage), Nordic assist (progress)</div></div></div>
-    <div class="leg-item"><div class="leg-dot" style="background:#222238;border-color:rgba(244,241,230,.32)"></div><div><div class="leg-name">Black — Extra Heavy</div><div class="leg-desc">Nordic assist (start here)</div></div></div>
-    <div class="leg-item"><div class="leg-dot" style="background:#f5d040;border:2px dashed rgba(244,241,230,.4)"></div><div><div class="leg-name">Double-Loop</div><div class="leg-desc">Fold band once when exercise calls for 2× resistance</div></div></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ffd23a"></div><div><div class="leg-name">Yellow — Light</div><div class="leg-desc">Face pulls, pull-aparts, lateral raises, monster walk (start)</div></div></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ff2e88"></div><div><div class="leg-name">Red / Orange — Medium</div><div class="leg-desc">Pull-up assist, rows, Pallof press, lateral raise (progress). Red and orange vary by brand — same resistance tier.</div></div></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Blue — Heavy</div><div class="leg-desc">Pull-up assist (early stage), Nordic assist (progress)</div></div></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Black — Extra Heavy</div><div class="leg-desc">Nordic assist (start here)</div></div></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ffd23a;border:2px dashed rgba(234,240,255,.4)"></div><div><div class="leg-name">Double-Loop</div><div class="leg-desc">Fold band once when exercise calls for 2× resistance</div></div></div>
     <div class="leg-item"><div class="leg-dot" style="background:var(--p)"></div><div><div class="leg-name">Anchor Height</div><div class="leg-desc">Floor / waist / chest / eye-height — specified per exercise</div></div></div>
   </div>
 </div>
@@ -894,9 +902,9 @@ footer{
     </div>
     <div class="princ p">
       <div class="princ-h">05 · Asymmetry &amp; Targeting</div>
-      <div class="princ-t">The weak side earns extra volume — right glute, left VMO, distal foot</div>
-      <p>The right glute (post-surgical atrophy) gets the 2-1 method: two unilateral sets right for every one left, until symmetry returns. Left-ACL VMO atrophy persists for years without targeted work — asymmetric warmup (25 left / 20 right TKE) plus pain-free leg extension addresses it. Distal lower-leg work targets the nerve-recovery atrophy pattern. And hip/glute-med strength <em>is</em> knee medicine — it beats knee-only work for patellofemoral pain.</p>
-      <span class="src">Contreras 2-1 method; Snyder-Mackler; Buckthorpe et al.; Halabi et al. (2025) hip+knee for PFP</span>
+      <div class="princ-t">Point the extra volume where the deficit actually is now — the right side</div>
+      <p>The right glute (post-surgical atrophy) gets the 2-1 method: two unilateral sets right for every one left, until symmetry returns. <strong>Both</strong> knees get pain-free quad loading (leg extension 90→45°, Spanish-squat isometrics) and glute-med work — which <em>is</em> knee medicine, beating knee-only work for patellofemoral pain. The old left-ACL bias is retired: that was a minor sprain years ago at a very different bodyweight, so TKE is even on both sides now and the asymmetry engine points right, where the live deficit is.</p>
+      <span class="src">Contreras 2-1 method; Halabi et al. (2025) hip+knee for PFP; Rio (2015) isometric analgesia</span>
     </div>
   </div>
 </div>
@@ -912,26 +920,21 @@ footer{
   </div>
 </div>
 
-<div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~50 min</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 11 · Work ~35 · Finisher 3</p>
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~42 min</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~35 · core covered daily (no separate finisher)</p>
   <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) hamstring slider — Wed legs covers ham · (2) active dead hang — Daily decompression hang covers it · (3) prone Y — keep if you can, lower trap is undertrained · (4) face pull — keep (non-negotiable for hypermobile shoulders) · (5) pulldown — your lat-width gap, prioritize · core kept: banded pull-up, low-lat row.</p>
 </div>
 
 <div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 11 min</div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span>Spin bike — easy pace, zero resistance. Elevate heart rate and warm the joints before upper body work.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Shoulder CARs — full slow circles each arm independently. Pause 2s at every end position.</span></div>
-  <div class="cars-note">
-    <div class="cars-note-t">What are CARs?</div>
-    <p>Controlled Articular Rotations — slow, deliberate circles that take each joint through its full active range under muscular control. For shoulders: stand tall, one arm at a time, rotate the entire arm in the largest circle possible while keeping the rest of your body completely still. Move as slowly as you can. Pause 2 seconds at the positions that feel sticky or weak. The goal is active control at end range — not passive swinging.</p>
-  </div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Scapular shrugs on bar — dead hang only, elevate and depress. No pulling yet.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Band pull-aparts × 20 — yellow band, chest height, external rotation throughout.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Cat-cow × 10 on all fours — neutral to slight arch only. Zero deep spinal flexion.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Wrist circles × 10 each direction + finger splays × 10.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Active hang — scaps packed and depressed. Not passive. Feel the difference.</span></div>
-  <div class="wu-item"><span class="wu-t">1.5 min</span><span><strong>Side plank — endurance test</strong> 2 × 20s each side. Test L vs R every Monday. Log it. Lateral-chain endurance (QL + oblique sling) is your flagged gap — only way to fix it is direct dose.</span></div>
+  <div class="wu-lbl">⚡ Warmup — 6 min · pull-primed</div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — jump rope, fast march, or easy spin. Just get warm.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — forearms on wall, slide up/down. Serratus + lower-trap, the scap pattern hypermobile shoulders need before pulling.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Band pull-aparts × 15 — chest height, 2s squeeze. Posterior cuff + mid-trap.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Shoulder CARs × 3 each arm — slow, pause at the sticky spots. Active control at end range, never passive.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span><strong>Active hang</strong> 3 × 5s — scaps packed and depressed. The proprioceptive priming a passive hang skips.</span></div>
+  <div class="wu-item"><span class="wu-t">90s</span><span><strong>Side plank — endurance test</strong> 2 × 20s each side. Log L vs R most Mondays — lateral-chain endurance is your flagged gap.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>Then just ramp the first pull: 1 set easy, 1 set ~70% — that's your potentiation, no separate block.</span></div>
 </div>
 
 <div class="callout">
@@ -947,7 +950,7 @@ footer{
   <div class="exmeta"><div class="sets">4 × 5–6</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">up · hold · down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — loop over bar center, foot or knee in loop</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — loop over bar center, foot or knee in loop</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Loop red band over bar center. <strong>Right foot</strong> in loop — forces left side to stabilize independently. Grip just outside shoulder width. Dead hang start, scaps packed. Pull chin past bar. 4-count lower. No kip.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -994,7 +997,7 @@ footer{
   <div class="exmeta"><div class="sets">4 × 12 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 4</div><div class="tkey">pull · hold · lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — anchor at FLOOR level, looped through rack base</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — anchor at FLOOR level, looped through rack base</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Half-kneeling, working-side knee up. Band at floor. Free hand rests on front knee — no pushing. Row <strong>elbow to back pocket</strong> (not straight back). Hold 2. 4-count lower.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1014,13 +1017,13 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Single-Arm Banded Pulldown — Kneeling</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(229,86,86,.10);border:1px solid rgba(229,86,86,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Added May 2026 · Lat width focus</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Added May 2026 · Lat width focus</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">4 × 15 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">pull · squeeze · stretch</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — anchored at the TOP of the Swedish ladder (highest secure rung). Single end in working hand. Other hand light on hip for stability.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — anchored at the TOP of the Swedish ladder (highest secure rung). Single end in working hand. Other hand light on hip for stability.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Half-kneeling under anchor, <strong>working-side knee down</strong> (cross-pattern). Arm fully overhead, band stretched. Pull elbow straight down past the rib line — that's where the lat fires hardest. 1-count squeeze. 4-count return to full overhead stretch.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1048,12 +1051,12 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Face Pull — Rope, Eye Height</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable ~15 lb (PT-cleared) · band = home option</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable ~15 lb (PT-cleared) · band = home option</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 15</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: rope on a high-ish pulley at eye level, ~15 lb. <strong>Home/away:</strong> yellow band looped through a rung at eye level, one end in each hand, palms facing.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope on a high-ish pulley at eye level, ~15 lb. <strong>Home/away:</strong> yellow band looped through a rung at eye level, one end in each hand, palms facing.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Rope (or band) at eye level, step back to full tension. Pull to <strong>forehead</strong> (not nose), elbows high and wide. At peak: rotate thumbs behind ears. Elbows stay above shoulder line. The cable's smoother constant tension makes the external-rotation pattern easier to groove than the band.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1102,7 +1105,7 @@ footer{
 </div>
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Core Finisher</div><p><strong>Dead Bug</strong> × 3 × 8 each side — exhale fully before every rep. Lower back pressed flat to floor the entire time. Slow contralateral extension. Stop any rep immediately if back lifts.</p></div>
+<div class="fin"><div class="fin-lbl">Core</div><p>No separate finisher — your <strong>daily bird-dog</strong> + Monday's <strong>side-plank test</strong> already cover anti-rotation and lateral-chain. Save the time.</p></div>
 <div class="day-complete" data-day="d1"></div>
 </div><!-- /d1 -->
 
@@ -1118,20 +1121,20 @@ footer{
   </div>
 </div>
 
-<div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~40 min</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 10 · Work ~25 · Finisher 3</p>
-  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) Pallof — core/anti-rotation, not push-specific · (2) OH tricep — partial overlap with pike push-up · (3) serratus punch — keep if you can, handstand-relevant · (4) lateral raise — keep, delt width is your goal · core kept: pike push-up.</p>
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~35 min</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~26 · Pallof is your core (no extra finisher)</p>
+  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) OH tricep — overlaps the pike push-up · (2) serratus punch — keep if you can, handstand-relevant · (3) lateral raise — keep, delt width is your goal · core kept: pike push-up + Pallof.</p>
 </div>
 
 <div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 10 min</div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span>Spin bike — easy pace. Loosens shoulders and elevates heart rate before pressing work.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Arm circles — forward then back, progressively larger range.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Band pull-aparts × 20 at three heights — yellow band: overhead, chest, waist.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Wall slides — back flat against wall, arms slide up then down × 12 slow reps.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Wrist prep — weight shifts on all fours, circles, fist to full spread × 10 each.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Scapular push-ups × 15 + half-kneeling thoracic rotation × 8 each side.</span></div>
+  <div class="wu-lbl">⚡ Warmup — 6 min · push-primed</div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — arm circles + thoracic cat-cow × 8. Warms the T-spine so the low back doesn't arch to reach overhead.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Scapular push-up + "plus" × 12 — add a protraction reach at the top. Top-tier serratus, low upper-trap.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Band pull-aparts × 12, palms up — external rotators, balances the press.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — ribs down, no lumbar arch.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Wrist prep — all-fours weight shifts + circles + fist-to-spread × 10. Non-negotiable before pressing/inversion.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>Then ramp the first press: 1 set easy, 1 set ~70%. No separate block.</span></div>
 </div>
 
 <div class="exlist">
@@ -1162,12 +1165,12 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Banded Serratus Punch — Standing</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Replaced pseudo-planche · serratus stimulus without anterior-capsule load</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Replaced pseudo-planche · serratus stimulus without anterior-capsule load</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 15 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">punch · pause · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — anchored to a rung behind you at chest height. One end in working hand.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Yellow band — anchored to a rung behind you at chest height. One end in working hand.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Stand facing away from anchor. Band end in working hand at shoulder height, elbow tucked, palm in. <strong>Punch the hand straight forward</strong> at shoulder height — arm extends, scapula slides forward AROUND the rib cage (protraction). Reach an inch past full extension — that final inch is the serratus contraction. 1-count pause. Slow 3-count return, scap travels BACK along the rib cage. Opposite hand on the same-side rib to feel the scap glide.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1195,13 +1198,13 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Single-Arm Lateral Raise</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable (light) · band = home option</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable (light) · band = home option</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · HOLD · lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: low pulley, single handle, stand side-on so the cable crosses your body — working arm furthest from the stack, lightest useful pin. <strong>Home/away:</strong> yellow band under the same-side foot, other end in the working hand.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: low pulley, single handle, stand side-on so the cable crosses your body — working arm furthest from the stack, lightest useful pin. <strong>Home/away:</strong> yellow band under the same-side foot, other end in the working hand.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Cable from the low pulley (or band under foot). Arm slightly across the front. <strong>Lead with the elbow</strong>, not the wrist. Raise to <strong>shoulder height — no higher</strong>, hold 2, 3-count lower. Hypermobile shoulder: controlled the whole way, no swing, no shrugging into the trap.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1221,12 +1224,12 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Overhead Tricep Extension — Rope</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable rope · band = home option</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable rope · band = home option</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#5fb4d2"></div><span class="band-txt">Cable: rope on the low pulley, face away, both ends overhead. <strong>Home/away:</strong> yellow band anchored at the floor behind you, face away.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope on the low pulley, face away, both ends overhead. <strong>Home/away:</strong> yellow band anchored at the floor behind you, face away.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Rope (or band) from low behind, face away. Both hands overhead, palms forward. <strong>Elbows point forward</strong> — no flare. Extend to 10° short of lockout (never snap the elbow straight). 3-count return. Ribs locked down — no lumbar arch as you reach overhead.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1248,7 +1251,7 @@ footer{
   <div class="exmeta"><div class="sets">3 × 10 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 3 · 2</div><div class="tkey">press · HOLD · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — loop through a horizontal rung at chest height. Hold BOTH ends together in both hands, palms facing each other, hands stacked. Band comes from your side — you're kneeling perpendicular to the ladder.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — loop through a horizontal rung at chest height. Hold BOTH ends together in both hands, palms facing each other, hands stacked. Band comes from your side — you're kneeling perpendicular to the ladder.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Band chest-height to your side. Half-kneeling, inside knee down. Press straight out, <strong>hold 3</strong>, return. Resist any torso rotation toward the anchor.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1266,7 +1269,7 @@ footer{
 
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Core Finisher</div><p><strong>Dead Bug</strong> × 3 × 8 each side — exhale fully before every rep. Lower back pressed flat to floor the entire time. Slow contralateral extension. Stop any rep immediately if back lifts.</p></div>
+<div class="fin"><div class="fin-lbl">Core</div><p>Core's handled in-session by the <strong>Pallof press</strong> — no extra finisher. Go home.</p></div>
 <div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
@@ -1282,13 +1285,13 @@ footer{
   </div>
 </div>
 
-<div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~50 min</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 12 · Work ~32 · Finisher 6</p>
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~44 min</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~32 · Finisher 4 (McGill Big 2)</p>
   <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) McGill finisher — Daily Low-Load covers bird-dog + side plank; this Wed pyramid is the higher-quality bout but skippable · (2) abductor machine — glute med also gets the Daily clamshell + Thu side-lying abduction · (3) drop a set from Bulgarian (3×8 → 2×8) before cutting it · core kept: hinge first (fresh pattern), Nordic second (fresh eccentric quality), then hip thrust (right-biased), then BSS.</p>
 </div>
 
-<div class="callout" style="border-color:rgba(95,180,210,.28);background:rgba(95,180,210,.06)">
+<div class="callout" style="border-color:rgba(31,224,255,.28);background:rgba(31,224,255,.06)">
   <div class="callout-t" style="color:var(--b)">// PT Sync — June 2026 · What Changed &amp; Why</div>
   <p><strong>Machines are now in the picture.</strong> The latest clinic block cleared graded machine loading for the lower body — and for a post-revision spine, that's an upgrade, not a compromise: controlled ROM, no balance tax, load that climbs in clean increments at low spinal cost (machine vs free-weight hypertrophy is a statistical tie, so choose by joint cost). Machines carry the loadable leg work; bands + bodyweight stay for the home/away version and the pattern work.</p>
   <p style="margin-top:6px"><strong>Cleared this block:</strong> hip-abductor machine 50 lb · adductor 35–40 lb · seated leg extension 30 lb (capped 90→45°) · leg curl 25 lb (run <em>lying/prone</em>, see below) · standing calf raise 15 lb · Bulgarian split squat 7.5 lb/hand · glute bridge 15 lb. The hand-held hinge holds at ~5 lb — the disc, not the muscle, sets that pace.</p>
@@ -1301,15 +1304,14 @@ footer{
 </div>
 
 <div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 12 min (trimmed)</div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span>Spin bike — easy pace. Warms lower body and lubricates hips and knees before leg work.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>McGill Big 3 activation — curl-up × 5, side plank × 20s each, bird dog × 5 each. Fires the core before any leg loading.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Banded clamshells × 20 each side at <strong>30° hip flexion</strong> (knees forward of hip line) — yellow band above knees. Favorable glute-med-to-TFL ratio at this angle (Distefano et al. 2009; Selkowitz et al.).</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Bodyweight glute bridge × 15 — full hip extension, zero lumbar hyperextension at top.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Hip 90/90 — internal and external rotation both sides. Slow, controlled. No forcing end range.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Single-leg balance — 30s each leg <strong>eyes open</strong>. Earn the eyes-closed version: only add 10–15s eyes-closed once 30s eyes-open is rock-solid 3 sessions running. ACL + post-revision proprioception is slower than it feels.</span></div>
-  <div class="wu-item"><span class="wu-t">~30s</span><span>Sciatic nerve glide × 10 each leg — supine, extend leg straight, flex foot (toes toward shin) for 3s. PT-prescribed.</span></div>
-  <div style="margin-top:8px;font-size:11.5px;color:var(--dim);font-style:italic">Moved to Day B warmup (saves time when not done): banded TKE asymmetric, ankle circles + toe spreading.</div>
+  <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed</div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or fast walk. Warm the hips and knees.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span><strong>Lateral band walk</strong> 2 × 12 each way — band at ankles, soft athletic stance. Gets glute-med online before any knee-dominant load — your patellofemoral insurance.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Bodyweight glute bridge × 12 — full hip extension, ribs down, zero lumbar hyperextension.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span><strong>Knee primer</strong> — shallow pain-free mini-squat pulses × 15, <strong>both knees soft</strong> tracking over toes. Wakes patellar tracking gently before load.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog × 5 each — reach long, hips level, zero rotation. Spine-neutral pattern before hinging.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Single-leg balance 30s each (eyes open) — ankle + foot proprioception.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>Then ramp the first lift with 1–2 lighter sets. Sciatic nerve glide ×10/leg only if anything feels tight.</span></div>
 </div>
 
 <div class="exlist">
@@ -1318,7 +1320,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Hip Hinge — Light Hand-Held Plates</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · May 2026 · replaces band pull-through</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · May 2026 · replaces band pull-through</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 10</div><div class="rest-lbl">75s rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">hinge · stand · drive</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1398,13 +1400,13 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Bulgarian Split Squat — 15 lb (7.5 lb each hand)</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · June 2026 · 7.5 lb/hand cleared in clinic, no pain</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · June 2026 · 7.5 lb/hand cleared in clinic, no pain</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 8 each</div><div class="rest-lbl">90s rest</div><div class="tempo">3 · 2 · 2</div><div class="tkey">down · HOLD · up</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band optional — looped above knees to cue knees-out, especially on LEFT side</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band optional — looped above knees to cue knees-out, especially on LEFT side</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">7.5 lb each hand, suitcase grip. Rear foot on bench, long front step — <strong>front shin vertical</strong> at bottom. Torso upright. Descend to parallel or neutral pelvis (whichever first) — <strong>don't chase depth if the right knee complains</strong>. Hold 2. Drive through <strong>front heel</strong>. <strong>Shoulders level</strong> both sides — suitcase load demands anti-lateral-flexion.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1434,13 +1436,13 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Single-Leg Hip Thrust — 10 lb</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ June 2026 · 2-1 method — extra volume on the right to close the post-surgical gap</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ June 2026 · 2-1 method — extra volume on the right to close the post-surgical gap</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">R 3×8 · L 2×8</div><div class="rest-lbl">75s rest</div><div class="tempo">2 · 3 · 2</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band looped above the knees. <strong>10 lb plate (or 2× 5 lb stacked) wrapped in a folded towel</strong>, placed across the hip crease.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band looped above the knees. <strong>10 lb plate (or 2× 5 lb stacked) wrapped in a folded towel</strong>, placed across the hip crease.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Upper back on a low bench (~14" — bench hits just below shoulder blades). Plate on hip crease, towel padding. Working leg planted, foot flat. <strong>Non-working leg straight up in the air</strong> (perpendicular to floor). Drive up through working heel. <strong>Push knee out against the band</strong> the entire time — band keeps the working knee tracking over the toe. 3-count hold at top, <strong>ribs down</strong>. Hand stays loosely on the plate. Lower with control. <em>Right side leads every round</em> — see the 2-1 cue below.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1469,7 +1471,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Hip Abductor Machine</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · loadable glute-med · replaces banded monster walk</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · loadable glute-med · replaces banded monster walk</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12–15</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">out · pause · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1496,7 +1498,7 @@ footer{
 
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">McGill Big 3 — Descending Pyramid · Wed Only · Gold-Standard Spine Maintenance</div><p><strong>Curl-up</strong>: 1 × 5 / 1 × 3 / 1 × 1 — 10-second hold per rep, hands under lumbar curve, barely lift shoulders, no chin-to-chest &nbsp;·&nbsp; <strong>Side Plank</strong>: 1 × 20s / 1 × 15s / 1 × 10s each side &nbsp;·&nbsp; <strong>Bird Dog</strong>: 1 × 5 / 1 × 3 / 1 × 1 each — reach long, hips level, zero rotation, 10s hold at full extension.<br><br><span style="font-size:11.5px;color:var(--dim);font-style:italic">📚 The 5/3/1 descending pyramid with 10s holds is McGill's actual prescription (Low Back Disorders 2nd ed.) — selected to bias endurance fiber recruitment without fatigue carryover into the next training day. Daily Low-Load's bird-dog covers the daily multifidus dose; this Wed finisher is the higher-quality endurance bout. 3×8 sets at lower hold-time was the over-prescription this corrects.</span></p></div>
+<div class="fin"><div class="fin-lbl">McGill Big 2 — Descending Pyramid · Lower-Day Spine Maintenance</div><p><strong>Side Plank</strong>: 1 × 20s / 1 × 15s / 1 × 10s each side &nbsp;·&nbsp; <strong>Bird Dog</strong>: 1 × 5 / 1 × 3 / 1 × 1 each — reach long, hips level, zero rotation, 10s hold at full extension.<br><br><span style="font-size:11.5px;color:var(--dim);font-style:italic">📚 The 5/3/1 descending pyramid with 10s holds is McGill's endurance prescription (Low Back Disorders). <strong>Curl-up dropped on purpose:</strong> it's anti-<em>flexion</em>, and flexion isn't your mechanism — anti-rotation (Pallof) + anti-lateral-flexion (side plank) + bird-dog cover what your spine actually needs, with less to do.</span></p></div>
 <div class="day-complete" data-day="d3"></div>
 </div><!-- /d3 -->
 
@@ -1506,27 +1508,27 @@ footer{
 <div class="day-hdr">
   <div class="day-num" style="color:var(--p)">04</div>
   <div class="day-info">
-    <div class="day-eye" style="color:var(--p)">// Thursday · Day Four · Pick One</div>
-    <div class="day-title">SWIM <span style="opacity:.5">or</span> LEGS B</div>
-    <div class="day-focus">Track A: Swim (zero spinal compression, lat volume, VO2) · Track B: Quad detail + distal foot/ankle work</div>
+    <div class="day-eye" style="color:var(--p)">// Thursday · Day Four · Reliable second leg day</div>
+    <div class="day-title">LEGS B — Posterior + Knee</div>
+    <div class="day-focus">Knee-safe quad (Spanish iso + leg-ext) · hamstring · glute-med · calf + distal · lateral chain. Swim is a bonus, never a substitute — see below.</div>
   </div>
 </div>
 
-<div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Swim 45–55 min · Legs B ~35 min</div>
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Legs B ~40 min (warmup 6) · Swim bonus 45–55 min</div>
   <p style="font-size:14px;margin:0 0 6px"><strong>Swim:</strong> warmup 300m · drill 4×50m · main 600–800m · pull buoy 4×50m · kick 4×25m · cooldown 200m. Cut from cooldown backward if short.</p>
   <p style="font-size:14px;margin:0"><strong>Legs B (cut order):</strong> (1) side-plank finisher — Daily Low-Load covers spine work · (2) tib post/peroneal — Daily plantar sensory partly covers · (3) calf raise · (4) Copenhagen · (5) slant-board squat · core kept: Spanish squat (knee analgesia), leg extension, lying leg curl.</p>
 </div>
 
-<div class="callout" style="border-color:rgba(95,180,210,.28);background:rgba(95,180,210,.06)">
-  <div class="callout-t" style="color:var(--b)">// Pick One — Why You Have a Choice</div>
-  <p><strong>Both tracks below are valid uses of Thursday.</strong> Swim is the program's recommended modality when available (water = zero spinal load, freestyle pull = lat volume + VO2). Legs B picks up the quad/VMO/distal-foot work that used to live on Wednesday — do it on weeks you can't get to the pool. <strong>Two-frequency leg loading (Wed + Thu) is actively better than once</strong> for hypertrophy (Schoenfeld 2016 frequency meta) and motor retention for post-disc populations (Hayden et al. 2021 Cochrane). So Legs B isn't a fallback — it's a quality upgrade if you're not swimming.</p>
-  <p style="margin-top:6px"><strong>Hierarchy:</strong> Swim &gt; Legs B &gt; rest day with daily low-load only. Skipping entirely is fine when needed — Wed Legs A carries the structural load. Don't do BOTH in the same day.</p>
+<div class="callout" style="border-color:rgba(31,224,255,.28);background:rgba(31,224,255,.06)">
+  <div class="callout-t" style="color:var(--b)">// Legs B Is the Default — Swim Is a Bonus</div>
+  <p><strong>This is your reliable second leg day — full stop.</strong> Two leg days (Wed quad-bias + Thu posterior-bias) is what gets every lower-body muscle to the ~2×/week the evidence wants, and it shouldn't hinge on whether you make it to a pool. So Legs B is the plan; <strong>swimming is a bonus you layer onto a cardio slot when you feel like it</strong> — never a replacement for this session.</p>
+  <p style="margin-top:6px"><strong>The split question, answered:</strong> not one big leg day (too skip-fragile and too long), and not full-body-every-day (that starves slow-adapting tendons + a healing spine of recovery). Two short, <em>complementary</em> leg days is the sweet spot for you. <strong>Prefer to spread them?</strong> Run Legs B on Friday and push Skill to Thursday — quad-then-posterior back-to-back (Wed/Thu) is fine since they're complementary, but spacing is a touch kinder to recovery. Your call.</p>
 </div>
 
 <!-- ────────── TRACK A · SWIM ────────── -->
-<div style="margin:18px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(180,140,210,.10);border-left:3px solid var(--p)">
-  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--p)">Track A · Swim — Active Recovery</div>
+<div style="margin:18px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(176,107,255,.10);border-left:3px solid var(--p)">
+  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--p)">Optional Bonus · Swim — when you feel like it (not a substitute for Legs B)</div>
 </div>
 <div class="sgrid">
   <div class="scard">
@@ -1544,7 +1546,7 @@ footer{
     <div class="srow">Negative split — 2nd 50 faster than 1st <span>4 × 100m</span></div>
     <div class="srow">Backstroke focus — thoracic extension <span>8 × 50m</span></div>
     <div class="srow">Mixed — alternate free and back per lap <span>400m</span></div>
-    <div style="margin-top:10px;background:rgba(148,217,158,.07);border:1px solid rgba(148,217,158,.18);border-radius:4px;padding:9px 11px">
+    <div style="margin-top:10px;background:rgba(93,255,159,.07);border:1px solid rgba(93,255,159,.18);border-radius:4px;padding:9px 11px">
       <div class="t-mono" style="color:var(--g);margin-bottom:6px">Volume Progression</div>
       <div class="prog-step"><span class="pn">Now</span><span>1100–1200 yards total</span></div>
       <div class="prog-step"><span class="pn">Wk 4</span><span>Add one 100m set to main set</span></div>
@@ -1566,23 +1568,23 @@ footer{
 </div>
 
 <!-- ────────── TRACK B · LEGS B ────────── -->
-<div style="margin:28px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(245,208,64,.10);border-left:3px solid var(--gld)">
+<div style="margin:28px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(255,210,58,.10);border-left:3px solid var(--gld)">
   <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gld)">Track B · Legs B — Quad + Posterior + Distal · machine-rich · ~40 min</div>
 </div>
 
 <div class="callout warn">
-  <div class="callout-t">⚠ Knee-Smart Order — Right Patellofemoral</div>
-  <p>New right anterior-knee pain changes the order, not the goal. <strong>Spanish-squat isometrics lead</strong> — they blunt knee pain for ~45 min, so the knee is quiet before the loaded work. Quad loading is <strong>capped, not cut</strong>: leg extension 90→45° only, split-squat depth at/above parallel, heel-elevated work kept light. The reverse Nordic is <strong>paused</strong> while the knee is symptomatic (high patellar load) — it's in the Deferred list with its return criteria. And hip/glute-med work <em>is</em> knee medicine: Wednesday's abductor machine + this day's side-lying abduction pull double duty. <strong>0/10 pain on every quad set</strong> — not "push through."</p>
+  <div class="callout-t">⚠ Knee-Smart Order — Both Knees</div>
+  <p>Both knees get cranky, so this applies bilaterally. <strong>Spanish-squat isometrics lead</strong> — they blunt knee pain for ~45 min, so the knees are quiet before loaded work. Quad loading is <strong>capped, not cut</strong>: leg extension 90→45° only, split-squat depth at/above parallel, heel-elevated work kept light. Reverse Nordic stays <strong>paused</strong> while either knee is symptomatic (it's in the Deferred list with return criteria). Hip/glute-med work <em>is</em> knee medicine. <strong>0/10 pain on every quad set</strong> — not "push through." And the biggest lever isn't in the gym at all → see the <strong>standing-desk soft-knee</strong> habit in Daily.</p>
 </div>
 
 <div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 8 min (quad/ankle bias)</div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span>Spin bike — easy pace.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Banded TKE — asymmetric:</strong> 25 reps left leg / 20 reps right. Yellow band looped behind the knee, step away to tension, drive knee straight into extension. Targets left ACL VMO deficit.</span></div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span><strong>Side-Lying Hip Abduction</strong> 3 × 15 each side — lie on your side, bottom knee bent for stability. Top leg straight, <strong>toe slightly down (slight internal rotation)</strong> — that's the glute-med activation key. Lift to ~30°, 2-count hold, 3-count lower. Highest-MVIC glute-med exercise documented (Boren JOSPT 2011: ~81% MVIC vs clamshell ~38%). This is your hypertrophy driver, not the clamshell.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Single-leg balance — 30s each leg <strong>eyes open</strong>. Earn the eyes-closed version: only add 10–15s eyes-closed once 30s eyes-open is rock-solid 3 sessions running. ACL + post-revision proprioception is slower than it feels.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Ankle circles × 10 each direction + toe spreading × 10.</span></div>
-  <div class="wu-item"><span class="wu-t">~30s</span><span>Sciatic nerve glide × 10 each leg.</span></div>
+  <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed (knee + glute-med)</div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — easy spin or fast walk.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Banded TKE × 15 <strong>each leg, even both sides</strong> — band behind the knee, drive to straight (not locked). VMO + knee tracking. <em>(Symmetric now — the old left bias was for an ACL that's long healed.)</em></span></div>
+  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Highest-MVIC glute-med move (Boren 2011 ~81% vs clamshell ~38%) — your real glute-med driver.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Single-leg balance 30s each (eyes open) — ankle + foot proprioception.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Ankle circles ×10 + toe spreading ×10.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>The Spanish-squat isometric (first exercise) doubles as the last bit of warm-up <em>and</em> quiets the knee — go straight into it.</span></div>
 </div>
 
 <div class="exlist">
@@ -1591,12 +1593,12 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Spanish Squat — Isometric Hold</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(148,217,158,.10);border:1px solid rgba(148,217,158,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">↺ June 2026 · leads the session · knee analgesia + quad</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(93,255,159,.10);border:1px solid rgba(93,255,159,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">↺ June 2026 · leads the session · knee analgesia + quad</span></div>
   </div>
   <div class="exmeta"><div class="sets">5 × 45s</div><div class="rest-lbl">90s rest</div><div class="tempo">ISO</div><div class="tkey">hold ~60°</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — both ends anchored at knee height to a sturdy fixed point in FRONT of you (rack post, doorframe), single loop running behind both knees</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — both ends anchored at knee height to a sturdy fixed point in FRONT of you (rack post, doorframe), single loop running behind both knees</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">
   <strong>1. Anchor:</strong> both band ends to a fixed point in front of you at knee height. The band loops <em>behind</em> both your knees.<br>
@@ -1613,7 +1615,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Seated Leg Extension — 90→45° Only</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · VMO / quad isolation · the "no leg extension with knee pain" rule, busted</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · VMO / quad isolation · the "no leg extension with knee pain" rule, busted</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12–15</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · hold · 3s down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1650,7 +1652,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Lying / Prone Leg Curl</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · hamstring strength · run prone, not seated (spine)</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · hamstring strength · run prone, not seated (spine)</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 10–12</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">curl · squeeze · 3s lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1695,7 +1697,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Standing Calf Raise</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · standing, not seated · right calf + distal chain</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · standing, not seated · right calf + distal chain</span></div>
   </div>
   <div class="exmeta"><div class="sets">5 × 10</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">up · hold · 2s down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1737,7 +1739,7 @@ footer{
   <div class="exmeta"><div class="sets">2 × 15 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#f5d040"></div><span class="band-txt">Yellow band — anchored low and to the side</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Yellow band — anchored low and to the side</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Seated, leg extended. Band looped around forefoot.<br><strong>Tibialis posterior:</strong> band anchored to OUTSIDE of foot, pull foot inward and down (inversion + plantarflexion).<br><strong>Peroneals:</strong> band anchored to INSIDE of foot, pull foot outward (eversion). 2-count hold at end range, controlled return.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1764,17 +1766,17 @@ footer{
 </div>
 
 <div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 15 min (5-min wrist mandatory)</div>
-  <div class="wu-item"><span class="wu-t">3 min</span><span>Spin bike — easy pace. Elevates heart rate and warms hips before inversion and skill work.</span></div>
-  <div class="wu-item"><span class="wu-t">5 min</span><span><strong>Mandatory wrist warmup:</strong> circles both directions × 20, weight shifts on all fours forward/back/side × 10 each, prayer stretch 30s, reverse prayer 30s, finger-spread pulses × 15, knuckle push-ups × 5 slow, wrist push-ups × 8 (back of hands on floor, gentle). Progressive wrist loading before any handstand weight-bearing.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Shoulder CARs — full slow range each arm, pause 2s at every end position.</span></div>
+  <div class="wu-lbl">⚡ Warmup — 7 min · skill-primed (wrist work non-negotiable)</div>
+  <div class="wu-item"><span class="wu-t">3 min</span><span><strong>Wrist prep (mandatory):</strong> circles ×20 both ways · all-fours weight shifts fwd/back/side ×10 · finger-spread pulses ×15 · gentle knuckle push-ups ×5 · back-of-hand wrist push-ups ×8. Skipping this is where handstand wrist pain comes from.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Shoulder CARs ×3 each + wall slides ×10 — active end-range control before inversion.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Scapular push-up + "plus" ×12 — serratus, the overhead stabilizer.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Bear crawl × 3 lengths — wrist load under control, ribs down, neutral spine.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Pike box-sit × 5/side or shallow pistol pulse — primes hips + knees for skill (pain-free only).</span></div>
   <div class="cars-note">
     <div class="cars-note-t">What are CARs?</div>
-    <p>Controlled Articular Rotations — slow, deliberate circles that take each joint through its full active range under muscular control. For shoulders: stand tall, one arm at a time, rotate the entire arm in the largest circle possible while keeping the rest of your body completely still. Move as slowly as you can. Pause 2 seconds at the positions that feel sticky or weak. The goal is active control at end range — not passive swinging.</p>
+    <p>Controlled Articular Rotations — slow, deliberate circles taking the joint through its full <em>active</em> range under muscular control. One limb at a time, body still, move slowly, pause 2s at sticky spots. The goal is active control at end range — not passive swinging. (Especially for you: your <em>passive</em> end-range sense is the blind spot; active control is the strong one.)</p>
   </div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Scapular push-ups × 15 + wall slides × 10.</span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span>Bear crawl × 4 lengths — wrist loading under control, neutral spine throughout.</span></div>
-  <div class="wu-item"><span class="wu-t">1 min</span><span>Sciatic nerve glide × 10 each leg — supine, extend leg, flex foot 3s. PT protocol.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>First skill attempts (wall kick-ups, scap pulls) are the final ramp — start submaximal.</span></div>
 </div>
 
 <div class="callout warn">
@@ -1782,9 +1784,9 @@ footer{
   <p>No freestanding handstand. <strong>Wall is the catch always.</strong> Chest-to-wall: step down one foot at a time. Back-to-wall: pike hips and step one foot down. No bailing. No backbend exits. Wall eliminates all fall risk entirely.</p>
 </div>
 
-<div class="callout" style="border-color:rgba(148,217,158,.28);background:rgba(148,217,158,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~55 min · Cut Bottom-Up</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 15 (5-min wrist mandatory) · Work ~35 · Finisher 3</p>
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~47 min · Cut Bottom-Up</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 7 (wrist work non-negotiable) · Work ~35 · Finisher 3</p>
   <p style="font-size:14px;margin:0"><strong>Priority order — cut from the bottom:</strong><br>1. Wall handstand work — skill priority #1<br>2. Pistol — only single-leg loaded movement of the week<br>3. Pull-up negative — eccentric pull strength, unique to Day 5<br>4. Active hang + PPT — L-sit progression<br>5. Pike press at wall — graded inversion adjunct<br>6. Pullover — lat-width accessory; cut first or move to Day 1 on busy weeks</p>
 </div>
 
@@ -1815,7 +1817,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Wall Handstand — Shoulder Taps (Chest to Wall)</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(148,217,158,.10);border:1px solid rgba(148,217,158,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">✓ Current version: feet on a rung</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(93,255,159,.10);border:1px solid rgba(93,255,159,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">✓ Current version: feet on a rung</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 4 each</div><div class="rest-lbl">90s rest</div><div class="tempo">CONTROLLED</div></div>
@@ -1840,7 +1842,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Pull-Up Negative — Slow Eccentric</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(95,180,210,.10);border:1px solid rgba(95,180,210,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↓ Reduced May 2026 · 4×4/8s → 3×3/6s · Mon banded pull-up DOMS overlap</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↓ Reduced May 2026 · 4×4/8s → 3×3/6s · Mon banded pull-up DOMS overlap</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 3</div><div class="rest-lbl">2 min rest</div><div class="tempo">1 · 1 · 6</div><div class="tkey">jump · pause · 6s lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1866,7 +1868,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Heel-Tap Pistol Squat — Step Platform</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(148,217,158,.10);border:1px solid rgba(148,217,158,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">✓ Restored May 2026 · single-leg balance + lateral chain demand</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(93,255,159,.10);border:1px solid rgba(93,255,159,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">✓ Restored May 2026 · single-leg balance + lateral chain demand</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 4 each</div><div class="rest-lbl">90s rest</div><div class="tempo">4 · 1 · 2</div><div class="tkey">down · tap · up</div></div>
@@ -1910,12 +1912,12 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Standing Band Pullover — Lat Stretch</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(229,86,86,.10);border:1px solid rgba(229,86,86,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Added May 2026 · Lat width 2×/wk</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Added May 2026 · Lat width 2×/wk</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 12</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">pull · squeeze · stretch</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff7148"></div><span class="band-txt">Red band — anchored OVERHEAD (top of Swedish ladder or door pull-up bar). Grip both ends with straight arms.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — anchored OVERHEAD (top of Swedish ladder or door pull-up bar). Grip both ends with straight arms.</span></div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Step 1–2 back, slight (~10°) hip hinge, arms overhead under tension. <strong>Elbows soft, nearly locked</strong> (no hyperextension). Sweep straight arms down in an arc to thighs. 1-count squeeze. 4-count return to full overhead stretch. <strong>Ribs down</strong> — no lumbar arch overhead.</div>
 <div class="clbl">🎯 Coaching Cue</div>
@@ -1935,7 +1937,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Active Hang + Posterior Pelvic Tilt</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(229,86,86,.10);border:1px solid rgba(229,86,86,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">↺ Replaced hanging knee tuck · May 2026 · same anterior-chain signal, no psoas-shear</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">↺ Replaced hanging knee tuck · May 2026 · same anterior-chain signal, no psoas-shear</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 6</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 5 · 2</div><div class="tkey">tilt · HOLD · release</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1971,7 +1973,7 @@ footer{
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Pike Press at Wall — Graded Inversion</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(148,217,158,.10);border:1px solid rgba(148,217,158,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">+ Added · replaces the inversion-comfort input from wall walks</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(93,255,159,.10);border:1px solid rgba(93,255,159,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--g)">+ Added · replaces the inversion-comfort input from wall walks</span></div>
   </div>
   <div class="exmeta"><div class="sets">3 × 20s</div><div class="rest-lbl">60s rest</div><div class="tempo">ISO</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -2000,9 +2002,58 @@ footer{
 
 <!-- HIKE -->
 <div class="hikebar">
-  <div class="hike-l">Sat · Hike 🥾</div>
-  <p>Saturday is the default, Sunday is the backup. Active recovery and one of the best things you can do for your back long-term. <strong>Trekking poles on descents</strong> reduce axial spinal load 20–30% — use them. Shorter steps on steep descents. <strong>Pack weight under 10 lb</strong> (under 10% of bodyweight for you), padded hip belt. <strong>Sunday is full passive rest</strong> — no step goals, no structured movement. Let the week integrate.</p>
-  <p style="font-size:13px;color:var(--fade);margin-top:8px;line-height:1.7"><strong style="color:var(--txt);font-weight:500">Spin bike</strong> is also active-recovery — 20–30 min easy resistance any day Wed/Sat/Sun feels light. Seat height: hip just above kneecap at top of stroke. Hood-down posture (not aero) to keep lumbar neutral. Listed because it's on your goals + equipment list — use it freely between sessions.</p>
+  <div class="hike-l">Sat · Cardio + Skill 🎚️</div>
+  <p><strong>Pick whatever you'll actually do</strong> — this slot is flexible and never gates your leg work. All knee-friendly:</p>
+  <p style="margin-top:8px"><strong style="color:var(--txt);font-weight:500">StairMaster</strong> — your best pick: low patellofemoral load (unlike running) and it doubles as glute-med + quad + lateral-chain endurance, a named gap. 20–30 min steady, tall posture, <em>don't</em> hang on the rails. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Spin bike</strong> — easy on the knees; seat so the hip sits just above the kneecap at the top, hood-down posture (lumbar neutral), moderate resistance. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Hike</strong> — posterior-chain + balance; trekking poles on descents cut axial spinal load 20–30%, pack under 10 lb. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Swim</strong> — a bonus when the mood strikes (zero spinal load, lat volume); no butterfly. Inconsistent by design — never the thing your legs depend on.</p>
+  <p style="font-size:13px;color:var(--fade);margin-top:8px;line-height:1.7">Tack a few minutes of <strong>calisthenics skill</strong> (handstand holds, pull-up greasing) onto any of these — skill thrives on frequency. <strong>Sunday is full passive rest</strong> — let the week integrate.</p>
+</div>
+
+
+<!-- VARIETY & SKILL LADDERS -->
+<div class="hmwrap" id="variety" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
+  <div class="t-mono" style="color:var(--g);margin-bottom:8px">// Stay Hooked — Variety Without Losing Progress</div>
+  <h2>VARIETY &amp; SKILL LADDERS</h2>
+  <p class="sub">Boredom kills adherence, and you love calisthenics — so the program is built as a <strong>fixed protective core + rotatable accessories + skill you level up</strong>. Variety lives in the accessories and the ladders; the core lifts you actually track stay put.</p>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
+
+    <div style="background:rgba(93,255,159,.06);border:1.5px solid rgba(93,255,159,.28);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--g);margin-bottom:10px;font-size:11px">🔒 Fixed vs 🔁 Rotatable</div>
+      <p style="font-size:14px;line-height:1.7;margin:0 0 8px"><strong>Fixed (keep ~4–6 weeks):</strong> the first 1–2 exercises each day — the ones you progressively overload and log — plus the protective core (Spanish iso, glute-med, Nordic, side plank, bird-dog, face pull). These are insurance, not variety slots.</p>
+      <p style="font-size:14px;line-height:1.7;margin:0"><strong>Rotatable (swap every 3–4 weeks):</strong> the accessory slots. Same target, different stimulus — fresh without resetting progress. A varied-accessory group matched a fixed group on strength + size but scored <em>higher</em> on motivation (Rafsanjani 2019).</p>
+    </div>
+
+    <div style="background:rgba(31,224,255,.06);border:1.5px solid rgba(31,224,255,.28);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">🔁 A/B Menus — pick one per slot, swap every few weeks</div>
+      <div style="font-size:13.5px;line-height:1.75">
+        <p style="margin:0 0 6px"><strong>Pull · horizontal:</strong> A) single-arm low-lat row &nbsp;|&nbsp; B) ring/TRX row, feet forward</p>
+        <p style="margin:0 0 6px"><strong>Pull · vertical/lat:</strong> A) kneeling band pulldown &nbsp;|&nbsp; B) standing band pullover</p>
+        <p style="margin:0 0 6px"><strong>Push · overhead:</strong> A) pike push-up (feet elevated) &nbsp;|&nbsp; B) wall handstand shoulder taps</p>
+        <p style="margin:0 0 6px"><strong>Legs · knee/quad:</strong> A) Bulgarian split squat &nbsp;|&nbsp; B) lateral step-down from a 6″ box (lighter on a cranky knee)</p>
+        <p style="margin:0"><strong>Legs · posterior:</strong> A) lying leg curl &nbsp;|&nbsp; B) single-leg hip thrust</p>
+      </div>
+      <p style="font-size:12px;color:var(--fade);font-style:italic;margin:10px 0 0">Slots that DON'T rotate: lateral band walk / side-lying abduction (glute-med = knee insurance), Spanish iso, Nordic, side plank.</p>
+    </div>
+
+    <div style="background:rgba(255,46,136,.06);border:1.5px solid rgba(255,46,136,.28);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--r);margin-bottom:10px;font-size:11px">🎮 Skill Ladders — the calisthenics game (advance when you own a level)</div>
+      <div style="font-size:13.5px;line-height:1.75">
+        <p style="margin:0 0 8px"><strong>Handstand:</strong> wall hold (back-to-wall) → chest-to-wall hold → chest-to-wall shoulder taps → toe-pulls off the wall → 1–2s free balance → 5s → 10s. <em>Wall is always the catch.</em></p>
+        <p style="margin:0 0 8px"><strong>Pull-up:</strong> active scap pulls → band-assist full ROM → 5s negatives → 1 strict → 3 strict → pause-rep at top → archer holds. <em>Active grip only, never a passive hang.</em></p>
+        <p style="margin:0"><strong>Pistol:</strong> box sit (tall) → lower box → step-platform heel-tap (fingertips on a rung for balance only) → no-contact off the step → full pistol. <em>Off a step, never a wall; pain-free depth only.</em></p>
+      </div>
+      <p style="font-size:12px;color:var(--fade);font-style:italic;margin:10px 0 0">Rule: stay on a level until it's clean for 3 reps/holds across 2 sessions, then unlock the next. Progress-gated, not calendar-gated — that's the dopamine.</p>
+    </div>
+
+    <div style="background:rgba(234,240,255,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--dim);margin-bottom:10px;font-size:11px">⚖️ Two rules so variety never costs you progress</div>
+      <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.75">
+        <li><strong>Never vary AND add load in the same week</strong> — when you swap an exercise, keep the weight conservative for week 1 while the motor pattern re-grooves.</li>
+        <li><strong>Log the fixed lifts every session.</strong> Accessory variety is noise; your tracked compounds are the signal. As long as those climb, rotate the rest freely.</li>
+      </ul>
+    </div>
+
+  </div>
 </div>
 
 
@@ -2014,7 +2065,7 @@ footer{
   </div>
   <p style="font-size:14px;color:var(--txt);line-height:1.7;max-width:620px">Three movements every day, low-load, high-frequency. The rest of the daily menu (side-lying multifidus lift, hip CARs, chin nods, SLR nerve glide) rotates 3×/week to avoid skip-fatigue.</p>
 
-  <div style="margin-top:14px;background:rgba(95,180,210,.07);border:1px solid rgba(95,180,210,.25);border-radius:6px;padding:14px 16px;max-width:620px">
+  <div style="margin-top:14px;background:rgba(31,224,255,.07);border:1px solid rgba(31,224,255,.25);border-radius:6px;padding:14px 16px;max-width:620px">
     <div class="t-mono" style="color:var(--b);margin-bottom:8px;font-size:11px">⏰ When to Do These — Morning, Before the Day Pulls You</div>
     <p style="margin:0 0 8px;font-size:14px;line-height:1.65">Default slot is <strong>first thing in the morning</strong>, before coffee or scrolling, while listening to a podcast or just waking up. Why morning:</p>
     <ul style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.7">
@@ -2054,6 +2105,11 @@ footer{
       <div class="daily-dose">2 min · daily · barefoot</div>
       <div class="daily-note">Marble pickups (10 each foot) + toe spreading (10 each) + short-foot doming (10 × 3s hold each). On a textured surface if available. Hits intrinsic foot muscles, plantar mechanoreceptors, and lumbosacral proprioceptive re-weighting (Pekgöz et al. 2025 — gJHM-specific RCT). The banded tib post/peroneal work on Day 4 stays — this is the daily <em>afferent</em> driver, motor work has 48–72h recovery curve, sensory doesn't.<span class="src">— Pekgöz et al. (MDPI Healthcare 2025); McKeon foot-core paradigm</span></div>
     </div>
+    <div class="daily-card" style="border-left-color:var(--r)">
+      <div class="daily-name">Standing-Desk Soft Knees</div>
+      <div class="daily-dose">all day · the highest-leverage knee habit</div>
+      <div class="daily-note">You lock your knees at the standing desk — for a hypermobile knee that's <strong>passive hyperextension for hours</strong>, loading the joint capsule far more than any single set does. Keep a <strong>micro-bend (~5–10°)</strong>, weight in mid-foot, shift stance often, and use a footrest to alternate feet. A sticky-note on the monitor or an hourly phone buzz beats willpower. This one habit may quiet your knees more than anything in the gym — it's the same rule as the lifting cue: <strong>never lock out.</strong></div>
+    </div>
   </div>
   <div style="margin-top:14px;font-size:12.5px;color:var(--fade);line-height:1.65">
     <strong style="color:var(--txt);font-weight:500">Rotate 3×/week:</strong> side-lying multifidus lift · quadruped hip CARs · standing banded hip flexion above 90° (psoas/iliacus) · supine chin nods (Jull craniocervical flexion protocol) · straight-leg raise nerve glide.
@@ -2079,7 +2135,7 @@ footer{
 
 
 <!-- SAFETY & RECOVERY FRAMEWORK -->
-<div class="hmwrap" id="safety" style="background:rgba(95,180,210,.04);border-color:rgba(95,180,210,.18)">
+<div class="hmwrap" id="safety" style="background:rgba(31,224,255,.04);border-color:rgba(31,224,255,.18)">
   <div class="t-mono" style="color:var(--b);margin-bottom:8px">// Framework — Read Once, Re-read Every Few Months</div>
   <h2>FRAMEWORK · FLARE · GOALS · RECOVERY</h2>
   <p class="sub">The body is resilient and the program is built on that. The cards below give you a plan for the rare days the body sends a new signal, a clear path to unlock the deferred goals, and recovery anchors (sleep, deload, fuel) that compound over months.</p>
@@ -2087,13 +2143,13 @@ footer{
   <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
 
     <!-- WHEN TO LOOP IN YOUR PT -->
-    <div style="background:rgba(95,180,210,.06);border:1.5px solid rgba(95,180,210,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(31,224,255,.06);border:1.5px solid rgba(31,224,255,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">💬 When to Loop in Your PT</div>
       <p style="font-size:14.5px;line-height:1.7;margin:0">If something feels meaningfully new — new sensation down a leg, new numbness or weakness — message your PT and get on the schedule. That's the whole rule. Your PT already knows your full picture; they're the right first call, not Google.</p>
     </div>
 
     <!-- FLARE PROTOCOL -->
-    <div style="background:rgba(245,208,64,.07);border:1.5px solid rgba(245,208,64,.32);border-radius:6px;padding:18px">
+    <div style="background:rgba(255,210,58,.07);border:1.5px solid rgba(255,210,58,.32);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--gld);margin-bottom:10px;font-size:11px">⤓ Back Acting Up — A Plan, So You Don't Have to Decide Mid-Flare</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px;line-height:1.65">
         <div>
@@ -2108,7 +2164,7 @@ footer{
     </div>
 
     <!-- PAIN NEUROSCIENCE -->
-    <div style="background:rgba(95,180,210,.07);border:1.5px solid rgba(95,180,210,.32);border-radius:6px;padding:18px">
+    <div style="background:rgba(31,224,255,.07);border:1.5px solid rgba(31,224,255,.32);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">🧠 HOW YOUR BACK ACTUALLY WORKS</div>
       <p style="font-size:14.5px;line-height:1.7;margin:0 0 10px">Two surgeries means the disc has been mechanically vulnerable. It does not mean your back is fragile in the way the catastrophic injury feels suggest. Three things are simultaneously true and worth holding together:</p>
       <ul style="margin:0;padding-left:18px;line-height:1.75;font-size:14px">
@@ -2120,7 +2176,7 @@ footer{
     </div>
 
     <!-- RTS GATES -->
-    <div style="background:rgba(148,217,158,.07);border:1.5px solid rgba(148,217,158,.32);border-radius:6px;padding:18px">
+    <div style="background:rgba(93,255,159,.07);border:1.5px solid rgba(93,255,159,.32);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--g);margin-bottom:10px;font-size:11px">🎯 RETURN-TO-SPORT GATES — What Unlocks the Deferred List</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 12px">Deferred ≠ permanent. Each goal below has objective criteria — when you can demonstrate them, the goal moves from "deferred" to "scheduled." This is Buckthorpe's ACL return-to-sport framework adapted to your specific menu.</p>
       <div style="font-size:13.5px;line-height:1.6">
@@ -2133,13 +2189,13 @@ footer{
     </div>
 
     <!-- MONTHLY TEST BATTERY -->
-    <div style="background:rgba(224,188,98,.07);border:1.5px solid rgba(224,188,98,.32);border-radius:6px;padding:18px">
+    <div style="background:rgba(255,210,58,.07);border:1.5px solid rgba(255,210,58,.32);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--gld);margin-bottom:10px;font-size:11px">📊 Monthly Test Battery — Track What the Program Is Actually Doing</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 12px">First Saturday of every month, ~20 minutes. Log in the same note. No interpretation needed mid-test — write the numbers, look at the trend at the 3-month mark. Three months of data is when patterns become visible. Don't act on a single month's reading.</p>
       <ol style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.75">
         <li><strong>McGill side-plank endurance, L vs R.</strong> Hold to failure, both sides. Target: L = R within 5%, both &gt; 60s. R/L difference &gt; 15% is the flag.</li>
         <li><strong>McGill back-extensor endurance (Biering-Sørensen).</strong> Hold prone-extension over a bench/table to failure. Target: &gt; 90s. Below 60s is the persistent-LBP flag in McGill's data.</li>
-        <li><strong>Single-leg balance, eyes closed.</strong> 30s target each leg. L &lt; R by &gt; 5s = ACL-side proprioceptive deficit still active.</li>
+        <li><strong>Single-leg balance, eyes closed.</strong> 30s target each leg — a general proprioception + ankle check (post-nerve), not an ACL test. A persistent &gt;5s side gap is worth noting; small differences are normal.</li>
         <li><strong>Y-Balance Test, lower quarter (anterior reach).</strong> Stand on one leg, reach the other foot forward, mark distance. Anterior reach asymmetry &gt; 4 cm is the rehab-literature flag (Plisky; Smith).</li>
         <li><strong>Single-leg sit-to-stand × 5.</strong> From a chair, one leg, no hand assist. L &lt; R by &gt; 20% = quad/glute deficit on ACL side.</li>
         <li><strong>Joint-position-replication test, knee.</strong> Sit on a table edge, eyes closed. Move knee to a target angle, return, repeat. Off by &gt; 10° = proprioceptive flag (Russek 2024).</li>
@@ -2148,38 +2204,38 @@ footer{
     </div>
 
     <!-- DELOAD pointer -->
-    <div style="background:rgba(180,140,210,.07);border:1.5px solid rgba(180,140,210,.32);border-radius:6px;padding:18px">
+    <div style="background:rgba(176,107,255,.07);border:1.5px solid rgba(176,107,255,.32);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--p);margin-bottom:10px;font-size:11px">⤓ DELOAD · See full mesocycle below</div>
       <p style="font-size:14px;line-height:1.65;margin:0">Every 6th week is a planned deload at ~50% working-set volume (Israetel volume-landmark framework; Helms RIR programming). Full mesocycle structure, per-tissue progression speeds, retest protocol, and cycle-aware overlay live in <a href="#meso" style="color:var(--p);text-decoration:underline">Mesocycle &amp; Deload</a> below.</p>
     </div>
 
     <!-- TEMPORARY-RESTRICTION OVERLAY -->
-    <div style="background:rgba(95,180,210,.04);border:1.5px solid rgba(95,180,210,.25);border-radius:6px;padding:18px">
+    <div style="background:rgba(31,224,255,.04);border:1.5px solid rgba(31,224,255,.25);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">◐ Temporary-Restriction Overlay — When the Body Needs a Quieter Week or Two</div>
       <p style="font-size:14px;line-height:1.7;margin:0 0 12px">Life produces 1–4 week windows where the standard program needs to dial back: clinician-managed phases, recovery from a minor procedure, medication changes, travel illness, etc. This card is the generic decision tree — substitute the specifics when relevant. The clinician (or the body) sets the dates; this card sets the menu.</p>
       <div style="display:grid;grid-template-columns:1fr;gap:10px;font-size:13.5px;line-height:1.62">
-        <div style="border-left:2px solid var(--g);padding:11px 13px;background:rgba(148,217,158,.04);border-radius:0 4px 4px 0">
+        <div style="border-left:2px solid var(--g);padding:11px 13px;background:rgba(93,255,159,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--g);margin-bottom:4px">Phase 1 — Heading Into It (~7 days before)</div>
           <p style="margin:0">Standard program runs. Two small shifts: drop new 1RM testing and aggressive eccentric overload (hold the prior 4 weeks' loads). Spend the runway on technique polish, not PRs. Sleep + protein adequacy are the highest-leverage levers heading in.</p>
         </div>
-        <div style="border-left:2px solid var(--gld);padding:11px 13px;background:rgba(245,208,64,.04);border-radius:0 4px 4px 0">
+        <div style="border-left:2px solid var(--gld);padding:11px 13px;background:rgba(255,210,58,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--gld);margin-bottom:4px">Phase 2 — Quietest Window (~10–14 days)</div>
           <p style="margin:0 0 6px">The window where heavy bracing, inversion, and high-impact work are temporarily off the table. Background reason: Valsalva drives intra-abdominal pressure to 100–200 mmHg (Hackett &amp; Chow 2013), and when there's any reason to keep that down, the lifts that demand it have to come out.</p>
           <p style="margin:0 0 6px"><strong>OUT:</strong> heavy hip thrust · BSS · loaded hinge · Nordic · pull-ups + dead hangs (Valsalva + traction) · wall handstand (inversion) · running · jumping · plyometrics · HIIT · spin bike · flip turns · machine ab/adduction at full ROM (pelvic rotation) · twisting / lateral-flexion under load.</p>
           <p style="margin:0"><strong>KEEP:</strong> walking 30–45 min/day. Continuous-lap swim with <strong>open turns only</strong>. Daily Low-Load. Light upper-body band work (face pull, prone Y, banded row) at ≤50% RPE, no breath-holding. Half-kneeling / supported variants only. Moderate exercise during these windows is well-supported by the trials available (e.g. ASRM 2024 RCT) — the framing is "drop intensity, keep moving."</p>
         </div>
-        <div style="border-left:2px solid var(--p);padding:11px 13px;background:rgba(180,140,210,.04);border-radius:0 4px 4px 0">
+        <div style="border-left:2px solid var(--p);padding:11px 13px;background:rgba(176,107,255,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--p);margin-bottom:4px">Phase 3 — First 5 Days After the Peak</div>
           <p style="margin:0">Day 0–2: walking only, 10–20 min, flat ground. Nothing over 5 lb. Day 3–5: extend walking to 30 min, reintroduce supine Daily Low-Load (bird-dog + dead bug only — skip side plank, lateral compression is the limiter). Cap at 10 lb, no breath-holding, no inversions, no swimming if there's any infection-window consideration.</p>
         </div>
-        <div style="border-left:2px solid var(--b);padding:11px 13px;background:rgba(95,180,210,.04);border-radius:0 4px 4px 0">
+        <div style="border-left:2px solid var(--b);padding:11px 13px;background:rgba(31,224,255,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--b);margin-bottom:4px">Phase 4 — Ramp Back (2–6 weeks)</div>
           <p style="margin:0 0 6px">Rule of thumb: resume strenuous training only when the body has clearly settled back to its baseline (e.g. cycle resumed as normal, no lingering soreness, sleep back to baseline).</p>
           <p style="margin:0 0 6px"><strong>Wk 2:</strong> full Daily Low-Load. Bodyweight squats, banded glute, banded row, knee push-ups. No Valsalva, no eccentric-emphasis. RPE cap 6.</p>
           <p style="margin:0 0 6px"><strong>Wk 3:</strong> reintroduce hinge teacher, goblet squat at prior load −30%, hip thrust at prior load −30%. Swim resumes (open turns). RPE cap 7.</p>
           <p style="margin:0"><strong>Wk 4+:</strong> reintroduce Nordic (top half first), pull-up negatives at 5s eccentric (not the prior 8s), BSS bodyweight → 5 lb → 10 lb. Inversions last. Full prior loads by week 5–6 if no flare.</p>
         </div>
-        <div style="border-left:2px solid var(--p);padding:11px 13px;background:rgba(180,140,210,.04);border-radius:0 4px 4px 0">
+        <div style="border-left:2px solid var(--p);padding:11px 13px;background:rgba(176,107,255,.04);border-radius:0 4px 4px 0">
           <div style="font-weight:600;color:var(--p);margin-bottom:4px">Supplement overlay for the window</div>
           <p style="margin:0 0 6px"><strong>Creatine:</strong> stay on at 5 g/day — well-tolerated and useful for cognitive + recovery markers across phases. (Only change if a clinician specifically suggests it for a unique context.)</p>
           <p style="margin:0 0 6px"><strong>CoQ10 ubiquinol:</strong> keep on at 200–400 mg continuously. Mitochondrial support that doesn't need to come off for any phase.</p>
@@ -2192,7 +2248,7 @@ footer{
     </div>
 
     <!-- SLEEP & RED-S -->
-    <div style="background:rgba(244,241,230,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
+    <div style="background:rgba(234,240,255,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--dim);margin-bottom:10px;font-size:11px">🌙 SLEEP &amp; ENERGY AVAILABILITY</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:13.5px;line-height:1.65">
         <div>
@@ -2211,7 +2267,7 @@ footer{
 
 
 <!-- ════════════════════ MESOCYCLE & DELOAD ════════════════════ -->
-<div class="hmwrap" id="meso" style="background:rgba(180,140,210,.04);border-color:rgba(180,140,210,.22)">
+<div class="hmwrap" id="meso" style="background:rgba(176,107,255,.04);border-color:rgba(176,107,255,.22)">
   <div class="t-mono" style="color:var(--p);margin-bottom:8px">// Periodization · One Clock for All Five Days</div>
   <h2>MESOCYCLE &amp; DELOAD</h2>
   <p class="sub">A 6-week block: four loading weeks ramping volume from MEV → MAV, one peak week at MAV-to-near-MRV, one deload at ~50% of the prior week. Same clock across all five training days. Per-tissue rules below override the calendar when they conflict.</p>
@@ -2219,7 +2275,7 @@ footer{
   <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
 
     <!-- THE 6-WEEK BLOCK -->
-    <div style="background:rgba(180,140,210,.06);border:1.5px solid rgba(180,140,210,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(176,107,255,.06);border:1.5px solid rgba(176,107,255,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--p);margin-bottom:10px;font-size:11px">📐 The 6-Week Block — Volume, Intensity, RIR</div>
       <table style="width:100%;font-size:13.5px;border-collapse:collapse;line-height:1.55">
         <thead>
@@ -2228,11 +2284,11 @@ footer{
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px"><strong>1</strong></td><td style="padding:6px 8px">MEV — baseline sets (e.g. 3×8 BSS)</td><td style="padding:6px 8px">3–4</td><td style="padding:6px 8px">Same load as prior block's wk 4</td><td style="padding:6px 8px">As written</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px"><strong>2</strong></td><td style="padding:6px 8px">+1 working set on primary lifts</td><td style="padding:6px 8px">3</td><td style="padding:6px 8px">Same load</td><td style="padding:6px 8px">As written</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px"><strong>3</strong></td><td style="padding:6px 8px">+1 set on accessories</td><td style="padding:6px 8px">2–3</td><td style="padding:6px 8px">Same load</td><td style="padding:6px 8px">As written</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px"><strong>4</strong></td><td style="padding:6px 8px">Hold wk-3 volume</td><td style="padding:6px 8px">2</td><td style="padding:6px 8px">+1 rep ceiling per set (top-set only)</td><td style="padding:6px 8px">As written</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px"><strong>5</strong> · peak</td><td style="padding:6px 8px">Hold wk-4 volume — this is MAV, not MRV</td><td style="padding:6px 8px">1–2</td><td style="padding:6px 8px">PT-gated lifts: load step <em>only</em> if criteria met (see Retests)</td><td style="padding:6px 8px">As written</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px"><strong>1</strong></td><td style="padding:6px 8px">MEV — baseline sets (e.g. 3×8 BSS)</td><td style="padding:6px 8px">3–4</td><td style="padding:6px 8px">Same load as prior block's wk 4</td><td style="padding:6px 8px">As written</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px"><strong>2</strong></td><td style="padding:6px 8px">+1 working set on primary lifts</td><td style="padding:6px 8px">3</td><td style="padding:6px 8px">Same load</td><td style="padding:6px 8px">As written</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px"><strong>3</strong></td><td style="padding:6px 8px">+1 set on accessories</td><td style="padding:6px 8px">2–3</td><td style="padding:6px 8px">Same load</td><td style="padding:6px 8px">As written</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px"><strong>4</strong></td><td style="padding:6px 8px">Hold wk-3 volume</td><td style="padding:6px 8px">2</td><td style="padding:6px 8px">+1 rep ceiling per set (top-set only)</td><td style="padding:6px 8px">As written</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px"><strong>5</strong> · peak</td><td style="padding:6px 8px">Hold wk-4 volume — this is MAV, not MRV</td><td style="padding:6px 8px">1–2</td><td style="padding:6px 8px">PT-gated lifts: load step <em>only</em> if criteria met (see Retests)</td><td style="padding:6px 8px">As written</td></tr>
           <tr><td style="padding:6px 8px"><strong>6</strong> · deload</td><td style="padding:6px 8px"><strong>~50% of wk 5</strong> (e.g. 4×8 → 2×8). Drop one training day to Sun (full rest), use 4-day week.</td><td style="padding:6px 8px">4–5</td><td style="padding:6px 8px">Same load, fewer sets</td><td style="padding:6px 8px">Halve eccentric counts (6s → 3s on pull-up negs &amp; Nordics)</td></tr>
         </tbody>
       </table>
@@ -2241,7 +2297,7 @@ footer{
     </div>
 
     <!-- TENDON vs MUSCLE PROGRESSION SPEEDS -->
-    <div style="background:rgba(95,180,210,.06);border:1.5px solid rgba(95,180,210,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(31,224,255,.06);border:1.5px solid rgba(31,224,255,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">⚙ Per-Tissue Progression Speeds — overrides the calendar</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 10px">Muscle adapts in ~3 weeks; tendon takes 8+ (Bohm 2015 meta; Magnusson 2008). Lifts where the limiter is tendon get a <strong>2-mesocycle progression cadence</strong> (12 weeks per load step) instead of 6.</p>
       <ul style="margin:0;padding-left:18px;line-height:1.7;font-size:14px">
@@ -2253,7 +2309,7 @@ footer{
     </div>
 
     <!-- AUTOREGULATION SIGNALS -->
-    <div style="background:rgba(148,217,158,.06);border:1.5px solid rgba(148,217,158,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(93,255,159,.06);border:1.5px solid rgba(93,255,159,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--g);margin-bottom:10px;font-size:11px">📡 Autoregulation — Performance Signals Beat Wearable Scores</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 10px">Wearable readiness scores (HRV, RHR) are useful as long-trend personal baselines but unreliable as day-to-day fatigue measures — too many inputs shift them (sleep, cycle phase, daily routines, hydration, anything you ingested). Use the performance + symptom signals below as the primary read.</p>
       <p style="font-size:13.5px;color:var(--txt);line-height:1.6;margin:0 0 6px"><strong>Green-light to add the planned wk 2/3 set:</strong></p>
@@ -2280,7 +2336,7 @@ footer{
     </div>
 
     <!-- RETEST PROTOCOL -->
-    <div style="background:rgba(224,188,98,.06);border:1.5px solid rgba(224,188,98,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(255,210,58,.06);border:1.5px solid rgba(255,210,58,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--gld);margin-bottom:10px;font-size:11px">📊 Retest Protocol — End of Deload Week, Every 6 Weeks</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 10px">Run these on the Friday of deload week (wk 6) — fresh, not fatigued. ~20 min total. Log in a single note; trend matters more than absolutes (Buckthorpe criterion-based RTS).</p>
       <table style="width:100%;font-size:13px;border-collapse:collapse;line-height:1.5">
@@ -2290,11 +2346,11 @@ footer{
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px">Side plank L vs R</td><td style="padding:6px 8px">Time-to-failure each side, 5 min rest between</td><td style="padding:6px 8px">Loaded RDL gate (need 90s L=R)</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px">Single-leg balance, eyes closed</td><td style="padding:6px 8px">Time-to-touchdown each side; 3 attempts, best score</td><td style="padding:6px 8px">Pistol squat gate (20s L=R) · dance return gate</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px">Dead hang</td><td style="padding:6px 8px">Max time, single attempt</td><td style="padding:6px 8px">Pull-up volume progression · grip-as-limiter check</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px">Wall handstand back-to-wall</td><td style="padding:6px 8px">Max time, single attempt</td><td style="padding:6px 8px">Freestanding handstand gate (60s)</td></tr>
-          <tr style="border-bottom:1px solid rgba(244,241,230,.08)"><td style="padding:6px 8px">Hinge load tolerance</td><td style="padding:6px 8px">Working set at current load — note RPE</td><td style="padding:6px 8px">PT-clearance conversation input</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px">Side plank L vs R</td><td style="padding:6px 8px">Time-to-failure each side, 5 min rest between</td><td style="padding:6px 8px">Loaded RDL gate (need 90s L=R)</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px">Single-leg balance, eyes closed</td><td style="padding:6px 8px">Time-to-touchdown each side; 3 attempts, best score</td><td style="padding:6px 8px">Pistol squat gate (20s L=R) · dance return gate</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px">Dead hang</td><td style="padding:6px 8px">Max time, single attempt</td><td style="padding:6px 8px">Pull-up volume progression · grip-as-limiter check</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px">Wall handstand back-to-wall</td><td style="padding:6px 8px">Max time, single attempt</td><td style="padding:6px 8px">Freestanding handstand gate (60s)</td></tr>
+          <tr style="border-bottom:1px solid rgba(234,240,255,.08)"><td style="padding:6px 8px">Hinge load tolerance</td><td style="padding:6px 8px">Working set at current load — note RPE</td><td style="padding:6px 8px">PT-clearance conversation input</td></tr>
           <tr><td style="padding:6px 8px">Pull-up (banded → strict)</td><td style="padding:6px 8px">AMRAP at current assist level</td><td style="padding:6px 8px">Band-step-down decision</td></tr>
         </tbody>
       </table>
@@ -2302,7 +2358,7 @@ footer{
     </div>
 
     <!-- FLARE vs DELOAD -->
-    <div style="background:rgba(245,208,64,.06);border:1.5px solid rgba(245,208,64,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(255,210,58,.06);border:1.5px solid rgba(255,210,58,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--gld);margin-bottom:10px;font-size:11px">🔀 Flare Week vs Scheduled Deload — Do They Double Up?</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 8px"><strong>A flare-driven downshift counts as that mesocycle's deload.</strong> Resume the next block at MEV (wk 1 settings), not at wk 5 where you left off. Two consecutive downshifts in a 6-week window overcompensates and breaks tendon adaptation continuity.</p>
       <p style="font-size:14px;line-height:1.65;margin:0 0 8px"><strong>Exception:</strong> if the flare-deload happens in wk 1 or wk 2, run a normal 4-week ramp from wk 3 and keep the scheduled wk-6 deload — the flare was too early in the block to count as adequate recovery.</p>
@@ -2310,7 +2366,7 @@ footer{
     </div>
 
     <!-- QUIETER-WINDOW INTERACTION WITH THE MESOCYCLE CLOCK -->
-    <div style="background:rgba(198,148,227,.06);border:1.5px solid rgba(198,148,227,.28);border-radius:6px;padding:18px">
+    <div style="background:rgba(176,107,255,.06);border:1.5px solid rgba(176,107,255,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--p);margin-bottom:10px;font-size:11px">↺ Quieter-Window Interaction with the Mesocycle</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 10px">If you're in any temporary-restriction window (see Framework · Temporary-Restriction Overlay for the menu), here's how it interacts with the 6-week clock:</p>
       <p style="font-size:13.5px;line-height:1.6;margin:0 0 6px"><strong>The full window counts as one deload</strong> of the mesocycle clock — whether the window is one week or four. Don't add a scheduled deload on top.</p>
@@ -2319,7 +2375,7 @@ footer{
     </div>
 
     <!-- WORKED EXAMPLE -->
-    <div style="background:rgba(244,241,230,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
+    <div style="background:rgba(234,240,255,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--dim);margin-bottom:10px;font-size:11px">📋 Worked Example — One Block, Two Lifts</div>
       <p style="font-size:13.5px;line-height:1.6;margin:0 0 10px">Bulgarian split squat and hand-held hinge across one 6-week block. PT gates take priority over calendar steps.</p>
       <div style="font-size:13px;line-height:1.55">
