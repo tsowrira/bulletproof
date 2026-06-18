@@ -28,6 +28,10 @@
   --rad:  4px;
   --glow-r: 0 0 14px rgba(255,46,136,.55);
   --glow-b: 0 0 14px rgba(31,224,255,.50);
+  --rad-lg: 10px;
+  --ring: inset 0 1px 0 rgba(234,240,255,.05), inset 0 0 0 1px rgba(255,255,255,.015);
+  --elev: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --card-grad: linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,0) 38%);
 }
 
 /* ── RESET ── */
@@ -35,9 +39,10 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   background:
-    radial-gradient(ellipse 72% 55% at 10% -6%, rgba(255,46,136,.13), transparent 60%),
-    radial-gradient(ellipse 64% 50% at 106% 10%, rgba(31,224,255,.11), transparent 56%),
-    radial-gradient(ellipse 92% 62% at 50% 119%, rgba(176,107,255,.13), transparent 62%),
+    radial-gradient(ellipse 60% 42% at 8% -4%, rgba(255,46,136,.14), transparent 58%),
+    radial-gradient(ellipse 52% 40% at 104% 6%, rgba(31,224,255,.10), transparent 54%),
+    radial-gradient(ellipse 86% 50% at 50% 116%, rgba(176,107,255,.11), transparent 60%),
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,.012), transparent 70%),
     var(--bg);
   background-attachment:fixed;
   color:var(--txt);
@@ -106,7 +111,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 }
 .scroll-prog-bar{
   height:100%;
-  background:linear-gradient(to right,var(--r),var(--b));
+  background:linear-gradient(to right,var(--r),var(--p),var(--b));
+  box-shadow:0 0 8px rgba(31,224,255,.5);
   width:0%;
   transition:width .08s linear;
 }
@@ -373,9 +379,11 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .exlist{padding:0 var(--pad)}
 .excard{
   border-bottom:1px solid rgba(42,42,56,.7);
-  padding:20px 0;
+  padding:20px 18px;
+  margin:0 -18px;
+  border-radius:var(--rad-lg);
   position:relative;
-  transition:opacity .25s;
+  transition:opacity .25s, background .2s, box-shadow .2s, transform .2s;
 }
 .excard:last-child{border-bottom:none}
 .excard.done{opacity:.45}
@@ -403,13 +411,13 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   gap:6px;
   flex-shrink:0;
 }
-.sets{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:var(--txt);white-space:nowrap}
+.sets{font-family:'Inter',sans-serif;font-size:21px;font-weight:800;color:var(--txt);white-space:nowrap;letter-spacing:-.01em;line-height:1}
 .rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
-  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
-  color:var(--gld);background:var(--s2);
-  border:1px solid var(--bdr);
-  padding:4px 9px;border-radius:3px;white-space:nowrap;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+  color:var(--gld);background:rgba(255,210,58,.08);
+  border:1px solid rgba(255,210,58,.28);
+  padding:4px 9px;border-radius:100px;white-space:nowrap;font-variant-numeric:tabular-nums;
 }
 .tkey{display:none}
 
@@ -431,7 +439,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 }
 .chk:hover{border-color:var(--g);color:var(--g)}
 .chk:active{transform:scale(.92);background:rgba(93,255,159,.10)}
-.excard.done .chk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g);box-shadow:0 0 14px rgba(93,255,159,.45)}
+.excard.done .chk{border-color:var(--g);background:rgba(93,255,159,.22);color:var(--g);box-shadow:0 0 16px rgba(93,255,159,.5),inset 0 0 12px rgba(93,255,159,.18);animation:chkpop .32s cubic-bezier(.2,.8,.3,1.4)}
 
 /* band badge */
 .band-badge{
@@ -647,7 +655,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .refs-disclaim{margin-top:14px;font-size:11.5px;color:var(--dim);line-height:1.7;font-style:italic;max-width:600px}
 
 /* ── POLISH: hover, today pulse, focus ── */
-.excard:hover{background:rgba(234,240,255,.012)}
+.excard:hover{background:rgba(234,240,255,.02)}
 .wc.today::before{animation:todaypulse 2.4s ease-in-out infinite}
 @keyframes todaypulse{0%,100%{opacity:1}50%{opacity:.55}}
 .chk:focus-visible{outline:2px solid var(--g);outline-offset:2px}
@@ -714,7 +722,7 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   user-select:none;
 }
 .rest-lbl:active{transform:scale(.96)}
-.rest-lbl.running{background:rgba(255,46,136,.16);border-color:var(--r);color:#ffb3da}
+.rest-lbl.running{background:rgba(255,46,136,.18);border-color:var(--r);color:#ffd0e6;box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 18px rgba(255,46,136,.3);animation:restpulse 1s ease-in-out infinite;font-size:15px}
 .rest-lbl.done{background:rgba(93,255,159,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
 @keyframes restdone{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 
@@ -789,6 +797,66 @@ footer{
   nav,.scroll-prog,.chk,.check-status{display:none!important}
 }
 @page{background:#060611;margin:0}
+/* ═══════════ PREMIUM / MOBILE POLISH ═══════════ */
+/* type rhythm */
+body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+.t-display{text-wrap:balance}
+.day-title,.approach h2,.hmwrap h2,.nutwrap h2{text-wrap:balance}
+.cue,.setup,.evi p,.callout p{text-wrap:pretty}
+::selection{background:rgba(255,46,136,.32);color:#fff}
+
+/* card glass depth + day-keyed focus edge */
+.excard::before{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--card-grad);opacity:0;transition:opacity .25s;pointer-events:none}
+.excard:hover::before{opacity:1}
+.excard:focus-within,.excard:active{box-shadow:var(--elev)}
+#d1 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,46,136,.5)}
+#d2 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(31,224,255,.5)}
+#d3 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
+#d4 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
+#d5 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
+
+/* satisfying micro-interactions */
+@keyframes chkpop{0%{transform:scale(.82)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes restpulse{0%,100%{box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 14px rgba(255,46,136,.25)}50%{box-shadow:0 0 0 1px rgba(255,46,136,.4),0 0 24px rgba(255,46,136,.45)}}
+@keyframes fabin{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.acc-btn:active{transform:scale(.98)}
+.prog-wrap,.evi-wrap{transition:max-height .4s cubic-bezier(.25,.8,.3,1),opacity .3s ease}
+
+/* sticky nav glow */
+nav{box-shadow:0 1px 0 rgba(255,255,255,.03),0 6px 16px rgba(0,0,0,.35)}
+nav a.active{position:relative}
+nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:currentColor;box-shadow:0 0 10px currentColor;opacity:.9}
+
+/* FAB glass orb */
+.day-jump{background:radial-gradient(circle at 30% 25%,rgba(40,40,64,.96),rgba(14,14,24,.96));box-shadow:0 6px 24px rgba(0,0,0,.6),var(--ring);transition:transform .18s cubic-bezier(.2,.8,.3,1.2),box-shadow .25s,border-color .25s,color .25s}
+.day-jump.show{animation:fabin .3s cubic-bezier(.2,.8,.3,1.3)}
+.day-jump[data-day="d1"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(255,46,136,.4),var(--ring)}
+.day-jump[data-day="d2"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(31,224,255,.4),var(--ring)}
+.day-jump[data-day="d3"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(255,210,58,.4),var(--ring)}
+.day-jump[data-day="d4"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(176,107,255,.4),var(--ring)}
+.day-jump[data-day="d5"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(93,255,159,.4),var(--ring)}
+
+/* eyebrow tick (spec-sheet identity) + today cell + safebar pills + day-complete */
+.day-eye::before,.approach-eye::before{content:'';display:inline-block;width:14px;height:2px;background:currentColor;vertical-align:middle;margin-right:7px;box-shadow:0 0 6px currentColor;opacity:.8}
+.wc.today{box-shadow:inset 0 0 30px rgba(255,46,136,.12)}
+.safebar span{border-radius:100px}
+.day-complete.shown{animation:fabin .35s ease}
+
+/* reusable change-badge pill (added/replaced/PT-progressed markers) */
+.chgbadge{display:inline-flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;margin-bottom:8px;border-radius:100px;border:1px solid rgba(31,224,255,.28);background:rgba(31,224,255,.10);color:var(--b)}
+.chgbadge.r{border-color:rgba(255,46,136,.28);background:rgba(255,46,136,.10);color:var(--r)}
+.chgbadge.g{border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.10);color:var(--g)}
+
+/* reusable callout color variants */
+.callout.g{border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)}
+.callout.g .callout-t{color:var(--g)}.callout.g strong{color:var(--g)}
+.callout.p{border-color:rgba(176,107,255,.30);background:rgba(176,107,255,.06)}
+.callout.p .callout-t{color:var(--p)}
+
+/* ── MOTION SAFETY (covers every animated upgrade above) ── */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
@@ -843,18 +911,27 @@ footer{
 <!-- CHECK STATUS -->
 <div class="check-status">
   <span>✓ Tap circle to check off · <span class="reset-info" id="resetCountdown">no progress saved</span></span>
+  <button onclick="copyWeekLog()" id="weekLogBtn">📋 Copy week log</button>
 </div>
 
 <!-- WEEK STRIP -->
 <div class="week">
   <a class="wc" id="wc-1" href="#d1"><div class="wd">Mon</div><div class="wt" style="color:var(--r)">Pull &amp;<br>Posterior</div></a>
-  <a class="wc" id="wc-2" href="#d2"><div class="wd">Tue</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></a>
-  <a class="wc" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Legs A —<br>Quad/Knee</div></a>
+  <a class="wc" id="wc-2" href="#d3"><div class="wd">Tue</div><div class="wt" style="color:var(--gld)">Legs A —<br>Quad/Knee</div></a>
+  <a class="wc" id="wc-3" href="#d2"><div class="wd">Wed</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></a>
   <a class="wc" id="wc-4" href="#d4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Legs B —<br>Posterior</div></a>
   <a class="wc" id="wc-5" href="#d5"><div class="wd">Fri</div><div class="wt" style="color:var(--g)">Skill &amp;<br>Handstand</div></a>
   <div class="wc" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Cardio<br>+ skill</div></div>
   <div class="wc" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
+
+<div class="callout">
+  <div class="callout-t">// How to Run the Week — Order &amp; When to Rest</div>
+  <p><strong>Day order:</strong> it alternates so nothing hard trains two days running — <strong>Pull → Legs A → Push → Legs B → Skill</strong>. Legs land Tue + Thu with an upper day between, which is kinder to a healing spine and slow-adapting tendons than back-to-back leg days. Skill is low-cost — sprinkle a few minutes onto any day.</p>
+  <p style="margin-top:6px"><strong>Order within a session:</strong> knee-quieting isometric (leg days) → skill while your brain is fresh → main compound → accessories → isolation → core/anti-rotation last. Never grind skill or a loaded hinge once you're cooked — that's when hypermobile form slips.</p>
+  <p style="margin-top:6px"><strong>Tired? Read it, don't push through:</strong> <strong>flat/heavy</strong> → keep the session, drop a set or two, hold the load. <strong>Run-down</strong> (bad sleep, RPE up two sessions, achy) → swap the hard day for skill + a walk or StairMaster, or take the rest day early. <strong>Wiped, or any new leg signal</strong> → full rest day, and pull the deload forward a week. When the week compresses, protect Legs A &amp; B first and sacrifice Skill/cardio first — a planned rest beats a forced one. Full green/yellow/red guide in <a href="#meso" style="color:var(--p)">Mesocycle</a>.</p>
+</div>
+
 
 <!-- BAND LEGEND -->
 <div class="legend" id="bands">
@@ -1115,7 +1192,7 @@ footer{
 <div class="day-hdr">
   <div class="day-num" style="color:var(--b)">02</div>
   <div class="day-info">
-    <div class="day-eye" style="color:var(--b)">// Tuesday · Day Two</div>
+    <div class="day-eye" style="color:var(--b)">// Wednesday · Push &amp; Shoulders</div>
     <div class="day-title">PUSH &amp; SHOULDER ARCHITECTURE</div>
     <div class="day-focus">Lateral delt width · Tricep long head · Rear delt balance · Anterior delt · Pressing</div>
   </div>
@@ -1279,7 +1356,7 @@ footer{
 <div class="day-hdr">
   <div class="day-num" style="color:var(--gld)">03</div>
   <div class="day-info">
-    <div class="day-eye" style="color:var(--gld)">// Wednesday · Day Three</div>
+    <div class="day-eye" style="color:var(--gld)">// Tuesday · Legs A</div>
     <div class="day-title">LEGS A — ESSENTIALS</div>
     <div class="day-focus">Hinge pattern (PT-progressed) · Glute-max symmetry (2-1) · Glute medius (machine) · Unilateral quad · Hamstring eccentric</div>
   </div>
@@ -1305,6 +1382,10 @@ footer{
 
 <div class="wu">
   <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed</div>
+  <div class="cars-note" style="border-left-color:var(--p);background:rgba(176,107,255,.06)">
+    <div class="cars-note-t" style="color:var(--p)">🔫 Soft-tissue prep — first, ~90s, tight spots only</div>
+    <p><strong>Massage gun:</strong> quads (mid-belly, glide proximal→distal) ~45s/leg · lateral calf ~30s. If the right glute/SI is cranky today, 20s on the triangular lacrosse ball — <strong>pressure-pause, don't grind</strong>. <strong>Belly only</strong>: never the kneecap, patellar tendon, back of the knee, IT band at the knee, the sit-bone, or the spine/surgery area. <em>Hypermobile rule — this is tone relief on guarded tissue, NOT chasing range; if it feels like a "good stretch," ease off. Stop on anything radiating or electric.</em></p>
+  </div>
   <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or fast walk. Warm the hips and knees.</span></div>
   <div class="wu-item"><span class="wu-t">60s</span><span><strong>Lateral band walk</strong> 2 × 12 each way — band at ankles, soft athletic stance. Gets glute-med online before any knee-dominant load — your patellofemoral insurance.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Bodyweight glute bridge × 12 — full hip extension, ribs down, zero lumbar hyperextension.</span></div>
@@ -1579,6 +1660,10 @@ footer{
 
 <div class="wu">
   <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed (knee + glute-med)</div>
+  <div class="cars-note" style="border-left-color:var(--p);background:rgba(176,107,255,.06)">
+    <div class="cars-note-t" style="color:var(--p)">🔫 Soft-tissue prep — first, ~2 min, tight spots only</div>
+    <p><strong>Triangular lacrosse ball:</strong> right posterior glute / piriformis — sit on it, find the tender spot, <strong>hold 20–30s of pressure, then micro-shift</strong> (don't grind, don't crank the hip in) · TFL belly (the hip, not the knee) ~20s. <strong>Massage gun:</strong> right hamstring mid-belly ~30s · lateral calf ~30s right / ~20s left. <strong>Belly only</strong>: never the spine/surgery area, the sit-bone, the back of the knee, the lateral knee, or the kneecap. <em>Hypermobile rule — tone relief on guarded tissue, NOT range-chasing; press to a dull tender release, not a stretch. Stop on anything radiating or electric.</em></p>
+  </div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — easy spin or fast walk.</span></div>
   <div class="wu-item"><span class="wu-t">60s</span><span>Banded TKE × 15 <strong>each leg, even both sides</strong> — band behind the knee, drive to straight (not locked). VMO + knee tracking. <em>(Symmetric now — the old left bias was for an ACL that's long healed.)</em></span></div>
   <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Highest-MVIC glute-med move (Boren 2011 ~81% vs clamshell ~38%) — your real glute-med driver.</span></div>
@@ -2247,6 +2332,19 @@ footer{
       <p style="margin:14px 0 0;font-size:12.5px;color:var(--fade);font-style:italic">When in doubt in Phase 2 or 3, the default answer is "walk + Daily Low-Load only" — the always-safe floor.</p>
     </div>
 
+    <!-- RECOVERY TOOLS -->
+    <div style="background:rgba(31,224,255,.06);border:1.5px solid rgba(31,224,255,.28);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">🦵 RECOVERY TOOLS — NormaTec + Soft Tissue</div>
+      <p style="font-size:14px;line-height:1.7;margin:0 0 10px"><strong>NormaTec boots</strong> are a <em>recovery</em> tool, not a warmup — pre-training they down-regulate you, the opposite of what you want. Honest evidence: a small-to-moderate effect on <strong>soreness</strong> (peaks ~48h) and a "lighter legs" feeling, but <strong>no</strong> boost to strength return or hypertrophy. Worth it for comfort that keeps you training, not for gains.</p>
+      <ul style="margin:0 0 10px;padding-left:18px;line-height:1.7;font-size:13.5px">
+        <li><strong>After Legs A / Legs B:</strong> 20–30 min, ~60–80 mmHg, post-session or that evening (finish ~60 min before bed).</li>
+        <li><strong>Rest / heavy-leg days:</strong> 20 min, 40–60 mmHg, evening — great when you skipped the pool and legs feel cumulative.</li>
+        <li><strong>Quiet / clinician-flagged windows:</strong> totally fine — no spinal or joint load, and hypermobility-safe (circumferential pressure, no joint torque).</li>
+        <li><strong>Skip if:</strong> any lower-leg DVT concern, skin infection, or an open/unhealed site. Start lower-pressure and build.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--fade);line-height:1.65;margin:0"><strong>Massage gun + triangular lacrosse ball</strong> live at the <em>front</em> of the leg-day warmups (tone relief on tight spots) — see those days. Fine post-session for comfort too. Same hypermobile rule everywhere: relieve guarded tissue, never chase range.</p>
+    </div>
+
     <!-- SLEEP & RED-S -->
     <div style="background:rgba(234,240,255,.04);border:1.5px solid var(--bdr);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--dim);margin-bottom:10px;font-size:11px">🌙 SLEEP &amp; ENERGY AVAILABILITY</div>
@@ -2792,6 +2890,36 @@ dayIds.forEach(id => { const el = document.getElementById(id); if (el) obs.obser
   const cell = document.getElementById('wc-' + d);
   if (cell) cell.classList.add('today');
 })();
+
+// ── Weekly log — copy a dated template to clipboard (paste into Notes / your app) ──
+function copyWeekLog(){
+  const d = new Date();
+  const date = d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  const tpl =
+`WEEK OF ${date}            (mesocycle wk _/6)
+Did:  M_  Tu_  W_  Th_  F_      (✓ / skip)
+Top sets (load×reps @RIR):
+  BSS_  hinge_  SL-hip-thrust_  leg-ext_  leg-curl_  abductor_  calf_
+  pull-up_  pike_  lat-raise_  face-pull_
+Skill ladder:  handstand_  pull-up_  pistol_
+Knee 0/10  L_ R_   ·   Back 0/10 _   ·   New leg signal? _
+1st-Sat tests:  side-plank L_ R_  ·  SL-balance-EC L_ R_  ·  dead-hang_  ·  wall-HS_
+Notes:
+`;
+  const btn = document.getElementById('weekLogBtn');
+  const flash = () => { if(btn){ const t = btn.dataset.label || btn.textContent; btn.dataset.label = t; btn.textContent = '✓ Copied — paste it'; setTimeout(()=>{ btn.textContent = t; }, 2200); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(tpl).then(flash).catch(()=>fallbackCopy(tpl, flash));
+  } else { fallbackCopy(tpl, flash); }
+}
+function fallbackCopy(text, cb){
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.top='-9999px';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); if(cb) cb(); } catch(e){ window.prompt('Copy your weekly log:', text); }
+  document.body.removeChild(ta);
+}
+window.copyWeekLog = copyWeekLog;
 </script>
 </body>
 </html>
