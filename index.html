@@ -2348,8 +2348,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
     <div class="swim-intro" style="padding:4px 16px 14px">A web page can't write to Apple Notes directly, so make a one-time Shortcut — then <strong>Send to Notes</strong> always appends to the same note:
       <ol style="margin:10px 0 0 18px;line-height:1.75;font-size:13px;color:var(--fade)">
         <li>Open <strong>Shortcuts</strong> → tap <strong>+</strong> (new shortcut).</li>
-        <li>Add the action <strong>Receive Text from Share Sheet</strong>.</li>
-        <li>Add <strong>Append to Note</strong> → pick or create a note named <strong>Bulletproof Log</strong>.</li>
+        <li>Turn on <strong>“Show in Share Sheet”</strong> — tap the <strong>ⓘ</strong> info button at the bottom (newer iOS: tap the shortcut’s name at the top → settings). <em>This is a setting, not a searchable action — that’s the bit that trips people up.</em> A <strong>“Receive … from Share Sheet”</strong> bar then appears at the top; tap it and set the type to <strong>Text</strong>.</li>
+        <li>In Notes, make an empty note called <strong>Bulletproof Log</strong> (so you can pick it next).</li>
+        <li>Back in the shortcut, add the action <strong>Append to Note</strong> → set its text to the <strong>Shortcut Input</strong> variable → choose the <strong>Bulletproof Log</strong> note.</li>
         <li>Rename the shortcut <strong>Log to Bulletproof</strong> → Done.</li>
       </ol>
       <p style="margin:10px 0 0;font-size:13px;color:var(--fade)">From then on: <strong>Send to Notes</strong> → choose <strong>Log to Bulletproof</strong> → it appends to that one note, on-device, nothing leaves your phone.</p>
