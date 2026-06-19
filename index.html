@@ -156,12 +156,12 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 
 /* ── SAFETY BAR ── */
 .safebar{
-  background:rgba(255,46,136,.06);
-  border-bottom:1px solid rgba(255,46,136,.20);
-  padding:10px var(--pad);
+  background:rgba(255,46,136,.04);
+  border-bottom:1px solid rgba(255,46,136,.15);
+  padding:9px var(--pad);
   display:flex;
   flex-wrap:wrap;
-  gap:6px;
+  gap:5px;
   align-items:center;
 }
 .safebar .lbl{
@@ -174,11 +174,11 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   margin-right:2px;
 }
 .safebar span{
-  font-size:12px;
+  font-size:11px;
   color:var(--fade);
-  background:rgba(255,46,136,.07);
-  border:1px solid rgba(255,46,136,.18);
-  padding:5px 11px;
+  background:rgba(255,46,136,.045);
+  border:1px solid rgba(255,46,136,.13);
+  padding:4px 9px;
   border-radius:20px;
 }
 
@@ -744,6 +744,14 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .callout.warn .callout-t{color:var(--r)}
 .callout.warn strong{color:var(--r)}
 
+/* inline collapsible for reference asides (cut-lists, triage) — keeps the day glanceable */
+.foldnote{margin-top:8px}
+.foldnote>summary{cursor:pointer;list-style:none;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:4px 0;-webkit-tap-highlight-color:transparent;display:inline-flex;align-items:center}
+.foldnote>summary::-webkit-details-marker{display:none}
+.foldnote>summary::after{content:'▾';margin-left:6px;transition:transform .2s;font-size:9px}
+.foldnote[open]>summary::after{transform:rotate(180deg)}
+.foldnote>summary:hover{color:var(--fade)}
+
 /* ── MISC ── */
 .section{border-bottom:1px solid var(--bdr)}
 
@@ -827,6 +835,10 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .dl-done{font-size:11px;color:var(--g);letter-spacing:.04em;margin-bottom:12px}
 .dl-acts{display:flex;gap:8px}
 .dl-acts .logbtn{flex:1}
+.exjot{display:block;width:100%;margin-top:11px;background:transparent;border:none;border-bottom:1px dashed rgba(93,255,159,.30);color:var(--txt);font-family:'Inter',sans-serif;font-size:13px;padding:7px 2px;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.exjot::placeholder{color:var(--dim);opacity:.62}
+.exjot:focus{outline:none;border-bottom-color:var(--g);background:rgba(93,255,159,.05)}
+.exjot.has-val{border-bottom-style:solid;border-bottom-color:rgba(93,255,159,.55)}
 .bp-toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(10px);background:rgba(12,12,28,.96);border:1px solid var(--g);color:var(--g);padding:10px 18px;border-radius:100px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.06em;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .bp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -1037,14 +1049,14 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <!-- HERO -->
 <div class="hero" id="top">
-  <div class="hero-eye">// Bulletproof · Spine-Safe · Revised June 2026 (machine-integrated leg days + knee-smart loading)</div>
+  <div class="hero-eye">// Bulletproof · Revised June 2026</div>
   <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
-  <p>Every movement screened for spinal safety and active joint control. Progressions built in; loads anchored to current clearances. Bands, bodyweight + cleared machines. 5 training days. Joint-smart for hypermobility, post-revision spine, ACL history, and patellofemoral knee. No figures, no fluff.</p>
+  <p>Five sessions — bands, bodyweight, cleared machines. Progressions built in, loads kept where they belong. Strength work that doesn't set your joints off.</p>
   <div class="pills">
     <span class="pill r">Joint-Smart Protocol</span>
     <span class="pill b">Bands · Bodyweight · Cleared Machines</span>
     <span class="pill g">Wall Handstand Only</span>
-    <span class="pill gld">Legs A Wed · Pick One Thu</span>
+    <span class="pill gld">Pull · Legs A · Push · Legs B · Skill</span>
   </div>
 </div>
 
@@ -1071,8 +1083,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout">
   <div class="callout-t">// How to Run the Week — Order &amp; When to Rest</div>
   <p><strong>Day order:</strong> it alternates so nothing hard trains two days running — <strong>Pull → Legs A → Push → Legs B → Skill</strong>. Legs land Tue + Thu with an upper day between, which is kinder to a healing spine and slow-adapting tendons than back-to-back leg days. Skill is low-cost — sprinkle a few minutes onto any day. <strong>Five days is the ceiling, not the quota</strong> — 3–4 quality days is the sustainable baseline; hitting four is a win, not a miss.</p>
-  <p style="margin-top:6px"><strong>Order within a session:</strong> knee-quieting isometric (leg days) → skill while your brain is fresh → main compound → accessories → isolation → core/anti-rotation last. Never grind skill or a loaded hinge once you're cooked — that's when hypermobile form slips.</p>
-  <p style="margin-top:6px"><strong>Tired? Read it, don't push through:</strong> <strong>flat/heavy</strong> → keep the session, drop a set or two, hold the load. <strong>Run-down</strong> (bad sleep, RPE up two sessions, achy) → swap the hard day for skill + a walk or StairMaster, or take the rest day early. <strong>Wiped, or any new leg signal</strong> → full rest day, and pull the deload forward a week. When the week compresses, protect Legs A &amp; B first and sacrifice Skill/cardio first — a planned rest beats a forced one. Full green/yellow/red guide in <a href="#meso" style="color:var(--p)">Mesocycle</a>.</p>
+  <details class="foldnote"><summary>Within-session order + fatigue triage</summary>
+  <p style="margin:6px 0 0"><strong>Order within a session:</strong> knee-quieting isometric (leg days) → skill while your brain is fresh → main compound → accessories → isolation → core/anti-rotation last. Never grind skill or a loaded hinge once you're cooked — that's when hypermobile form slips.</p>
+  <p style="margin-top:6px"><strong>Tired? Read it, don't push through:</strong> <strong>flat/heavy</strong> → keep the session, drop a set or two, hold the load. <strong>Run-down</strong> (bad sleep, RPE up two sessions, achy) → swap the hard day for skill + a walk or StairMaster, or take the rest day early. <strong>Wiped, or any new leg signal</strong> → full rest day, and pull the deload forward a week. When the week compresses, protect Legs A &amp; B first and sacrifice Skill/cardio first — a planned rest beats a forced one. Full green/yellow/red guide in <a href="#meso" style="color:var(--p)">Mesocycle</a>.</p></details>
 </div>
 
 
@@ -1143,7 +1156,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~42 min</div>
   <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~35 · core covered daily (no separate finisher)</p>
-  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) hamstring slider — Wed legs covers ham · (2) active dead hang — Daily decompression hang covers it · (3) prone Y — keep if you can, lower trap is undertrained · (4) face pull — keep (non-negotiable for hypermobile shoulders) · (5) pulldown — your lat-width gap, prioritize · core kept: banded pull-up, low-lat row.</p>
+  <details class="foldnote"><summary>Short on time? cut order</summary>
+  <p style="font-size:14px;margin:6px 0 0"><strong>Cut in this order:</strong> (1) hamstring slider — Wed legs covers ham · (2) active dead hang — Daily decompression hang covers it · (3) prone Y — keep if you can, lower trap is undertrained · (4) face pull — keep (non-negotiable for hypermobile shoulders) · (5) pulldown — your lat-width gap, prioritize · core kept: banded pull-up, low-lat row.</p></details>
 </div>
 
 <div class="wu">
@@ -1344,7 +1358,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~35 min</div>
   <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~26 · Pallof is your core (no extra finisher)</p>
-  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) OH tricep — overlaps the pike push-up · (2) serratus punch — keep if you can, handstand-relevant · (3) lateral raise — keep, delt width is your goal · core kept: pike push-up + Pallof.</p>
+  <details class="foldnote"><summary>Short on time? cut order</summary>
+  <p style="font-size:14px;margin:6px 0 0"><strong>Cut in this order:</strong> (1) OH tricep — overlaps the pike push-up · (2) serratus punch — keep if you can, handstand-relevant · (3) lateral raise — keep, delt width is your goal · core kept: pike push-up + Pallof.</p></details>
 </div>
 
 <div class="wu">
@@ -1508,7 +1523,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~44 min</div>
   <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~32 · Finisher 4 (McGill Big 2)</p>
-  <p style="font-size:14px;margin:0"><strong>If short on time, cut in this order:</strong> (1) McGill finisher — Daily Low-Load covers bird-dog + side plank; this Wed pyramid is the higher-quality bout but skippable · (2) abductor machine — glute med also gets the Daily clamshell + Thu side-lying abduction · (3) drop a set from Bulgarian (3×8 → 2×8) before cutting it · core kept: hinge first (fresh pattern), Nordic second (fresh eccentric quality), then hip thrust (right-biased), then BSS.</p>
+  <details class="foldnote"><summary>Short on time? cut order</summary>
+  <p style="font-size:14px;margin:6px 0 0"><strong>Cut in this order:</strong> (1) McGill finisher — Daily Low-Load covers bird-dog + side plank; this Wed pyramid is the higher-quality bout but skippable · (2) abductor machine — glute med also gets the Daily clamshell + Thu side-lying abduction · (3) drop a set from Bulgarian (3×8 → 2×8) before cutting it · core kept: hinge first (fresh pattern), Nordic second (fresh eccentric quality), then hip thrust (right-biased), then BSS.</p></details>
 </div>
 
 <div class="callout" style="border-color:rgba(31,224,255,.28);background:rgba(31,224,255,.06)">
@@ -1739,8 +1755,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Legs B ~40 min (warmup 6) · Swim bonus 45–55 min</div>
-  <p style="font-size:14px;margin:0 0 6px"><strong>Swim:</strong> warmup 300m · drill 4×50m · main 600–800m · pull buoy 4×50m · kick 4×25m · cooldown 200m. Cut from cooldown backward if short.</p>
-  <p style="font-size:14px;margin:0"><strong>Legs B (cut order):</strong> (1) side-plank finisher — Daily Low-Load covers spine work · (2) tib post/peroneal — Daily plantar sensory partly covers · (3) Copenhagen/adductor · (4) calf raise · core kept: Spanish squat (knee analgesia), leg extension, lying leg curl, single-leg glute bridge.</p>
+  <details class="foldnote"><summary>Swim plan + cut order</summary>
+  <p style="font-size:14px;margin:6px 0 6px"><strong>Swim:</strong> warmup 300m · drill 4×50m · main 600–800m · pull buoy 4×50m · kick 4×25m · cooldown 200m. Cut from cooldown backward if short.</p>
+  <p style="font-size:14px;margin:0"><strong>Legs B (cut order):</strong> (1) side-plank finisher — Daily Low-Load covers spine work · (2) tib post/peroneal — Daily plantar sensory partly covers · (3) Copenhagen/adductor · (4) calf raise · core kept: Spanish squat (knee analgesia), leg extension, lying leg curl, single-leg glute bridge.</p></details>
 </div>
 
 <div class="callout" style="border-color:rgba(31,224,255,.28);background:rgba(31,224,255,.06)">
@@ -2001,7 +2018,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
   <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~47 min · Cut Bottom-Up</div>
   <p style="font-size:14px;margin:0 0 6px">Warmup 7 (wrist work non-negotiable) · Work ~35 · Finisher 3</p>
-  <p style="font-size:14px;margin:0"><strong>Priority order — cut from the bottom:</strong><br>1. Wall handstand work — skill priority #1<br>2. Pistol — only single-leg loaded movement of the week<br>3. Pull-up negative — eccentric pull strength, unique to Day 5<br>4. Active hang + PPT — L-sit progression<br>5. Pike press at wall — graded inversion adjunct<br>6. Pullover — lat-width accessory; cut first or move to Day 1 on busy weeks</p>
+  <details class="foldnote"><summary>Priority order — cut bottom-up</summary>
+  <p style="font-size:14px;margin:6px 0 0"><strong>Cut from the bottom:</strong><br>1. Wall handstand work — skill priority #1<br>2. Pistol — only single-leg loaded movement of the week<br>3. Pull-up negative — eccentric pull strength, unique to Day 5<br>4. Active hang + PPT — L-sit progression<br>5. Pike press at wall — graded inversion adjunct<br>6. Pullover — lat-width accessory; cut first or move to Day 1 on busy weeks</p></details>
 </div>
 
 <div class="exlist">
@@ -3212,7 +3230,7 @@ function _dotsHTML(v){ var s=''; for (var i=1;i<=5;i++) s += '<button type="butt
 function _ratingStr(v){ var s=''; for (var i=1;i<=5;i++) s += (i<=v)?'●':'○'; return s; }
 function _completedNames(dayId){ return [...document.querySelectorAll('#'+dayId+' .excard.done .exname')].map(function(e){ return e.textContent.trim(); }); }
 function buildDayLogForm(host, dayId){
-  var ex = _completedNames(dayId).length;
+  var ex = (function(){ var j = readJots(); return (j[dayId] && j[dayId].ex) ? Object.keys(j[dayId].ex).length : 0; })();
   var f = document.createElement('div');
   f.className = 'dl-form';
   f.innerHTML =
@@ -3223,7 +3241,7 @@ function buildDayLogForm(host, dayId){
       '<label class="dl-paincell"><span>Back 0–10</span><input class="dl-num" data-k="back" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
     '</div>'+
     '<input class="dl-note" type="text" maxlength="140" placeholder="Notable… (one line)">'+
-    (ex ? '<div class="dl-done">✓ '+ex+' exercise'+(ex>1?'s':'')+' checked — added automatically</div>' : '')+
+    (ex ? '<div class="dl-done">✎ '+ex+' exercise jot'+(ex>1?'s':'')+' will be added</div>' : '')+
     '<div class="dl-acts"><button class="logbtn" data-a="save">Save</button><button class="logbtn ghost" data-a="send">⇪ Save + Send to Notes</button></div>';
   f.querySelectorAll('.dl-dots').forEach(function(wrap){
     wrap.querySelectorAll('.dl-dot').forEach(function(dot, idx){
@@ -3251,18 +3269,21 @@ function saveDayLog(host, dayId, share){
   var knee = form.querySelector('[data-k="knee"]').value.trim();
   var back = form.querySelector('[data-k="back"]').value.trim();
   var note = form.querySelector('.dl-note').value.trim();
-  var done = _completedNames(dayId);
   var lines = [];
   if (b || a) lines.push('Before ' + _ratingStr(b) + '  ·  After ' + _ratingStr(a));
   if (knee !== '' || back !== '') lines.push('Knee ' + (knee !== '' ? knee : '–') + '/10  ·  Back ' + (back !== '' ? back : '–') + '/10');
   if (note) lines.push('Notable: ' + note);
-  if (done.length) lines.push('✓ ' + done.join(', '));
-  if (!lines.length){ host.classList.remove('open'); form.remove(); return; }
+  var jstore = readJots();
+  var dayJots = (jstore[dayId] && jstore[dayId].ex) ? jstore[dayId].ex : {};
+  var jotIds = [...document.querySelectorAll('#' + dayId + ' .excard[data-id]')].map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
+  jotIds.forEach(function(id){ lines.push('• ' + dayJots[id].name + ' — ' + dayJots[id].text); });
+  if (!lines.length){ host.classList.remove('open'); form.remove(); _toast('Nothing to log yet'); return; }
   var header = _logDate() + ' · ' + dayId.toUpperCase() + ' · ' + (DAY_LABELS[dayId] || dayId);
   var body = lines.join('\n');
   var items = readLog(); items.unshift({ date: header, text: body });
   writeLog(items); renderLog();
   markDayComplete(dayId);
+  if (jotIds.length){ delete jstore[dayId]; writeJots(jstore); document.querySelectorAll('#' + dayId + ' .exjot').forEach(function(inp){ inp.value = ''; inp.classList.remove('has-val'); }); }
   host.classList.remove('open'); form.remove();
   if (share) shareEntry(header + '\n' + body);
   else _toast('Logged ✓');
@@ -3285,6 +3306,47 @@ function buildDayLogs(){
   });
 }
 buildDayLogs();
+
+// ── Inline per-exercise jots: type as you go → auto-collect into that day's rolled-up log (blanks ignored) ──
+function readJots(){ try { return JSON.parse(localStorage.getItem('bp-jots') || '{}'); } catch(e){ return {}; } }
+function writeJots(o){ try { localStorage.setItem('bp-jots', JSON.stringify(o)); } catch(e){} }
+function saveJot(dayId, exId, name, text){
+  if (!dayId) return;
+  var j = readJots();
+  if (!j[dayId]) j[dayId] = { date: _logDate(), ex: {} };
+  j[dayId].date = _logDate();
+  if (text) j[dayId].ex[exId] = { name: name, text: text };
+  else if (j[dayId].ex[exId]) delete j[dayId].ex[exId];
+  if (!Object.keys(j[dayId].ex).length) delete j[dayId];
+  writeJots(j);
+}
+function buildJots(){
+  var saved = readJots();
+  document.querySelectorAll('.excard[data-id]').forEach(function(card){
+    if (card.querySelector('.exjot')) return;
+    var sec = card.closest('.section[id]'); var dayId = sec ? sec.id : null; if (!dayId) return;
+    var exId = card.dataset.id;
+    var nameEl = card.querySelector('.exname'); var name = nameEl ? nameEl.textContent.trim() : exId;
+    var input = document.createElement('input');
+    input.type = 'text'; input.className = 'exjot'; input.maxLength = 120;
+    input.placeholder = '✎ jot — load · reps · feel';
+    input.setAttribute('aria-label', 'Log note for ' + name);
+    var pre = saved[dayId] && saved[dayId].ex && saved[dayId].ex[exId];
+    if (pre && pre.text){ input.value = pre.text; input.classList.add('has-val'); }
+    var t = null;
+    input.addEventListener('input', function(){
+      input.classList.toggle('has-val', !!input.value.trim());
+      clearTimeout(t); t = setTimeout(function(){ saveJot(dayId, exId, name, input.value.trim()); }, 400);
+    });
+    var cue = card.querySelector('.cue');
+    var acc = card.querySelector('.acc-btn');
+    if (cue && cue.parentNode === card) cue.insertAdjacentElement('afterend', input);
+    else if (acc && acc.parentNode === card) acc.insertAdjacentElement('beforebegin', input);
+    else card.appendChild(input);
+  });
+}
+buildJots();
+
 var _toastEl = null, _toastT = null;
 function _toast(msg){
   if (!_toastEl){ _toastEl = document.createElement('div'); _toastEl.className = 'bp-toast'; document.body.appendChild(_toastEl); }
