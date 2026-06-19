@@ -866,6 +866,35 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 .hmwrap table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:640px){.hmwrap table{white-space:nowrap}.hmwrap table th,.hmwrap table td{padding:6px 10px}}
 
+/* ── NAV + WEEK-STRIP UX ── */
+@media(min-width:760px){
+  /* Desktop: wrap the nav so there's no horizontal scrollbar at all */
+  nav{flex-wrap:wrap;overflow-x:visible;justify-content:center;row-gap:0}
+}
+nav a.active{background:rgba(255,46,136,.07);border-radius:7px 7px 0 0}
+/* week strip: make every day clearly clickable */
+.wc{cursor:pointer}
+.wc:hover{background:rgba(234,240,255,.05)}
+a.wc::after{content:'›';position:absolute;top:5px;right:7px;font-size:12px;line-height:1;color:var(--dim);opacity:.32;transition:opacity .15s}
+a.wc:hover::after{opacity:.8}
+a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
+/* today: unmistakable */
+.wc.today{background:rgba(255,46,136,.13)}
+.wc.today .wd{color:var(--r);font-weight:700}
+
+/* anchored sections clear the sticky nav when jumped to */
+[id]{scroll-margin-top:56px}
+@media(min-width:760px){[id]{scroll-margin-top:104px}}
+
+/* training-log controls */
+.logbtn{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--g);background:rgba(93,255,159,.08);border:1px solid rgba(93,255,159,.3);padding:10px 16px;border-radius:var(--rad);cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.logbtn:active{transform:scale(.97)}
+.logbtn.ghost{color:var(--dim);background:transparent;border-color:var(--bdr)}
+.logentry{background:var(--s1);border:1px solid var(--bdr);border-left:2px solid var(--g);border-radius:0 var(--rad) var(--rad) 0;padding:11px 13px;margin-bottom:8px}
+.logentry-d{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--g);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.logentry-x{color:var(--dim);background:none;border:none;cursor:pointer;font-size:15px;padding:2px 8px;min-height:32px;-webkit-tap-highlight-color:transparent}
+.logentry pre{white-space:pre-wrap;word-break:break-word;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--fade);line-height:1.55;margin-top:6px}
+
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -883,7 +912,9 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
   <a href="#d3" style="color:var(--gld)" id="n-d3">D3 · Legs A</a>
   <a href="#d4" style="color:var(--p)" id="n-d4">D4 · Legs B</a>
   <a href="#d5" style="color:var(--g)" id="n-d5">D5 · Skill</a>
+  <a href="#swim" style="color:var(--p)">Swim</a>
   <a href="#daily">Daily</a>
+  <a href="#log" style="color:var(--g)">📋 Log</a>
   <a href="#variety" style="color:var(--g)">Variety</a>
   <a href="#safety" style="color:var(--b)">Framework</a>
   <a href="#meso" style="color:var(--p)">Mesocycle</a>
@@ -934,7 +965,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
   <a class="wc" id="wc-3" href="#d2"><div class="wd">Wed</div><div class="wt" style="color:var(--b)">Push &amp;<br>Shoulders</div></a>
   <a class="wc" id="wc-4" href="#d4"><div class="wd">Thu</div><div class="wt" style="color:var(--p)">Legs B —<br>Posterior</div></a>
   <a class="wc" id="wc-5" href="#d5"><div class="wd">Fri</div><div class="wt" style="color:var(--g)">Skill &amp;<br>Handstand</div></a>
-  <div class="wc" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Cardio<br>+ skill</div></div>
+  <a class="wc" id="wc-6" href="#cardio"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Cardio<br>+ skill</div></a>
   <div class="wc" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
 
@@ -1621,7 +1652,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 </div>
 
 <!-- ────────── TRACK A · SWIM ────────── -->
-<div style="margin:18px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(176,107,255,.10);border-left:3px solid var(--p)">
+<div id="swim" style="margin:18px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(176,107,255,.10);border-left:3px solid var(--p)">
   <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--p)">Optional Bonus · Swim — when you feel like it (not a substitute for Legs B)</div>
 </div>
 <div class="sgrid">
@@ -2099,7 +2130,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 
 
 <!-- HIKE -->
-<div class="hikebar">
+<div class="hikebar" id="cardio">
   <div class="hike-l">Sat · Cardio + Skill 🎚️</div>
   <p><strong>Pick whatever you'll actually do</strong> — this slot is flexible and never gates your leg work. All knee-friendly:</p>
   <p style="margin-top:8px"><strong style="color:var(--txt);font-weight:500">StairMaster</strong> — your best pick: low patellofemoral load (unlike running) and it doubles as glute-med + quad + lateral-chain endurance, a named gap. 20–30 min steady, tall posture, <em>don't</em> hang on the rails. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Spin bike</strong> — easy on the knees; seat so the hip sits just above the kneecap at the top, hood-down posture (lumbar neutral), moderate resistance. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Hike</strong> — posterior-chain + balance; trekking poles on descents cut axial spinal load 20–30%, pack under 10 lb. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Swim</strong> — a bonus when the mood strikes (zero spinal load, lat volume); no butterfly. Inconsistent by design — never the thing your legs depend on.</p>
@@ -2214,6 +2245,27 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
   </div>
 </div>
 
+
+<!-- TRAINING LOG -->
+<div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
+  <div class="daily-hd">
+    <div class="daily-t" style="color:var(--g)">Training Log</div>
+    <div class="daily-sub">// saved on this device · export anytime</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Week-by-week log that <strong>persists right here on this phone/browser</strong> — no account, nothing leaves your device. Tap <strong>New entry</strong> for a dated template, fill it in, Save. Hit <strong>Export</strong> now and then to back it up (copies everything to your clipboard).</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
+    <button class="logbtn" onclick="newLogEntry()">＋ New entry</button>
+    <button class="logbtn ghost" onclick="exportLog()">⤓ Export all</button>
+  </div>
+  <div id="logEditor" style="display:none;margin-bottom:14px">
+    <textarea id="logText" rows="9" spellcheck="false" style="width:100%;background:var(--s1);color:var(--txt);border:1px solid var(--bdr);border-radius:6px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;resize:vertical;box-sizing:border-box"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="logbtn" onclick="saveLogEntry()">Save</button>
+      <button class="logbtn ghost" onclick="cancelLogEntry()">Cancel</button>
+    </div>
+  </div>
+  <div id="logList"></div>
+</div>
 
 <!-- DEFER LIST -->
 <div class="deferwrap">
@@ -2875,15 +2927,7 @@ document.addEventListener('visibilitychange', () => {
 // If she returns to page with active checkmarks, re-request lock
 if (Object.keys(readSaved()).length) requestWakeLock();
 
-// ── Scroll to last-checked exercise on load ──
-(function scrollToLast(){
-  const saved = readSaved();
-  const entries = Object.entries(saved).filter(e => e[1] && e[1].t).sort((a,b) => b[1].t - a[1].t);
-  if (!entries.length) return;
-  const [lastId] = entries[0];
-  const card = document.querySelector(`[data-id="${lastId}"]`);
-  if (card && !location.hash) card.scrollIntoView({behavior:'auto', block:'center'});
-})();
+// (Auto-scroll-to-last-card on load removed — it caused a jarring jump when opening the page.)
 
 // ── Scroll progress bar ──
 window.addEventListener('scroll', function() {
@@ -2905,7 +2949,7 @@ const obs = new IntersectionObserver(entries => {
         navEl.style.borderColor = dayColors[e.target.id] || 'var(--r)';
         navEl.classList.add('active');
         const _nav = document.getElementById('topnav');
-        if (_nav) _nav.scrollTo({ left: navEl.offsetLeft - _nav.clientWidth / 2 + navEl.offsetWidth / 2, behavior: 'smooth' });
+        if (_nav && _nav.scrollWidth > _nav.clientWidth + 4) _nav.scrollTo({ left: navEl.offsetLeft - _nav.clientWidth / 2 + navEl.offsetWidth / 2, behavior: 'smooth' });
       }
     }
   });
@@ -2948,6 +2992,43 @@ function fallbackCopy(text, cb){
   document.body.removeChild(ta);
 }
 window.copyWeekLog = copyWeekLog;
+
+// ── Training log (localStorage; persists on this device) ──
+function readLog(){ try { return JSON.parse(localStorage.getItem('bp-log') || '[]'); } catch(e){ return []; } }
+function writeLog(a){ localStorage.setItem('bp-log', JSON.stringify(a)); }
+function _logEsc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function _logDate(){ return new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); }
+function renderLog(){
+  const list = document.getElementById('logList'); if (!list) return;
+  const items = readLog();
+  if (!items.length){ list.innerHTML = '<p style="font-size:13px;color:var(--dim);font-style:italic">No entries yet — tap “New entry” after a session.</p>'; return; }
+  list.innerHTML = items.map((e,i) => '<div class="logentry"><div class="logentry-d">' + _logEsc(e.date) + '<button class="logentry-x" onclick="deleteLogEntry(' + i + ')" aria-label="Delete entry">✕</button></div><pre>' + _logEsc(e.text) + '</pre></div>').join('');
+}
+function newLogEntry(){
+  const ed = document.getElementById('logEditor');
+  document.getElementById('logText').value = _logDate() + '\nDid:  M_  Tu_  W_  Th_  F_\nTop sets (load×reps @RIR):  \nSkill:  handstand_  pull-up_  pistol_\nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  ';
+  ed.style.display = 'block';
+  document.getElementById('logText').focus();
+}
+function cancelLogEntry(){ document.getElementById('logEditor').style.display = 'none'; }
+function saveLogEntry(){
+  const t = document.getElementById('logText').value.trim();
+  if (!t){ cancelLogEntry(); return; }
+  const items = readLog();
+  items.unshift({ date: _logDate(), text: t });
+  writeLog(items); cancelLogEntry(); renderLog();
+}
+function deleteLogEntry(i){ const items = readLog(); items.splice(i, 1); writeLog(items); renderLog(); }
+function exportLog(){
+  const items = readLog();
+  if (!items.length){ window.alert('No log entries yet.'); return; }
+  const txt = items.map(e => e.date + '\n' + e.text).join('\n\n──────────\n\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(() => window.alert('Log copied to clipboard — paste it somewhere safe.')).catch(() => fallbackCopy(txt));
+  } else { fallbackCopy(txt); }
+}
+window.newLogEntry = newLogEntry; window.saveLogEntry = saveLogEntry; window.cancelLogEntry = cancelLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog;
+renderLog();
 </script>
 </body>
 </html>
