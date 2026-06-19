@@ -74,7 +74,7 @@ body{
   color:var(--txt);
   font-family:'Inter',sans-serif;
   font-weight:400;
-  line-height:1.7;
+  line-height:1.55;
   font-size:15px;
 }
 @media(min-width:760px){
@@ -245,6 +245,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   -webkit-tap-highlight-color:transparent;min-height:32px;
 }
 .check-status button:hover{color:var(--r);border-color:var(--r)}
+.check-status .cs-btns{display:flex;gap:8px}
+.check-status button.on{color:var(--g);border-color:var(--g);background:rgba(93,255,159,.08)}
 
 /* ── WEEK STRIP ── */
 .week{
@@ -311,7 +313,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 
 /* ── DAY HEADER ── */
 .day-hdr{
-  padding:22px var(--pad) 16px;
+  padding:18px var(--pad) 14px;
   border-bottom:1px solid var(--bdr);
   display:flex;
   align-items:flex-start;
@@ -381,10 +383,10 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .wu-item{
   display:flex;
   gap:12px;
-  font-size:15px;
+  font-size:13px;
   color:var(--txt);
-  margin-bottom:9px;
-  line-height:1.6;
+  margin-bottom:7px;
+  line-height:1.5;
   align-items:flex-start;
 }
 .wu-t{
@@ -415,8 +417,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 /* ── EXERCISE CARD ── */
 .exlist{padding:0 var(--pad)}
 .excard{
-  border-bottom:1px solid rgba(42,42,56,.7);
-  padding:20px 18px;
+  border-bottom:1px solid var(--bdr);
+  padding:16px 18px;
   margin:0 -18px;
   border-radius:var(--rad-lg);
   position:relative;
@@ -437,7 +439,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .exname{
   font-family:'Playfair Display',serif;
   font-weight:700;
-  font-size:20px;
+  font-size:18px;
   line-height:1.15;
   margin-bottom:6px;
 }
@@ -448,7 +450,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   gap:6px;
   flex-shrink:0;
 }
-.sets{font-family:'Inter',sans-serif;font-size:21px;font-weight:800;color:var(--txt);white-space:nowrap;letter-spacing:-.01em;line-height:1}
+.sets{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;color:var(--b);white-space:nowrap;letter-spacing:-.01em;line-height:1;font-variant-numeric:tabular-nums}
 .rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
   font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
@@ -490,7 +492,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   margin-bottom:10px;
 }
 .band-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1.5px solid rgba(234,240,255,.20)}
-.band-txt{font-family:'Inter',sans-serif;font-size:14px;color:#9fe8ff;line-height:1.55;font-weight:500}
+.band-txt{font-family:'Inter',sans-serif;font-size:13px;color:#9fe8ff;line-height:1.45;font-weight:500}
 
 /* start-left badge */
 .start-l{
@@ -528,18 +530,22 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .caveat strong{color:var(--gld);font-weight:600}
 
 /* content labels — bigger eyebrows for mid-set wayfinding */
-.slbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;font-weight:600}
-.setup{font-size:16px;color:var(--txt);line-height:1.65;margin-bottom:14px}
-.clbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:6px;font-weight:600}
+.slbl{font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;font-weight:600}
+.setup{font-size:14px;color:var(--fade);line-height:1.55;margin-bottom:12px}
+.clbl{font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:4px;font-weight:600}
 .cue{
-  font-size:16px;color:#ffb3da;
-  padding:12px 14px;
+  font-size:14px;color:#ffb3da;
+  padding:10px 13px;
   border-left:3px solid var(--r);
   background:rgba(255,46,136,.10);
-  line-height:1.6;
+  line-height:1.5;
   border-radius:0 var(--rad) var(--rad) 0;
   font-weight:500;
 }
+
+/* ── GYM MODE — strip setup prose to the numbers + safety cue (toggle in the controls bar) ── */
+body.gym .slbl,body.gym .setup{display:none}
+body.gym .excard{padding-top:13px;padding-bottom:13px}
 
 /* accordion — bigger tap target */
 .acc-btn{
@@ -676,9 +682,9 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   border-radius:0 var(--rad) var(--rad) 0;
   padding:10px 13px;
 }
-.evi p{font-size:12.5px;color:var(--fade);line-height:1.62;margin-bottom:6px}
+.evi p{font-size:12px;color:var(--fade2);line-height:1.6;margin-bottom:6px}
 .evi p:last-child{margin-bottom:0}
-.evi em{color:var(--b);font-style:italic;font-size:11.5px;letter-spacing:.02em}
+.evi em{color:var(--dim);font-style:italic;font-size:11px;letter-spacing:.02em}
 .evi strong{color:var(--txt);font-weight:500}
 .daily-note .src{display:block;font-size:11px;color:var(--dim);font-style:italic;margin-top:5px;letter-spacing:.02em}
 
@@ -688,7 +694,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .refs-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
 .ref{font-size:12px;color:var(--fade);line-height:1.6;padding:8px 0;border-bottom:1px solid rgba(42,42,56,.5)}
 .ref strong{color:var(--txt);font-weight:500}
-.ref em{color:var(--b);font-style:italic;font-size:11.5px;display:block;margin-top:2px}
+.ref em{color:var(--dim);font-style:italic;font-size:11.5px;display:block;margin-top:2px}
 .refs-disclaim{margin-top:14px;font-size:11.5px;color:var(--dim);line-height:1.7;font-style:italic;max-width:600px}
 
 /* ── POLISH: hover, today pulse, focus ── */
@@ -732,7 +738,7 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   border-radius:0 var(--rad) var(--rad) 0;
 }
 .callout-t{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--b);margin-bottom:6px;font-weight:600}
-.callout p{font-size:13.5px;color:var(--fade);line-height:1.72}
+.callout p{font-size:13.5px;color:var(--fade);line-height:1.6}
 .callout strong{color:var(--b);font-weight:500}
 .callout.warn{border-color:var(--r);background:rgba(255,46,136,.06)}
 .callout.warn .callout-t{color:var(--r)}
@@ -743,9 +749,9 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 
 /* ── REST TIMER ── */
 .rest-lbl{
-  background:rgba(31,224,255,.08);
+  background:rgba(31,224,255,.05);
   border:1px solid rgba(31,224,255,.22);
-  color:#9fe8ff;
+  color:var(--dim);
   font-weight:600;
   padding:6px 10px;
   border-radius:4px;
@@ -802,6 +808,27 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
   border-bottom:1px solid rgba(93,255,159,.22);
 }
 .day-complete.shown{display:block}
+
+/* ── PER-DAY QUICK LOG ── */
+.daylog-host{padding:14px var(--pad)}
+.daylog-trigger{width:100%;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--g);background:rgba(93,255,159,.06);border:1px solid rgba(93,255,159,.28);border-radius:var(--rad);padding:12px;min-height:46px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s}
+.daylog-trigger:active{background:rgba(93,255,159,.14)}
+.dl-form{margin-top:10px;background:var(--s1);border:1px solid rgba(93,255,159,.22);border-radius:var(--rad-lg);padding:14px}
+.dl-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.dl-lbl{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.dl-dots{display:flex;gap:2px}
+.dl-dot{background:none;border:none;color:var(--g);font-size:22px;line-height:1;cursor:pointer;padding:4px 3px;-webkit-tap-highlight-color:transparent}
+.dl-pain{display:flex;gap:10px;margin-bottom:12px}
+.dl-paincell{flex:1;display:flex;flex-direction:column;gap:5px}
+.dl-paincell span{font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.dl-num,.dl-note{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);color:var(--txt);font-family:'Inter',sans-serif;width:100%;box-sizing:border-box}
+.dl-num{font-size:15px;padding:10px;text-align:center;min-height:44px;font-variant-numeric:tabular-nums}
+.dl-note{font-size:14px;padding:10px;margin-bottom:12px}
+.dl-done{font-size:11px;color:var(--g);letter-spacing:.04em;margin-bottom:12px}
+.dl-acts{display:flex;gap:8px}
+.dl-acts .logbtn{flex:1}
+.bp-toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(10px);background:rgba(12,12,28,.96);border:1px solid var(--g);color:var(--g);padding:10px 18px;border-radius:100px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.06em;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.bp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── CLEAR-BTN (footer) ── */
 .clear-btn{
@@ -1024,7 +1051,10 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <!-- CHECK STATUS -->
 <div class="check-status">
   <span>✓ Tap circle to check off · <span class="reset-info" id="resetCountdown">no progress saved</span></span>
-  <button onclick="copyWeekLog()" id="weekLogBtn">📋 Copy week log</button>
+  <span class="cs-btns">
+    <button onclick="toggleGym()" id="gymBtn">⚡ Gym mode</button>
+    <button onclick="copyWeekLog()" id="weekLogBtn">📋 Copy week log</button>
+  </span>
 </div>
 
 <!-- WEEK STRIP -->
@@ -2307,12 +2337,24 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
     <div class="daily-t" style="color:var(--g)">Training Log</div>
     <div class="daily-sub">// saved on this device · export anytime</div>
   </div>
-  <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Week-by-week log that <strong>persists right here on this phone/browser</strong> — no account, nothing leaves your device. Tap <strong>New entry</strong> for a dated template, fill it in, Save. Hit <strong>Export</strong> now and then to back it up (copies everything to your clipboard).</p>
+  <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Stays <strong>on this phone</strong> — no account, nothing leaves your device. Rate any day from <strong>📝 Rate &amp; log this day</strong> at the bottom of that day (before/after, knee &amp; back, one notable line). <strong>Send to Notes</strong> appends straight into one fixed Apple Note once you set up the Shortcut below.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
     <button class="logbtn" onclick="newLogEntry()">＋ New entry</button>
     <button class="logbtn ghost" onclick="shareLog()">⇪ Send to Notes / apps</button>
     <button class="logbtn ghost" onclick="exportLog()">⤓ Copy all</button>
   </div>
+  <details class="swim-fold" style="margin:0 0 14px">
+    <summary>⚡ One-tap Apple Notes logging — set up once <span class="swim-hint">· iPhone, optional</span></summary>
+    <div class="swim-intro" style="padding:4px 16px 14px">A web page can't write to Apple Notes directly, so make a one-time Shortcut — then <strong>Send to Notes</strong> always appends to the same note:
+      <ol style="margin:10px 0 0 18px;line-height:1.75;font-size:13px;color:var(--fade)">
+        <li>Open <strong>Shortcuts</strong> → tap <strong>+</strong> (new shortcut).</li>
+        <li>Add the action <strong>Receive Text from Share Sheet</strong>.</li>
+        <li>Add <strong>Append to Note</strong> → pick or create a note named <strong>Bulletproof Log</strong>.</li>
+        <li>Rename the shortcut <strong>Log to Bulletproof</strong> → Done.</li>
+      </ol>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--fade)">From then on: <strong>Send to Notes</strong> → choose <strong>Log to Bulletproof</strong> → it appends to that one note, on-device, nothing leaves your phone.</p>
+    </div>
+  </details>
   <div id="logEditor" style="display:none;margin-bottom:14px">
     <textarea id="logText" rows="9" spellcheck="false" style="width:100%;background:var(--s1);color:var(--txt);border:1px solid var(--bdr);border-radius:6px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;resize:vertical;box-sizing:border-box"></textarea>
     <div id="logDraftNotice" style="display:none;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--g);margin:5px 0 0">draft auto-saved</div>
@@ -2897,9 +2939,9 @@ function updateDayComplete() {
     const done = [...cards].filter(c => c.classList.contains('done')).length;
     if (done === cards.length && done > 0) {
       el.classList.add('shown');
-      el.textContent = `✓ Day complete · ${done} done — tap to log it`;
+      el.textContent = `✓ Day complete · ${done} done — tap to rate & log`;
       el.style.cursor = 'pointer';
-      el.onclick = () => logDay(dayId);
+      el.onclick = () => openDayLog(dayId);
       markDayComplete(dayId);
     } else {
       el.classList.remove('shown');
@@ -2912,10 +2954,22 @@ function updateDayComplete() {
 // Hook into toggleDone
 const _origToggleDone = window.toggleDone;
 window.toggleDone = function(btn){
+  const card = btn.closest('.excard');
+  const wasDone = card && card.classList.contains('done');
   _origToggleDone(btn);
   updateDayComplete();
   updateResetCountdown();
   requestWakeLock();
+  if (card){
+    const nowDone = card.classList.contains('done');
+    const rest = card.querySelector('.rest-lbl');
+    if (nowDone && !wasDone){
+      if (navigator.vibrate) navigator.vibrate(30);   // confirm tap (eyes on the rack)
+      if (rest && rest._restStart) rest._restStart();  // one tap = logged + rest clock running
+    } else if (!nowDone && wasDone && rest && rest._restReset){
+      rest._restReset();
+    }
+  }
 };
 updateDayComplete();
 
@@ -2951,13 +3005,19 @@ document.querySelectorAll('.rest-lbl').forEach(el => {
       setTimeout(reset, 4000);
     }
   }
-  el.addEventListener('click', () => {
-    if (interval) { reset(); return; }
+  function start(){
+    if (interval) return;
     remaining = parseInt(el.dataset.rest);
     el.classList.add('running'); el.classList.remove('done');
     el.textContent = remaining + 's';
     requestWakeLock();
     interval = setInterval(tick, 1000);
+  }
+  el._restStart = start;
+  el._restReset = reset;
+  el.addEventListener('click', () => {
+    if (interval) { reset(); return; }
+    start();
   });
 });
 
@@ -3130,6 +3190,107 @@ function readCompleted(){ try { return JSON.parse(localStorage.getItem('bp-compl
 function writeCompleted(o){ try { localStorage.setItem('bp-complete', JSON.stringify(o)); } catch(e){} }
 function markDayComplete(dayId){ const c = readCompleted(); const today = new Date().toDateString(); if (c[dayId] !== today){ c[dayId] = today; writeCompleted(c); } }
 window.newLogEntry = newLogEntry; window.logDay = logDay; window.saveLogEntry = saveLogEntry; window.cancelLogEntry = cancelLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog; window.shareLog = shareLog;
+
+// ── Gym mode — hide setup prose for a clean between-sets glance (persisted) ──
+function toggleGym(){
+  const on = document.body.classList.toggle('gym');
+  const b = document.getElementById('gymBtn');
+  if (b) b.classList.toggle('on', on);
+  try { localStorage.setItem('bp-gym', on ? '1' : '0'); } catch(e){}
+}
+window.toggleGym = toggleGym;
+(function(){
+  try { if (localStorage.getItem('bp-gym') === '1') {
+    document.body.classList.add('gym');
+    const b = document.getElementById('gymBtn'); if (b) b.classList.add('on');
+  } } catch(e){}
+})();
+
+// ── Per-day quick log: before/after rating + knee/back 0–10 + one notable line → same log store ──
+function _dotsHTML(v){ var s=''; for (var i=1;i<=5;i++) s += '<button type="button" class="dl-dot">'+((i<=v)?'●':'○')+'</button>'; return s; }
+function _ratingStr(v){ var s=''; for (var i=1;i<=5;i++) s += (i<=v)?'●':'○'; return s; }
+function _completedNames(dayId){ return [...document.querySelectorAll('#'+dayId+' .excard.done .exname')].map(function(e){ return e.textContent.trim(); }); }
+function buildDayLogForm(host, dayId){
+  var ex = _completedNames(dayId).length;
+  var f = document.createElement('div');
+  f.className = 'dl-form';
+  f.innerHTML =
+    '<div class="dl-row"><span class="dl-lbl">Before · energy</span><span class="dl-dots" data-key="before" data-val="0">'+_dotsHTML(0)+'</span></div>'+
+    '<div class="dl-row"><span class="dl-lbl">After · felt</span><span class="dl-dots" data-key="after" data-val="0">'+_dotsHTML(0)+'</span></div>'+
+    '<div class="dl-pain">'+
+      '<label class="dl-paincell"><span>Knee 0–10</span><input class="dl-num" data-k="knee" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
+      '<label class="dl-paincell"><span>Back 0–10</span><input class="dl-num" data-k="back" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
+    '</div>'+
+    '<input class="dl-note" type="text" maxlength="140" placeholder="Notable… (one line)">'+
+    (ex ? '<div class="dl-done">✓ '+ex+' exercise'+(ex>1?'s':'')+' checked — added automatically</div>' : '')+
+    '<div class="dl-acts"><button class="logbtn" data-a="save">Save</button><button class="logbtn ghost" data-a="send">⇪ Save + Send to Notes</button></div>';
+  f.querySelectorAll('.dl-dots').forEach(function(wrap){
+    wrap.querySelectorAll('.dl-dot').forEach(function(dot, idx){
+      dot.onclick = function(){ var i=idx+1; var v=(parseInt(wrap.dataset.val)===i)?0:i; wrap.dataset.val=v; wrap.querySelectorAll('.dl-dot').forEach(function(d,j){ d.textContent=(j<v)?'●':'○'; }); };
+    });
+  });
+  f.querySelector('[data-a="save"]').onclick = function(){ saveDayLog(host, dayId, false); };
+  f.querySelector('[data-a="send"]').onclick = function(){ saveDayLog(host, dayId, true); };
+  host.appendChild(f);
+  return f;
+}
+function openDayLog(dayId){
+  var host = document.querySelector('.daylog-host[data-day="'+dayId+'"]');
+  if (!host) return;
+  var open = host.classList.toggle('open');
+  var existing = host.querySelector('.dl-form');
+  if (open){ if (!existing) buildDayLogForm(host, dayId); host.scrollIntoView({ behavior:'smooth', block:'center' }); }
+  else if (existing){ existing.remove(); }
+}
+window.openDayLog = openDayLog;
+function saveDayLog(host, dayId, share){
+  var form = host.querySelector('.dl-form'); if (!form) return;
+  var dots = function(k){ var w = form.querySelector('.dl-dots[data-key="'+k+'"]'); return w ? (parseInt(w.dataset.val)||0) : 0; };
+  var b = dots('before'), a = dots('after');
+  var knee = form.querySelector('[data-k="knee"]').value.trim();
+  var back = form.querySelector('[data-k="back"]').value.trim();
+  var note = form.querySelector('.dl-note').value.trim();
+  var done = _completedNames(dayId);
+  var lines = [];
+  if (b || a) lines.push('Before ' + _ratingStr(b) + '  ·  After ' + _ratingStr(a));
+  if (knee !== '' || back !== '') lines.push('Knee ' + (knee !== '' ? knee : '–') + '/10  ·  Back ' + (back !== '' ? back : '–') + '/10');
+  if (note) lines.push('Notable: ' + note);
+  if (done.length) lines.push('✓ ' + done.join(', '));
+  if (!lines.length){ host.classList.remove('open'); form.remove(); return; }
+  var header = _logDate() + ' · ' + dayId.toUpperCase() + ' · ' + (DAY_LABELS[dayId] || dayId);
+  var body = lines.join('\n');
+  var items = readLog(); items.unshift({ date: header, text: body });
+  writeLog(items); renderLog();
+  markDayComplete(dayId);
+  host.classList.remove('open'); form.remove();
+  if (share) shareEntry(header + '\n' + body);
+  else _toast('Logged ✓');
+}
+function shareEntry(text){
+  if (navigator.share){ navigator.share({ title:'Bulletproof log', text:text }).catch(function(){}); }
+  else if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ _toast('Copied — paste into Notes'); }).catch(function(){ fallbackCopy(text); }); }
+  else fallbackCopy(text);
+}
+function buildDayLogs(){
+  dayIds.forEach(function(dayId){
+    var dc = document.querySelector('.day-complete[data-day="'+dayId+'"]');
+    if (!dc) return;
+    if (dc.previousElementSibling && dc.previousElementSibling.classList && dc.previousElementSibling.classList.contains('daylog-host')) return;
+    var host = document.createElement('div');
+    host.className = 'daylog-host'; host.dataset.day = dayId;
+    host.innerHTML = '<button class="daylog-trigger" type="button">📝 Rate &amp; log this day</button>';
+    host.querySelector('.daylog-trigger').onclick = function(){ openDayLog(dayId); };
+    dc.parentNode.insertBefore(host, dc);
+  });
+}
+buildDayLogs();
+var _toastEl = null, _toastT = null;
+function _toast(msg){
+  if (!_toastEl){ _toastEl = document.createElement('div'); _toastEl.className = 'bp-toast'; document.body.appendChild(_toastEl); }
+  _toastEl.textContent = msg; _toastEl.classList.add('show');
+  clearTimeout(_toastT); _toastT = setTimeout(function(){ _toastEl.classList.remove('show'); }, 1800);
+}
+
 renderLog();
 </script>
 </body>
