@@ -862,6 +862,10 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 .callout.p{border-color:rgba(176,107,255,.30);background:rgba(176,107,255,.06)}
 .callout.p .callout-t{color:var(--p)}
 
+/* mobile-safe wide tables (mesocycle / retest) — scroll horizontally instead of overflowing the page */
+.hmwrap table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:640px){.hmwrap table{white-space:nowrap}.hmwrap table th,.hmwrap table td{padding:6px 10px}}
+
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -936,7 +940,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 
 <div class="callout">
   <div class="callout-t">// How to Run the Week — Order &amp; When to Rest</div>
-  <p><strong>Day order:</strong> it alternates so nothing hard trains two days running — <strong>Pull → Legs A → Push → Legs B → Skill</strong>. Legs land Tue + Thu with an upper day between, which is kinder to a healing spine and slow-adapting tendons than back-to-back leg days. Skill is low-cost — sprinkle a few minutes onto any day.</p>
+  <p><strong>Day order:</strong> it alternates so nothing hard trains two days running — <strong>Pull → Legs A → Push → Legs B → Skill</strong>. Legs land Tue + Thu with an upper day between, which is kinder to a healing spine and slow-adapting tendons than back-to-back leg days. Skill is low-cost — sprinkle a few minutes onto any day. <strong>Five days is the ceiling, not the quota</strong> — 3–4 quality days is the sustainable baseline; hitting four is a win, not a miss.</p>
   <p style="margin-top:6px"><strong>Order within a session:</strong> knee-quieting isometric (leg days) → skill while your brain is fresh → main compound → accessories → isolation → core/anti-rotation last. Never grind skill or a loaded hinge once you're cooked — that's when hypermobile form slips.</p>
   <p style="margin-top:6px"><strong>Tired? Read it, don't push through:</strong> <strong>flat/heavy</strong> → keep the session, drop a set or two, hold the load. <strong>Run-down</strong> (bad sleep, RPE up two sessions, achy) → swap the hard day for skill + a walk or StairMaster, or take the rest day early. <strong>Wiped, or any new leg signal</strong> → full rest day, and pull the deload forward a week. When the week compresses, protect Legs A &amp; B first and sacrifice Skill/cardio first — a planned rest beats a forced one. Full green/yellow/red guide in <a href="#meso" style="color:var(--p)">Mesocycle</a>.</p>
 </div>
@@ -1158,13 +1162,13 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">Lie face-down on bench or floor. Arms extended overhead at ~125° abduction (between straight overhead and a T) — forming a wide Y. Thumbs point UP toward ceiling. Lift arms slightly off the surface, squeeze the muscle low between the shoulder blades. Hold 2 counts. Lower over 3.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">125° + thumbs-up is the position with the <strong>highest lower-trap-to-upper-trap activation ratio</strong> documented (Reinold/Wilk, Cools). Lower trap is the upward rotator your scapulae need — undertrained in almost everyone. Tiny range, huge return. No upper trap firing — chin tucked, neck long.</div>
+<div class="cue">125° + thumbs-up <strong>favorably loads the lower trap with low upper-trap cost</strong> (Cools; Reinold &amp; Wilk). Lower trap is the upward rotator your scapulae need — undertrained in almost everyone. Tiny range, real return. No upper-trap firing — chin tucked, neck long.</div>
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
-    <p>Reinold &amp; Wilk's EMG study of scapular muscle activation across 12 rehab positions found prone Y at ~125° abduction with thumbs-up generates the highest lower-trap-to-upper-trap activation ratio of any exercise tested (specific MVIC numbers vary by source; the LT-to-UT <em>ratio</em> is the robust finding, not the absolute number). Cools and the Belgian scapular dyskinesis group independently converged on the same finding.</p>
+    <p>Prone elevation in the scapular plane at ~120–145° with thumbs-up favorably biases the lower trapezius over the upper trap — the recruitment hypermobile shoulders need. The "highest of all exercises tested" framing overstates it; specific MVIC numbers vary by study. The robust, defensible point is the <em>low upper-trap cost</em>, not a single number (Cools et al. 2007; Reinold &amp; Wilk).</p>
     <p>The position selectively biases the lower trap (an upward rotator) over the upper trap (an elevator) — the recruitment pattern <strong>hypermobile shoulders specifically need</strong> to stabilize during pressing volume, since hypermobile athletes default to upper-trap-dominant strategies.</p>
-    <em>— Reinold &amp; Wilk (2007); Cools et al. (2014); Kibler &amp; Sciascia</em>
+    <em>— Cools et al. (2007); Reinold &amp; Wilk (2007); Kibler &amp; Sciascia</em>
   </div>
 </div>
 </div>
@@ -1264,7 +1268,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
-    <p>Decker et al.'s EMG study (1999) and Ekstrom et al. (2003) both rank serratus punch / protraction-emphasis exercises among the top serratus anterior activators per unit of joint load. Critically, scapular protraction is the serratus's primary action — pressing/pushing is secondary. So an isolated punch produces more serratus EMG per joule of shoulder stress than push-up variants.</p>
+    <p>Decker et al. (1999) and Ekstrom et al. (2003) rank serratus punch / protraction-emphasis exercises among the top serratus-anterior activators. Scapular protraction is the serratus's primary action, so an isolated punch targets it directly with little anterior-shoulder load — the point for a hypermobile shoulder. (The push-up-plus is the best-validated serratus exercise if you want a bodyweight swap.)</p>
     <p><strong>Why this replaces pseudo-planche for your shoulder:</strong> Russek (1999) and Mottram on hypermobility-specific shoulder programming explicitly contraindicate max-leverage anterior loading positions. Pseudo-planche puts shoulders out past wrists with anterior capsule under tensile stress — exactly the position the literature says to avoid in gJHM. This delivers the serratus stimulus pseudo-planche was meant to provide, with the anterior capsule fully unloaded.</p>
     <em>— Decker et al. (1999); Ekstrom et al. (2003); Russek (1999); Mottram on gJHM shoulder rehab</em>
   </div>
@@ -1392,7 +1396,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 <div class="wu">
   <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed</div>
   <div class="cars-note" style="border-left-color:var(--p);background:rgba(176,107,255,.06)">
-    <div class="cars-note-t" style="color:var(--p)">🔫 Soft-tissue prep — first, ~90s, tight spots only</div>
+    <div class="cars-note-t" style="color:var(--p)">💆 Soft-tissue prep — first, ~90s, tight spots only</div>
     <p><strong>Massage gun:</strong> quads (mid-belly, glide proximal→distal) ~45s/leg · lateral calf ~30s. If the right glute/SI is cranky today, 20s on the triangular lacrosse ball — <strong>pressure-pause, don't grind</strong>. <strong>Belly only</strong>: never the kneecap, patellar tendon, back of the knee, IT band at the knee, the sit-bone, or the spine/surgery area. <em>Hypermobile rule — this is tone relief on guarded tissue, NOT chasing range; if it feels like a "good stretch," ease off. Stop on anything radiating or electric.</em></p>
   </div>
   <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or fast walk. Warm the hips and knees.</span></div>
@@ -1540,7 +1544,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
-    <p>Contreras et al. (2015, 2017) established the hip thrust as among the highest glute-max activators per unit of spinal load — the load vector is horizontal through the femur, not vertical through the spine, so 10 lb on the hips ≠ 10 lb on a barbell. For your specific case, this is the glute-loading exercise with the lowest spinal cost.</p>
+    <p>Contreras et al. (2015) measured high glute-max activation in the hip thrust (lower glute-max peak ~216% MVIC vs ~130% in the back squat, in trained women), and the load vector is horizontal through the femur, not vertical through the spine — so 10 lb on the hips ≠ 10 lb on a barbell. EMG isn't hypertrophy (volume-matched, hip thrust ≈ squat for growth — Plotkin 2023), but that horizontal vector is exactly why it's the glute lift with the lowest spinal cost for you.</p>
     <p>The 10 lb PT progression aligns with standard post-surgical glute-loading progressions (Buckthorpe et al. on ACL/knee rehab, transferable principles). Going higher than 10 lb is reasonable in 2–4 weeks given pain-free tolerance — the limiter on this exercise is rarely the glute, it's pelvic control under load.</p>
     <em>— Contreras et al. (2015, 2017); Andersen et al. on hip-thrust EMG; Buckthorpe et al. (2019); Schoenfeld 2017/2019</em>
   </div>
@@ -1568,20 +1572,20 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 </div>
 <div class="caveat">
   <div class="caveat-t">⚠ The Setup Is the Exercise</div>
-  <p><strong>Lean the torso 10–20° forward</strong> (hinge at the hip, spine neutral — not a slump) and point <strong>toes slightly in</strong>. That combination biases the posterior glute-med fibers and quiets the TFL, which an upright torso recruits instead. <strong>Stop 2–3° short of end-range</strong> — a hypermobile hip never needs end-range joint load. Low back stays on the pad.</p>
+  <p><strong>A slight forward lean</strong> (hinge at the hip, spine neutral — not a slump) tends to favor the glutes over the TFL; keep <strong>toes roughly neutral</strong> — toes-in is sometimes claimed to bias the posterior fibers, but the EMG is contested and it can pull in more TFL, so don't force it. <strong>Stop 2–3° short of end-range</strong> — a hypermobile hip never needs end-range joint load. Low back on the pad. <em>(Coaching cue, not hard evidence.)</em></p>
 </div>
 <div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Pads on the mid-outer thigh (not the knee). 50 lb. Forward lean, toes-in, low back pressed to the pad. Drive out under control to ~30–40° of movement, 1-count pause, 2-count return — never let the stack drop. Keep the pelvis level; if it hikes, lower the load.</div>
+<div class="setup">Pads on the mid-outer thigh (not the knee). 50 lb. Slight forward lean, toes neutral, low back pressed to the pad. Drive out under control to ~30–40° of movement, 1-count pause, 2-count return — never let the stack drop. Keep the pelvis level; if it hikes, lower the load.</div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Glute medius is one of your three flagged gaps — and a weak one lets the lumbar spine compensate on every step all day. This adds <strong>loaded</strong> glute-med volume at low spinal cost; the heavier hypertrophy driver is Thursday's side-lying abduction (highest-MVIC of the lot), and the Daily clamshell grooves the pattern. <strong>Home/away swap:</strong> banded monster walk — 3 × 40 steps (10 each direction), ankle band, hips level.</div>
+<div class="cue">Glute medius is one of your three flagged gaps — and a weak one lets the lumbar spine compensate on every step all day. This adds <strong>loaded</strong> glute-med volume at low spinal cost; the heavier hypertrophy driver is Thursday's side-lying abduction (top-tier glute-med EMG), and the Daily clamshell just grooves the pattern. <strong>Home/away swap:</strong> banded monster walk — 3 × 40 steps (10 each direction), ankle band, hips level.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
     <div class="prog-lbl">📈 Path Forward (muscle-limited · 6-wk cadence)</div>
-    <div class="prog-step"><span class="pn">Now</span><span>50 lb, 3×12–15, forward lean + toes-in</span></div>
+    <div class="prog-step"><span class="pn">Now</span><span>50 lb, 3×12–15, slight forward lean, toes neutral</span></div>
     <div class="prog-step"><span class="pn">Within cap</span><span>Build to 3×15 at RIR 2, then add a 4th set — reps/sets before load</span></div>
     <div class="prog-step"><span class="pn">Gate</span><span><strong>PT re-clearance before exceeding 50 lb</strong> — same rule the free-weight lifts follow</span></div>
-    <div class="prog-step"><span class="pn">Right bias</span><span>Alternate single-leg sets to add reps on the right (pairs with the hip-thrust 2-1)</span></div>
+    <div class="prog-step"><span class="pn">Right bias</span><span>If the machine does one leg at a time: <strong>Right 3 sets : Left 2</strong> (the 2-1 method, same as the hip thrust)</span></div>
   </div>
 </div>
 </div>
@@ -1670,12 +1674,12 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 <div class="wu">
   <div class="wu-lbl">⚡ Warmup — 6 min · lower-primed (knee + glute-med)</div>
   <div class="cars-note" style="border-left-color:var(--p);background:rgba(176,107,255,.06)">
-    <div class="cars-note-t" style="color:var(--p)">🔫 Soft-tissue prep — first, ~2 min, tight spots only</div>
+    <div class="cars-note-t" style="color:var(--p)">💆 Soft-tissue prep — first, ~2 min, tight spots only</div>
     <p><strong>Triangular lacrosse ball:</strong> right posterior glute / piriformis — sit on it, find the tender spot, <strong>hold 20–30s of pressure, then micro-shift</strong> (don't grind, don't crank the hip in) · TFL belly (the hip, not the knee) ~20s. <strong>Massage gun:</strong> right hamstring mid-belly ~30s · lateral calf ~30s right / ~20s left. <strong>Belly only</strong>: never the spine/surgery area, the sit-bone, the back of the knee, the lateral knee, or the kneecap. <em>Hypermobile rule — tone relief on guarded tissue, NOT range-chasing; press to a dull tender release, not a stretch. Stop on anything radiating or electric.</em></p>
   </div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — easy spin or fast walk.</span></div>
   <div class="wu-item"><span class="wu-t">60s</span><span>Banded TKE × 15 <strong>each leg, even both sides</strong> — band behind the knee, drive to straight (not locked). VMO + knee tracking. <em>(Symmetric now — the old left bias was for an ACL that's long healed.)</em></span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Highest-MVIC glute-med move (Boren 2011 ~81% vs clamshell ~38%) — your real glute-med driver.</span></div>
+  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Top-tier glute-med EMG — side-lying abduction + side-plank variants head the lists, well above clamshells — so this is your real glute-med driver.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Single-leg balance 30s each (eyes open) — ankle + foot proprioception.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Ankle circles ×10 + toe spreading ×10.</span></div>
   <div class="wu-item"><span class="wu-t">primer</span><span>The Spanish-squat isometric (first exercise) doubles as the last bit of warm-up <em>and</em> quiets the knee — go straight into it.</span></div>
@@ -1702,7 +1706,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
   <strong>5. Knee-quiet rule:</strong> the hold should <em>reduce</em> knee symptoms, not provoke them. If pain climbs mid-hold, shorten the hold or reduce depth.
 </div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Vertical shins = patellofemoral-friendly quad loading; the band is what makes it work (without it the knees drift forward into a wall sit). <strong>Heavy isometric holds blunt knee pain for ~45 min afterward</strong> (Rio et al. 2015) — that's why this now <em>leads</em> the session: quiet the knee first, then do the loaded work. Still the best quad loader in the program for your knee.</div>
+<div class="cue">Vertical shins = patellofemoral-friendly quad loading; the band is what makes it work (without it the knees drift forward into a wall sit). <strong>Heavy isometric holds can blunt knee pain for ~45 min afterward</strong> (Rio 2015 — shown for patellar <em>tendinopathy</em>; the patellofemoral evidence is thinner and the effect may be local, but it's low-risk to try). That's why this <em>leads</em> the session. <strong>0/10 rule = no anterior <em>patellar</em> pain during the hold</strong>; a mild quad-belly ache is expected and fine.</div>
 </div>
 
 <div class="excard" data-id="d4b-legext">
@@ -1842,7 +1846,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
 
 </div><!-- /exlist Legs B -->
 
-<div class="fin"><div class="fin-lbl">Legs B Finisher — Side-Plank Only</div><p><strong>Side Plank — endurance hold</strong> · 2 × 30s each side. Test L vs R: if one side gives out &gt;15% faster, log it. McGill side-bridge endurance is the protective variable for the QL/oblique sling (McGill et al., Clin Biomech 1999). <em>Why no curl-up/bird-dog here:</em> Daily Low-Load already covers those daily; Wed Legs A finisher handles the higher-quality endurance bout. Side plank gets the standalone slot to address the lateral-chain endurance gap.</p></div>
+<div class="fin"><div class="fin-lbl">Legs B Finisher — Side-Plank Only</div><p><strong>Side Plank — endurance hold</strong> · 2 × 30s each side. Test L vs R: if one side gives out &gt;15% faster, log it. McGill side-bridge endurance — the L=R symmetry, more than any absolute time, is the protective variable for the QL/oblique sling (McGill, Childs &amp; Liebenson, Arch Phys Med Rehabil 1999). <em>Why no curl-up/bird-dog here:</em> Daily Low-Load already covers those daily; Wed Legs A finisher handles the higher-quality endurance bout. Side plank gets the standalone slot to address the lateral-chain endurance gap.</p></div>
 
 <div class="day-complete" data-day="d4"></div>
 </div><!-- /d4 -->
@@ -2182,7 +2186,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
     <div class="daily-card">
       <div class="daily-name">Banded Clamshell at 30° Flexion</div>
       <div class="daily-dose">1 × 15 each side</div>
-      <div class="daily-note">Yellow band above knees. <strong>Knees forward of hip line (~30° flexion)</strong> — the load-bearing detail. Open against band, hips stacked, no rolling back. At 30° glute-med fires, TFL stays quiet (inverted at neutral). <em>Daily dose reduced from 3×15 → 1×15 in May 2026:</em> hypertrophy lives in the 2×/wk side-lying abduction (Wed/Thu); daily is for grooving the pattern, not building volume.<span class="src">— Willcox &amp; Burden JOSPT (2013) for the 30° finding; Distefano et al. (2009); Selkowitz et al. (2013)</span></div>
+      <div class="daily-note">Yellow band above knees, knees a touch forward of the hip line. Open against the band, hips stacked, no rolling back. <em>This is a pattern-groomer, not the glute-med driver</em> (that's Thursday's side-lying abduction) — kept light and daily for the motor pattern, 1×15.<span class="src">— Distefano et al. (2009); Selkowitz et al. (2013). Clamshell hip-angle EMG findings vary by study, so no specific angle is claimed here.</span></div>
     </div>
     <div class="daily-card">
       <div class="daily-name">Decompression Hang — Active Scap Pack</div>
@@ -2197,7 +2201,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
     <div class="daily-card">
       <div class="daily-name">Plantar Sensory + Intrinsic Foot</div>
       <div class="daily-dose">2 min · daily · barefoot</div>
-      <div class="daily-note">Marble pickups (10 each foot) + toe spreading (10 each) + short-foot doming (10 × 3s hold each). On a textured surface if available. Hits intrinsic foot muscles, plantar mechanoreceptors, and lumbosacral proprioceptive re-weighting (Pekgöz et al. 2025 — gJHM-specific RCT). The banded tib post/peroneal work on Day 4 stays — this is the daily <em>afferent</em> driver, motor work has 48–72h recovery curve, sensory doesn't.<span class="src">— Pekgöz et al. (MDPI Healthcare 2025); McKeon foot-core paradigm</span></div>
+      <div class="daily-note">Marble pickups (10 each foot) + toe spreading (10 each) + short-foot doming (10 × 3s hold each). On a textured surface if available. Hits intrinsic foot muscles, plantar mechanoreceptors, and lumbosacral proprioceptive input. The banded tib post/peroneal work on Day 4 stays — this is the daily <em>afferent</em> driver (motor work has a 48–72h recovery curve, sensory doesn't).<span class="src">— mechanistic rationale; McKeon foot-core paradigm. Hypermobility shows larger joint-position error (a reason to train proprioception), though no foot-drill RCT in gJHM exists yet.</span></div>
     </div>
     <div class="daily-card" style="border-left-color:var(--r)">
       <div class="daily-name">Standing-Desk Soft Knees</div>
@@ -2352,6 +2356,20 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
         <li><strong>Skip if:</strong> any lower-leg DVT concern, skin infection, or an open/unhealed site. Start lower-pressure and build.</li>
       </ul>
       <p style="font-size:13px;color:var(--fade);line-height:1.65;margin:0"><strong>Massage gun + triangular lacrosse ball</strong> live at the <em>front</em> of the leg-day warmups (tone relief on tight spots) — see those days. Fine post-session for comfort too. Same hypermobile rule everywhere: relieve guarded tissue, never chase range.</p>
+    </div>
+
+    <!-- LOW-INTAKE TRAINING -->
+    <div style="background:rgba(255,210,58,.06);border:1.5px solid rgba(255,210,58,.30);border-radius:6px;padding:18px">
+      <div class="t-mono" style="color:var(--gld);margin-bottom:10px;font-size:11px">🍽️ Training When Intake / Appetite Is Low</div>
+      <p style="font-size:14px;line-height:1.7;margin:0 0 10px">Some weeks intake runs low — travel, low appetite, a deliberate cut, a clinician-managed phase. The rule flips from "build" to <strong>"retain"</strong>: the program becomes anti-catabolic insurance, not a growth block.</p>
+      <ul style="margin:0;padding-left:18px;line-height:1.75;font-size:13.5px">
+        <li><strong>Hold the load, cut volume if needed</strong> — keep working weights; drop a set before you drop intensity. The heavy-ish stimulus is what tells the body to keep the muscle.</li>
+        <li><strong>Don't fall below ~10 hard sets/week on priority muscles</strong> (lats, delts, glutes, quads, hams) — the lean-mass-retention floor in a deficit (Roth 2022/2023).</li>
+        <li><strong>Protein first</strong> — ≥1.6 g/kg bodyweight even when appetite's low (liquid protein counts — see Fuel). Biggest lean-mass lever in a deficit.</li>
+        <li><strong>Trim eccentric volume</strong> — Nordics and long pull-up negatives cost the most recovery; cap them when under-fuelled.</li>
+        <li><strong>Creatine stays on</strong>, daily — a lean-mass/strength ally exactly here.</li>
+        <li><strong>Read the signals</strong> — sharp strength/bodyweight drops or a wandering cycle mean too little fuel: raise intake or consolidate to only the top-priority sets (don't just grind more).</li>
+      </ul>
     </div>
 
     <!-- SLEEP & RED-S -->
@@ -2629,8 +2647,8 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
     <div class="ref"><strong>Adams &amp; Dolan; Callaghan &amp; McGill</strong> — Annular fiber failure under bending + compression at far lower loads than pure compression. <em>Reason for permanent shelving of conventional deadlift and the SL-RDL deferral.</em></div>
     <div class="ref"><strong>Schoenfeld et al. (2017, 2019)</strong> — Volume-hypertrophy curve; rep-range agnostic with proximity to failure. <em>Justifies the volume cuts (lat raise 4×15→3×12, etc.) without strength penalty.</em></div>
     <div class="ref"><strong>Petersen et al. (2011); van Dyk et al. (2019); Al Attar et al.</strong> — Petersen's RCT: ~60% reduction in new hamstring injuries and ~85% in recurrences with eccentric Nordic protocol. Meta-pooled effect across heterogeneous trials lands closer to ~51% (van Dyk, Al Attar). <em>Why Nordic stays in the program despite its difficulty.</em></div>
-    <div class="ref"><strong>Reinold &amp; Wilk (2007); Cools et al. (2014); Kibler &amp; Sciascia</strong> — Lower trap MVIC peaks at prone Y, ~125° abduction, thumbs-up. <em>Selection of the prone Y position over generic "Y-T-W" combos.</em></div>
-    <div class="ref"><strong>Distefano et al. (2009); Boren et al. JOSPT (2011); Selkowitz et al. (2013); Willcox &amp; Burden JOSPT (2013)</strong> — Glute-med activation hierarchy: side-lying abduction with slight IR ~81% MVIC (highest); clamshell ~38% MVIC; the 30°-flexion clamshell finding (favorable glute-med-to-TFL ratio) traces specifically to Willcox &amp; Burden. <em>Why side-lying abduction is the hypertrophy driver and clamshell is the daily pattern groomer.</em></div>
+    <div class="ref"><strong>Cools et al. (2007); Reinold &amp; Wilk (2007)</strong> — Prone elevation ~120–145° thumbs-up favorably loads the lower trap with low upper-trap cost. <em>Selection of the prone Y over generic "Y-T-W" combos.</em></div>
+    <div class="ref"><strong>Distefano et al. (2009); Boren et al. (2011); Selkowitz et al. (2013)</strong> — Side-lying hip abduction and side-plank variants rank among the highest glute-med EMG exercises; clamshells are markedly lower. <em>Why side-lying abduction is the driver and the clamshell is a pattern groomer. Exact MVIC values and clamshell hip angles vary by study — treated as a ranking, not precise numbers.</em></div>
     <div class="ref"><strong>Adams &amp; Roughley; Belavy et al. (2017, on running)</strong> — Disc tissue adapts to mechanical load; low-magnitude axial unloading and intermittent dynamic loading (walking, running) maintain hydration. Sustained sitting is the actual disc-degenerator. <em>Anchors the daily decompression hang and walking emphasis over reverse hypers. Note: Belavy's specific paper is on running, not hanging — the hanging extension is consistent with the broader mechanism but is inference.</em></div>
     <div class="ref"><strong>Russek (1999); Simmonds &amp; Keer (2007); Engelbert; Scheper</strong> — Hypermobility-specific training: closed-chain, mid-range, isometric → eccentric → concentric, no end-range under load. <em>Anchors all the depth caps and "never lock out" rules.</em></div>
     <div class="ref"><strong>Snyder-Mackler; Buckthorpe et al.; Risberg et al.</strong> — Persistent quadriceps (especially VMO) deficit on the involved side post-ACL, often years out without targeted asymmetric work. <em>Justifies the 25 left / 20 right banded TKE asymmetric warmup.</em></div>
@@ -2638,7 +2656,7 @@ nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;h
     <div class="ref"><strong>Ekstrand; Bahr &amp; Krosshaug; Mendiguchia</strong> — Sports injury epidemiology; eccentric overload for tendon resilience. <em>Background for the slow-eccentric emphasis throughout.</em></div>
     <div class="ref"><strong>Maeo et al. (2021)</strong> — Hamstring hypertrophy is greater with the hip flexed (lengthened) in the leg curl; gastrocnemius grows with the knee straight (standing &gt; seated calf raise). <em>Why the leg curl targets length and the calf raise is done standing.</em></div>
     <div class="ref"><strong>Knee-extensor PFP systematic review (2025); Witvrouw OKC-vs-CKC 5-yr RCT</strong> — Leg extension is not contraindicated in patellofemoral pain; capping ROM to the 90→45° arc keeps load off the highest-stress range. <em>Anchors the leg-extension reintroduction and the cap.</em></div>
-    <div class="ref"><strong>Rio et al. (2015)</strong> — Heavy isometric holds (5 × 45s) produce ~45 min of analgesia and cortical disinhibition. <em>Why Spanish-squat isometrics lead the knee day.</em></div>
+    <div class="ref"><strong>Rio et al. (2015)</strong> — Heavy isometric holds (5 × 45s) gave ~45 min of analgesia in <em>patellar tendinopathy</em>; extension to patellofemoral pain is inferred (low-risk). <em>Why the isometric leads the knee day.</em></div>
     <div class="ref"><strong>Halabi et al. (2025)</strong> — Hip + knee strengthening beats knee-only for patellofemoral pain (large pooled effect). <em>Why glute-med work is treated as knee medicine.</em></div>
     <div class="ref"><strong>Contreras (2-1 method); Plotkin et al. (2023)</strong> — Extra unilateral volume on the weak side restores symmetry; hip thrust ≈ squat for glute-max hypertrophy. <em>Anchors the right-glute 2-1 dosing and the hip-thrust selection.</em></div>
     <div class="ref"><strong>Resistance-training dose-response &amp; proximity-to-failure meta-analyses (2023–2024)</strong> — Volume drives hypertrophy with diminishing returns; failure isn't required (RIR 1–4); machines ≈ free weights for hypertrophy. <em>Anchors the return-to-training volume ramp and the machine integration.</em></div>
@@ -2886,7 +2904,8 @@ const obs = new IntersectionObserver(entries => {
       if (navEl) {
         navEl.style.borderColor = dayColors[e.target.id] || 'var(--r)';
         navEl.classList.add('active');
-        navEl.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+        const _nav = document.getElementById('topnav');
+        if (_nav) _nav.scrollTo({ left: navEl.offsetLeft - _nav.clientWidth / 2 + navEl.offsetWidth / 2, behavior: 'smooth' });
       }
     }
   });
