@@ -5,8 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#060611">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Bulletproof · Training Program</title>
+<script>
+/* Device autodetect — lock layout to the real device, not transient window width.
+   Sets dev-mobile/dev-desktop + has-touch/no-touch on <html> before first paint. */
+(function(){
+  var root = document.documentElement;
+  function detect(){
+    var ua = navigator.userAgent || '';
+    var coarse = matchMedia('(pointer:coarse)').matches;
+    var noHover = matchMedia('(hover:none)').matches;
+    var touch = navigator.maxTouchPoints || ('ontouchstart' in window ? 1 : 0);
+    var uaMobile = /Android|iPhone|iPod|webOS|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
+    var iPadOS = /Macintosh/.test(ua) && touch > 1;            /* iPadOS 13+ reports a macOS UA */
+    var smallScreen = Math.min(screen.width, screen.height) <= 900;
+    var mobile = uaMobile || iPadOS || ((coarse || noHover) && touch > 0 && smallScreen);
+    root.classList.toggle('dev-mobile', mobile);
+    root.classList.toggle('dev-desktop', !mobile);
+    root.classList.toggle('has-touch', touch > 0);
+    root.classList.toggle('no-touch', touch === 0);
+  }
+  detect();
+  var t; addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(detect, 200); }, {passive:true});
+  addEventListener('orientationchange', detect, {passive:true});
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -36,7 +61,8 @@
 
 /* ── RESET ── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{overflow-x:clip}
 body{
   background:
     radial-gradient(ellipse 60% 42% at 8% -4%, rgba(255,46,136,.14), transparent 58%),
@@ -51,8 +77,8 @@ body{
   line-height:1.7;
   font-size:15px;
 }
-@media(min-width:960px){
-  /* Desktop: glow becomes a full-viewport backdrop; the column is a clean reading panel on top of it */
+@media(min-width:760px){
+  /* Desktop: full-viewport glow backdrop behind a fluid centered panel */
   html{
     background:
       radial-gradient(ellipse 42% 55% at 14% 2%, rgba(255,46,136,.16), transparent 60%),
@@ -62,7 +88,7 @@ body{
     background-attachment:fixed;
   }
   body{
-    max-width:880px;
+    max-width:1040px;
     margin:0 auto;
     background:var(--bg);
     border-left:1px solid var(--bdr);
@@ -71,6 +97,8 @@ body{
     min-height:100vh;
   }
 }
+@media(min-width:1100px){ body{max-width:1180px} }
+@media(min-width:1400px){ body{max-width:1320px} }
 
 /* ── TYPOGRAPHY ── */
 .t-display{font-family:'Playfair Display',serif;font-weight:800;letter-spacing:-.025em;line-height:.93}
@@ -833,8 +861,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;oversc
 
 /* sticky nav glow */
 nav{box-shadow:0 1px 0 rgba(255,255,255,.03),0 6px 16px rgba(0,0,0,.35)}
-nav a.active{position:relative}
-nav a.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:currentColor;box-shadow:0 0 10px currentColor;opacity:.9}
+/* (single underline only — the JS-set border-bottom is the active marker; no second bar) */
 
 /* FAB glass orb */
 .day-jump{background:radial-gradient(circle at 30% 25%,rgba(40,40,64,.96),rgba(14,14,24,.96));box-shadow:0 6px 24px rgba(0,0,0,.6),var(--ring);transition:transform .18s cubic-bezier(.2,.8,.3,1.2),box-shadow .25s,border-color .25s,color .25s}
@@ -895,6 +922,47 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 .logentry-x{color:var(--dim);background:none;border:none;cursor:pointer;font-size:15px;padding:2px 8px;min-height:32px;-webkit-tap-highlight-color:transparent}
 .logentry pre{white-space:pre-wrap;word-break:break-word;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--fade);line-height:1.55;margin-top:6px}
 
+/* swim = collapsed bonus (clean <details>, not a big empty box) */
+.swim-fold{margin:16px 0;border:1px solid rgba(176,107,255,.3);border-left:3px solid var(--p);border-radius:var(--rad-lg);background:rgba(176,107,255,.05)}
+.swim-fold summary{cursor:pointer;list-style:none;padding:14px 16px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--p);display:flex;align-items:center}
+.swim-fold summary::-webkit-details-marker{display:none}
+.swim-fold summary::after{content:'▾';margin-left:auto;transition:transform .2s}
+.swim-fold[open] summary::after{transform:rotate(180deg)}
+.swim-hint{font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--dim);font-size:11px}
+.swim-intro{padding:0 16px;font-size:13px;color:var(--fade);line-height:1.6;margin:0 0 6px}
+.swim-fold .sgrid{margin:8px 14px 16px;border-radius:var(--rad);overflow:hidden}
+
+/* ── DESKTOP RESPONSIVE (uses the width on big screens; mobile untouched) ── */
+/* Multi-column desktop layout is gated to non-touch devices (autodetected) so a
+   real phone/tablet stays locked to the single-column gym view at any width.
+   :not(.dev-mobile) keeps desktops — and the JS-disabled fallback — on multi-column. */
+@media(min-width:1100px){
+  /* exercise cards → 2 columns */
+  html:not(.dev-mobile) .exlist{display:grid;grid-template-columns:1fr 1fr;column-gap:34px;padding-left:34px;padding-right:34px;align-items:start}
+  html:not(.dev-mobile) .exlist .excard{margin:0;padding:20px 0;border-bottom:1px solid rgba(42,42,56,.7)}
+  html:not(.dev-mobile) .exlist .excard:nth-last-child(-n+2){border-bottom:none}
+  html:not(.dev-mobile) .exlist .excard:hover{background:transparent}
+  /* denser reference/macro grids */
+  html:not(.dev-mobile) .refs-list,html:not(.dev-mobile) .combos,html:not(.dev-mobile) .daily-grid,html:not(.dev-mobile) .defer-list,html:not(.dev-mobile) .hmgrid,html:not(.dev-mobile) .principles,html:not(.dev-mobile) .leg-grid{grid-template-columns:repeat(3,1fr)}
+  /* type steps up on desktop */
+  html:not(.dev-mobile) body{font-size:16px}
+  html:not(.dev-mobile) .day-title,html:not(.dev-mobile) .approach h2,html:not(.dev-mobile) .nutwrap h2{font-size:26px}
+  html:not(.dev-mobile) .hmwrap h2{font-size:28px}
+  html:not(.dev-mobile) .exname{font-size:22px}
+  html:not(.dev-mobile) .day-num{font-size:72px}
+  html:not(.dev-mobile) .sets{font-size:23px}
+  /* keep prose measure readable at width */
+  html:not(.dev-mobile) .callout p,html:not(.dev-mobile) .approach .lead,html:not(.dev-mobile) .hmwrap .sub,html:not(.dev-mobile) .fin p{max-width:74ch}
+  /* panel reads as a framed app tied to the backdrop */
+  html:not(.dev-mobile) body{box-shadow:0 0 0 1px rgba(255,46,136,.10),0 0 0 1px rgba(31,224,255,.04),0 0 120px rgba(0,0,0,.8),0 0 60px rgba(255,46,136,.05)}
+  html:not(.dev-mobile) nav a.active{background:rgba(255,46,136,.10)}
+}
+@media(min-width:1400px){
+  html:not(.dev-mobile) body{font-size:17px}
+  html:not(.dev-mobile) .day-num{font-size:88px}
+  html:not(.dev-mobile) .refs-list,html:not(.dev-mobile) .combos{grid-template-columns:repeat(4,1fr)}
+}
+
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -931,6 +999,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <span>Neutral spine always</span>
   <span>No loaded lumbar flexion — especially the first hour awake</span>
   <span>Never lock out joints</span>
+  <span>No impact — no jumping, running, jump rope, or plyo</span>
   <span>Active hangs only — never passive</span>
   <span>Wall handstand only</span>
   <span>No butterfly or breaststroke</span>
@@ -1000,7 +1069,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
     <div class="princ r">
       <div class="princ-h">01 · Spine-Sparing</div>
       <div class="princ-t">Hinge, don't flex under load</div>
-      <p>Cumulative lumbar flexion under load is the dominant mechanism for annular damage. Replace flexion-bias movements (deadlift bottom, hollow body, RDL without pattern) with hinge-pattern teachers (light hand-held hinge, band pull-through as form-check), anti-rotation (Pallof), and dead bug.</p>
+      <p>Cumulative lumbar flexion under load is the dominant mechanism for annular damage. Replace flexion-bias movements (deadlift bottom, hollow body, RDL without pattern) with hinge-pattern teachers (banded hip hinge, band pull-through), anti-rotation (Pallof), and dead bug.</p>
       <span class="src">McGill (2002, 2007, 2015); Adams &amp; Dolan; Callaghan &amp; McGill</span>
     </div>
     <div class="princ b">
@@ -1049,7 +1118,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <div class="wu">
   <div class="wu-lbl">⚡ Warmup — 6 min · pull-primed</div>
-  <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — jump rope, fast march, or easy spin. Just get warm.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — fast march, easy spin, or arm + leg swings. <strong>Low-impact only — no jumping</strong> (spine + knees). Just get warm.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — forearms on wall, slide up/down. Serratus + lower-trap, the scap pattern hypermobile shoulders need before pulling.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Band pull-aparts × 15 — chest height, 2s squeeze. Posterior cuff + mid-trap.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Shoulder CARs × 3 each arm — slow, pause at the sticky spots. Active control at end range, never passive.</span></div>
@@ -1415,13 +1484,13 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="callout" style="border-color:rgba(31,224,255,.28);background:rgba(31,224,255,.06)">
   <div class="callout-t" style="color:var(--b)">// PT Sync — June 2026 · What Changed &amp; Why</div>
   <p><strong>Machines are now in the picture.</strong> The latest clinic block cleared graded machine loading for the lower body — and for a post-revision spine, that's an upgrade, not a compromise: controlled ROM, no balance tax, load that climbs in clean increments at low spinal cost (machine vs free-weight hypertrophy is a statistical tie, so choose by joint cost). Machines carry the loadable leg work; bands + bodyweight stay for the home/away version and the pattern work.</p>
-  <p style="margin-top:6px"><strong>Cleared this block:</strong> hip-abductor machine 50 lb · adductor 35–40 lb · seated leg extension 30 lb (capped 90→45°) · leg curl 25 lb (run <em>lying/prone</em>, see below) · standing calf raise 15 lb · Bulgarian split squat 7.5 lb/hand · glute bridge 15 lb. The hand-held hinge holds at ~5 lb — the disc, not the muscle, sets that pace.</p>
+  <p style="margin-top:6px"><strong>Cleared this block:</strong> hip-abductor machine 50 lb · adductor 35–40 lb · seated leg extension 30 lb (capped 90→45°) · leg curl 25 lb (run <em>lying/prone</em>, see below) · standing calf raise 15 lb · Bulgarian split squat 7.5 lb/hand · glute bridge 15 lb. The hinge runs <em>banded</em> (no plates) — the load is band tension, and the disc, not the muscle, sets the pace.</p>
   <p style="margin-top:6px"><strong>One deliberate deviation from the note:</strong> the clinic listed <em>seated</em> leg curl; this program runs it <em>lying/prone</em> instead. Seated curl puts the hip at 90° and the hamstring pull then tips the pelvis into lumbar flexion right at the operated segment — prone keeps the spine neutral for the same hamstring work. <span style="color:var(--fade)">Worth a one-line mention to your PT next visit — it's a safer route to the same target, not a disagreement about the target.</span></p>
 </div>
 
 <div class="callout warn">
   <div class="callout-t">⚠ Loading Status — Updated June 2026</div>
-  <p>Machine loading is cleared and progressing; <strong>heavy axial free-weight load is not</strong>. Conventional barbell deadlifts stay permanently shelved. Loaded RDLs and single-leg RDLs remain <strong>deferred until PT/surgeon clearance</strong> — the hand-held hinge is the pattern teacher meanwhile. Trap-bar <em>from blocks</em> is the eventual on-ramp (raise the bar before adding weight — that removes the at-risk bottom range), earliest behind functional criteria + clearance. The point: machines let you keep building the legs without waiting on the deadlift gate.</p>
+  <p>Machine loading is cleared and progressing; <strong>heavy axial free-weight load is not</strong>. Conventional barbell deadlifts stay permanently shelved. Loaded RDLs and single-leg RDLs remain <strong>deferred until PT/surgeon clearance</strong> — the banded hip hinge is the spine-smart hinge meanwhile. Trap-bar <em>from blocks</em> is the eventual on-ramp (raise the bar before adding weight — that removes the at-risk bottom range), earliest behind functional criteria + clearance. The point: machines let you keep building the legs without waiting on the deadlift gate.</p>
 </div>
 
 <div class="wu">
@@ -1444,47 +1513,46 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="excard" data-id="d3e1">
 <div class="extop">
   <div class="ex-left">
-    <div class="exname">Hip Hinge — Light Hand-Held Plates</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-progressed · May 2026 · replaces band pull-through</span></div>
+    <div class="exname">Banded Hip Hinge</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-cleared pattern · band-loaded, no spinal compression</span></div>
   </div>
-  <div class="exmeta"><div class="sets">3 × 10</div><div class="rest-lbl">75s rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">hinge · stand · drive</div></div>
+  <div class="exmeta"><div class="sets">3 × 10–12</div><div class="rest-lbl">75s rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">hips back · drive · squeeze</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat">
-  <div class="caveat-t">⚠ Form Rules — Tighter Than the Band Version</div>
-  <p>Plates in your hands compress the spine on the way down (the band did not). Two non-negotiables: <strong>(1) ROM cap</strong> — stop hinging the instant you feel any tension at the back of your legs OR sense the spine wanting to round, whichever first. Do <em>not</em> chase depth. <strong>(2) Anti-lateral-flexion</strong> — both shoulders stay perfectly level. Suitcase load demands you resist asymmetric drop. If one shoulder dips, you've turned a hinge into a side-bend. Reset.</p>
+  <div class="caveat-t">⚠ Form Rules — Non-Negotiable</div>
+  <p>The band pulls roughly <em>horizontally</em>, so it adds almost no spinal compression — that's the whole reason it's your hinge. Two rules keep it that way: <strong>(1) Neutral spine</strong> — hold your natural low-back curve start to finish; stop the rep the instant your lower back would round. Depth is earned by control, never by reaching for the floor. <strong>(2) Square &amp; never slack</strong> — hips and knees stay level and square (no twist), and keep <em>light</em> tension on the band the whole time. If you let it go fully slack at the bottom it can snatch your pelvis into flexion coming back up — the one thing to avoid.</p>
 </div>
 <div class="slbl">Setup &amp; Execution</div>
 <div class="setup">
-  <strong>1. Setup:</strong> One 5 lb plate in each hand, suitcase grip (palms facing thighs). Feet hip-width, soft knees, ribs DOWN, shoulders pulled back without arching.<br>
-  <strong>2. Hinge:</strong> Push hips BACK first — not down. Plates slide down the FRONT of your thighs toward the knees, never further. Hamstrings load like a stretched band.<br>
-  <strong>3. Stop point:</strong> first hint of hamstring tension, or first inclination of the spine to round, whichever comes first. For most people that is somewhere between the kneecap and mid-shin. <em>Do not chase your toes.</em><br>
-  <strong>4. Stand:</strong> drive hips forward, glutes squeeze hard at the top. Plates slide back up the thighs.<br>
-  <strong>5. Top:</strong> ribs DOWN, no posterior pelvic tilt, no lumbar extension. Reset 1 count before next rep.
+  <strong>1. Setup:</strong> Anchor a band at <strong>hip height, directly behind you</strong>; hold the ends or loop it across the hip crease. Step forward until there's light tension. Feet hip-width, soft knees, ribs DOWN, long neutral spine.<br>
+  <strong>2. Brace:</strong> gentle 360° abdominal tension, set your natural lordosis, eyes down-and-forward.<br>
+  <strong>3. Hinge:</strong> push hips straight BACK toward the anchor — "close a drawer with your glutes." Torso tips as one rigid piece. Go only as deep as you can hold a neutral spine and feel the hamstrings load (roughly torso toward 45°) — <em>depth is control, not reach.</em><br>
+  <strong>4. Stand:</strong> drive hips forward, squeeze glutes hard at the top — no leaning back, no rib flare.<br>
+  <strong>5. Return:</strong> resist the band down on a slow count — own it, never let it snap you back. Reset 1 count before the next rep.
 </div>
 <div class="clbl">🎯 Coaching Cue</div>
-<div class="cue"><strong>Plate ride down your thigh is the cue</strong> — if it leaves your thigh, spine is rounding (= butt wink starting). <strong>No butt wink</strong> at the bottom. PT moved you band → plates because you earned the upgrade and need the motor pattern in a compressive context. <em>Form-check option:</em> any session where mechanics feel off, do one set with a broomstick on your back — three-point contact (head, mid-back, sacrum) touching = spine neutral.</div>
+<div class="cue"><strong>Hips go back to the anchor; spine stays one long line</strong> — the band guides your <em>hips</em>, it does not move your <em>back</em>. <em>Form-check option:</em> any session mechanics feel off, do one set with a broomstick on your back — three-point contact (head, mid-back, sacrum) touching = spine neutral.</div>
 <button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
 <div class="evi-wrap">
   <div class="evi">
-    <p>McGill (2007, 2015) established the hip-hinge pattern with neutral spine as the canonical motor-control prerequisite to any axial loading post-disc injury. Progression from dowel/light load to heavier load follows the standard rehab loading curve. Your PT's specific progression (2 lb dowel → 5 lb in clinic, no pain) is textbook graded exposure.</p>
-    <p><strong>Why the plate version raises the bar from the band version:</strong> Adams &amp; Dolan's annular research shows damage occurs at <em>bending + compression</em> at loads far below pure compression alone. The band pull-through delivered an unloading vector (zero compression). Plates in hands deliver mild compression on the descent. Both are safe with neutral spine; the plate version is only safe with a tighter ROM cap because you no longer have the band's posterior assistance to bail out a marginal rep.</p>
-    <p><strong>Why no goblet/dumbbell-at-chest yet:</strong> a chest-held load shifts the center of mass anteriorly, increasing extensor moment at L4–L5 (Cholewicki &amp; McGill). Suitcase plates keep the load vector close to the body's COM line. Goblet hinge is in your progression — at Wk 12, after the plate version is dialed.</p>
-    <em>— McGill (2007, 2015); Adams &amp; Dolan; Cholewicki &amp; McGill; Schoenfeld (2018) hip-dominant exercise activation review; Hayden et al. (2021) Cochrane post-disc exercise review</em>
+    <p>McGill (2007, 2015) established the neutral-spine hip-hinge as the motor-control prerequisite before any axial loading after a disc injury. The band trains exactly that pattern with a glute/hamstring-dominant pull and minimal knee load — useful given the current knee.</p>
+    <p><strong>Why band, not plates (the load vector):</strong> Adams &amp; Dolan's annular research points to combined <em>bending + compression</em> as the damaging input, at loads well below pure compression alone. Hand-held plates load straight down, so the spinal compression and flexion moment are <em>greatest at the bottom of the hinge</em> — the deepest, most-flexed position, exactly where the disc is most vulnerable. A band stretches as you stand, so its tension is <em>lightest at the bottom and peaks near lockout</em>, where you're nearly upright and stacked. The band keeps resistance away from the at-risk range and puts peak demand where the glutes finish. <em>(Mechanistic — load-vector reasoning, not a head-to-head trial.)</em></p>
+    <p><strong>Honest trade-off:</strong> a band is hardest where the muscle is strongest (top) and easiest where it's weakest (bottom) — not the ideal curve for pure hypertrophy overload. For a healing disc with two compromised stabilizing subsystems, mechanical safety wins that trade. Plates / goblet / RDL stay optional, PT-gated <em>future</em> additions — a different stimulus, not a graduation off the band.</p>
+    <em>— McGill (2007, 2015); Adams &amp; Dolan; Schoenfeld (resistance-training mechanics); Hayden et al. (2021) Cochrane post-disc exercise review</em>
   </div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
 <div class="prog-wrap">
   <div class="prog-block">
-    <div class="prog-lbl">📈 Path to RDL (PT-gated · 12-wk cadence per <a href="#meso" style="color:var(--p)">Mesocycle</a>)</div>
-    <div class="prog-step"><span class="pn">Cadence</span><span>Disc + tendon-limited. Load holds for ~18 weeks; progression within each 6-wk block is tempo + density, not weight.</span></div>
-    <div class="prog-step"><span class="pn">Now</span><span>5 lb each hand, 3×10 — held at PT-cleared dose</span></div>
-    <div class="prog-step"><span class="pn">Wk 4–8</span><span>STAY at 5 lb · annular fiber repair timeline is biological, not adherence-based (Adams &amp; Roughley)</span></div>
-    <div class="prog-step"><span class="pn">Gate ①</span><span><strong>PT re-clearance required</strong> before stepping to 7.5 lb each hand. Any load increase beyond PT-cleared dose needs explicit sign-off — not a self-progression</span></div>
-    <div class="prog-step"><span class="pn">Gate ②</span><span>10 lb each hand only after second PT re-clearance + 4 weeks of clean 7.5 lb work</span></div>
-    <div class="prog-step"><span class="pn">Gate ③</span><span>Goblet hinge — single weight at chest — only after 4 weeks clean at 10 lb + PT sign-off</span></div>
-    <div class="prog-step"><span class="pn">Gate ④</span><span>Loaded RDL only after PT + surgeon clearance + 12 weeks of clean hand-held hinge</span></div>
-    <div class="prog-step"><span class="pn">Form-check</span><span>Band pull-through still in the toolbox — use any session ROM/spine cues feel off</span></div>
+    <div class="prog-lbl">📈 Progress the band itself (disc + tendon-limited · per <a href="#meso" style="color:var(--p)">Mesocycle</a>)</div>
+    <div class="prog-step"><span class="pn">Levers</span><span>In order, cheapest first: <strong>reps → tempo → density → band tension → unilateral</strong>. Tension is the true "load step" — only after the rest plateau.</span></div>
+    <div class="prog-step"><span class="pn">① Reps</span><span>Work 10→12 within a band before anything else changes</span></div>
+    <div class="prog-step"><span class="pn">② Tempo</span><span>Slow the eccentric 3s→4s→5s; add a 1–2s pause at the bottom (the weak, controlled range)</span></div>
+    <div class="prog-step"><span class="pn">③ Density</span><span>Rest 75s→60s, or add a 4th set</span></div>
+    <div class="prog-step"><span class="pn">④ Tension</span><span><strong>~every 12 wks only:</strong> heavier band or step further back (more stretch = more end-range tension). Reset to 3×10 at the new tension. Disc/tendon adaptation is biological, not adherence-based (Adams &amp; Roughley)</span></div>
+    <div class="prog-step"><span class="pn">⑤ Unilateral</span><span>B-stance → single-leg banded hinge — a <em>lateral</em> progression (harder, not heavier) that also feeds the right-side glute work</span></div>
+    <div class="prog-step"><span class="pn">Future</span><span>Goblet hinge / light RDL are optional axial-load branches behind explicit PT sign-off — added <em>alongside</em> the band, never replacing it</span></div>
   </div>
 </div>
 </div>
@@ -1651,51 +1719,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <p style="margin-top:6px"><strong>The split question, answered:</strong> not one big leg day (too skip-fragile and too long), and not full-body-every-day (that starves slow-adapting tendons + a healing spine of recovery). Two short, <em>complementary</em> leg days is the sweet spot for you. <strong>Prefer to spread them?</strong> Run Legs B on Friday and push Skill to Thursday — quad-then-posterior back-to-back (Wed/Thu) is fine since they're complementary, but spacing is a touch kinder to recovery. Your call.</p>
 </div>
 
-<!-- ────────── TRACK A · SWIM ────────── -->
-<div id="swim" style="margin:18px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(176,107,255,.10);border-left:3px solid var(--p)">
-  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--p)">Optional Bonus · Swim — when you feel like it (not a substitute for Legs B)</div>
-</div>
-<div class="sgrid">
-  <div class="scard">
-    <div class="sc-t">Session Structure (45–55 min)</div>
-    <div class="srow">Warmup — easy freestyle, find rhythm <span>300m</span></div>
-    <div class="srow">Drill — catch-up drill, focus on catch <span>4 × 50m</span></div>
-    <div class="srow">Main set — choose one below <span>600–800m</span></div>
-    <div class="srow">Pull buoy — arms only, no kick <span>4 × 50m</span></div>
-    <div class="srow">Kick set — flutter board, neutral neck <span>4 × 25m</span></div>
-    <div class="srow">Cooldown — backstroke, easy <span>200m</span></div>
-  </div>
-  <div class="scard">
-    <div class="sc-t">Main Set — Rotate Weekly</div>
-    <div class="srow">Freestyle build — easy/med/hard per 25m <span>6 × 100m</span></div>
-    <div class="srow">Negative split — 2nd 50 faster than 1st <span>4 × 100m</span></div>
-    <div class="srow">Backstroke focus — thoracic extension <span>8 × 50m</span></div>
-    <div class="srow">Mixed — alternate free and back per lap <span>400m</span></div>
-    <div style="margin-top:10px;background:rgba(93,255,159,.07);border:1px solid rgba(93,255,159,.18);border-radius:4px;padding:9px 11px">
-      <div class="t-mono" style="color:var(--g);margin-bottom:6px">Volume Progression</div>
-      <div class="prog-step"><span class="pn">Now</span><span>1100–1200 yards total</span></div>
-      <div class="prog-step"><span class="pn">Wk 4</span><span>Add one 100m set to main set</span></div>
-      <div class="prog-step"><span class="pn">Wk 8</span><span>1500 yards target — add pull buoy set length</span></div>
-    </div>
-  </div>
-  <div class="scard">
-    <div class="sc-t">Spine &amp; Form Rules</div>
-    <div class="srule">Freestyle rotation from hips — never the neck. Head neutral on breathing. Pull buoy set = lat pulldown with zero spinal load — lats fire maximally here. Backstroke actively extends and decompresses thoracic spine. Flip turns fine — tuck tight, push off both feet evenly. Kickboard: face-down if possible, neutral neck.</div>
-    <div class="sno">
-      <div class="sno-t">⏳ Building Toward These</div>
-      <p>No butterfly — repeated lumbar hyperextension under load. Caution on breaststroke — hip drop at glide creates lumbar extension. Goals, not limits. Revisit both at 12-month mark when your doctor gives the green light.</p>
-    </div>
-  </div>
-  <div class="scard">
-    <div class="sc-t">Why This Works for Your Goals</div>
-    <div class="srule">Freestyle pull = lat pulldown with zero joint stress. Water provides isokinetic resistance — constant tension through full range. VO2 max gains extend dead hang time and pull-up endurance directly. Swimming is one of the most evidence-backed post-discectomy modalities. Thursday placement is deliberate: recovery from Wed legs, skip-friendly on busy weeks.</div>
-  </div>
-</div>
-
-<!-- ────────── TRACK B · LEGS B ────────── -->
-<div style="margin:28px 0 10px;padding:9px 14px;border-radius:6px;background:rgba(255,210,58,.10);border-left:3px solid var(--gld)">
-  <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gld)">Track B · Legs B — Quad + Posterior + Distal · machine-rich · ~40 min</div>
-</div>
+<!-- Legs B is the session; the optional swim is a collapsed bonus at the bottom of this day. -->
 
 <div class="callout warn">
   <div class="callout-t">⚠ Knee-Smart Order — Both Knees</div>
@@ -1710,7 +1734,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   </div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — easy spin or fast walk.</span></div>
   <div class="wu-item"><span class="wu-t">60s</span><span>Banded TKE × 15 <strong>each leg, even both sides</strong> — band behind the knee, drive to straight (not locked). VMO + knee tracking. <em>(Symmetric now — the old left bias was for an ACL that's long healed.)</em></span></div>
-  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Top-tier glute-med EMG — side-lying abduction + side-plank variants head the lists, well above clamshells — so this is your real glute-med driver.</span></div>
+  <div class="wu-item"><span class="wu-t">2 min</span><span><strong>Side-lying hip abduction</strong> 3 × 15 each — top leg straight, <strong>toe slightly down</strong> (slight IR) is the glute-med key. Lift ~30°, 2s hold. Top-tier glute-med EMG — side-lying abduction + side-plank variants head the lists, well above clamshells — so this is your real glute-med driver. <strong>Add a light ankle weight as it gets easy</strong> — treat it as a working set, not just a warm-up.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Single-leg balance 30s each (eyes open) — ankle + foot proprioception.</span></div>
   <div class="wu-item"><span class="wu-t">45s</span><span>Ankle circles ×10 + toe spreading ×10.</span></div>
   <div class="wu-item"><span class="wu-t">primer</span><span>The Spanish-squat isometric (first exercise) doubles as the last bit of warm-up <em>and</em> quiets the knee — go straight into it.</span></div>
@@ -1878,6 +1902,37 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div><!-- /exlist Legs B -->
 
 <div class="fin"><div class="fin-lbl">Legs B Finisher — Side-Plank Only</div><p><strong>Side Plank — endurance hold</strong> · 2 × 30s each side. Test L vs R: if one side gives out &gt;15% faster, log it. McGill side-bridge endurance — the L=R symmetry, more than any absolute time, is the protective variable for the QL/oblique sling (McGill, Childs &amp; Liebenson, Arch Phys Med Rehabil 1999). <em>Why no curl-up/bird-dog here:</em> Daily Low-Load already covers those daily; Wed Legs A finisher handles the higher-quality endurance bout. Side plank gets the standalone slot to address the lateral-chain endurance gap.</p></div>
+
+<details id="swim" class="swim-fold">
+  <summary>🏊 Optional bonus · Swim<span class="swim-hint"> — tap to open the full session</span></summary>
+  <p class="swim-intro">A bonus you layer onto a cardio slot when you feel like it — never a substitute for Legs B. Zero spinal load, lat volume; no butterfly.</p>
+  <div class="sgrid">
+    <div class="scard">
+      <div class="sc-t">Session Structure (45–55 min)</div>
+      <div class="srow">Warmup — easy freestyle, find rhythm <span>300m</span></div>
+      <div class="srow">Drill — catch-up, focus on catch <span>4 × 50m</span></div>
+      <div class="srow">Main set — choose one below <span>600–800m</span></div>
+      <div class="srow">Pull buoy — arms only, no kick <span>4 × 50m</span></div>
+      <div class="srow">Kick — flutter board, neutral neck <span>4 × 25m</span></div>
+      <div class="srow">Cooldown — backstroke, easy <span>200m</span></div>
+    </div>
+    <div class="scard">
+      <div class="sc-t">Main Set — Rotate Weekly</div>
+      <div class="srow">Freestyle build — easy/med/hard per 25m <span>6 × 100m</span></div>
+      <div class="srow">Negative split — 2nd 50 faster <span>4 × 100m</span></div>
+      <div class="srow">Backstroke — thoracic extension <span>8 × 50m</span></div>
+      <div class="srow">Mixed — alternate free/back per lap <span>400m</span></div>
+    </div>
+    <div class="scard">
+      <div class="sc-t">Spine &amp; Form Rules</div>
+      <div class="srule">Rotate from the hips, never the neck — head neutral on breathing. Pull-buoy set = lat pulldown with zero spinal load. Backstroke decompresses the thoracic spine. Flip turns fine — tuck tight, push off evenly. <strong>No butterfly or breaststroke</strong> (lumbar hyperextension) — revisit at the 12-month mark with your doctor.</div>
+    </div>
+    <div class="scard">
+      <div class="sc-t">Why It's Worth It</div>
+      <div class="srule">Freestyle pull = lat volume with zero joint stress; water gives constant tension through full range; VO2 gains feed dead-hang + pull-up endurance. One of the most evidence-backed post-discectomy modalities — just never the thing your legs depend on.</div>
+    </div>
+  </div>
+</details>
 
 <div class="day-complete" data-day="d4"></div>
 </div><!-- /d4 -->
@@ -2132,8 +2187,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <!-- HIKE -->
 <div class="hikebar" id="cardio">
   <div class="hike-l">Sat · Cardio + Skill 🎚️</div>
-  <p><strong>Pick whatever you'll actually do</strong> — this slot is flexible and never gates your leg work. All knee-friendly:</p>
-  <p style="margin-top:8px"><strong style="color:var(--txt);font-weight:500">StairMaster</strong> — your best pick: low patellofemoral load (unlike running) and it doubles as glute-med + quad + lateral-chain endurance, a named gap. 20–30 min steady, tall posture, <em>don't</em> hang on the rails. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Spin bike</strong> — easy on the knees; seat so the hip sits just above the kneecap at the top, hood-down posture (lumbar neutral), moderate resistance. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Hike</strong> — posterior-chain + balance; trekking poles on descents cut axial spinal load 20–30%, pack under 10 lb. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Swim</strong> — a bonus when the mood strikes (zero spinal load, lat volume); no butterfly. Inconsistent by design — never the thing your legs depend on.</p>
+  <p><strong>Pick whatever you'll actually do</strong> — this slot is flexible and never gates your leg work. <strong>Every option here is zero-impact</strong> (non-negotiable for you), but they differ in <em>knee</em> load:</p>
+  <p style="margin-top:8px"><strong style="color:var(--txt);font-weight:500">Spin bike or elliptical — best picks.</strong> Low-impact AND low knee-load. Bike: seat so the hip sits just above the kneecap at the top, hood-down (lumbar neutral), moderate resistance. Elliptical: even gait, no impact — the gentlest post-revision cardio. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Hike</strong> — posterior-chain + balance, but <strong>descents are the catch</strong> (eccentric knee load + axial micro-impact): poles, short stride, mellow/switchback downhills, skip hilly routes if the knee's loud. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">StairMaster</strong> — low-impact but <strong>high patellofemoral load</strong> (3–4× bodyweight per step), so <em>not</em> the knee-friendly pick it looks like: keep it short + sparing, stop if the right knee flares. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Swim</strong> — a bonus when the mood strikes (zero spinal load, lat volume); no butterfly.</p>
   <p style="font-size:13px;color:var(--fade);margin-top:8px;line-height:1.7">Tack a few minutes of <strong>calisthenics skill</strong> (handstand holds, pull-up greasing) onto any of these — skill thrives on frequency. <strong>Sunday is full passive rest</strong> — let the week integrate.</p>
 </div>
 
@@ -2144,7 +2199,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <h2>VARIETY &amp; SKILL LADDERS</h2>
   <p class="sub">Boredom kills adherence, and you love calisthenics — so the program is built as a <strong>fixed protective core + rotatable accessories + skill you level up</strong>. Variety lives in the accessories and the ladders; the core lifts you actually track stay put.</p>
 
-  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:18px">
 
     <div style="background:rgba(93,255,159,.06);border:1.5px solid rgba(93,255,159,.28);border-radius:6px;padding:18px">
       <div class="t-mono" style="color:var(--g);margin-bottom:10px;font-size:11px">🔒 Fixed vs 🔁 Rotatable</div>
@@ -2255,10 +2310,12 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Week-by-week log that <strong>persists right here on this phone/browser</strong> — no account, nothing leaves your device. Tap <strong>New entry</strong> for a dated template, fill it in, Save. Hit <strong>Export</strong> now and then to back it up (copies everything to your clipboard).</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
     <button class="logbtn" onclick="newLogEntry()">＋ New entry</button>
-    <button class="logbtn ghost" onclick="exportLog()">⤓ Export all</button>
+    <button class="logbtn ghost" onclick="shareLog()">⇪ Send to Notes / apps</button>
+    <button class="logbtn ghost" onclick="exportLog()">⤓ Copy all</button>
   </div>
   <div id="logEditor" style="display:none;margin-bottom:14px">
     <textarea id="logText" rows="9" spellcheck="false" style="width:100%;background:var(--s1);color:var(--txt);border:1px solid var(--bdr);border-radius:6px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;resize:vertical;box-sizing:border-box"></textarea>
+    <div id="logDraftNotice" style="display:none;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--g);margin:5px 0 0">draft auto-saved</div>
     <div style="display:flex;gap:8px;margin-top:8px">
       <button class="logbtn" onclick="saveLogEntry()">Save</button>
       <button class="logbtn ghost" onclick="cancelLogEntry()">Cancel</button>
@@ -2271,8 +2328,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="deferwrap">
   <div class="defer-t">// Deferred — Not Now</div>
   <div class="defer-list">
-    <div class="defer-item"><strong>Single-leg RDL (any variant):</strong> asymmetric hip hinge under spine engagement — re-herniation mechanism. Re-evaluate after 12 weeks of clean hand-held hinge and PT clearance.</div>
-    <div class="defer-item"><strong>Loaded RDL:</strong> deferred — light hand-held hinge (PT-cleared, ~5 lb each hand) is the pattern teacher in the meantime, progressing to a goblet hinge earliest ~Wk 18 and only on PT sign-off.</div>
+    <div class="defer-item"><strong>Single-leg RDL (any variant):</strong> asymmetric hip hinge under spine engagement — re-herniation mechanism. Re-evaluate after 12 weeks of clean banded hinge work and PT clearance.</div>
+    <div class="defer-item"><strong>Loaded RDL:</strong> deferred — the banded hip hinge (band tension, no plates) is the spine-smart hinge in the meantime; a goblet or light RDL stays an optional axial-load branch behind explicit PT sign-off, added alongside the band rather than replacing it.</div>
     <div class="defer-item"><strong>Conventional barbell deadlift:</strong> permanently shelved.</div>
     <div class="defer-item"><strong>Trap bar deadlift:</strong> earliest 9–12 months post-revision, 5 functional criteria + surgeon clearance.</div>
     <div class="defer-item"><strong>Reverse hyperextension:</strong> momentum-driven end-range extension is the wrong direction for an annular defect. Use the active decompression hang (scaps packed) instead.</div>
@@ -2290,7 +2347,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <h2>FRAMEWORK · FLARE · GOALS · RECOVERY</h2>
   <p class="sub">The body is resilient and the program is built on that. The cards below give you a plan for the rare days the body sends a new signal, a clear path to unlock the deferred goals, and recovery anchors (sleep, deload, fuel) that compound over months.</p>
 
-  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:18px">
 
     <!-- WHEN TO LOOP IN YOUR PT -->
     <div style="background:rgba(31,224,255,.06);border:1.5px solid rgba(31,224,255,.28);border-radius:6px;padding:18px">
@@ -2449,7 +2506,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <h2>MESOCYCLE &amp; DELOAD</h2>
   <p class="sub">A 6-week block: four loading weeks ramping volume from MEV → MAV, one peak week at MAV-to-near-MRV, one deload at ~50% of the prior week. Same clock across all five training days. Per-tissue rules below override the calendar when they conflict.</p>
 
-  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:18px">
 
     <!-- THE 6-WEEK BLOCK -->
     <div style="background:rgba(176,107,255,.06);border:1.5px solid rgba(176,107,255,.28);border-radius:6px;padding:18px">
@@ -2478,7 +2535,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
       <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">⚙ Per-Tissue Progression Speeds — overrides the calendar</div>
       <p style="font-size:14px;line-height:1.65;margin:0 0 10px">Muscle adapts in ~3 weeks; tendon takes 8+ (Bohm 2015 meta; Magnusson 2008). Lifts where the limiter is tendon get a <strong>2-mesocycle progression cadence</strong> (12 weeks per load step) instead of 6.</p>
       <ul style="margin:0;padding-left:18px;line-height:1.7;font-size:14px">
-        <li><strong>Tendon-limited (12-wk per step):</strong> Nordic curl, pull-up 6s negatives, serratus-punch overhead progression, hand-held hinge load steps, dead hang time. Load or assist changes happen at wk 12 (start of mesocycle 3), <em>not</em> wk 4 or 8 within a mesocycle.</li>
+        <li><strong>Tendon-limited (12-wk per step):</strong> Nordic curl, pull-up 6s negatives, serratus-punch overhead progression, banded hinge tension steps, dead hang time. Load or assist changes happen at wk 12 (start of mesocycle 3), <em>not</em> wk 4 or 8 within a mesocycle.</li>
         <li><strong>Muscle-limited (6-wk per step):</strong> banded rows, kneeling pulldown, hip thrust load, BSS load (PT gate-permitting), banded press, Pallof.</li>
         <li><strong>Motor-control / skill (continuous):</strong> handstand wall holds, shoulder taps, dead bug, bird-dog, balance work. No deload — just don't add holds during deload week. These are nervous-system, not tissue-stress.</li>
       </ul>
@@ -2508,7 +2565,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
         <li>Any new leg signal (per Signs to Check In About list in Framework)</li>
         <li>Two consecutive sessions where you couldn't finish the planned top set at planned RIR</li>
         <li>Morning back stiffness extending past 15 min for 3+ consecutive days</li>
-        <li>Hand-held hinge feels different — even subtly</li>
+        <li>Banded hip hinge feels different — even subtly</li>
       </ul>
     </div>
 
@@ -2565,16 +2622,16 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
           <li><strong>Wk 5 · peak:</strong> 7.5 lb × 2, 4×9 each side, RIR 1–2 — or if PT re-clearance happened, step to 10 lb × 2 for 3×6 RIR 2</li>
           <li><strong>Wk 6 · deload:</strong> 7.5 lb × 2, 2×8 each side, RIR 4–5. Retest single-leg balance EC on Fri.</li>
         </ul>
-        <p style="margin:0 0 6px"><strong>Hand-Held Hinge (tendon + disc-limited — 12-wk cadence, holds at 5 lb regardless of "wk")</strong></p>
+        <p style="margin:0 0 6px"><strong>Banded Hip Hinge (tendon + disc-limited — same band all block; progress reps → tempo → density, not tension)</strong></p>
         <ul style="margin:0;padding-left:18px;line-height:1.65">
-          <li><strong>Wk 1:</strong> 5 lb × 2, 3×10, tempo 3·1·2 — focus suitcase symmetry</li>
-          <li><strong>Wk 2:</strong> 5 lb × 2, 3×10 — add 2s top hold</li>
-          <li><strong>Wk 3:</strong> 5 lb × 2, 3×10 with 2s hold + tempo 4·1·2 (slower descent)</li>
-          <li><strong>Wk 4:</strong> 5 lb × 2, 3×10 with 4·1·2 + 2s hold — full quality stimulus</li>
-          <li><strong>Wk 5 · peak:</strong> 5 lb × 2, 3×10 4·2·2 with 2s hold</li>
-          <li><strong>Wk 6 · deload:</strong> 5 lb × 2, 2×8, tempo 3·1·2, no hold. Retest hinge RPE on Fri.</li>
-          <li><strong>Mesocycle 2 (wks 7–12):</strong> still 5 lb. Add density via 4 working sets, not load. Annular repair is biological (Adams &amp; Roughley).</li>
-          <li><strong>Mesocycle 3 (wks 13–18):</strong> 5 lb still — earliest goblet hinge trial is at PT visit during wk 12 deload. Goblet only on PT sign-off.</li>
+          <li><strong>Wk 1:</strong> 3×10, tempo 3·1·2 — groove the pattern, hips straight back, level &amp; square</li>
+          <li><strong>Wk 2:</strong> 3×11–12 — add reps before anything else</li>
+          <li><strong>Wk 3:</strong> 3×10 with a 1–2s pause at the bottom (control the weak range)</li>
+          <li><strong>Wk 4:</strong> 3×12, tempo 4·1·2 (slower eccentric) — full quality stimulus</li>
+          <li><strong>Wk 5 · peak:</strong> 3×12, 4·2·2 with a bottom pause</li>
+          <li><strong>Wk 6 · deload:</strong> 2×8, tempo 3·1·2, no pause. Retest hinge RPE on Fri.</li>
+          <li><strong>Mesocycle 2 (wks 7–12):</strong> same band. Add density (4th set / rest 75→60s), not tension. Disc repair is biological (Adams &amp; Roughley).</li>
+          <li><strong>Tension step (~wk 12+):</strong> only then a heavier band or a step further back — reset to 3×10 at the new tension. B-stance / single-leg banded hinge is the lateral progression. Goblet / light RDL stay optional PT-gated branches alongside the band.</li>
         </ul>
       </div>
       <p style="font-size:12.5px;color:var(--fade);font-style:italic;margin-top:10px">The contrast is the point. The BSS climbs in volume and reps inside the block. The hinge climbs in tempo and density only — the load number does not move for ~18 weeks, because the disc is the binding constraint and it doesn't care what week the calendar says.</p>
@@ -2755,12 +2812,21 @@ function writeSaved(saved) {
 
 function pruneExpired() {
   const saved = readSaved();
+  const completed = readCompleted();
+  const today = new Date().toDateString();
   let changed = false;
   Object.keys(saved).forEach(id => {
     const t = typeof saved[id] === 'object' ? saved[id].t : null;
-    if (!t || isExpired(t)) { delete saved[id]; changed = true; }
+    if (!t) { delete saved[id]; changed = true; return; }
+    const card = document.querySelector('.excard[data-id="' + id + '"]');
+    const daySec = card && card.closest('.section[id]');
+    if (daySec && completed[daySec.id] === today) return; // keep a completed-today day until next session
+    if (isExpired(t)) { delete saved[id]; changed = true; }
   });
   if (changed) writeSaved(saved);
+  let cc = false; const c2 = readCompleted();
+  Object.keys(c2).forEach(d => { if (c2[d] !== today) { delete c2[d]; cc = true; } });
+  if (cc) writeCompleted(c2);
   return saved;
 }
 
@@ -2788,6 +2854,7 @@ function applyState() {
 
 function clearAllChecks() {
   localStorage.removeItem('bp-done');
+  localStorage.removeItem('bp-complete');
   document.querySelectorAll('.excard.done').forEach(card => card.classList.remove('done'));
   document.querySelectorAll('.chk').forEach(b => b.textContent = '○');
   updateDayComplete();
@@ -2830,10 +2897,15 @@ function updateDayComplete() {
     const done = [...cards].filter(c => c.classList.contains('done')).length;
     if (done === cards.length && done > 0) {
       el.classList.add('shown');
-      el.textContent = `✓ Day ${dayId.slice(1)} complete · ${done} exercises done`;
+      el.textContent = `✓ Day complete · ${done} done — tap to log it`;
+      el.style.cursor = 'pointer';
+      el.onclick = () => logDay(dayId);
+      markDayComplete(dayId);
     } else {
       el.classList.remove('shown');
       el.textContent = '';
+      el.style.cursor = '';
+      el.onclick = null;
     }
   });
 }
@@ -2998,25 +3070,38 @@ function readLog(){ try { return JSON.parse(localStorage.getItem('bp-log') || '[
 function writeLog(a){ localStorage.setItem('bp-log', JSON.stringify(a)); }
 function _logEsc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function _logDate(){ return new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); }
-function renderLog(){
-  const list = document.getElementById('logList'); if (!list) return;
-  const items = readLog();
-  if (!items.length){ list.innerHTML = '<p style="font-size:13px;color:var(--dim);font-style:italic">No entries yet — tap “New entry” after a session.</p>'; return; }
-  list.innerHTML = items.map((e,i) => '<div class="logentry"><div class="logentry-d">' + _logEsc(e.date) + '<button class="logentry-x" onclick="deleteLogEntry(' + i + ')" aria-label="Delete entry">✕</button></div><pre>' + _logEsc(e.text) + '</pre></div>').join('');
+const DAY_LABELS = { d1:'Pull & Posterior', d2:'Push & Shoulders', d3:'Legs A', d4:'Legs B', d5:'Skill' };
+
+// draft auto-save (a half-written entry survives closing the tab)
+function readDraft(){ try { return localStorage.getItem('bp-draft'); } catch(e){ return null; } }
+function saveDraft(t){ try { localStorage.setItem('bp-draft', t); } catch(e){} }
+function clearDraft(){ try { localStorage.removeItem('bp-draft'); } catch(e){} }
+function _wireDraft(){ const ta = document.getElementById('logText'); if (!ta) return; let timer = null; ta.oninput = () => { clearTimeout(timer); timer = setTimeout(() => saveDraft(ta.value), 500); }; }
+function _blankTemplate(){ return _logDate() + '\nDid:  M_  Tu_  W_  Th_  F_\nTop sets (load×reps @RIR):  \nSkill:  handstand_  pull-up_  pistol_\nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  '; }
+function _showEditor(text, notice){
+  const ta = document.getElementById('logText'); ta.value = text;
+  document.getElementById('logEditor').style.display = 'block';
+  const n = document.getElementById('logDraftNotice');
+  if (n){ if (notice){ n.textContent = notice; n.style.display = 'block'; } else { n.style.display = 'none'; } }
+  _wireDraft(); ta.focus();
 }
 function newLogEntry(){
-  const ed = document.getElementById('logEditor');
-  document.getElementById('logText').value = _logDate() + '\nDid:  M_  Tu_  W_  Th_  F_\nTop sets (load×reps @RIR):  \nSkill:  handstand_  pull-up_  pistol_\nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  ';
-  ed.style.display = 'block';
-  document.getElementById('logText').focus();
+  const draft = readDraft();
+  _showEditor(draft != null ? draft : _blankTemplate(), draft != null ? 'draft restored — pick up where you left off' : '');
 }
-function cancelLogEntry(){ document.getElementById('logEditor').style.display = 'none'; }
+function logDay(dayId){
+  const names = [...document.querySelectorAll('#' + dayId + ' .excard.done')].map(c => { const e = c.querySelector('.exname'); return e ? ('  ✓ ' + e.textContent.trim()) : ''; }).filter(Boolean).join('\n');
+  const stub = _logDate() + ' — ' + (DAY_LABELS[dayId] || dayId) + '\n' + names + '\nTop sets (load×reps @RIR):  \nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  ';
+  saveDraft(stub);
+  _showEditor(stub, (DAY_LABELS[dayId] || dayId) + ' auto-filled — add your numbers and Save');
+  const sec = document.getElementById('log'); if (sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+function cancelLogEntry(){ clearDraft(); document.getElementById('logEditor').style.display = 'none'; }
 function saveLogEntry(){
   const t = document.getElementById('logText').value.trim();
   if (!t){ cancelLogEntry(); return; }
-  const items = readLog();
-  items.unshift({ date: _logDate(), text: t });
-  writeLog(items); cancelLogEntry(); renderLog();
+  const items = readLog(); items.unshift({ date: _logDate(), text: t });
+  writeLog(items); clearDraft(); document.getElementById('logEditor').style.display = 'none'; renderLog();
 }
 function deleteLogEntry(i){ const items = readLog(); items.splice(i, 1); writeLog(items); renderLog(); }
 function exportLog(){
@@ -3027,7 +3112,24 @@ function exportLog(){
     navigator.clipboard.writeText(txt).then(() => window.alert('Log copied to clipboard — paste it somewhere safe.')).catch(() => fallbackCopy(txt));
   } else { fallbackCopy(txt); }
 }
-window.newLogEntry = newLogEntry; window.saveLogEntry = saveLogEntry; window.cancelLogEntry = cancelLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog;
+function shareLog(){
+  const items = readLog();
+  if (!items.length){ window.alert('No log entries yet.'); return; }
+  const txt = items.map(e => e.date + '\n' + e.text).join('\n\n──────────\n\n');
+  if (navigator.share){ navigator.share({ title: 'Bulletproof training log', text: txt }).catch(() => {}); }
+  else { exportLog(); }   // desktop / unsupported → copy to clipboard
+}
+function renderLog(){
+  const list = document.getElementById('logList'); if (!list) return;
+  const items = readLog();
+  if (!items.length){ list.innerHTML = '<p style="font-size:13px;color:var(--dim);font-style:italic">No entries yet — finish a day and tap the green “complete” banner, or hit “New entry”.</p>'; return; }
+  list.innerHTML = items.map((e,i) => '<div class="logentry"><div class="logentry-d">' + _logEsc(e.date) + '<button class="logentry-x" onclick="deleteLogEntry(' + i + ')" aria-label="Delete entry">✕</button></div><pre>' + _logEsc(e.text) + '</pre></div>').join('');
+}
+// completed-day tracking so a finished session isn't pruned before it's logged
+function readCompleted(){ try { return JSON.parse(localStorage.getItem('bp-complete') || '{}'); } catch(e){ return {}; } }
+function writeCompleted(o){ try { localStorage.setItem('bp-complete', JSON.stringify(o)); } catch(e){} }
+function markDayComplete(dayId){ const c = readCompleted(); const today = new Date().toDateString(); if (c[dayId] !== today){ c[dayId] = today; writeCompleted(c); } }
+window.newLogEntry = newLogEntry; window.logDay = logDay; window.saveLogEntry = saveLogEntry; window.cancelLogEntry = cancelLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog; window.shareLog = shareLog;
 renderLog();
 </script>
 </body>
