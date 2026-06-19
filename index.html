@@ -717,9 +717,9 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 /* ── NUTRITION ── */
 .nutwrap{padding:28px var(--pad);border-bottom:1px solid var(--bdr)}
 .nutwrap h2{font-family:'Playfair Display',serif;font-weight:800;font-size:20px;margin-bottom:18px}
-.macros{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--bdr);margin-bottom:20px;border-radius:var(--rad);overflow:hidden}
+.macros{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px}
 @media(min-width:600px){.macros{grid-template-columns:repeat(4,1fr)}}
-.mc{background:var(--s1);padding:16px 14px}
+.mc{background:var(--s1);padding:16px 14px;border:1px solid var(--bdr);border-radius:var(--rad)}
 .mcn{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:var(--b)}
 .mcl{font-family:'Inter',sans-serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:3px;font-weight:500}
 .mcnote{font-size:12.5px;color:var(--fade);margin-top:5px;font-style:italic;line-height:1.55}
@@ -832,6 +832,8 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .dl-num,.dl-note{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);color:var(--txt);font-family:'Inter',sans-serif;width:100%;box-sizing:border-box}
 .dl-num{font-size:15px;padding:10px;text-align:center;min-height:44px;font-variant-numeric:tabular-nums}
 .dl-note{font-size:14px;padding:10px;margin-bottom:12px}
+.dl-sec{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:0 0 9px}
+.dl-sec:not(:first-child){border-top:1px solid var(--bdr);padding-top:12px;margin-top:2px}
 .dl-done{font-size:11px;color:var(--g);letter-spacing:.04em;margin-bottom:12px}
 .dl-acts{display:flex;gap:8px}
 .dl-acts .logbtn{flex:1}
@@ -1014,11 +1016,11 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <nav id="topnav">
   <a href="#top">Overview</a>
   <a href="#bands">Bands</a>
-  <a href="#d1" style="color:var(--r)" id="n-d1">D1 · Pull</a>
-  <a href="#d2" style="color:var(--b)" id="n-d2">D2 · Push</a>
-  <a href="#d3" style="color:var(--gld)" id="n-d3">D3 · Legs A</a>
-  <a href="#d4" style="color:var(--p)" id="n-d4">D4 · Legs B</a>
-  <a href="#d5" style="color:var(--g)" id="n-d5">D5 · Skill</a>
+  <a href="#d1" style="color:var(--r)" id="n-d1">Pull</a>
+  <a href="#d3" style="color:var(--gld)" id="n-d3">Legs A</a>
+  <a href="#d2" style="color:var(--b)" id="n-d2">Push</a>
+  <a href="#d4" style="color:var(--p)" id="n-d4">Legs B</a>
+  <a href="#d5" style="color:var(--g)" id="n-d5">Skill</a>
   <a href="#swim" style="color:var(--p)">Swim</a>
   <a href="#daily">Daily</a>
   <a href="#log" style="color:var(--g)">📋 Log</a>
@@ -1344,175 +1346,10 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div><!-- /d1 -->
 
 
-<!-- ════════════════════ DAY 2 · TUE · PUSH ════════════════════ -->
-<div class="section" id="d2">
-<div class="day-hdr">
-  <div class="day-num" style="color:var(--b)">02</div>
-  <div class="day-info">
-    <div class="day-eye" style="color:var(--b)">// Wednesday · Push &amp; Shoulders</div>
-    <div class="day-title">PUSH &amp; SHOULDER ARCHITECTURE</div>
-    <div class="day-focus">Lateral delt width · Tricep long head · Rear delt balance · Anterior delt · Pressing</div>
-  </div>
-</div>
-
-<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
-  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~35 min</div>
-  <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~26 · Pallof is your core (no extra finisher)</p>
-  <details class="foldnote"><summary>Short on time? cut order</summary>
-  <p style="font-size:14px;margin:6px 0 0"><strong>Cut in this order:</strong> (1) OH tricep — overlaps the pike push-up · (2) serratus punch — keep if you can, handstand-relevant · (3) lateral raise — keep, delt width is your goal · core kept: pike push-up + Pallof.</p></details>
-</div>
-
-<div class="wu">
-  <div class="wu-lbl">⚡ Warmup — 6 min · push-primed</div>
-  <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — arm circles + thoracic cat-cow × 8. Warms the T-spine so the low back doesn't arch to reach overhead.</span></div>
-  <div class="wu-item"><span class="wu-t">45s</span><span>Scapular push-up + "plus" × 12 — add a protraction reach at the top. Top-tier serratus, low upper-trap.</span></div>
-  <div class="wu-item"><span class="wu-t">45s</span><span>Band pull-aparts × 12, palms up — external rotators, balances the press.</span></div>
-  <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — ribs down, no lumbar arch.</span></div>
-  <div class="wu-item"><span class="wu-t">60s</span><span>Wrist prep — all-fours weight shifts + circles + fist-to-spread × 10. Non-negotiable before pressing/inversion.</span></div>
-  <div class="wu-item"><span class="wu-t">primer</span><span>Then ramp the first press: 1 set easy, 1 set ~70%. No separate block.</span></div>
-</div>
-
-<div class="exlist">
-
-<div class="excard" data-id="d2e1">
-<div class="extop">
-  <div class="ex-left"><div class="exname">Pike Push-Up — Feet Elevated</div></div>
-  <div class="exmeta"><div class="sets">4 × 8</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">down · hold · push</div></div>
-  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Feet on bench, hips high. Head tracks through at bottom — forehead toward floor between hands. Elbows track slightly back. Stop at any lumbar extension. <strong>Bent-leg variant is fine indefinitely</strong> — shoulder loading is what matters.</div>
-<div class="clbl">🎯 Coaching Cue</div>
-<div class="cue"><strong>Ribs down</strong> the entire time.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
-<div class="prog-wrap">
-  <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Knees bent — feet on floor behind you</span></div>
-    <div class="prog-step"><span class="pn">Next</span><span>Feet flat on floor, legs straight</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Feet on bench — full elevation</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Wall handstand push-up negative — lower from wall HS over 8s</span></div>
-  </div>
-</div>
-</div>
-
-<div class="excard" data-id="d2e-serr">
-<div class="extop">
-  <div class="ex-left">
-    <div class="exname">Banded Serratus Punch — Standing</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Replaced pseudo-planche · serratus stimulus without anterior-capsule load</span></div>
-  </div>
-  <div class="exmeta"><div class="sets">3 × 15 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">punch · pause · return</div></div>
-  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Yellow band — anchored to a rung behind you at chest height. One end in working hand.</span></div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Stand facing away from anchor. Band end in working hand at shoulder height, elbow tucked, palm in. <strong>Punch the hand straight forward</strong> at shoulder height — arm extends, scapula slides forward AROUND the rib cage (protraction). Reach an inch past full extension — that final inch is the serratus contraction. 1-count pause. Slow 3-count return, scap travels BACK along the rib cage. Opposite hand on the same-side rib to feel the scap glide.</div>
-<div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">The "reach" past full extension is the entire exercise — first 90% of the punch is shoulder, last 10% is serratus.</div>
-<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
-<div class="evi-wrap">
-  <div class="evi">
-    <p>Decker et al. (1999) and Ekstrom et al. (2003) rank serratus punch / protraction-emphasis exercises among the top serratus-anterior activators. Scapular protraction is the serratus's primary action, so an isolated punch targets it directly with little anterior-shoulder load — the point for a hypermobile shoulder. (The push-up-plus is the best-validated serratus exercise if you want a bodyweight swap.)</p>
-    <p><strong>Why this replaces pseudo-planche for your shoulder:</strong> Russek (1999) and Mottram on hypermobility-specific shoulder programming explicitly contraindicate max-leverage anterior loading positions. Pseudo-planche puts shoulders out past wrists with anterior capsule under tensile stress — exactly the position the literature says to avoid in gJHM. This delivers the serratus stimulus pseudo-planche was meant to provide, with the anterior capsule fully unloaded.</p>
-    <em>— Decker et al. (1999); Ekstrom et al. (2003); Russek (1999); Mottram on gJHM shoulder rehab</em>
-  </div>
-</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
-<div class="prog-wrap">
-  <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Yellow band, standing, 3×15 each</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Red band, 3×12 each</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Overhead variant — anchor low, punch straight overhead (matches handstand line)</span></div>
-  </div>
-</div>
-</div>
-
-<div class="excard" data-id="d2e2">
-<div class="extop">
-  <div class="ex-left">
-    <div class="exname">Cable Single-Arm Lateral Raise</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable (light) · band = home option</span></div>
-    <div class="start-l"><span>← Start left side every set</span></div>
-  </div>
-  <div class="exmeta"><div class="sets">4 × 12 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · HOLD · lower</div></div>
-  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: low pulley, single handle, stand side-on so the cable crosses your body — working arm furthest from the stack, lightest useful pin. <strong>Home/away:</strong> yellow band under the same-side foot, other end in the working hand.</span></div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Cable from the low pulley (or band under foot). Arm slightly across the front. <strong>Lead with the elbow</strong>, not the wrist. Raise to <strong>shoulder height — no higher</strong>, hold 2, 3-count lower. Hypermobile shoulder: controlled the whole way, no swing, no shrugging into the trap.</div>
-<div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Feel the side-delt cap, not the trap. Keep it light.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
-<div class="prog-wrap">
-  <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Cable lightest useful pin (or yellow band), 4×12 with 2s hold</span></div>
-    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin only when all 3×12 are clean and shrug-free</span></div>
-    <div class="prog-step"><span class="pn">Form gate</span><span>If the trap takes over or the shoulder shrugs, drop the load — laterals reward control, not weight</span></div>
-  </div>
-</div>
-</div>
-
-<div class="excard" data-id="d2e3">
-<div class="extop">
-  <div class="ex-left">
-    <div class="exname">Cable Overhead Tricep Extension — Rope</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable rope · band = home option</span></div>
-  </div>
-  <div class="exmeta"><div class="sets">3 × 12</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
-  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope on the low pulley, face away, both ends overhead. <strong>Home/away:</strong> yellow band anchored at the floor behind you, face away.</span></div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Rope (or band) from low behind, face away. Both hands overhead, palms forward. <strong>Elbows point forward</strong> — no flare. Extend to 10° short of lockout (never snap the elbow straight). 3-count return. Ribs locked down — no lumbar arch as you reach overhead.</div>
-<div class="clbl">🎯 Coaching Cue</div>
-<div class="cue">Elbows forward the whole rep. Don't let the low back arch to chase range.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
-<div class="prog-wrap">
-  <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Cable rope, light pin, 3×12</span></div>
-    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin when 3×12 is clean and the elbows stay forward</span></div>
-    <div class="prog-step"><span class="pn">Home</span><span>Band: single → double-loop yellow → red as it gets easy</span></div>
-  </div>
-</div>
-</div>
-
-<div class="excard" data-id="d2e6">
-<div class="extop">
-  <div class="ex-left"><div class="exname">Half-Kneeling Pallof Press</div></div>
-  <div class="exmeta"><div class="sets">3 × 10 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 3 · 2</div><div class="tkey">press · HOLD · return</div></div>
-  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — loop through a horizontal rung at chest height. Hold BOTH ends together in both hands, palms facing each other, hands stacked. Band comes from your side — you're kneeling perpendicular to the ladder.</span></div>
-<div class="slbl">Setup &amp; Execution</div>
-<div class="setup">Band chest-height to your side. Half-kneeling, inside knee down. Press straight out, <strong>hold 3</strong>, return. Resist any torso rotation toward the anchor.</div>
-<div class="clbl">🎯 Coaching Cue</div>
-<div class="cue"><strong>Erectors silent</strong> — obliques resist the rotation, not the spine. Add resistance before adding reps.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
-<div class="prog-wrap">
-  <div class="prog-block">
-    <div class="prog-lbl">📈 Path Forward</div>
-    <div class="prog-step"><span class="pn">Now</span><span>Red band, half-kneeling, 3×10 with 3s hold</span></div>
-    <div class="prog-step"><span class="pn">Wk 4</span><span>Double-loop red — same</span></div>
-    <div class="prog-step"><span class="pn">Wk 8</span><span>Standing Pallof — removes kneeling base, increases demand</span></div>
-  </div>
-</div>
-</div>
-
-
-</div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Core</div><p>Core's handled in-session by the <strong>Pallof press</strong> — no extra finisher. Go home.</p></div>
-<div class="day-complete" data-day="d2"></div>
-</div><!-- /d2 -->
-
-
 <!-- ════════════════════ DAY 3 · WED · LEGS A — ESSENTIALS ════════════════════ -->
 <div class="section" id="d3">
 <div class="day-hdr">
-  <div class="day-num" style="color:var(--gld)">03</div>
+  <div class="day-num" style="color:var(--gld)">02</div>
   <div class="day-info">
     <div class="day-eye" style="color:var(--gld)">// Tuesday · Legs A</div>
     <div class="day-title">LEGS A — ESSENTIALS</div>
@@ -1740,6 +1577,171 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="fin"><div class="fin-lbl">McGill Big 2 — Descending Pyramid · Lower-Day Spine Maintenance</div><p><strong>Side Plank</strong>: 1 × 20s / 1 × 15s / 1 × 10s each side &nbsp;·&nbsp; <strong>Bird Dog</strong>: 1 × 5 / 1 × 3 / 1 × 1 each — reach long, hips level, zero rotation, 10s hold at full extension.<br><br><span style="font-size:11.5px;color:var(--dim);font-style:italic">📚 The 5/3/1 descending pyramid with 10s holds is McGill's endurance prescription (Low Back Disorders). <strong>Curl-up dropped on purpose:</strong> it's anti-<em>flexion</em>, and flexion isn't your mechanism — anti-rotation (Pallof) + anti-lateral-flexion (side plank) + bird-dog cover what your spine actually needs, with less to do.</span></p></div>
 <div class="day-complete" data-day="d3"></div>
 </div><!-- /d3 -->
+
+
+<!-- ════════════════════ DAY 2 · TUE · PUSH ════════════════════ -->
+<div class="section" id="d2">
+<div class="day-hdr">
+  <div class="day-num" style="color:var(--b)">03</div>
+  <div class="day-info">
+    <div class="day-eye" style="color:var(--b)">// Wednesday · Push &amp; Shoulders</div>
+    <div class="day-title">PUSH &amp; SHOULDER ARCHITECTURE</div>
+    <div class="day-focus">Lateral delt width · Tricep long head · Rear delt balance · Anterior delt · Pressing</div>
+  </div>
+</div>
+
+<div class="callout" style="border-color:rgba(93,255,159,.28);background:rgba(93,255,159,.06)">
+  <div class="callout-t" style="color:var(--g)">⏱ Session Timing · Target ~35 min</div>
+  <p style="font-size:14px;margin:0 0 6px">Warmup 6 · Work ~26 · Pallof is your core (no extra finisher)</p>
+  <details class="foldnote"><summary>Short on time? cut order</summary>
+  <p style="font-size:14px;margin:6px 0 0"><strong>Cut in this order:</strong> (1) OH tricep — overlaps the pike push-up · (2) serratus punch — keep if you can, handstand-relevant · (3) lateral raise — keep, delt width is your goal · core kept: pike push-up + Pallof.</p></details>
+</div>
+
+<div class="wu">
+  <div class="wu-lbl">⚡ Warmup — 6 min · push-primed</div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Raise temp — arm circles + thoracic cat-cow × 8. Warms the T-spine so the low back doesn't arch to reach overhead.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Scapular push-up + "plus" × 12 — add a protraction reach at the top. Top-tier serratus, low upper-trap.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Band pull-aparts × 12, palms up — external rotators, balances the press.</span></div>
+  <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — ribs down, no lumbar arch.</span></div>
+  <div class="wu-item"><span class="wu-t">60s</span><span>Wrist prep — all-fours weight shifts + circles + fist-to-spread × 10. Non-negotiable before pressing/inversion.</span></div>
+  <div class="wu-item"><span class="wu-t">primer</span><span>Then ramp the first press: 1 set easy, 1 set ~70%. No separate block.</span></div>
+</div>
+
+<div class="exlist">
+
+<div class="excard" data-id="d2e1">
+<div class="extop">
+  <div class="ex-left"><div class="exname">Pike Push-Up — Feet Elevated</div></div>
+  <div class="exmeta"><div class="sets">4 × 8</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">down · hold · push</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Feet on bench, hips high. Head tracks through at bottom — forehead toward floor between hands. Elbows track slightly back. Stop at any lumbar extension. <strong>Bent-leg variant is fine indefinitely</strong> — shoulder loading is what matters.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue"><strong>Ribs down</strong> the entire time.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Knees bent — feet on floor behind you</span></div>
+    <div class="prog-step"><span class="pn">Next</span><span>Feet flat on floor, legs straight</span></div>
+    <div class="prog-step"><span class="pn">Wk 4</span><span>Feet on bench — full elevation</span></div>
+    <div class="prog-step"><span class="pn">Wk 8</span><span>Wall handstand push-up negative — lower from wall HS over 8s</span></div>
+  </div>
+</div>
+</div>
+
+<div class="excard" data-id="d2e-serr">
+<div class="extop">
+  <div class="ex-left">
+    <div class="exname">Banded Serratus Punch — Standing</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Replaced pseudo-planche · serratus stimulus without anterior-capsule load</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">3 × 15 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">punch · pause · return</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Yellow band — anchored to a rung behind you at chest height. One end in working hand.</span></div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Stand facing away from anchor. Band end in working hand at shoulder height, elbow tucked, palm in. <strong>Punch the hand straight forward</strong> at shoulder height — arm extends, scapula slides forward AROUND the rib cage (protraction). Reach an inch past full extension — that final inch is the serratus contraction. 1-count pause. Slow 3-count return, scap travels BACK along the rib cage. Opposite hand on the same-side rib to feel the scap glide.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue">The "reach" past full extension is the entire exercise — first 90% of the punch is shoulder, last 10% is serratus.</div>
+<button class="acc-btn evi-btn" onclick="toggle(this)"><span class="arr">▼</span> 📚 Evidence</button>
+<div class="evi-wrap">
+  <div class="evi">
+    <p>Decker et al. (1999) and Ekstrom et al. (2003) rank serratus punch / protraction-emphasis exercises among the top serratus-anterior activators. Scapular protraction is the serratus's primary action, so an isolated punch targets it directly with little anterior-shoulder load — the point for a hypermobile shoulder. (The push-up-plus is the best-validated serratus exercise if you want a bodyweight swap.)</p>
+    <p><strong>Why this replaces pseudo-planche for your shoulder:</strong> Russek (1999) and Mottram on hypermobility-specific shoulder programming explicitly contraindicate max-leverage anterior loading positions. Pseudo-planche puts shoulders out past wrists with anterior capsule under tensile stress — exactly the position the literature says to avoid in gJHM. This delivers the serratus stimulus pseudo-planche was meant to provide, with the anterior capsule fully unloaded.</p>
+    <em>— Decker et al. (1999); Ekstrom et al. (2003); Russek (1999); Mottram on gJHM shoulder rehab</em>
+  </div>
+</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Yellow band, standing, 3×15 each</span></div>
+    <div class="prog-step"><span class="pn">Wk 4</span><span>Red band, 3×12 each</span></div>
+    <div class="prog-step"><span class="pn">Wk 8</span><span>Overhead variant — anchor low, punch straight overhead (matches handstand line)</span></div>
+  </div>
+</div>
+</div>
+
+<div class="excard" data-id="d2e2">
+<div class="extop">
+  <div class="ex-left">
+    <div class="exname">Cable Single-Arm Lateral Raise</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable (light) · band = home option</span></div>
+    <div class="start-l"><span>← Start left side every set</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">4 × 12 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · HOLD · lower</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: low pulley, single handle, stand side-on so the cable crosses your body — working arm furthest from the stack, lightest useful pin. <strong>Home/away:</strong> yellow band under the same-side foot, other end in the working hand.</span></div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Cable from the low pulley (or band under foot). Arm slightly across the front. <strong>Lead with the elbow</strong>, not the wrist. Raise to <strong>shoulder height — no higher</strong>, hold 2, 3-count lower. Hypermobile shoulder: controlled the whole way, no swing, no shrugging into the trap.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue">Feel the side-delt cap, not the trap. Keep it light.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Cable lightest useful pin (or yellow band), 4×12 with 2s hold</span></div>
+    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin only when all 3×12 are clean and shrug-free</span></div>
+    <div class="prog-step"><span class="pn">Form gate</span><span>If the trap takes over or the shoulder shrugs, drop the load — laterals reward control, not weight</span></div>
+  </div>
+</div>
+</div>
+
+<div class="excard" data-id="d2e3">
+<div class="extop">
+  <div class="ex-left">
+    <div class="exname">Cable Overhead Tricep Extension — Rope</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · cable rope · band = home option</span></div>
+  </div>
+  <div class="exmeta"><div class="sets">3 × 12</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope on the low pulley, face away, both ends overhead. <strong>Home/away:</strong> yellow band anchored at the floor behind you, face away.</span></div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Rope (or band) from low behind, face away. Both hands overhead, palms forward. <strong>Elbows point forward</strong> — no flare. Extend to 10° short of lockout (never snap the elbow straight). 3-count return. Ribs locked down — no lumbar arch as you reach overhead.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue">Elbows forward the whole rep. Don't let the low back arch to chase range.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Cable rope, light pin, 3×12</span></div>
+    <div class="prog-step"><span class="pn">+2 wks</span><span>Up one pin when 3×12 is clean and the elbows stay forward</span></div>
+    <div class="prog-step"><span class="pn">Home</span><span>Band: single → double-loop yellow → red as it gets easy</span></div>
+  </div>
+</div>
+</div>
+
+<div class="excard" data-id="d2e6">
+<div class="extop">
+  <div class="ex-left"><div class="exname">Half-Kneeling Pallof Press</div></div>
+  <div class="exmeta"><div class="sets">3 × 10 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 3 · 2</div><div class="tkey">press · HOLD · return</div></div>
+  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#ff2e88"></div><span class="band-txt">Red band — loop through a horizontal rung at chest height. Hold BOTH ends together in both hands, palms facing each other, hands stacked. Band comes from your side — you're kneeling perpendicular to the ladder.</span></div>
+<div class="slbl">Setup &amp; Execution</div>
+<div class="setup">Band chest-height to your side. Half-kneeling, inside knee down. Press straight out, <strong>hold 3</strong>, return. Resist any torso rotation toward the anchor.</div>
+<div class="clbl">🎯 Coaching Cue</div>
+<div class="cue"><strong>Erectors silent</strong> — obliques resist the rotation, not the spine. Add resistance before adding reps.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Progression</button>
+<div class="prog-wrap">
+  <div class="prog-block">
+    <div class="prog-lbl">📈 Path Forward</div>
+    <div class="prog-step"><span class="pn">Now</span><span>Red band, half-kneeling, 3×10 with 3s hold</span></div>
+    <div class="prog-step"><span class="pn">Wk 4</span><span>Double-loop red — same</span></div>
+    <div class="prog-step"><span class="pn">Wk 8</span><span>Standing Pallof — removes kneeling base, increases demand</span></div>
+  </div>
+</div>
+</div>
+
+
+</div><!-- /exlist -->
+<div class="fin"><div class="fin-lbl">Core</div><p>Core's handled in-session by the <strong>Pallof press</strong> — no extra finisher. Go home.</p></div>
+<div class="day-complete" data-day="d2"></div>
+</div><!-- /d2 -->
 
 
 <!-- ════════════════════ DAY 4 · THU · PICK ONE — SWIM or LEGS B ════════════════════ -->
@@ -3234,13 +3236,16 @@ function buildDayLogForm(host, dayId){
   var f = document.createElement('div');
   f.className = 'dl-form';
   f.innerHTML =
-    '<div class="dl-row"><span class="dl-lbl">Before · energy</span><span class="dl-dots" data-key="before" data-val="0">'+_dotsHTML(0)+'</span></div>'+
-    '<div class="dl-row"><span class="dl-lbl">After · felt</span><span class="dl-dots" data-key="after" data-val="0">'+_dotsHTML(0)+'</span></div>'+
+    '<div class="dl-sec">Pre — going in</div>'+
+    '<div class="dl-row"><span class="dl-lbl">Energy</span><span class="dl-dots" data-key="before" data-val="0">'+_dotsHTML(0)+'</span></div>'+
+    '<input class="dl-note" data-n="pre" type="text" maxlength="140" placeholder="Sleep, soreness, knee/back going in…">'+
+    '<div class="dl-sec">Post — how it went</div>'+
+    '<div class="dl-row"><span class="dl-lbl">Felt</span><span class="dl-dots" data-key="after" data-val="0">'+_dotsHTML(0)+'</span></div>'+
     '<div class="dl-pain">'+
       '<label class="dl-paincell"><span>Knee 0–10</span><input class="dl-num" data-k="knee" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
       '<label class="dl-paincell"><span>Back 0–10</span><input class="dl-num" data-k="back" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
     '</div>'+
-    '<input class="dl-note" type="text" maxlength="140" placeholder="Notable… (one line)">'+
+    '<input class="dl-note" data-n="post" type="text" maxlength="140" placeholder="How it went · what to change…">'+
     (ex ? '<div class="dl-done">✎ '+ex+' exercise jot'+(ex>1?'s':'')+' will be added</div>' : '')+
     '<div class="dl-acts"><button class="logbtn" data-a="save">Save</button><button class="logbtn ghost" data-a="send">⇪ Save + Send to Notes</button></div>';
   f.querySelectorAll('.dl-dots').forEach(function(wrap){
@@ -3268,11 +3273,18 @@ function saveDayLog(host, dayId, share){
   var b = dots('before'), a = dots('after');
   var knee = form.querySelector('[data-k="knee"]').value.trim();
   var back = form.querySelector('[data-k="back"]').value.trim();
-  var note = form.querySelector('.dl-note').value.trim();
+  var preNote = form.querySelector('[data-n="pre"]').value.trim();
+  var postNote = form.querySelector('[data-n="post"]').value.trim();
   var lines = [];
-  if (b || a) lines.push('Before ' + _ratingStr(b) + '  ·  After ' + _ratingStr(a));
-  if (knee !== '' || back !== '') lines.push('Knee ' + (knee !== '' ? knee : '–') + '/10  ·  Back ' + (back !== '' ? back : '–') + '/10');
-  if (note) lines.push('Notable: ' + note);
+  var pre = [];
+  if (b) pre.push('energy ' + _ratingStr(b));
+  if (preNote) pre.push(preNote);
+  if (pre.length) lines.push('Pre — ' + pre.join(' · '));
+  var post = [];
+  if (a) post.push('felt ' + _ratingStr(a));
+  if (knee !== '' || back !== '') post.push('knee ' + (knee !== '' ? knee : '–') + '/10 · back ' + (back !== '' ? back : '–') + '/10');
+  if (postNote) post.push(postNote);
+  if (post.length) lines.push('Post — ' + post.join(' · '));
   var jstore = readJots();
   var dayJots = (jstore[dayId] && jstore[dayId].ex) ? jstore[dayId].ex : {};
   var jotIds = [...document.querySelectorAll('#' + dayId + ' .excard[data-id]')].map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
