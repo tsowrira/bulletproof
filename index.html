@@ -752,6 +752,14 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .foldnote[open]>summary::after{transform:rotate(180deg)}
 .foldnote>summary:hover{color:var(--fade)}
 
+/* day-intro fold — collapse warmup + reference callouts at the top of each day */
+.introfold>summary{cursor:pointer;list-style:none;display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
+.introfold>summary::-webkit-details-marker{display:none}
+.introfold>summary>*{margin-bottom:0!important}
+.introfold>summary::after{content:'▾';margin-left:auto;font-size:11px;opacity:.6;transition:transform .2s;padding-left:10px}
+.introfold[open]>summary::after{transform:rotate(180deg)}
+.introfold-body{padding-top:11px}
+
 /* ── MISC ── */
 .section{border-bottom:1px solid var(--bdr)}
 
@@ -3365,6 +3373,30 @@ function buildJots(){
   });
 }
 buildJots();
+
+// Fold the bulky read-before-you-start blocks (warmup + PT/loading/form reference callouts) into tap-to-expand
+function _introFold(container, labelEl){
+  if (!labelEl || container.dataset.fold) return;
+  container.dataset.fold = '1';
+  var det = document.createElement('details'); det.className = 'introfold';
+  var sum = document.createElement('summary');
+  var body = document.createElement('div'); body.className = 'introfold-body';
+  [].slice.call(container.children).forEach(function(k){ if (k !== labelEl) body.appendChild(k); });
+  sum.appendChild(labelEl);
+  det.appendChild(sum); det.appendChild(body);
+  container.appendChild(det);
+}
+function foldDayIntros(){
+  var foldTitles = ['PT Sync','Loading Status','From Your Video','Knee-Smart','Handstand Safety','Is the Default'];
+  document.querySelectorAll('.section[id]').forEach(function(sec){
+    sec.querySelectorAll('.wu').forEach(function(wu){ _introFold(wu, wu.querySelector('.wu-lbl')); });
+    sec.querySelectorAll('.callout').forEach(function(c){
+      var t = c.querySelector('.callout-t'); if (!t) return;
+      if (foldTitles.some(function(f){ return t.textContent.indexOf(f) >= 0; })) _introFold(c, t);
+    });
+  });
+}
+foldDayIntros();
 
 var _toastEl = null, _toastT = null;
 function _toast(msg){
