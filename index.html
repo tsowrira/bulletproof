@@ -3314,14 +3314,14 @@ function shareEntry(text){
 }
 function buildDayLogs(){
   dayIds.forEach(function(dayId){
-    var dc = document.querySelector('.day-complete[data-day="'+dayId+'"]');
-    if (!dc) return;
-    if (dc.previousElementSibling && dc.previousElementSibling.classList && dc.previousElementSibling.classList.contains('daylog-host')) return;
+    var sec = document.getElementById(dayId); if (!sec) return;
+    if (sec.querySelector('.daylog-host')) return;
+    var hdr = sec.querySelector('.day-hdr'); if (!hdr) return;
     var host = document.createElement('div');
     host.className = 'daylog-host'; host.dataset.day = dayId;
-    host.innerHTML = '<button class="daylog-trigger" type="button">📝 Rate &amp; log this day</button>';
+    host.innerHTML = '<button class="daylog-trigger" type="button">📝 Rate &amp; log this day · pre / post</button>';
     host.querySelector('.daylog-trigger').onclick = function(){ openDayLog(dayId); };
-    dc.parentNode.insertBefore(host, dc);
+    hdr.insertAdjacentElement('afterend', host);
   });
 }
 buildDayLogs();
