@@ -3104,25 +3104,28 @@ window.addEventListener('scroll', function() {
   if (bar) bar.style.width = Math.min(pct, 100) + '%';
 }, {passive: true});
 
-// ── Active nav link on scroll ──
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      dayIds.forEach(id => {
-        const el = document.getElementById('n-' + id);
-        if (el) { el.style.borderColor = 'transparent'; el.classList.remove('active'); }
-      });
-      const navEl = document.getElementById('n-' + e.target.id);
-      if (navEl) {
-        navEl.style.borderColor = dayColors[e.target.id] || 'var(--r)';
-        navEl.classList.add('active');
-        const _nav = document.getElementById('topnav');
-        if (_nav && _nav.scrollWidth > _nav.clientWidth + 4) _nav.scrollTo({ left: navEl.offsetLeft - _nav.clientWidth / 2 + navEl.offsetWidth / 2, behavior: 'smooth' });
-      }
-    }
-  });
-}, {threshold: 0.12});
-dayIds.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+// ── Active nav link on scroll — covers EVERY section, not just the 5 days ──
+const _navLinks = [].slice.call(document.querySelectorAll('#topnav a[href^="#"]'));
+const _navSpy = _navLinks
+  .map(function(a){ return { a: a, sec: document.getElementById(a.getAttribute('href').slice(1)) }; })
+  .filter(function(x){ return x.sec; })
+  .sort(function(p, q){ return (p.sec.compareDocumentPosition(q.sec) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1; });
+let _navRAF = false;
+function _updateNavActive(){
+  _navRAF = false;
+  const line = 96; // just below the sticky nav
+  let cur = null;
+  _navSpy.forEach(function(x){ if (x.sec.getBoundingClientRect().top <= line) cur = x; });
+  if (!cur) cur = _navSpy[0];
+  if (!cur || cur.a.classList.contains('active')) return;
+  _navLinks.forEach(function(a){ a.classList.remove('active'); a.style.borderColor = 'transparent'; });
+  cur.a.classList.add('active');
+  cur.a.style.borderColor = dayColors[cur.sec.id] || getComputedStyle(cur.a).color;
+  const _nav = document.getElementById('topnav');
+  if (_nav && _nav.scrollWidth > _nav.clientWidth + 4) _nav.scrollTo({ left: cur.a.offsetLeft - _nav.clientWidth / 2 + cur.a.offsetWidth / 2, behavior: 'smooth' });
+}
+window.addEventListener('scroll', function(){ if (!_navRAF){ _navRAF = true; requestAnimationFrame(_updateNavActive); } }, {passive: true});
+_updateNavActive();
 
 // ── Highlight today's day in week strip ──
 (function markToday() {
