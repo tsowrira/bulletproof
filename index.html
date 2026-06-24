@@ -829,7 +829,8 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .daylog-host{padding:14px var(--pad)}
 .daylog-trigger{width:100%;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--g);background:rgba(93,255,159,.06);border:1px solid rgba(93,255,159,.28);border-radius:var(--rad);padding:12px;min-height:46px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s}
 .daylog-trigger:active{background:rgba(93,255,159,.14)}
-.dl-form{margin-top:10px;background:var(--s1);border:1px solid rgba(93,255,159,.22);border-radius:var(--rad-lg);padding:14px}
+.dl-form{margin-top:10px}
+.dl-card{background:var(--s1);border:1px solid rgba(93,255,159,.22);border-radius:var(--rad-lg);padding:14px;margin-bottom:8px}
 .dl-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .dl-lbl{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
 .dl-dots{display:flex;gap:2px}
@@ -845,6 +846,10 @@ nav a:focus-visible{outline:2px solid var(--r);outline-offset:-2px}
 .dl-done{font-size:11px;color:var(--g);letter-spacing:.04em;margin-bottom:12px}
 .dl-acts{display:flex;gap:8px}
 .dl-acts .logbtn{flex:1}
+.daylog-host:not(.open) .dl-form{display:none}
+.dl-saved{font-size:10.5px;color:var(--dim);letter-spacing:.03em;margin:2px 0 11px;transition:color .2s}
+.dl-saved.saved{color:var(--g)}
+.dl-saved.saved::after{content:' · saved ✓'}
 .exjot{display:block;width:100%;margin-top:11px;background:transparent;border:none;border-bottom:1px dashed rgba(93,255,159,.30);color:var(--txt);font-family:'Inter',sans-serif;font-size:13px;padding:7px 2px;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 .exjot::placeholder{color:var(--dim);opacity:.62}
 .exjot:focus{outline:none;border-bottom-color:var(--g);background:rgba(93,255,159,.05)}
@@ -3249,75 +3254,83 @@ window.toggleGym = toggleGym;
 function _dotsHTML(v){ var s=''; for (var i=1;i<=5;i++) s += '<button type="button" class="dl-dot">'+((i<=v)?'●':'○')+'</button>'; return s; }
 function _ratingStr(v){ var s=''; for (var i=1;i<=5;i++) s += (i<=v)?'●':'○'; return s; }
 function _completedNames(dayId){ return [...document.querySelectorAll('#'+dayId+' .excard.done .exname')].map(function(e){ return e.textContent.trim(); }); }
+// per-day draft store — every field auto-saves here the moment it changes, and prefills on reopen/reload
+function readDayLog(){ try { return JSON.parse(localStorage.getItem('bp-daylog') || '{}'); } catch(e){ return {}; } }
+function writeDayLog(o){ try { localStorage.setItem('bp-daylog', JSON.stringify(o)); } catch(e){} }
+function saveDayField(dayId, key, val){
+  var d = readDayLog();
+  if (!d[dayId]) d[dayId] = { date: _logDate() };
+  d[dayId].date = _logDate();
+  if (val === '' || val == null || val === 0) delete d[dayId][key]; else d[dayId][key] = val;
+  writeDayLog(d);
+  var el = document.querySelector('.dl-saved[data-saved="' + dayId + '"]');
+  if (el){ el.classList.add('saved'); clearTimeout(el._t); el._t = setTimeout(function(){ el.classList.remove('saved'); }, 1100); }
+}
 function buildDayLogForm(host, dayId){
-  var ex = (function(){ var j = readJots(); return (j[dayId] && j[dayId].ex) ? Object.keys(j[dayId].ex).length : 0; })();
+  var s = readDayLog()[dayId] || {};
+  var b0 = parseInt(s.before)||0, a0 = parseInt(s.after)||0;
   var f = document.createElement('div');
   f.className = 'dl-form';
   f.innerHTML =
-    '<div class="dl-sec">Pre — going in</div>'+
-    '<div class="dl-row"><span class="dl-lbl">Energy</span><span class="dl-dots" data-key="before" data-val="0">'+_dotsHTML(0)+'</span></div>'+
-    '<input class="dl-note" data-n="pre" type="text" maxlength="140" placeholder="Sleep, soreness, knee/back going in…">'+
-    '<div class="dl-sec">Post — how it went</div>'+
-    '<div class="dl-row"><span class="dl-lbl">Felt</span><span class="dl-dots" data-key="after" data-val="0">'+_dotsHTML(0)+'</span></div>'+
-    '<div class="dl-pain">'+
-      '<label class="dl-paincell"><span>Knee 0–10</span><input class="dl-num" data-k="knee" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
-      '<label class="dl-paincell"><span>Back 0–10</span><input class="dl-num" data-k="back" type="number" min="0" max="10" inputmode="numeric" placeholder="–"></label>'+
+    '<div class="dl-card">'+
+      '<div class="dl-sec">Pre — going in</div>'+
+      '<div class="dl-row"><span class="dl-lbl">Energy</span><span class="dl-dots" data-key="before" data-val="'+b0+'">'+_dotsHTML(b0)+'</span></div>'+
+      '<input class="dl-note" data-f="preNote" type="text" maxlength="140" placeholder="Sleep, soreness, how you feel going in…">'+
     '</div>'+
-    '<input class="dl-note" data-n="post" type="text" maxlength="140" placeholder="How it went · what to change…">'+
-    (ex ? '<div class="dl-done">✎ '+ex+' exercise jot'+(ex>1?'s':'')+' will be added</div>' : '')+
-    '<div class="dl-acts"><button class="logbtn" data-a="save">Save</button><button class="logbtn ghost" data-a="send">⇪ Save + Send to Notes</button></div>';
+    '<div class="dl-card">'+
+      '<div class="dl-sec">Post — how it went</div>'+
+      '<div class="dl-row"><span class="dl-lbl">Felt</span><span class="dl-dots" data-key="after" data-val="'+a0+'">'+_dotsHTML(a0)+'</span></div>'+
+      '<input class="dl-note" data-f="postNote" type="text" maxlength="140" placeholder="How it went · anything off · what to change…">'+
+    '</div>'+
+    '<div class="dl-saved" data-saved="'+dayId+'">↳ auto-saves as you go · your per-exercise jots are included</div>'+
+    '<div class="dl-acts"><button class="logbtn" data-a="send">⇪ Send to Notes · export today</button></div>';
+  f.querySelector('[data-f="preNote"]').value = s.preNote || '';
+  f.querySelector('[data-f="postNote"]').value = s.postNote || '';
   f.querySelectorAll('.dl-dots').forEach(function(wrap){
+    var key = wrap.dataset.key;
     wrap.querySelectorAll('.dl-dot').forEach(function(dot, idx){
-      dot.onclick = function(){ var i=idx+1; var v=(parseInt(wrap.dataset.val)===i)?0:i; wrap.dataset.val=v; wrap.querySelectorAll('.dl-dot').forEach(function(d,j){ d.textContent=(j<v)?'●':'○'; }); };
+      dot.onclick = function(){ var i=idx+1; var v=(parseInt(wrap.dataset.val)===i)?0:i; wrap.dataset.val=v; wrap.querySelectorAll('.dl-dot').forEach(function(d,j){ d.textContent=(j<v)?'●':'○'; }); saveDayField(dayId, key, v); };
     });
   });
-  f.querySelector('[data-a="save"]').onclick = function(){ saveDayLog(host, dayId, false); };
-  f.querySelector('[data-a="send"]').onclick = function(){ saveDayLog(host, dayId, true); };
+  f.querySelectorAll('input[data-f]').forEach(function(inp){
+    var key = inp.dataset.f, t = null;
+    inp.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(function(){ saveDayField(dayId, key, inp.value.trim()); }, 350); });
+  });
+  f.querySelector('[data-a="send"]').onclick = function(){ exportDayLog(dayId, true); };
   host.appendChild(f);
   return f;
 }
 function openDayLog(dayId){
   var host = document.querySelector('.daylog-host[data-day="'+dayId+'"]');
   if (!host) return;
+  if (!host.querySelector('.dl-form')) buildDayLogForm(host, dayId);
   var open = host.classList.toggle('open');
-  var existing = host.querySelector('.dl-form');
-  if (open){ if (!existing) buildDayLogForm(host, dayId); host.scrollIntoView({ behavior:'smooth', block:'center' }); }
-  else if (existing){ existing.remove(); }
+  if (open) host.scrollIntoView({ behavior:'smooth', block:'center' });
 }
 window.openDayLog = openDayLog;
-function saveDayLog(host, dayId, share){
-  var form = host.querySelector('.dl-form'); if (!form) return;
-  var dots = function(k){ var w = form.querySelector('.dl-dots[data-key="'+k+'"]'); return w ? (parseInt(w.dataset.val)||0) : 0; };
-  var b = dots('before'), a = dots('after');
-  var knee = form.querySelector('[data-k="knee"]').value.trim();
-  var back = form.querySelector('[data-k="back"]').value.trim();
-  var preNote = form.querySelector('[data-n="pre"]').value.trim();
-  var postNote = form.querySelector('[data-n="post"]').value.trim();
+// end-of-day export: compile the auto-saved draft + jots, add/refresh it in the on-page log, and share to Notes
+function exportDayLog(dayId, share){
+  var d = readDayLog()[dayId] || {};
+  var b = parseInt(d.before)||0, a = parseInt(d.after)||0;
   var lines = [];
-  var pre = [];
-  if (b) pre.push('energy ' + _ratingStr(b));
-  if (preNote) pre.push(preNote);
+  var pre = []; if (b) pre.push('energy ' + _ratingStr(b)); if (d.preNote) pre.push(d.preNote);
   if (pre.length) lines.push('Pre — ' + pre.join(' · '));
-  var post = [];
-  if (a) post.push('felt ' + _ratingStr(a));
-  if (knee !== '' || back !== '') post.push('knee ' + (knee !== '' ? knee : '–') + '/10 · back ' + (back !== '' ? back : '–') + '/10');
-  if (postNote) post.push(postNote);
+  var post = []; if (a) post.push('felt ' + _ratingStr(a)); if (d.postNote) post.push(d.postNote);
   if (post.length) lines.push('Post — ' + post.join(' · '));
   var jstore = readJots();
   var dayJots = (jstore[dayId] && jstore[dayId].ex) ? jstore[dayId].ex : {};
-  var jotIds = [...document.querySelectorAll('#' + dayId + ' .excard[data-id]')].map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
+  var jotIds = [].slice.call(document.querySelectorAll('#' + dayId + ' .excard[data-id]')).map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
   jotIds.forEach(function(id){ lines.push('• ' + dayJots[id].name + ' — ' + dayJots[id].text); });
-  if (!lines.length){ host.classList.remove('open'); form.remove(); _toast('Nothing to log yet'); return; }
+  if (!lines.length){ _toast('Nothing logged for this day yet'); return; }
   var header = _logDate() + ' · ' + dayId.toUpperCase() + ' · ' + (DAY_LABELS[dayId] || dayId);
   var body = lines.join('\n');
-  var items = readLog(); items.unshift({ date: header, text: body });
+  var items = readLog().filter(function(e){ return e.date !== header; });  // refresh, don't duplicate
+  items.unshift({ date: header, text: body });
   writeLog(items); renderLog();
   markDayComplete(dayId);
-  if (jotIds.length){ delete jstore[dayId]; writeJots(jstore); document.querySelectorAll('#' + dayId + ' .exjot').forEach(function(inp){ inp.value = ''; inp.classList.remove('has-val'); }); }
-  host.classList.remove('open'); form.remove();
-  if (share) shareEntry(header + '\n' + body);
-  else _toast('Logged ✓');
+  if (share) shareEntry(header + '\n' + body); else _toast('Added to your log ✓');
 }
+window.exportDayLog = exportDayLog;
 function shareEntry(text){
   if (navigator.share){ navigator.share({ title:'Bulletproof log', text:text }).catch(function(){}); }
   else if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ _toast('Copied — paste into Notes'); }).catch(function(){ fallbackCopy(text); }); }
@@ -3375,6 +3388,16 @@ function buildJots(){
     else card.appendChild(input);
   });
 }
+// new day = fresh slate: drop yesterday's auto-saved drafts + jots (today's persist all day)
+(function pruneLogDrafts(){
+  var today = _logDate();
+  var d = readDayLog(), dch = false;
+  Object.keys(d).forEach(function(k){ if (!d[k] || d[k].date !== today){ delete d[k]; dch = true; } });
+  if (dch) writeDayLog(d);
+  var j = readJots(), jch = false;
+  Object.keys(j).forEach(function(k){ if (!j[k] || j[k].date !== today){ delete j[k]; jch = true; } });
+  if (jch) writeJots(j);
+})();
 buildJots();
 
 // Fold the bulky read-before-you-start blocks (warmup + PT/loading/form reference callouts) into tap-to-expand
