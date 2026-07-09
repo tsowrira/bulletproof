@@ -975,6 +975,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 .logentry-d{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--g);font-weight:600;display:flex;justify-content:space-between;align-items:center}
 .logentry-x{color:var(--dim);background:none;border:none;cursor:pointer;font-size:15px;padding:2px 8px;min-height:32px;-webkit-tap-highlight-color:transparent}
 .logentry pre{white-space:pre-wrap;word-break:break-word;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--fade);line-height:1.55;margin-top:6px}
+.logentry.sent{border-left-color:rgba(93,255,159,.28)}
+.logentry-sent{font-size:9px;color:var(--dim);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-left:8px}
+.logentry-acts{display:flex;align-items:center;flex-shrink:0}
 
 /* swim = collapsed bonus (clean <details>, not a big empty box) */
 .swim-fold{margin:16px 0;border:1px solid rgba(176,107,255,.3);border-left:3px solid var(--p);border-radius:var(--rad-lg);background:rgba(176,107,255,.05)}
@@ -2317,10 +2320,10 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
     <div class="daily-t" style="color:var(--g)">Training Log</div>
     <div class="daily-sub">// saved on this device · export anytime</div>
   </div>
-  <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Stays <strong>on this phone</strong> — no account, nothing leaves your device. Rate any day from <strong>📝 Rate &amp; log this day</strong> at the bottom of that day (before/after, knee &amp; back, one notable line). <strong>Send to Notes</strong> appends straight into one fixed Apple Note once you set up the Shortcut below.</p>
+  <p style="font-size:13.5px;color:var(--fade);line-height:1.7;max-width:620px">Stays <strong>on this phone</strong> — no account, nothing leaves your device. Rate any day from <strong>📝 Rate &amp; log this day</strong> at the bottom of that day (before/after, knee &amp; back, one notable line). <strong>Send to Notes</strong> appends into one fixed Apple Note (one-time Shortcut below) and only sends what's new since your last send — no duplicates.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
     <button class="logbtn" onclick="newLogEntry()">＋ New entry</button>
-    <button class="logbtn ghost" onclick="shareLog()">⇪ Send to Notes / apps</button>
+    <button class="logbtn ghost" id="sendBtn" onclick="shareLog()">⇪ Send to Notes / apps</button>
     <button class="logbtn ghost" onclick="exportLog()">⤓ Copy all</button>
   </div>
   <details class="swim-fold" style="margin:0 0 14px">
@@ -2339,9 +2342,10 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
   <div id="logEditor" style="display:none;margin-bottom:14px">
     <textarea id="logText" rows="9" spellcheck="false" style="width:100%;background:var(--s1);color:var(--txt);border:1px solid var(--bdr);border-radius:6px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;resize:vertical;box-sizing:border-box"></textarea>
     <div id="logDraftNotice" style="display:none;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--g);margin:5px 0 0">draft auto-saved</div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="logbtn" onclick="saveLogEntry()">Save</button>
-      <button class="logbtn ghost" onclick="cancelLogEntry()">Cancel</button>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <button class="logbtn" id="logSaveBtn" onclick="saveLogEntry()">Save</button>
+      <button class="logbtn ghost" id="logCloseBtn" onclick="closeLogEntry()">Close · draft kept</button>
+      <button class="logbtn ghost" id="logDiscardBtn" onclick="discardLogEntry()">Discard</button>
     </div>
   </div>
   <div id="logList"></div>
@@ -2890,7 +2894,7 @@ function readSaved() {
 }
 
 function writeSaved(saved) {
-  localStorage.setItem('bp-done', JSON.stringify(saved));
+  try { localStorage.setItem('bp-done', JSON.stringify(saved)); } catch(e){}
 }
 
 function pruneExpired() {
@@ -2952,7 +2956,7 @@ window.confirmClearAll = confirmClearAll;
 
 applyState();
 // Re-check expiry every 60s in case the page is left open across the boundary
-setInterval(applyState, 60 * 1000);
+setInterval(function(){ applyState(); updateDayComplete(); }, 60 * 1000);
 
 // ── Reset countdown ──
 function updateResetCountdown() {
@@ -3171,69 +3175,114 @@ window.copyWeekLog = copyWeekLog;
 
 // ── Training log (localStorage; persists on this device) ──
 function readLog(){ try { return JSON.parse(localStorage.getItem('bp-log') || '[]'); } catch(e){ return []; } }
-function writeLog(a){ localStorage.setItem('bp-log', JSON.stringify(a)); }
+function writeLog(a){ try { localStorage.setItem('bp-log', JSON.stringify(a)); } catch(e){ _toast('⚠ Could not save — storage full or blocked'); } }
 function _logEsc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function _logDate(){ return new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); }
 const DAY_LABELS = { d1:'Pull & Posterior', d2:'Push & Shoulders', d3:'Legs A', d4:'Legs B', d5:'Skill' };
+
+// debounced saves register a flush — a half-typed note survives locking the phone mid-window
+const _pendingSaves = new Set();
+function _debounce(ms, fn){
+  let t = null;
+  function flush(){ clearTimeout(t); t = null; _pendingSaves.delete(flush); fn(); }
+  return function(){ clearTimeout(t); _pendingSaves.add(flush); t = setTimeout(flush, ms); };
+}
+function _flushSaves(){ _pendingSaves.forEach(f => f()); }
+window.addEventListener('pagehide', _flushSaves);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _flushSaves(); });
 
 // draft auto-save (a half-written entry survives closing the tab)
 function readDraft(){ try { return localStorage.getItem('bp-draft'); } catch(e){ return null; } }
 function saveDraft(t){ try { localStorage.setItem('bp-draft', t); } catch(e){} }
 function clearDraft(){ try { localStorage.removeItem('bp-draft'); } catch(e){} }
-function _wireDraft(){ const ta = document.getElementById('logText'); if (!ta) return; let timer = null; ta.oninput = () => { clearTimeout(timer); timer = setTimeout(() => saveDraft(ta.value), 500); }; }
+let _editIdx = null;   // null = composing new; a number = editing that entry in place
+function _wireDraft(){ const ta = document.getElementById('logText'); if (!ta) return; ta.oninput = _debounce(500, () => { if (_editIdx === null) saveDraft(ta.value); }); }
 function _blankTemplate(){ return _logDate() + '\nDid:  M_  Tu_  W_  Th_  F_\nTop sets (load×reps @RIR):  \nSkill:  handstand_  pull-up_  pistol_\nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  '; }
+function _hideEditor(){ _editIdx = null; document.getElementById('logEditor').style.display = 'none'; }
 function _showEditor(text, notice){
   const ta = document.getElementById('logText'); ta.value = text;
   document.getElementById('logEditor').style.display = 'block';
   const n = document.getElementById('logDraftNotice');
   if (n){ if (notice){ n.textContent = notice; n.style.display = 'block'; } else { n.style.display = 'none'; } }
+  const editing = _editIdx !== null;
+  document.getElementById('logSaveBtn').textContent = editing ? 'Update' : 'Save';
+  document.getElementById('logCloseBtn').style.display = editing ? 'none' : '';
+  document.getElementById('logDiscardBtn').textContent = editing ? 'Cancel' : 'Discard';
   _wireDraft(); ta.focus();
 }
 function newLogEntry(){
+  _editIdx = null;
   const draft = readDraft();
   _showEditor(draft != null ? draft : _blankTemplate(), draft != null ? 'draft restored — pick up where you left off' : '');
 }
-function logDay(dayId){
-  const names = [...document.querySelectorAll('#' + dayId + ' .excard.done')].map(c => { const e = c.querySelector('.exname'); return e ? ('  ✓ ' + e.textContent.trim()) : ''; }).filter(Boolean).join('\n');
-  const stub = _logDate() + ' — ' + (DAY_LABELS[dayId] || dayId) + '\n' + names + '\nTop sets (load×reps @RIR):  \nKnee 0/10  L_ R_   ·   Back 0/10 _\nNotes:  ';
-  saveDraft(stub);
-  _showEditor(stub, (DAY_LABELS[dayId] || dayId) + ' auto-filled — add your numbers and Save');
-  const sec = document.getElementById('log'); if (sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+function editLogEntry(i){
+  const items = readLog(); if (!items[i]) return;
+  _editIdx = i;
+  _showEditor(items[i].text, 'editing ' + items[i].date + ' — Update saves in place');
+  document.getElementById('logEditor').scrollIntoView({ behavior:'smooth', block:'center' });
 }
-function cancelLogEntry(){ clearDraft(); document.getElementById('logEditor').style.display = 'none'; }
+function closeLogEntry(){ _flushSaves(); _hideEditor(); }
+function discardLogEntry(){
+  if (_editIdx === null){
+    const ta = document.getElementById('logText');
+    if (ta.value.trim() && !confirm('Discard this draft?')) return;
+    clearDraft();
+  }
+  _hideEditor();
+}
 function saveLogEntry(){
+  _flushSaves();
   const t = document.getElementById('logText').value.trim();
-  if (!t){ cancelLogEntry(); return; }
-  const items = readLog(); items.unshift({ date: _logDate(), text: t });
-  writeLog(items); clearDraft(); document.getElementById('logEditor').style.display = 'none'; renderLog();
+  const items = readLog();
+  if (_editIdx !== null){
+    if (items[_editIdx] && t){ items[_editIdx].text = t; delete items[_editIdx].sent; writeLog(items); _toast('Entry updated'); }
+    _hideEditor(); renderLog(); return;
+  }
+  if (!t){ clearDraft(); _hideEditor(); return; }
+  items.unshift({ date: _logDate(), text: t });
+  writeLog(items); clearDraft(); _hideEditor(); renderLog();
 }
-function deleteLogEntry(i){ const items = readLog(); items.splice(i, 1); writeLog(items); renderLog(); }
+function deleteLogEntry(i){ if (!confirm('Delete this entry?')) return; const items = readLog(); items.splice(i, 1); writeLog(items); renderLog(); }
+function _entryText(e){ return e.date + '\n' + e.text; }
 function exportLog(){
   const items = readLog();
-  if (!items.length){ window.alert('No log entries yet.'); return; }
-  const txt = items.map(e => e.date + '\n' + e.text).join('\n\n──────────\n\n');
+  if (!items.length){ _toast('No log entries yet'); return; }
+  const txt = items.map(_entryText).join('\n\n──────────\n\n');
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(txt).then(() => window.alert('Log copied to clipboard — paste it somewhere safe.')).catch(() => fallbackCopy(txt));
+    navigator.clipboard.writeText(txt).then(() => _toast('Full log copied — paste it somewhere safe')).catch(() => fallbackCopy(txt));
   } else { fallbackCopy(txt); }
 }
+// sends only entries not yet sent, oldest first — appending to one Apple Note stays duplicate-free
 function shareLog(){
   const items = readLog();
-  if (!items.length){ window.alert('No log entries yet.'); return; }
-  const txt = items.map(e => e.date + '\n' + e.text).join('\n\n──────────\n\n');
-  if (navigator.share){ navigator.share({ title: 'Bulletproof training log', text: txt }).catch(() => {}); }
-  else { exportLog(); }   // desktop / unsupported → copy to clipboard
+  if (!items.length){ _toast('No log entries yet'); return; }
+  const fresh = items.filter(e => !e.sent);
+  if (!fresh.length){ _toast('Everything already sent — ⇪ on an entry re-sends it'); return; }
+  const txt = fresh.slice().reverse().map(_entryText).join('\n\n──────────\n\n');
+  shareEntry(txt, () => { fresh.forEach(e => { e.sent = true; }); writeLog(items); renderLog(); });
+}
+function shareOneEntry(i){
+  const items = readLog(); const e = items[i]; if (!e) return;
+  shareEntry(_entryText(e), () => { e.sent = true; writeLog(items); renderLog(); });
 }
 function renderLog(){
   const list = document.getElementById('logList'); if (!list) return;
   const items = readLog();
+  const send = document.getElementById('sendBtn');
+  if (send){ const n = items.filter(e => !e.sent).length; send.textContent = n ? '⇪ Send to Notes · ' + n + ' new' : '⇪ Send to Notes / apps'; }
   if (!items.length){ list.innerHTML = '<p style="font-size:13px;color:var(--dim);font-style:italic">No entries yet — finish a day and tap the green “complete” banner, or hit “New entry”.</p>'; return; }
-  list.innerHTML = items.map((e,i) => '<div class="logentry"><div class="logentry-d">' + _logEsc(e.date) + '<button class="logentry-x" onclick="deleteLogEntry(' + i + ')" aria-label="Delete entry">✕</button></div><pre>' + _logEsc(e.text) + '</pre></div>').join('');
+  list.innerHTML = items.map((e,i) =>
+    '<div class="logentry' + (e.sent ? ' sent' : '') + '"><div class="logentry-d"><span>' + _logEsc(e.date) + (e.sent ? '<span class="logentry-sent">sent ✓</span>' : '') + '</span><span class="logentry-acts">' +
+    '<button class="logentry-x" onclick="editLogEntry(' + i + ')" aria-label="Edit entry">✎</button>' +
+    '<button class="logentry-x" onclick="shareOneEntry(' + i + ')" aria-label="Send entry">⇪</button>' +
+    '<button class="logentry-x" onclick="deleteLogEntry(' + i + ')" aria-label="Delete entry">✕</button>' +
+    '</span></div><pre>' + _logEsc(e.text) + '</pre></div>').join('');
 }
 // completed-day tracking so a finished session isn't pruned before it's logged
 function readCompleted(){ try { return JSON.parse(localStorage.getItem('bp-complete') || '{}'); } catch(e){ return {}; } }
 function writeCompleted(o){ try { localStorage.setItem('bp-complete', JSON.stringify(o)); } catch(e){} }
 function markDayComplete(dayId){ const c = readCompleted(); const today = new Date().toDateString(); if (c[dayId] !== today){ c[dayId] = today; writeCompleted(c); } }
-window.newLogEntry = newLogEntry; window.logDay = logDay; window.saveLogEntry = saveLogEntry; window.cancelLogEntry = cancelLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog; window.shareLog = shareLog;
+window.newLogEntry = newLogEntry; window.editLogEntry = editLogEntry; window.saveLogEntry = saveLogEntry; window.closeLogEntry = closeLogEntry; window.discardLogEntry = discardLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog; window.shareLog = shareLog; window.shareOneEntry = shareOneEntry;
 
 // ── Gym mode — hide setup prose for a clean between-sets glance (persisted) ──
 function toggleGym(){
@@ -3260,7 +3309,7 @@ function writeDayLog(o){ try { localStorage.setItem('bp-daylog', JSON.stringify(
 function saveDayField(dayId, key, val){
   var d = readDayLog();
   if (!d[dayId]) d[dayId] = { date: _logDate() };
-  d[dayId].date = _logDate();
+  d[dayId].date = _logDate(); d[dayId].t = Date.now();
   if (val === '' || val == null || val === 0) delete d[dayId][key]; else d[dayId][key] = val;
   writeDayLog(d);
   var el = document.querySelector('.dl-saved[data-saved="' + dayId + '"]');
@@ -3293,8 +3342,8 @@ function buildDayLogForm(host, dayId){
     });
   });
   f.querySelectorAll('input[data-f]').forEach(function(inp){
-    var key = inp.dataset.f, t = null;
-    inp.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(function(){ saveDayField(dayId, key, inp.value.trim()); }, 350); });
+    var key = inp.dataset.f;
+    inp.addEventListener('input', _debounce(350, function(){ saveDayField(dayId, key, inp.value.trim()); }));
   });
   f.querySelector('[data-a="send"]').onclick = function(){ exportDayLog(dayId, true); };
   host.appendChild(f);
@@ -3310,6 +3359,7 @@ function openDayLog(dayId){
 window.openDayLog = openDayLog;
 // end-of-day export: compile the auto-saved draft + jots, add/refresh it in the on-page log, and share to Notes
 function exportDayLog(dayId, share){
+  _flushSaves();   // a note typed <400ms before this tap is still in the debounce window
   var d = readDayLog()[dayId] || {};
   var b = parseInt(d.before)||0, a = parseInt(d.after)||0;
   var lines = [];
@@ -3317,6 +3367,8 @@ function exportDayLog(dayId, share){
   if (pre.length) lines.push('Pre — ' + pre.join(' · '));
   var post = []; if (a) post.push('felt ' + _ratingStr(a)); if (d.postNote) post.push(d.postNote);
   if (post.length) lines.push('Post — ' + post.join(' · '));
+  var done = _completedNames(dayId);
+  if (done.length) lines.push('Done (' + done.length + '): ' + done.join(' · '));
   var jstore = readJots();
   var dayJots = (jstore[dayId] && jstore[dayId].ex) ? jstore[dayId].ex : {};
   var jotIds = [].slice.call(document.querySelectorAll('#' + dayId + ' .excard[data-id]')).map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
@@ -3328,13 +3380,14 @@ function exportDayLog(dayId, share){
   items.unshift({ date: header, text: body });
   writeLog(items); renderLog();
   markDayComplete(dayId);
-  if (share) shareEntry(header + '\n' + body); else _toast('Added to your log ✓');
+  if (share) shareEntry(header + '\n' + body, function(){ items[0].sent = true; writeLog(items); renderLog(); });
+  else _toast('Added to your log ✓');
 }
 window.exportDayLog = exportDayLog;
-function shareEntry(text){
-  if (navigator.share){ navigator.share({ title:'Bulletproof log', text:text }).catch(function(){}); }
-  else if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ _toast('Copied — paste into Notes'); }).catch(function(){ fallbackCopy(text); }); }
-  else fallbackCopy(text);
+function shareEntry(text, onOk){
+  if (navigator.share){ navigator.share({ title:'Bulletproof log', text:text }).then(function(){ if (onOk) onOk(); }).catch(function(){}); }
+  else if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ if (onOk) onOk(); _toast('Copied — paste into Notes'); }).catch(function(){ fallbackCopy(text, onOk); }); }
+  else fallbackCopy(text, onOk);
 }
 function buildDayLogs(){
   dayIds.forEach(function(dayId){
@@ -3357,7 +3410,7 @@ function saveJot(dayId, exId, name, text){
   if (!dayId) return;
   var j = readJots();
   if (!j[dayId]) j[dayId] = { date: _logDate(), ex: {} };
-  j[dayId].date = _logDate();
+  j[dayId].date = _logDate(); j[dayId].t = Date.now();
   if (text) j[dayId].ex[exId] = { name: name, text: text };
   else if (j[dayId].ex[exId]) delete j[dayId].ex[exId];
   if (!Object.keys(j[dayId].ex).length) delete j[dayId];
@@ -3376,10 +3429,10 @@ function buildJots(){
     input.setAttribute('aria-label', 'Log note for ' + name);
     var pre = saved[dayId] && saved[dayId].ex && saved[dayId].ex[exId];
     if (pre && pre.text){ input.value = pre.text; input.classList.add('has-val'); }
-    var t = null;
+    var save = _debounce(400, function(){ saveJot(dayId, exId, name, input.value.trim()); });
     input.addEventListener('input', function(){
       input.classList.toggle('has-val', !!input.value.trim());
-      clearTimeout(t); t = setTimeout(function(){ saveJot(dayId, exId, name, input.value.trim()); }, 400);
+      save();
     });
     var cue = card.querySelector('.cue');
     var acc = card.querySelector('.acc-btn');
@@ -3388,14 +3441,15 @@ function buildJots(){
     else card.appendChild(input);
   });
 }
-// new day = fresh slate: drop yesterday's auto-saved drafts + jots (today's persist all day)
+// new day = fresh slate — 12h age-based, so a post-midnight log of an evening session isn't wiped
 (function pruneLogDrafts(){
-  var today = _logDate();
+  var cutoff = Date.now() - 12*3600*1000;
+  var stale = function(rec){ return rec.t ? rec.t < cutoff : rec.date !== _logDate(); };
   var d = readDayLog(), dch = false;
-  Object.keys(d).forEach(function(k){ if (!d[k] || d[k].date !== today){ delete d[k]; dch = true; } });
+  Object.keys(d).forEach(function(k){ if (!d[k] || stale(d[k])){ delete d[k]; dch = true; } });
   if (dch) writeDayLog(d);
   var j = readJots(), jch = false;
-  Object.keys(j).forEach(function(k){ if (!j[k] || j[k].date !== today){ delete j[k]; jch = true; } });
+  Object.keys(j).forEach(function(k){ if (!j[k] || stale(j[k])){ delete j[k]; jch = true; } });
   if (jch) writeJots(j);
 })();
 buildJots();
