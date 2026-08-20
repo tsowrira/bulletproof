@@ -293,6 +293,15 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 @media(min-width:420px){.wt{font-size:12px}.wd{font-size:10px}}
 @media(min-width:560px){.wt{font-size:13px}.wc{padding:16px 7px}}
 @media(max-width:380px){.wt{font-size:10px}.wd{font-size:8px}.wc{padding:10px 2px}}
+/* week hierarchy — the 3 core training days read as primary; swim + flex read lighter */
+.wc.core{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 70%)}
+.wc.core .wd{color:var(--txt)}
+.wc.core::after,.wc.swim::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+#wc-2.core::after{background:var(--r);box-shadow:0 0 10px rgba(255,46,136,.6)}
+#wc-3.core::after{background:var(--gld);box-shadow:0 0 10px rgba(255,210,58,.55)}
+#wc-4.core::after{background:var(--b);box-shadow:0 0 10px rgba(31,224,255,.55)}
+.wc.swim::after{background:var(--g);opacity:.45}
+.wc.flex-day .wt,.wc.rest-day .wt{opacity:.72}
 
 /* ── BAND LEGEND ── */
 .legend{
@@ -1090,13 +1099,13 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <!-- WEEK STRIP -->
 <div class="week">
-  <a class="wc" id="wc-1" href="#swim"><div class="wd">Mon</div><div class="wt" style="color:var(--g)">Swim<br>Day</div></a>
-  <a class="wc" id="wc-2" href="#d1"><div class="wd">Tue</div><div class="wt" style="color:var(--r)">Full-Body A<br>+ Muscle-Up</div></a>
-  <a class="wc" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Full-Body B<br>+ Handstand</div></a>
-  <a class="wc" id="wc-4" href="#d2"><div class="wd">Thu</div><div class="wt" style="color:var(--b)">Full-Body C<br>+ Pistol</div></a>
-  <a class="wc" id="wc-5" href="#d4"><div class="wd">Fri</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
-  <a class="wc" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
-  <div class="wc" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
+  <a class="wc swim" id="wc-1" href="#swim"><div class="wd">Mon</div><div class="wt" style="color:var(--g)">Swim<br>Day</div></a>
+  <a class="wc core" id="wc-2" href="#d1"><div class="wd">Tue</div><div class="wt" style="color:var(--r)">Full-Body A<br>+ Muscle-Up</div></a>
+  <a class="wc core" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Full-Body B<br>+ Handstand</div></a>
+  <a class="wc core" id="wc-4" href="#d2"><div class="wd">Thu</div><div class="wt" style="color:var(--b)">Full-Body C<br>+ Pistol</div></a>
+  <a class="wc flex-day" id="wc-5" href="#d4"><div class="wd">Fri</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
+  <a class="wc flex-day" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
+  <div class="wc rest-day" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
 
 <div class="callout">
