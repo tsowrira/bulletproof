@@ -458,8 +458,12 @@ nav a.active{border-bottom-width:3px;font-weight:700}
   align-items:flex-end;
   gap:6px;
   flex-shrink:0;
+  max-width:44%;
 }
-.sets{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;color:var(--b);white-space:nowrap;letter-spacing:-.01em;line-height:1;font-variant-numeric:tabular-nums}
+/* sets: sized to hold either a short "2 × 10" or a longer "S1: 12 · S2: AMRAP" phrase.
+   Wraps within the capped meta column so it never starves the badge column beside it. */
+.sets{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--b);letter-spacing:-.01em;line-height:1.25;font-variant-numeric:tabular-nums;text-align:right;text-wrap:balance}
+.sets .s-lead{font-size:22px;font-weight:800;display:block}
 .rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
   font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
@@ -1177,7 +1181,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Goblet Squat — 15 lb</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ PT-cleared July 2026 · 15 lb × 3×10 in clinic, no pain — the squat pattern is BACK</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ Jul 2026 · 15 lb cleared — the squat pattern is back</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">90s rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">down · pause · drive</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1243,7 +1247,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Bar Dips — 90° Cap</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Aug 2026 · you started these — now they're coached · the muscle-up's other half</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Aug 2026 · bar dips, now coached</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 5 · S2: AMRAP−2</div><div class="rest-lbl">2 min rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">3s down · pause · press</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1272,7 +1276,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Lying / Prone Leg Curl</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ June 2026 · hamstring strength · run prone, not seated (spine)</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ Jun 2026 · hamstring · run prone, not seated</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">curl · squeeze · 3s lower</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1300,7 +1304,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Hip Abductor Machine</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ 50 lb cleared · loadable glute-med — knee medicine</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ 50 lb · loadable glute-med, knee medicine</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">out · pause · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1354,7 +1358,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Curl — Behind-Body Stretch</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ July 2026 · biceps finally get their own slot · stretch-position emphasis</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Jul 2026 · biceps slot · stretch-position emphasis</span></div>
     <div class="start-l"><span>← Start left side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">curl · squeeze · lower</div></div>
@@ -1380,7 +1384,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Pallof Press — Half-Kneeling</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ July 2026 · band → cable per clinic · smooth anti-rotation load</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Jul 2026 · band → cable, per clinic</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 10 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 3 · 2</div><div class="tkey">press · HOLD · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1405,7 +1409,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Dead Bug — 5 lb in Hands</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Aug 2026 · core · anti-extension under load, spine glued down</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Aug 2026 · core · anti-extension, spine glued down</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 8 each side</div><div class="rest-lbl">45s rest</div><div class="tempo">3 · 1 · 3</div><div class="tkey">reach · exhale · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1493,7 +1497,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Pull-Through — The Hinge, Back</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ July 2026 · the banded hinge's direct successor — same horizontal vector, now on a stack · fixed reps, NO AMRAP</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Jul 2026 · the hinge, on a cable · fixed reps, no AMRAP</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">75s rest</div><div class="tempo">3 · 1 · 2</div><div class="tkey">hips back · drive · squeeze</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1581,7 +1585,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Seated Leg Extension — Full Arc</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ July 2026 · ROM cap LIFTED by the clinic — full extension is cleared · stop at straight, never past</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ Jul 2026 · ROM cap lifted · full arc, stop at straight</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 2 · 3</div><div class="tkey">up · hold · 3s down</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1617,7 +1621,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Reverse Pec-Deck — Rear Delt</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ July 2026 · new machine · rear delt + mid-trap, zero spine involvement</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ Jul 2026 · rear delt + mid-trap, spine-free</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 2</div><div class="tkey">sweep · squeeze · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1640,7 +1644,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Rope Pushdown — Cable</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ July 2026 · swapped from overhead — no rib-flare temptation · OH rope = variety swap</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Jul 2026 · swapped from overhead · no rib-flare</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div><div class="tkey">press · squeeze · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1665,7 +1669,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Hip Adductor Machine</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ 35–40 lb cleared · the abductor's partner — was cleared but never programmed, now it is</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">✓ 35–40 lb · the abductor's partner, now programmed</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">squeeze · pause · return</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1715,7 +1719,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Side-Plank Ladder</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Aug 2026 · core · your L/R gap, promoted from finisher to working set</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Aug 2026 · core · your L/R gap, now a working set</span></div>
     <div class="start-l"><span>← Start the weaker side every set</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 30s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div><div class="tkey">hips tall + level</div></div>
@@ -1731,7 +1735,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Seated Calf Raise — Soleus</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ July 2026 · the OTHER calf muscle — the standing raise (Day A) can't reach it</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">+ Jul 2026 · soleus — the standing raise can't reach it</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div><div class="tkey">up · squeeze · stretch</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1831,7 +1835,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Lat Pulldown — Machine</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">↺ July 2026 · the classic, by request · lat width focus</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">↺ Jul 2026 · the classic · lat-width focus</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">75s rest</div><div class="tempo">2 · 1 · 4</div><div class="tkey">pull · squeeze · stretch</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1977,7 +1981,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Push-Up Plus — 8 lb Vest</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ July 2026 · replaces the banded serratus punch · vest push-ups are straight from the clinic notes</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(31,224,255,.10);border:1px solid rgba(31,224,255,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--b)">↺ Jul 2026 · replaces serratus punch · vest work is clinic-cleared</span></div>
   </div>
   <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2 · +</div><div class="tkey">down · pause · push · PLUS</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -2027,7 +2031,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="extop">
   <div class="ex-left">
     <div class="exname">Cable Side-Bend Resist — Anti-Lateral ISO</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ July 2026 · lateral chain with ZERO axial load — the cable pulls sideways, you refuse</span></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.28);border-radius:4px;padding:4px 10px;margin-bottom:6px"><span style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--r)">+ Jul 2026 · lateral chain, zero axial load</span></div>
   </div>
   <div class="exmeta"><div class="sets">2 × 25s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div><div class="tkey">time, not reps — no AMRAP</div></div>
   <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
