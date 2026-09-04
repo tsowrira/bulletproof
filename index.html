@@ -49,6 +49,7 @@
  --g: #5dff9f;
  --gld: #ffd23a;
  --p: #b06bff;
+ --o: #ff8a4c;
  --pad: 18px;
  --rad: 4px;
  --glow-r: 0 0 14px rgba(255,46,136,.55);
@@ -229,6 +230,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .pill.b{border-color:rgba(31,224,255,.40);color:var(--b)}
 .pill.g{border-color:rgba(93,255,159,.40);color:var(--g)}
 .pill.gld{border-color:rgba(255,210,58,.40);color:var(--gld)}
+.pill.o{border-color:rgba(255,138,76,.42);color:var(--o)}
 
 /* ── CHECK STATUS BAR ── */
 .check-status{
@@ -339,6 +341,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 #d3 .day-hdr::before{background:var(--gld);box-shadow:0 0 13px var(--gld)}
 #d4 .day-hdr::before{background:var(--p);box-shadow:0 0 13px var(--p)}
 #d5 .day-hdr::before{background:var(--g);box-shadow:0 0 13px var(--g)}
+#travel .day-hdr::before{background:var(--o);box-shadow:0 0 13px var(--o)}
 .day-num{
  font-family:'Playfair Display',serif;
  font-weight:800;
@@ -838,6 +841,7 @@ body.gym .howfold{display:none}
 .day-jump[data-day="d3"]{border-color:var(--gld);color:var(--gld)}
 .day-jump[data-day="d4"]{border-color:var(--p);color:var(--p)}
 .day-jump[data-day="d5"]{border-color:var(--g);color:var(--g)}
+.day-jump[data-day="travel"]{border-color:var(--o);color:var(--o)}
 
 /* ── DAY COMPLETE BANNER ── */
 .day-complete{
@@ -932,6 +936,11 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;oversc
 #d3 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
 #d4 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
 #d5 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
+#travel .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,138,76,.5)}
+/* travel sub-session header */
+.tsub{padding:18px var(--pad) 2px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--o);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.tsub::before{content:'';width:16px;height:2px;background:var(--o);box-shadow:0 0 6px var(--o);flex-shrink:0}
+.tsub .tsub-sub{color:var(--dim);font-weight:500;letter-spacing:.03em;text-transform:none;font-size:11.5px}
 
 /* satisfying micro-interactions */
 @keyframes chkpop{0%{transform:scale(.82)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
@@ -952,6 +961,7 @@ nav{box-shadow:0 1px 0 rgba(255,255,255,.03),0 6px 16px rgba(0,0,0,.35)}
 .day-jump[data-day="d3"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(255,210,58,.4),var(--ring)}
 .day-jump[data-day="d4"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(176,107,255,.4),var(--ring)}
 .day-jump[data-day="d5"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(93,255,159,.4),var(--ring)}
+.day-jump[data-day="travel"]{box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 16px rgba(255,138,76,.4),var(--ring)}
 
 /* eyebrow tick (spec-sheet identity) + today cell + safebar pills + day-complete */
 .day-eye::before,.approach-eye::before{content:'';display:inline-block;width:14px;height:2px;background:currentColor;vertical-align:middle;margin-right:7px;box-shadow:0 0 6px currentColor;opacity:.8}
@@ -1040,6 +1050,14 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  /* panel reads as a framed app tied to the backdrop */
  html:not(.dev-mobile) body{box-shadow:0 0 0 1px rgba(255,46,136,.10),0 0 0 1px rgba(31,224,255,.04),0 0 120px rgba(0,0,0,.8),0 0 60px rgba(255,46,136,.05)}
  html:not(.dev-mobile) nav a.active{background:rgba(255,46,136,.10)}
+ /* hero fills the width: editorial copy left, a spec rail right (no more empty half) */
+ html:not(.dev-mobile) .hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:48px;align-items:start;padding-top:56px;padding-bottom:56px}
+ html:not(.dev-mobile) .hero-eye{grid-column:1;grid-row:1}
+ html:not(.dev-mobile) .hero h1{grid-column:1;grid-row:2}
+ html:not(.dev-mobile) .hero p{grid-column:1;grid-row:3;max-width:none}
+ html:not(.dev-mobile) .pills{grid-column:2;grid-row:1 / 4;align-self:center;flex-direction:column;align-items:flex-start;justify-content:center;gap:11px;margin:0;padding:26px 0 0 26px;border-left:1px solid var(--bdr);position:relative}
+ html:not(.dev-mobile) .pills::before{content:'// At a glance';position:absolute;top:0;left:26px;font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+ html:not(.dev-mobile) .pills .pill{font-size:11px;padding:8px 15px}
 }
 @media(min-width:1400px){
  html:not(.dev-mobile) body{font-size:17px}
@@ -1063,6 +1081,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <a href="#d2" style="color:var(--b)" id="n-d2">Day C</a>
  <a href="#d4" style="color:var(--p)" id="n-d4">Flex</a>
  <a href="#d5" style="color:var(--g)" id="n-d5">Skill</a>
+ <a href="#travel" style="color:var(--o)" id="n-travel">Travel</a>
  <a href="#swim" style="color:var(--p)">Swim</a>
  <a href="#daily">Daily</a>
  <a href="#log" style="color:var(--g)">📋 Log</a>
@@ -1096,12 +1115,13 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="hero" id="top">
  <div class="hero-eye">// Bulletproof · Joint-Smart Training</div>
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
- <p>Three full-body sessions + flex days. ~10 lifts a session at two hard sets each, core in every session, nothing repeats across the week. Newly cleared: butterfly, dance, bike — and the strict muscle-up ladder is open.</p>
+ <p>Three full-body sessions + flex days, plus a travel mode for the road. Two hard sets a lift, core and a skill every session, nothing repeats across the week. Cleared now: butterfly, dance, bike — and the muscle-up ladder is open.</p>
  <div class="pills">
  <span class="pill r">Joint-Smart Protocol</span>
  <span class="pill b">Machines · Cables · Bodyweight</span>
  <span class="pill g">Muscle-Up Ladder Open</span>
- <span class="pill gld">Full-Body A · B · C + Flex</span>
+ <span class="pill gld">Full-Body A · B · C</span>
+ <span class="pill o">✈ Travel Mode</span>
  </div>
 </div>
 
@@ -1138,7 +1158,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <p style="margin:6px 0 0"><strong>Order within a session:</strong> knee-quieting isometric (leg days) → skill while your brain is fresh → main compound → accessories → isolation → core/anti-rotation last. Never grind skill or a loaded hinge once you're cooked — that's when hypermobile form slips.</p>
  <p style="margin-top:6px"><strong>Tired? Read it, don't push through:</strong> <strong>flat/heavy</strong> → keep the session, drop a set or two, hold the load. <strong>Run-down</strong> (bad sleep, RPE up two sessions, achy) → swap the hard day for skill + a walk or StairMaster, or take the rest day early. <strong>Wiped, or any new leg signal</strong> → full rest day, and pull the deload forward a week. When the week compresses, protect the three full-body sessions; skill blocks are cheap enough to keep — sacrifice Flex days first. A planned rest beats a forced one.</p></details>
 </div>
-
 
 <!-- ════════════════════ DAY 1 · MON · PULL ════════════════════ -->
 <div class="section" id="d1">
@@ -1506,7 +1525,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="day-complete" data-day="d1"></div>
 </div><!-- /d1 -->
 
-
 <!-- ════════════════════ DAY 3 · WED · LEGS A — ESSENTIALS ════════════════════ -->
 <div class="section" id="d3">
 <div class="day-hdr">
@@ -1828,7 +1846,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="fin"><div class="fin-lbl">Core</div><p>In-session — <strong>stir-the-pot + side-plank ladder</strong> above. Wrist cooldown 2 min after the handstand block.</p></div>
 <div class="day-complete" data-day="d3"></div>
 </div><!-- /d3 -->
-
 
 <!-- ════════════════════ DAY 2 · TUE · PUSH ════════════════════ -->
 <div class="section" id="d2">
@@ -2197,7 +2214,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
-
 <!-- ════════════════════ DAY 4 · THU · PICK ONE — SWIM or LEGS B ════════════════════ -->
 <div class="section" id="d4">
 <div class="day-hdr">
@@ -2254,7 +2270,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <div class="day-complete" data-day="d4"></div>
 </div><!-- /d4 -->
-
 
 <!-- ════════════════════ DAY 5 · FRI · SKILL ════════════════════ -->
 <div class="section" id="d5">
@@ -2345,15 +2360,133 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="day-complete" data-day="d5"></div>
 </div><!-- /d5 -->
 
-
-<!-- HIKE -->
-<div class="hikebar" id="cardio">
- <div class="hike-l">Flex Slots · Cardio / Dance / Swim 🎚️</div>
- <p><strong>Pick whatever you'll actually do</strong> — these slots are flexible and never gate your leg work. <strong>Every option here is zero-impact</strong> (non-negotiable for you), but they differ in <em>knee</em> load:</p>
- <p style="margin-top:8px"><strong style="color:var(--txt);font-weight:500">Dance class (latin/zumba)</strong> — cleared: ease back over 2–3 classes, knees soft on spins, build jump volume gradually. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Spin bike or elliptical.</strong> Low-impact AND low knee-load. Bike: seat so the hip sits just above the kneecap at the top, hood-down (lumbar neutral), moderate resistance. Elliptical: even gait, no impact — the gentlest low-impact cardio. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Hike</strong> — posterior-chain + balance, but <strong>descents are the catch</strong> (eccentric knee load + axial micro-impact): poles, short stride, mellow/switchback downhills, skip hilly routes if the knee's loud. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">StairMaster</strong> — low-impact but <strong>high patellofemoral load</strong> (3–4× bodyweight per step), so <em>not</em> the knee-friendly pick it looks like: keep it short + sparing, stop if the right knee flares. &nbsp;·&nbsp; <strong style="color:var(--txt);font-weight:500">Swim</strong> — a bonus when the mood strikes (zero spinal load, lat volume); no butterfly.</p>
- <p style="font-size:13px;color:var(--fade);margin-top:8px;line-height:1.7">Tack a few minutes of <strong>calisthenics skill</strong> (handstand holds, pull-up greasing) onto any of these — freestyle day for whichever ladder you feel like. <strong>Sunday is full passive rest</strong> — let the week integrate.</p>
+<!-- ════════════════════ TRAVEL MODE ════════════════════ -->
+<div class="section" id="travel">
+<div class="day-hdr">
+ <div class="day-num" style="color:var(--o)">✈</div>
+ <div class="day-info">
+ <div class="day-eye" style="color:var(--o)">// Away — hotel, park, a friend's floor</div>
+ <div class="day-title">TRAVEL MODE — ONE BODYWEIGHT FLOW</div>
+ <div class="day-focus">All you need: a wall · a chair · a table · the floor · no bands, straps, or weights · one session, top to bottom, ~35 min</div>
+ </div>
 </div>
 
+<div class="callout g">
+ <div class="callout-t">// It's a Maintenance Block — Relax</div>
+ <p>Travel isn't for growing — it's for <strong>holding</strong>. You keep nearly all your strength and size for weeks on a fraction of the work, muscle barely budges before ~3 weeks fully off, and what dips comes back fast. Just move through this once, take each hard set close to (not to) failure, and you've done the job. Miss a day — a walk counts. Nothing here is a test.</p>
+</div>
+
+<div class="callout warn">
+ <div class="callout-t">⚠ Same Rules Away</div>
+ <p>Neutral spine on every squat and bridge — chest tall, low back never rounds. <strong>Wall handstand only.</strong> On rows, pull with the shoulder blades and stay <strong>actively</strong> braced — never a limp hang. Soft elbows and knees, no lockouts. Pistols off a chair, never a hand pushing off a wall. Stop a set on real joint pain, not muscle burn.</p>
+</div>
+
+<div class="wu">
+ <div class="wu-lbl">⚡ Warmup — 4 min · no gear, no impact</div>
+ <div class="wu-item"><span class="wu-t">60s</span><span>Shoulder + hip CARs — slow controlled circles, one joint at a time, active through the whole range. Warms the joints without swinging into end range.</span></div>
+ <div class="wu-item"><span class="wu-t">60s</span><span>Wall slides ×10 · glute bridge ×12 · slow bodyweight squat ×10.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog ×5/side + a couple of slow walk-outs to plank — spine-neutral prep.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Wrist prep (circles + gentle presses) before the handstand. One easy ramp set before each first working set.</span></div>
+</div>
+
+<div class="exlist">
+
+<div class="excard" data-id="tv-hs">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Wall Handstand — Holds + Taps</div></div>
+ <div class="exmeta"><div class="sets">3 × 20–30s</div><div class="rest-lbl">60s rest</div><div class="tempo">ISO</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Back-to-wall or chest-to-wall hold, hollow body, ribs down, push the floor away through both shoulders. Feeling strong: slow shoulder taps. Step one foot down to come out — never bail. No wall? A tall push-up-position hold keeps the shoulders working.</div>
+<div class="cue">🎯 Wall is the catch, always. Press tall through the shoulders — never hang on the joints.</div>
+</div>
+
+<div class="excard" data-id="tv-pistol">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Pistol Progression — off a Chair</div>
+ <div class="start-l"><span>← Start right side</span></div></div>
+ <div class="exmeta"><div class="sets">3 × 3 each</div><div class="rest-lbl">90s rest</div><div class="tempo">CONTROLLED</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Sit off the edge of a chair or bed, one leg out front, lower under control to a tap and stand back up. Fingertips on a wall for balance only — never a hand pushing off. Cap at parallel, don't chase depth. Too easy: a lower seat.</div>
+<div class="cue">🎯 Off a seat, never a wall-push. Slow down = balance. Right (weaker) side leads.</div>
+</div>
+
+<div class="excard" data-id="tv-push">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Push-Up — Feet-Elevated / Pike</div></div>
+ <div class="exmeta"><div class="sets">S1: 8 · S2: AMRAP−1</div><div class="rest-lbl">90s rest</div><div class="tempo">3 · 1 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Feet up on the bed for more shoulder, or pike (hips high, head between hands) for near-overhead. Elbows ~45°, ribs down, body one line — no sagging hips. Stop before the shoulders shrug toward the ears. Set 2 AMRAP, leave one clean rep in the tank.</div>
+<div class="cue">🎯 Shoulders set and down. Chase clean reps, not a grind to the floor.</div>
+</div>
+
+<div class="excard" data-id="tv-row">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Inverted Row — Under a Sturdy Table</div></div>
+ <div class="exmeta"><div class="sets">S1: 8 · S2: AMRAP</div><div class="rest-lbl">90s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Grip the edge of a solid desk or table, slide under until your chest is below the edge, body one straight line, heels on the floor. Pull the chest to the edge, squeeze the shoulder blades down and back, 3-count lower. More upright = easier; walk the feet forward to make it harder. Finish with prone Y-raises ×12 on the floor (thumbs up, arms at ~120°) for the lower traps.</div>
+<div class="cue">🎯 Lead with the chest, blades pinch at the top. Stay actively braced — never a limp hang.</div>
+</div>
+
+<div class="excard" data-id="tv-bss">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Bulgarian Split Squat — Rear Foot on a Chair</div>
+ <div class="start-l"><span>← Start right side</span></div></div>
+ <div class="exmeta"><div class="sets">S1: 8 · S2: AMRAP</div><div class="rest-lbl">75s rest</div><div class="tempo">3 · 1 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Rear foot up on a chair or the bed, most weight on the front leg, torso tall. Down under control, front knee tracks over the toes. Slow the eccentric to make bodyweight plenty — 3s down, or add a pause at the bottom.</div>
+<div class="cue">🎯 Weight in the front heel, chest tall. Knee tracks over toes, no inward collapse.</div>
+</div>
+
+<div class="excard" data-id="tv-bridge">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Single-Leg Glute Bridge → Step-Down</div>
+ <div class="start-l"><span>← Start right side</span></div></div>
+ <div class="exmeta"><div class="sets">R 2 · L 2 × 10</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Shoulders on the floor, one foot planted, other leg straight up. Drive through the heel to full hip extension, 2-count squeeze — hips stay level, zero low-back arch. Then 8 slow step-downs each leg off a low step or stair: reach the free heel toward the floor over 3 counts, knee tracking straight, no collapse inward. Right side leads.</div>
+<div class="cue">🎯 Bridge: hips up, ribs down — all glute. Step-down: control the lower, that's the knee work.</div>
+</div>
+
+<div class="excard" data-id="tv-abd">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Side-Lying Abduction + Copenhagen</div>
+ <div class="start-l"><span>← Start right side</span></div></div>
+ <div class="exmeta"><div class="sets">2 × 12 + 2 holds</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Side-lying, lift the top leg to ~30–40° with a 2s top hold, ×12 each — pelvis stacked, no rolling back. Then Copenhagen plank (you love these): top foot/shin on a chair, forearm down, lift the hips, hold 15–30s each side. Start with the knee on the chair (short lever) and progress toward the ankle. Glute-med work is your knee insurance — keep it in every trip.</div>
+<div class="cue">🎯 Slow, no swinging. Hips stacked and level the whole time.</div>
+</div>
+
+<div class="excard" data-id="tv-core">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Core — Dead Bug · Side Plank · Bird-Dog</div></div>
+ <div class="exmeta"><div class="sets">2 rounds</div><div class="rest-lbl">45s rest</div><div class="tempo">SLOW</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="slbl">How</div>
+<div class="setup">Dead bug ×8/side — low back glued to the floor, opposite arm + leg reach slow. Side plank 20–30s each side, hips stacked, body one line. Bird-dog ×8/side with a hold at full reach. All anti-movement — the spine stays still, that's the whole point.</div>
+<div class="cue">🎯 Ribs down, no arching. If the low back lifts off, shorten the reach.</div>
+</div>
+
+</div><!-- /exlist -->
+<div class="fin"><div class="fin-lbl">Keep it honest</div><p><strong>Found a pull-up bar</strong> (park, playground, a doorway one)? Add active-hang pull-ups — the best pull there is — otherwise the table row has it covered. <strong>Hotel gym with machines or dumbbells?</strong> Run your normal Day A/B/C lifts at the cleared loads instead. Either way — two near-failure sets a pattern holds everything. That's the whole job.</p></div>
+<div class="day-complete" data-day="travel"></div>
+</div><!-- /travel -->
 
 <!-- VARIETY & SKILL LADDERS -->
 <div class="hmwrap" id="variety" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
@@ -2421,7 +2554,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  </div>
 </div>
 
-
 <!-- DAILY LOW-LOAD -->
 <div class="dailywrap" id="daily">
  <div class="daily-hd">
@@ -2480,7 +2612,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <strong style="color:var(--txt);font-weight:500">Rotate 3×/week:</strong> side-lying multifidus lift · quadruped hip CARs · standing hip flexion above 90° with a light ankle weight (psoas/iliacus) · supine chin nods (Jull craniocervical flexion protocol) · straight-leg raise nerve glide · side-lying tib-post/peroneal lifts with the light ankle weight.
  </div>
 </div>
-
 
 <!-- TRAINING LOG -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
@@ -2541,7 +2672,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <div class="defer-item"><strong>Full planche · human flag:</strong> max straight-arm load on hypermobile elbows + shoulders. Gate behind the scapular base — light planche leans (strict protraction, soft elbow) are the on-ramp.</div>
  </div>
 </div>
-
 
 <!-- SAFETY & RECOVERY FRAMEWORK -->
 <div class="hmwrap" id="safety" style="background:rgba(31,224,255,.04);border-color:rgba(31,224,255,.18)">
@@ -2664,7 +2794,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  </div>
 </div>
 
-
 <div class="hmwrap" id="rules">
  <div class="t-mono" style="color:var(--r);margin-bottom:8px">// Non-Negotiable Rules</div>
  <h2>HYPERMOBILITY PROTOCOL</h2>
@@ -2782,7 +2911,6 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  </div>
 </div>
 
-
 <!-- ════════════════════ APPROACH & EVIDENCE ════════════════════ -->
 <div class="approach" id="approach">
  <div class="approach-eye">// Approach &amp; Evidence — Why Each Choice</div>
@@ -2840,8 +2968,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div>
 
 <footer>
- <span>BULLETPROOF SYSTEM · REVISED JUNE 2026 · MACHINE-INTEGRATED LEG DAYS + PT SYNC</span>
- <span>WEIGHTS · CABLES · MACHINES · BODYWEIGHT · JOINT-SMART PROTOCOL · 4 DAYS + DAILY SKILL</span>
+ <span>BULLETPROOF SYSTEM · FULL-BODY A · B · C + FLEX + TRAVEL MODE</span>
+ <span>WEIGHTS · CABLES · MACHINES · BODYWEIGHT · JOINT-SMART PROTOCOL · SKILL + CORE EVERY SESSION</span>
  <button class="clear-btn" onclick="confirmClearAll()">Reset all checkmarks</button>
 </footer>
 
@@ -3046,8 +3174,8 @@ document.querySelectorAll('.rest-lbl').forEach(el => {
 });
 
 // ── Day / section IDs (declared once — used by both the FAB and the nav observer) ──
-const dayIds = ['d1','d2','d3','d4','d5'];
-const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)'};
+const dayIds = ['d1','d2','d3','d4','d5','travel'];
+const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)',travel:'var(--o)'};
 
 // ── Day-jump FAB ──
 const dayJump = document.getElementById('dayJump');
@@ -3127,8 +3255,8 @@ function copyWeekLog(){
  const d = new Date();
  const date = d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
  const tpl =
-`WEEK OF ${date} (mesocycle wk _/6)
-Did: A_ B_ C_ Flex_ (✓ / skip)
+`WEEK OF ${date}
+Did: A_ B_ C_ Flex_ Travel_ (✓ / skip)
 Top sets (load×reps @RIR):
  A: goblet_ pull-up_ dips_ leg-curl_ abd_ lat-raise_ curl_ calf_
  B: pull-thru_ chest-press_ row_ leg-ext_ pushdown_ add_ s-calf_
@@ -3158,7 +3286,7 @@ function readLog(){ try { return JSON.parse(localStorage.getItem('bp-log') || '[
 function writeLog(a){ try { localStorage.setItem('bp-log', JSON.stringify(a)); } catch(e){ _toast('⚠ Could not save — storage full or blocked'); } }
 function _logEsc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function _logDate(){ return new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); }
-const DAY_LABELS = { d1:'Full-Body A', d2:'Full-Body C', d3:'Full-Body B', d4:'Flex', d5:'Skill Blocks' };
+const DAY_LABELS = { d1:'Full-Body A', d2:'Full-Body C', d3:'Full-Body B', d4:'Flex', d5:'Skill Blocks', travel:'Travel Mode' };
 
 // debounced saves register a flush — a half-typed note survives locking the phone mid-window
 const _pendingSaves = new Set();
@@ -3472,13 +3600,25 @@ function _introFold(container, labelEl){
  container.appendChild(det);
 }
 function foldDayIntros(){
- var foldTitles = ['PT Sync','Loading Status','From Your Video','Knee-Smart','Handstand Safety','Is the Default'];
+ var FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING;
  document.querySelectorAll('.section[id]').forEach(function(sec){
+ var firstList = sec.querySelector('.exlist');
  sec.querySelectorAll('.wu').forEach(function(wu){ _introFold(wu, wu.querySelector('.wu-lbl')); });
- sec.querySelectorAll('.callout').forEach(function(c){
- var t = c.querySelector('.callout-t'); if (!t) return;
- if (foldTitles.some(function(f){ return t.textContent.indexOf(f) >= 0; })) _introFold(c, t);
+ // Collapse every read-before-you-start callout ABOVE the first exercise list into a one-tap summary,
+ // so each day opens tight and scannable instead of a wall of prose.
+ [].slice.call(sec.querySelectorAll('.callout')).forEach(function(c){
+ if (firstList && !(c.compareDocumentPosition(firstList) & FOLLOWING)) return; // only the ones above the cards
+ if (c.closest('.introfold')) return;                                          // already folded
+ if (c.parentElement && c.parentElement.closest('.callout')) return;           // nested child callout — stays with its parent
+ var t = c.querySelector(':scope > .callout-t'); if (!t) return;
+ _introFold(c, t);
  });
+ });
+ // The big week-overview block above Day A folds too
+ [].slice.call(document.querySelectorAll('.callout')).forEach(function(c){
+ if (c.closest('.section[id]') || c.closest('.introfold')) return;
+ var t = c.querySelector(':scope > .callout-t');
+ if (t && t.textContent.indexOf('How to Run the Week') >= 0) _introFold(c, t);
  });
 }
 foldDayIntros();
