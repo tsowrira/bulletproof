@@ -915,7 +915,7 @@ body.gym .excard.wild .howfold .setup{display:block}
 @keyframes burst{0%{opacity:0;transform:scale(.6)}25%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
 .xrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .xrow .xchip{margin-top:0}
-body.lowbat [data-x],body.lowbat [data-opt],body.micro [data-ss="B"],body.micro .ssh[data-b]{display:none!important}
+body.lowbat [data-x],body.lowbat [data-opt],body.micro [data-ss="B"]:not([data-micro="keep"]),body.micro .ssh[data-b]:not([data-micro="keep"]),body.micro [data-micro="drop"]{display:none!important}
 .lowbar{display:none;margin:12px var(--pad) 0;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,210,58,.35);background:rgba(255,210,58,.07);color:var(--gld);font-size:13px;line-height:1.5}
 body.lowbat .lowbar{display:block}
 .xchip.low.on{color:var(--gld);border-color:var(--gld);background:rgba(255,210,58,.08)}
@@ -1525,7 +1525,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>mid-back ↔ shoulder blades<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-b="1"><b>B</b>mid-back ↔ shoulder blades<span>1 → rest → 2 → rest · twice through</span></div>
 
 <div class="excard" data-id="d1e3" data-ss="B" data-alt-name="Half-Kneeling Single-Arm Cable Row" data-alt-where="Pulley at standing hip height, single D-handle. Half-kneel facing the stack at full arm reach, working-side knee down on a pad." data-alt-cue="Elbow to the back pocket, hips square — the torso never turns with the pull." data-alt-sets="S1: 12 each · S2: AMRAP" data-alt-start="← Left side first · right matches its reps" data-alt-how="1. Tall spine, ribs down, down-knee glute squeezed; reach long, shoulder not rolling forward. 2. Row the elbow to the back pocket, squeeze 1. 3. Take 3 counts back. 4. Set ends when the torso twists." data-alt-caveat="" data-alt-prog="Now: Your working weight — S1: 12 each · S2: AMRAP, left side first | 15 clean: Both sides → one pin up next time">
 <div class="extop">
@@ -1716,6 +1716,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="prog-step"><span class="pn">Next</span><span>Reps 4 → 6 each · step-downs 8 → 15 each, then 6″ → 8″ step</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Fingertips off, then stretch the bottom pause from 1 to 2 counts</span></div>
  <div class="prog-step"><span class="pn">Later</span><span>5 lb counterbalance in the opposite hand — same depth cap</span></div>
+ <div class="prog-step"><span class="pn">Sideways</span><span>Every third session, run drill 2 as a <strong>lateral step-down</strong> instead: stand on a 6″ box, tap the heel out to the <em>side</em>, 2 × 8 each, fingertips on a rail. Same rule — knee over the second toe or the set ends. This is the plane your monthly step-down check measures and nothing else here trains.</span></div>
 </div></div>
 </div>
 
@@ -1768,7 +1769,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>back armor ↔ side glutes<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-b="1"><b>B</b>back armor ↔ side glutes<span>1 → rest → 2 → rest · twice through</span></div>
 
 <div class="excard" data-id="d1-backext" data-ss="B">
 <div class="extop">
@@ -1991,7 +1992,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>overhead push ↔ lat width<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-b="1"><b>B</b>overhead push ↔ lat width<span>1 → rest → 2 → rest · twice through</span></div>
 
 <div class="excard" data-id="d2e1" data-ss="B">
 <div class="extop">
@@ -2199,9 +2200,9 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh"><b>A</b>hinge ↔ side glutes<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-micro="drop"><b>A</b>hinge ↔ side glutes<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d3-rdl" data-ss="A">
+<div class="excard" data-micro="drop" data-id="d3-rdl" data-ss="A">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A1</div><div class="exname">Romanian Deadlift (RDL) — One Dumbbell</div></div>
  <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 1</div></div>
@@ -2220,7 +2221,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="excard" data-id="d2-cabd" data-ss="A">
+<div class="excard" data-micro="drop" data-id="d2-cabd" data-ss="A">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A2</div><div class="exname">Cable Hip Abduction — Ankle Strap</div>
  <div class="start-l"><span>← Right side first · left matches its reps</span></div></div>
@@ -2239,9 +2240,9 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>glutes ↔ quads · both supported<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-b="1" data-micro="keep"><b>B</b>glutes ↔ quads · both supported<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d4b1" data-ss="B" data-alt-warm="⚡ Ramp 2 sets: half, then three-quarter" data-alt-name="Hip Thrust — Heavy" data-alt-tempo="3 · 2 · 1" data-alt-sets="S1: 8 heavy · S2: stop 2 short" data-alt-where="Same hip-thrust machine: back pad just below the shoulder blades, belt snug across the hip crease, feet flat hip-width. Heavier pin." data-alt-cue="Stop at a straight body line — the glutes finish it, the low back never arches." data-alt-how="1. Two ramp sets first. Same setup, heavier pin, chin tucked, ribs down. 2. Drive up for 1 count to a straight body line — stop there. 3. Squeeze 2, lower for 3 without resting on the stack. 4. Set 1 is 8 heavy reps; set 2 stops 2 short." data-alt-caveat="Two ramp sets first. Stop at a straight body line — the low back never arches to finish a heavy rep." data-alt-prog="Now: Heavier pin — S1: 8 with 2 in the tank · S2: stop 2 short | Next: S1 reaches 10 clean → one pin up next time | Bonus: Monthly check shows right 10%+ behind? One extra right-only set at quarter weight">
+<div class="excard" data-micro="keep" data-id="d4b1" data-ss="B" data-alt-warm="⚡ Ramp 2 sets: half, then three-quarter" data-alt-name="Hip Thrust — Heavy" data-alt-tempo="3 · 2 · 1" data-alt-sets="S1: 8 heavy · S2: stop 2 short" data-alt-where="Same hip-thrust machine: back pad just below the shoulder blades, belt snug across the hip crease, feet flat hip-width. Heavier pin." data-alt-cue="Stop at a straight body line — the glutes finish it, the low back never arches." data-alt-how="1. Two ramp sets first. Same setup, heavier pin, chin tucked, ribs down. 2. Drive up for 1 count to a straight body line — stop there. 3. Squeeze 2, lower for 3 without resting on the stack. 4. Set 1 is 8 heavy reps; set 2 stops 2 short." data-alt-caveat="Two ramp sets first. Stop at a straight body line — the low back never arches to finish a heavy rep." data-alt-prog="Now: Heavier pin — S1: 8 with 2 in the tank · S2: stop 2 short | Next: S1 reaches 10 clean → one pin up next time | Bonus: Monthly check shows right 10%+ behind? One extra right-only set at quarter weight">
 <div class="extop">
  <div class="ex-left"><div class="ssn">B1</div><div class="exname">Hip Thrust — Machine</div></div>
  <div class="exmeta"><div class="sets">S1: 10 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 2</div></div>
@@ -2259,7 +2260,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="excard" data-id="d4b-legext" data-ss="B">
+<div class="excard" data-micro="keep" data-id="d4b-legext" data-ss="B">
 <div class="extop">
  <div class="ex-left"><div class="ssn">B2</div><div class="exname">Seated Leg Extension — Full Arc</div></div>
  <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
@@ -2597,7 +2598,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <p style="margin:0 0 8px"><strong>L-sit / compression:</strong> seated pike lifts → support hold, legs down. <em><strong>Tuck support, one leg out, full L-sit: not yet</strong> — they squeeze the low back.</em></p>
 <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:16px 0 7px">Legs · Tuesday + Thursday</div>
 <p style="margin:0 0 8px"><em>Every single-leg rung: right side first, left matches its reps.</em></p>
-<p style="margin:0 0 8px"><strong>Pistol:</strong> tall box sit → lower box → step-platform heel-tap 2 × 4 (fingertips for balance only) → 2 × 6 → no-contact off the step. <em>Off a step, never a wall; cap at parallel.</em></p>
+<p style="margin:0 0 8px"><strong>Pistol:</strong> tall box sit → lower box → step-platform heel-tap 2 × 4 (fingertips for balance only) → 2 × 6 → no-contact off the step. <strong>Sideways:</strong> every third session, swap the forward step-down for a lateral one off a 6″ box — same depth cap, same knee rule. <em>Off a step, never a wall; cap at parallel.</em></p>
 <p style="margin:0 0 8px"><strong>Cossack squat:</strong> wide stance → sink to one side, other leg straight, heel down → flow side to side (light plate at the chest to counterbalance). <em>Control the descent — never a passive drop into the hip.</em></p>
 <p style="margin:0 0 8px"><strong>Shrimp squat:</strong> hold the rear foot → lower the rear knee to a pad → stand up. <em>Gentler on the kneecap than a deep pistol.</em></p>
 <p style="margin:0"><strong>Skater squat:</strong> shrimp without holding the foot → arms free to counterbalance → rear knee taps a pad. <em>Shrimp's balance challenge, one notch up.</em></p>
@@ -3266,7 +3267,10 @@ function buildDayChips(){
  });
  _paintLow();
 }
-function _hidden(c){ var b = document.body.classList; return ((c.dataset.x || c.dataset.opt) && b.contains('lowbat')) || (c.dataset.ss === 'B' && b.contains('micro')); }
+function _hidden(c){ var b = document.body.classList;
+ // a day can name its own Micro pair — Lower B keeps the supported hip thrust, not the loaded hinge
+ if (b.contains('micro') && c.dataset.micro) return c.dataset.micro === 'drop';
+ return ((c.dataset.x || c.dataset.opt) && b.contains('lowbat')) || (c.dataset.ss === 'B' && b.contains('micro')); }
 var LOWTXT = 'Low battery: skill + two pairs. Fixed-rep lifts: round 1 only. Everything else stops 3 short. Wiped? Skip the upside-down work. Not eaten in 3 h? Snack first.';
 function _lowState(){ var b = document.body.classList; return b.contains('micro') ? 'micro' : b.contains('lowbat') ? 'low' : ''; }
 function _paintLow(){
