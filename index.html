@@ -3793,6 +3793,21 @@ function _b64dec(s){ var bin = atob(String(s).replace(/\s/g, '')), b = new Uint8
  for (var i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
  return new TextDecoder().decode(b); }
 
+function _ghNo404(c){ return 'Cannot see ' + c.repo + ' — check the name, and that the token was made with "Only select repositories → '
+ + (c.repo.split('/')[1] || 'the log repo') + '". A token that cannot reach a repo gets 404, not 403, so GitHub never reveals private repos.'; }
+// confirm the repo is reachable and writable before blaming the file
+function ghProbe(c){
+ return fetch(GH_API + '/repos/' + c.repo, { headers:_ghHead(c), cache:'no-store' }).then(function(r){
+  if (r.status === 404) throw new Error(_ghNo404(c));
+  if (r.status === 401) throw new Error('Token rejected — expired, revoked, or mistyped.');
+  if (!r.ok) throw new Error('GitHub said ' + r.status);
+  return r.json();
+ }).then(function(j){
+  if (j && j.permissions && j.permissions.push === false)
+   throw new Error('Token can read ' + c.repo + ' but not write to it — set Contents to Read and write.');
+  return true;
+ });
+}
 function paintGH(){
  var c = readGH(), st = document.getElementById('ghState'), n = document.getElementById('ghNote');
  if (!st) return;
@@ -3852,7 +3867,7 @@ function ghPull(quiet){
  var c = readGH(); if (!c) return Promise.resolve(false);
  return fetch(_ghUrl(c), { headers:_ghHead(c), cache:'no-store' }).then(function(r){
   if (r.status === 404) return null;                       // no log yet, the first push creates it
-  if (r.status === 401 || r.status === 403) throw new Error('token rejected — check it has Contents: Read and write on ' + c.repo);
+  if (r.status === 401 || r.status === 403) throw new Error('Token rejected — check it has Contents: Read and write on ' + c.repo);
   if (!r.ok) throw new Error('GitHub said ' + r.status);
   return r.json();
  }).then(function(j){
@@ -3879,7 +3894,8 @@ function ghPush(quiet, retried){
  return fetch(_ghUrl(c), { method:'PUT', headers:_ghHead(c), body:JSON.stringify(body) }).then(function(r){
   if ((r.status === 409 || r.status === 422) && !retried)      // something wrote first: take it, then rewrite
    return ghPull(1).then(function(){ return ghPush(quiet, 1); });
-  if (r.status === 401 || r.status === 403) throw new Error('token rejected — needs Contents: Read and write on ' + c.repo);
+  if (r.status === 404) throw new Error(_ghNo404(c));
+  if (r.status === 401 || r.status === 403) throw new Error('Token rejected — needs Contents: Read and write on ' + c.repo);
   if (!r.ok) throw new Error('GitHub said ' + r.status);
   return r.json().then(function(j){
    var cc = readGH(); if (!cc) return false;
@@ -3910,7 +3926,9 @@ document.addEventListener('visibilitychange', function(){ if (document.visibilit
   writeGH({ repo:repo, tok:tok });
   document.getElementById('ghTok').value = '';
   paintGH(); _toast('Connecting…');
-  ghPull().then(function(){ return ghPush(); });
+  var c0 = readGH();
+  ghProbe(c0).then(function(){ return ghPull(); }).then(function(){ return ghPush(); })
+   .catch(function(e){ var cc = readGH(); if (cc) _ghErr(cc, e.message); _toast(e.message); });
  });
  document.getElementById('ghNow').addEventListener('click', function(){
   if (!readGH()){ _toast('Connect first'); return; }
