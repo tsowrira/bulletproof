@@ -1333,6 +1333,19 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 .bk .logbtn{margin:0!important;flex:1 1 auto;min-width:118px}
 .bk-note{margin-top:9px;font-size:12px;color:var(--fade)}
 .bk-note.stale{color:var(--gld)}
+/* sync panel */
+.ghbox{margin-top:13px;border:1px solid var(--bdr);border-radius:12px;background:rgba(255,255,255,.015)}
+.ghbox>summary{list-style:none;cursor:pointer;padding:12px 13px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:8px;min-height:44px}
+.ghbox>summary::-webkit-details-marker{display:none}
+.gh-ic{font-size:13px}
+.gh-state{margin-left:auto;letter-spacing:0;text-transform:none;font-size:11.5px;font-weight:600}
+.gh-state.on{color:var(--g)}.gh-state.err{color:var(--r)}
+.gh-body{padding:0 13px 13px}
+.gh-warn{margin:0 0 12px;font-size:12px;line-height:1.6;color:var(--fade)}
+.gh-warn strong{color:var(--txt)}
+.gh-l{display:block;margin-bottom:9px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.gh-in{display:block;width:100%;margin-top:5px;padding:0 11px;height:46px;border:1px solid var(--bdr);border-radius:10px;background:rgba(0,0,0,.25);color:var(--txt);font:500 16px 'Inter',sans-serif}
+.gh-in:focus{outline:none;border-color:var(--g)}
 /* "you earned a jump" hint, straight off last session's numbers */
 .upnudge{margin-left:7px;color:var(--gld);font-weight:700;white-space:nowrap}
 /* add-to-home-screen prompt — iOS clears site data after 7 idle days unless installed */
@@ -2739,6 +2752,20 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  </div>
  <div class="bk-note" id="bkNote"></div>
  <input type="file" id="bkFile" accept="application/json,.json" hidden>
+ <details class="ghbox" id="ghBox">
+  <summary><span class="gh-ic">☁</span> Sync to a private repo <span class="gh-state" id="ghState"></span></summary>
+  <div class="gh-body">
+   <p class="gh-warn">This page has no server, so the token is stored <strong>in this browser</strong>. Use a <strong>fine-grained</strong> token with <strong>Contents: Read and write</strong> on the log repo and nothing else — then the worst case is one private log repo, never your code or your account.</p>
+   <label class="gh-l">Repo <input class="gh-in" id="ghRepo" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="owner/bulletproof-log"></label>
+   <label class="gh-l">Token <input class="gh-in" id="ghTok" type="password" autocomplete="off" autocapitalize="off" autocorrect="false" spellcheck="false" placeholder="github_pat_…"></label>
+   <div class="bk">
+    <button class="logbtn ghost" type="button" id="ghSave">Connect</button>
+    <button class="logbtn ghost" type="button" id="ghNow">Sync now</button>
+    <button class="logbtn ghost" type="button" id="ghOff">Disconnect</button>
+   </div>
+   <div class="bk-note" id="ghNote"></div>
+  </div>
+ </details>
 </div>
 
 <!-- SAFETY NET -->
@@ -3568,6 +3595,7 @@ function buildJots(){
  var pr = !wOnly && !!prevBest && _score(e) > prevBest;
  arr.push(e); h[exId] = arr.slice(-12); writeHist(h); paintBests(); renderNumbers();
  row.classList.add('has-val'); row.classList.toggle('pr', pr);
+  if (typeof ghTouch === 'function') ghTouch();
  if (pr && !row.dataset.pr){ row.dataset.pr = '1'; _toast('★ New best — ' + name.split(' — ')[0]); if (navigator.vibrate) navigator.vibrate([40,40,120]); }
  if (!pr) delete row.dataset.pr;
  }
@@ -3666,6 +3694,7 @@ function paintBW(){
   var t = _today(), a = readBW().filter(function(e){ return e.d !== t; });
   var e = { d: t, w: w }; if (_bwUnit() === 'kg') e.u = 'kg';
   a.push(e); writeBW(a); paintBW(); _toast('Bodyweight logged · ' + w + ' ' + _bwUnit());
+  if (typeof ghTouch === 'function') ghTouch();
   if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
  });
  paintBW();
@@ -3740,6 +3769,148 @@ function restoreNumbers(){
  paintBackupNote();
 })();
 window.backupNumbers = backupNumbers; window.restoreNumbers = restoreNumbers;
+// ── Sync to a private GitHub repo ─────────────────────────────────────
+// A static page has no server, so the token lives in this browser. Scope it
+// to Contents read+write on the log repo alone: then a leaked token costs
+// one private training log, never the code and never the account.
+var GH_API = 'https://api.github.com';          // the only host the token is ever sent to
+function readGH(){ try { return JSON.parse(store.get('bp-gh') || 'null') || null; } catch(e){ return null; } }
+function writeGH(o){ try { if (o) store.set('bp-gh', JSON.stringify(o)); else store.del('bp-gh'); } catch(e){} }
+function _ghHead(c){ return { 'Authorization':'Bearer ' + c.tok, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' }; }
+function _ghUrl(c){ return GH_API + '/repos/' + c.repo + '/contents/log.json'; }
+function _b64enc(s){ var b = new TextEncoder().encode(s), o = '';
+ for (var i = 0; i < b.length; i += 0x8000) o += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000));
+ return btoa(o); }
+function _b64dec(s){ var bin = atob(String(s).replace(/\s/g, '')), b = new Uint8Array(bin.length);
+ for (var i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+ return new TextDecoder().decode(b); }
+
+function paintGH(){
+ var c = readGH(), st = document.getElementById('ghState'), n = document.getElementById('ghNote');
+ if (!st) return;
+ var r = document.getElementById('ghRepo'), t = document.getElementById('ghTok');
+ if (c && r && document.activeElement !== r) r.value = c.repo || '';
+ if (c && t && document.activeElement !== t && c.tok) t.value = '';
+ if (!c){ st.textContent = 'off'; st.className = 'gh-state'; if (n) n.textContent = ''; return; }
+ if (c.err){ st.textContent = 'error'; st.className = 'gh-state err'; if (n){ n.textContent = c.err; n.className = 'bk-note stale'; } return; }
+ var ago = c.at ? Math.round((Date.now() - c.at) / 6e4) : null;
+ st.textContent = ago === null ? 'on' : ago < 1 ? 'just now' : ago < 60 ? ago + 'm ago' : Math.round(ago/60) + 'h ago';
+ st.className = 'gh-state on';
+ if (n){ n.textContent = 'Syncing ' + c.repo + '/log.json' + (c.at ? ' · last write ' + new Date(c.at).toLocaleString() : ' · nothing written yet'); n.className = 'bk-note'; }
+}
+function _ghErr(c, msg){ c.err = msg; writeGH(c); paintGH(); }
+
+// union by exercise and date; a date already held locally is never overwritten
+function _ghMerge(d){
+ if (!d) return 0;
+ var added = 0;
+ if (d['bp-hist']){
+  var rem = {}; try { rem = JSON.parse(d['bp-hist']) || {}; } catch(e){ rem = {}; }
+  var loc = readHist();
+  Object.keys(rem).forEach(function(k){
+   var a = (loc[k] || []).slice(), seen = {};
+   a.forEach(function(e){ seen[e.d] = 1; });
+   (rem[k] || []).forEach(function(e){ if (e && e.d && !seen[e.d]){ a.push(e); added++; } });
+   a.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
+   loc[k] = a.slice(-12);
+  });
+  writeHist(loc);
+ }
+ if (d['bp-bw']){
+  var rb = []; try { rb = JSON.parse(d['bp-bw']) || []; } catch(e){ rb = []; }
+  var lb = readBW(), s2 = {};
+  lb.forEach(function(e){ s2[e.d] = 1; });
+  rb.forEach(function(e){ if (e && e.d && !s2[e.d]){ lb.push(e); added++; } });
+  lb.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
+  writeBW(lb);
+ }
+ ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
+ return added;
+}
+function _ghRepaint(){
+ document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
+ buildJots(); renderNumbers(); paintBests(); paintBW(); paintBackupNote();
+}
+
+function ghPull(quiet){
+ var c = readGH(); if (!c) return Promise.resolve(false);
+ return fetch(_ghUrl(c), { headers:_ghHead(c), cache:'no-store' }).then(function(r){
+  if (r.status === 404) return null;                       // no log yet, the first push creates it
+  if (r.status === 401 || r.status === 403) throw new Error('token rejected — check it has Contents: Read and write on ' + c.repo);
+  if (!r.ok) throw new Error('GitHub said ' + r.status);
+  return r.json();
+ }).then(function(j){
+  c = readGH(); if (!c) return false;
+  delete c.err;
+  if (!j){ writeGH(c); paintGH(); return false; }
+  c.sha = j.sha; writeGH(c);
+  var o = {}; try { o = JSON.parse(_b64dec(j.content)); } catch(e){ throw new Error('log.json is not readable'); }
+  var added = _ghMerge(o && o.data);
+  if (added) _ghRepaint();
+  paintGH();
+  if (!quiet) _toast(added ? 'Pulled — ' + added + ' new entr' + (added === 1 ? 'y' : 'ies') : 'Up to date');
+  return true;
+ }).catch(function(e){ var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
+}
+
+function ghPush(quiet, retried){
+ var c = readGH(); if (!c) return Promise.resolve(false);
+ var hist = readHist(), t = _today(), today = 0;
+ Object.keys(hist).forEach(function(k){ (hist[k] || []).forEach(function(e){ if (e.d === t) today++; }); });
+ var msg = 'log: ' + t + (today ? ' · ' + today + ' lift' + (today === 1 ? '' : 's') : '');
+ var body = { message: msg, content: _b64enc(JSON.stringify(_bkPayload(), null, 1)) };
+ if (c.sha) body.sha = c.sha;
+ return fetch(_ghUrl(c), { method:'PUT', headers:_ghHead(c), body:JSON.stringify(body) }).then(function(r){
+  if ((r.status === 409 || r.status === 422) && !retried)      // something wrote first: take it, then rewrite
+   return ghPull(1).then(function(){ return ghPush(quiet, 1); });
+  if (r.status === 401 || r.status === 403) throw new Error('token rejected — needs Contents: Read and write on ' + c.repo);
+  if (!r.ok) throw new Error('GitHub said ' + r.status);
+  return r.json().then(function(j){
+   var cc = readGH(); if (!cc) return false;
+   cc.sha = (j.content || {}).sha; cc.at = Date.now(); delete cc.err; writeGH(cc);
+   try { store.set('bp-bk', t); } catch(e){}
+   paintGH(); paintBackupNote();
+   if (!quiet) _toast('Synced');
+   return true;
+  });
+ }).catch(function(e){ var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
+}
+
+// numbers change often; a commit per tap would be noise, so settle first
+var _ghT = null;
+function ghTouch(){ if (!readGH()) return; clearTimeout(_ghT); _ghT = setTimeout(function(){ ghPush(1); }, 120000); }
+function ghFlush(){ if (!readGH() || !_ghT) return; clearTimeout(_ghT); _ghT = null; ghPush(1); }
+document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') ghFlush(); });
+
+(function wireGH(){
+ var box = document.getElementById('ghBox'); if (!box) return;
+ document.getElementById('ghSave').addEventListener('click', function(){
+  var repo = (document.getElementById('ghRepo').value || '').trim().replace(/^https?:\/\/github\.com\//, '').replace(/\.git$/, '').replace(/\/+$/, '');
+  var tok = (document.getElementById('ghTok').value || '').trim();
+  if (!/^[\w.-]+\/[\w.-]+$/.test(repo)){ _toast('Repo looks like owner/name'); return; }
+  var old = readGH();
+  if (!tok && old && old.tok) tok = old.tok;                    // editing the repo without retyping the token
+  if (!tok){ _toast('Paste a fine-grained token'); return; }
+  writeGH({ repo:repo, tok:tok });
+  document.getElementById('ghTok').value = '';
+  paintGH(); _toast('Connecting…');
+  ghPull().then(function(){ return ghPush(); });
+ });
+ document.getElementById('ghNow').addEventListener('click', function(){
+  if (!readGH()){ _toast('Connect first'); return; }
+  clearTimeout(_ghT); _ghT = null;
+  ghPull().then(function(){ return ghPush(); });
+ });
+ document.getElementById('ghOff').addEventListener('click', function(){
+  if (!readGH()) return;
+  if (!confirm('Disconnect sync and forget the token on this device?\n\nWhat is already committed stays in the repo.')) return;
+  writeGH(null); document.getElementById('ghTok').value = ''; paintGH(); _toast('Disconnected');
+ });
+ paintGH();
+ if (readGH()) ghPull(1);
+})();
+window.ghPull = ghPull; window.ghPush = ghPush;
+
 
 // ── Add to Home Screen ────────────────────────────────────────────────
 // Not cosmetic: Safari clears a normal site's saved data after 7 idle days.
