@@ -299,6 +299,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .wc.core{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 70%)}
 .wc.core .wd{color:var(--txt)}
 .wc.core::after,.wc.swim::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+#wc-1.core::after{background:var(--g);box-shadow:0 0 10px rgba(93,255,159,.55)}
 #wc-2.core::after{background:var(--r);box-shadow:0 0 10px rgba(255,46,136,.6)}
 #wc-3.core::after{background:var(--gld);box-shadow:0 0 10px rgba(255,210,58,.55)}
 #wc-4.core::after{background:var(--b);box-shadow:0 0 10px rgba(31,224,255,.55)}
@@ -904,6 +905,15 @@ body.gym .howfold{display:none}
 body.gym .caveat p{font-size:0;line-height:0}
 body.gym .caveat p strong{font-size:14px;line-height:1.4}
 body.gym .acc-btn,body.gym .prog-wrap,body.gym .warmset{display:none}
+.excard.wild .exname{color:var(--gld)}
+.check-status button.due{color:var(--gld);border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
+.xrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.xrow .xchip{margin-top:0}
+body.lowbat [data-x],body.lowbat [data-opt]{display:none!important}
+.lowbar{display:none;margin:12px var(--pad) 0;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,210,58,.35);background:rgba(255,210,58,.07);color:var(--gld);font-size:13px;line-height:1.5}
+body.lowbat .lowbar{display:block}
+.xchip.low.on{color:var(--gld);border-color:var(--gld);background:rgba(255,210,58,.08)}
+.wc.skipped .wd::after{content:' –';color:var(--dim);font-weight:800}
 .xchip{margin-top:10px;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid var(--bdr);border-radius:100px;padding:0 14px;min-height:36px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .xchip.on{color:var(--g);border-color:var(--g);background:rgba(93,255,159,.08)}
 .wc.hit .wd::after{content:' ✓';color:var(--g);font-weight:800}
@@ -963,7 +973,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;oversc
 #d5 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
 #travel .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,138,76,.5)}
 /* ── SUPERSETS + EXPRESS ── */
-#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#travel{--dc:var(--o)}
+#d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#travel{--dc:var(--o)}
 .ssh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px -18px 0;padding:12px 18px 4px;border-top:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--txt)}
 .ssh b{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;letter-spacing:0;color:#060611;background:var(--dc,var(--b));box-shadow:0 0 12px -2px var(--dc,var(--b))}
 .ssh span{margin-left:auto;font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--dim);font-size:11px}
@@ -1117,10 +1127,11 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <!-- NAV -->
 <nav id="topnav">
  <a href="#top">Overview</a>
- <a href="#d1" style="color:var(--r)" id="n-d1">Day A</a>
- <a href="#d3" style="color:var(--gld)" id="n-d3">Day B</a>
- <a href="#d2" style="color:var(--b)" id="n-d2">Day C</a>
- <a href="#d4" style="color:var(--p)" id="n-d4">Flex</a>
+ <a href="#d5" style="color:var(--g)" id="n-d5">Mon · Upper</a>
+ <a href="#d1" style="color:var(--r)" id="n-d1">Tue · Lower</a>
+ <a href="#d3" style="color:var(--gld)" id="n-d3">Wed · Upper</a>
+ <a href="#d2" style="color:var(--b)" id="n-d2">Thu · Lower</a>
+ <a href="#d4" style="color:var(--p)" id="n-d4">Fri · Play</a>
  <a href="#variety" style="color:var(--g)">Skills</a>
  <a href="#daily">Daily</a>
  <a href="#log" style="color:var(--g)">📋 Log</a>
@@ -1149,13 +1160,13 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="hero" id="top">
  <div class="hero-eye">// Bulletproof · Joint-Smart Training</div>
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
- <p>Three full-body sessions, run as supersets. A skill first, two sets a lift, nothing repeats all week. Built for a strong back, downhill-proof knees and a muscle-up.</p>
+ <p>Four short sessions — upper, lower, upper, lower. A skill first, supersets, two sets a lift. Nothing repeats, and no muscle trains two days running.</p>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <div class="pills">
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
  <span class="pill g">Muscle-up ladder</span>
- <span class="pill gld">Full 65 · Express 45</span>
+ <span class="pill gld">Full 50 · Express 35</span>
  </div>
 </div>
 
@@ -1163,7 +1174,8 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="check-status">
  <span>✓ Tap circle to check off · <span class="reset-info" id="resetCountdown">no progress saved</span></span>
  <span class="cs-btns">
- <button onclick="toggleExpress()" id="expressBtn">⏱ Express ≈45</button>
+ <button onclick="toggleExpress()" id="expressBtn">⏱ Express ≈35</button>
+ <button onclick="toggleBlock()" id="blockBtn">Block A</button>
  <button onclick="toggleGym()" id="gymBtn">⚡ Gym mode</button>
  <button onclick="copyWeekLog()" id="weekLogBtn">📋 Week log</button>
  </span>
@@ -1171,12 +1183,12 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 
 <!-- WEEK STRIP -->
 <div class="week">
- <a class="wc swim" id="wc-1" href="#swim"><div class="wd">Mon</div><div class="wt" style="color:var(--g)">Swim<br>Day</div></a>
- <a class="wc core" id="wc-2" href="#d1"><div class="wd">Tue</div><div class="wt" style="color:var(--r)">Full-Body A<br>+ Muscle-Up</div></a>
- <a class="wc core" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Full-Body B<br>+ Handstand</div></a>
- <a class="wc core" id="wc-4" href="#d2"><div class="wd">Thu</div><div class="wt" style="color:var(--b)">Full-Body C<br>+ Pistol</div></a>
- <a class="wc flex-day" id="wc-5" href="#d4"><div class="wd">Fri</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
- <a class="wc flex-day" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--p)">Flex —<br>optional</div></a>
+ <a class="wc core" id="wc-1" href="#d5"><div class="wd">Mon</div><div class="wt" style="color:var(--g)">Upper A<br>+ Muscle-Up</div></a>
+ <a class="wc core" id="wc-2" href="#d1"><div class="wd">Tue</div><div class="wt" style="color:var(--r)">Lower A<br>Brakes</div></a>
+ <a class="wc core" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Upper B<br>+ Handstand</div></a>
+ <a class="wc core" id="wc-4" href="#d2"><div class="wd">Thu</div><div class="wt" style="color:var(--b)">Lower B<br>+ Sled</div></a>
+ <a class="wc flex-day" id="wc-5" href="#d4"><div class="wd">Fri</div><div class="wt" style="color:var(--p)">Play<br>or swim</div></a>
+ <a class="wc flex-day" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--p)">Hike</div></a>
  <div class="wc rest-day" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
 </div>
 
@@ -1184,34 +1196,35 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <div class="callout-t">// How it runs</div>
  <p><strong>Supersets.</strong> Do 1 → rest → 2 → rest, twice through. Tap ○ after round one (½), again after round two (✓) — each tap starts your rest.</p>
  <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 = every clean rep you've got — type it in, beat it next week. Spine lifts stay fixed-rep. Machine set 2 hits ~15 clean → up one pin.</p>
- <p><strong>Short on time or energy?</strong> Express hides the bonus round. Tired → drop a set, keep the load. Wiped, or anything new down a leg → rest day.</p>
+ <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
+ <p><strong>Tired?</strong> Everything flexes. ⏱ Express drops the bonus round. 🪫 Low battery is skill + two pairs, stopping well short. Any day is skippable — never make one up, never double up. Two days in a week still counts: one upper, one lower.</p>
  <p style="font-size:12px;color:var(--dim)">S1 / S2 = set 1 / 2 · AMRAP−1 = every clean rep, stop one short · C2B = chest to bar · 3 · 1 · 2 = seconds down · pause · up (X = fast)</p>
 </div>
 
 
-<!-- ════════════════════ DAY 1 · MON · PULL ════════════════════ -->
-<div class="section" id="d1">
+<!-- ════════════════════ MONDAY · UPPER A ════════════════════ -->
+<div class="section" id="d5">
 <div class="day-hdr">
- <div class="day-num" style="color:var(--r)">01</div>
+ <div class="day-num" style="color:var(--g)">01</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--r)">// Tuesday · Full-Body A</div>
- <div class="day-title">FULL-BODY A — BRAKES + THE BAR</div>
- <div class="day-focus">Skill: muscle-up · Full ≈ 65 min · Express ≈ 45 min</div>
+ <div class="day-eye" style="color:var(--g)">// Monday · Upper A</div>
+ <div class="day-title">UPPER A — PULL + THE BAR</div>
+ <div class="day-focus">Skill: muscle-up · Full ≈ 50 min · Express ≈ 35 min</div>
  </div>
 </div>
 
 <div class="callout">
  <div class="callout-t">// Today</div>
- <p>Hard-lowering day. Slow negatives build the brakes for downhill. Bar work first, while you're fresh.</p>
+ <p>Bar work first, while you're fresh. Lats are the priority — long arms, shoulders set, elbows to back pockets.</p>
 </div>
 
 <div class="wu">
  <div class="wu-lbl">⚡ Warmup — 5 min</div>
- <div class="wu-item"><span class="wu-t">60s</span><span>Easy spin or brisk walk — warm hips, knees, shoulders.</span></div>
+ <div class="wu-item"><span class="wu-t">60s</span><span>Easy spin or brisk walk — warm shoulders and hips.</span></div>
  <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 + shoulder CARs × 2 each — scaps ready for the bar.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Glute bridge × 12 + mini-squat pulses × 15 — hips awake, knees tracking.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog × 5 each + dowel hinge × 8 — neutral spine, every day.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Scap pulls × 5 on the bar — active hang, elbows soft.</span></div>
  <div class="wu-item"><span class="wu-t">45s</span><span>Wrist circles + all-fours weight shifts.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog × 5 each — neutral spine, every day.</span></div>
 </div>
 
 <div class="exlist">
@@ -1225,7 +1238,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="caveat"><div class="caveat-t">⚠ Shoulders Decide the Pace</div><p>Move up a rung only if the <strong>front of both shoulders feels normal for 48 h</strong> afterwards. Never below shoulders-level-with-elbows. No kipping.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar + a chest-height bar. Doubles as the ramp for pair A.</span></div>
 <div class="cue">Win it at chest height — pull higher, not more.</div>
-<div class="setup"><strong>High pulls 3 × 3</strong> — fast up to the lower ribs, 3s down to an active hang, 60s between. <strong>Feet-assisted transitions 2 × 4</strong> on a chest-height bar, 3s lowering through the turnover. <strong>2-min fun slot</strong>, rotate every 2 weeks: archer pull-ups (soft long arm) / bent-arm monkey-bar traverse / low rope climb with feet, hand-under-hand down / ring support holds 3 × 15s.</div>
+<div class="setup"><strong>High pulls 3 × 3</strong> — fast up to the lower ribs, 3s down to an active hang, 60s between. <strong>Feet-assisted transitions 2 × 4</strong> on a chest-height bar, 3s lowering through the turnover.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Done</span><span>10 strict pull-ups</span></div>
@@ -1276,11 +1289,180 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>single-leg ↔ hamstrings · slow lowering<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh"><b>B</b>mid-back ↔ serratus<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d3e3" data-ss="B">
+<div class="excard" data-id="d1e3" data-ss="B" data-alt-name="Half-Kneeling Single-Arm Cable Row" data-alt-where="Low-to-mid pulley, single handle, light pin. Half-kneel facing the stack, working-side knee down." data-alt-cue="Elbow to the back pocket, hips square — the torso never turns with the pull." data-alt-how="S1: 12 each · S2: AMRAP, start left side. Tall spine, ribs down, glute of the down knee squeezed. Reach long without the shoulder rolling forward, row the elbow to the back pocket, squeeze 1 count, 3 counts back. Set ends when the torso twists.">
 <div class="extop">
- <div class="ex-left"><div class="ssn">B1</div><div class="exname">Bulgarian Split Squat — 15 lb (7.5 lb each hand)</div>
+ <div class="ex-left"><div class="ssn">B1</div><div class="exname">Seated Row — Machine, Chest-Supported</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row machine, neutral grip. Start ~20–30 lb — the pin that makes 12 honest.</span></div>
+<div class="warmset">⚡ Ramp 1 easy set first</div>
+<div class="cue">Chest peels off the pad, the rep didn't count. Feel the lower lat drag the elbow back.</div>
+<div class="setup">Chest glued to the pad. Row elbows to back pockets, not winged out. 1-count squeeze, 3-count lower, full stretch without the shoulders rolling forward. Set 2 ends when the chest leaves the pad or reps get jerky. No machine free: seated cable row, same rules.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>S1: 12 with 2 in the tank · S2: AMRAP — log it</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d2e-serr" data-ss="B">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">B2</div><div class="exname">Push-Up Plus — 8 lb Vest</div></div>
+ <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2 · +</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">8 lb vest — for this prone move only. No vest: bodyweight, slower tempo.</span></div>
+<div class="cue">The last inch past the top is the whole exercise. Hips never sag.</div>
+<div class="setup">Hands under shoulders, one rigid line, ribs down, elbows about 45° from the ribs. At the top keep pushing the floor away until the upper back domes. Pause 1, lower under control. Knees-down is a fine regression — the plus is what matters.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>8 lb vest, a deliberate plus every rep — AMRAP ends when hips sag</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>2s pause in the plus, then feet on a low step</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold the 8 lb vest</strong> — reps and lever climb freely</span></div>
+</div></div>
+</div>
+
+<div class="ssh" data-opt="1"><b>C</b>lat width ↔ anti-rotation<span>1 → rest → 2 → rest · twice through</span></div>
+
+<div class="excard" data-id="d1-pullover" data-ss="C" data-opt="1" data-alt-name="Single-Arm Straight-Arm Pulldown" data-alt-where="High pulley, single handle, lightest pin. One step back, soft knees, slight lean from the hips." data-alt-cue="Sweep the hand to your thigh with the lat. Ribs down, shoulder away from the ear." data-alt-how="S1: 12 each · S2: AMRAP, start left side. Arm long with a soft elbow. Sweep the handle in an arc to the thigh, squeeze 1 count, 4 counts back up into the stretch. Stop before the shoulder shrugs or the torso twists.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">C1</div><div class="exname">Straight-Arm Cable Pullover — Rope</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 4</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ New Here — Start Lightest</div><p>Lightest honest pin for the first two weeks. <strong>Elbows stay soft</strong> — never a locked, hanging arm at the top.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, rope. One step back, soft knees, slight lean from the hips, spine neutral.</span></div>
+<div class="cue">Sweep the hands to your thighs with the lats. Ribs down, shoulders away from the ears.</div>
+<div class="setup">Arms long with a soft elbow. Pull the rope in an arc down to the thighs, squeeze 1 count, then take 4 counts back up into the stretch — stop before the shoulders shrug or the low back arches. This is pure lat width.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Lightest pin — S1: 12 · S2: AMRAP, 4s return</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin after two clean weeks, rebuild from ~10</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d2e6" data-ss="C" data-opt="1">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">C2</div><div class="exname">Cable Pallof Press — Half-Kneeling</div></div>
+ <div class="exmeta"><div class="sets">2 × 10 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 3 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable at chest height, single handle, light pin. Half-kneel side-on, inside knee down.</span></div>
+<div class="cue">Low back quiet — the obliques fight the twist, not the spine.</div>
+<div class="setup">Press straight out from the sternum, hold 3, return. Don't let the torso turn toward the stack. Add a pin before adding reps.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Light pin, half-kneeling, 2 × 10 with 3s hold</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Up one pin — same holds</span></div>
+ <div class="prog-step"><span class="pn">Then</span><span>Standing Pallof — no kneeling base, more demand</span></div>
+</div></div>
+</div>
+
+<div class="ssh" data-x="1"><b>D</b>bonus · rear delts ↔ biceps<span>skip in Express</span></div>
+
+<div class="excard" data-id="d1e5" data-ss="D" data-x="1" data-alt-name="Reverse Pec-Deck" data-alt-where="Pec-deck with the handles set all the way back. Sit facing the pad, chest supported, lightest pin." data-alt-cue="Wide arc, soft elbows — stop level with the shoulders, never yanked behind them." data-alt-how="Neutral grip, elbows softly bent and fixed. Sweep the arms out wide until they are level with the shoulders, hold 2, return for 2 without the stack touching down. Shoulders stay away from the ears, chest stays on the pad.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">D1</div><div class="exname">Cable Face Pull — Rope, Eye Height</div></div>
+ <div class="exmeta"><div class="sets">S1: 15 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope, pulley at eye level, ~15 lb.</span></div>
+<div class="cue">Light and controlled. No jerking into end range.</div>
+<div class="setup">Step back to full tension. Pull to the forehead, not the nose, elbows high and wide. At the peak, rotate thumbs behind the ears. Elbows stay above the shoulder line.</div>
+</div>
+
+<div class="excard" data-id="d1e-curl" data-ss="D" data-x="1" data-alt-name="Rope Hammer Curl" data-alt-where="Low pulley, rope, light pin. Stand tall one step back, elbows pinned to the ribs." data-alt-cue="Thumbs up, elbows still — lower slow to a soft elbow, never snapped straight." data-alt-how="Both arms together: S1: 12 · S2: AMRAP. Palms face each other the whole rep. Curl until the rope ends reach the shoulders, squeeze 1 count, 3 counts down to a soft elbow. Set 2 ends the moment the elbows swing or the torso rocks.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">D2</div><div class="exname">Cable Curl — Behind-Body Stretch</div>
+ <div class="start-l"><span>← Start left side every set</span></div></div>
+ <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, single handle, light pin. Face away, step forward until the arm drifts slightly behind you.</span></div>
+<div class="cue">The stretch is loaded, so the bottom stays soft — no yank at full length.</div>
+<div class="setup">Upper arm pinned; the elbow doesn't travel forward. Curl, squeeze one count, lower for three to a soft elbow — never snapped straight. Set 2 ends the moment the elbow starts swinging.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Light pin — S1: 12 each · S2: AMRAP</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
+</div></div>
+</div>
+
+<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Low Rope Climb","Feet on the rope, stay low, come down hand-under-hand — never slide."],["Bent-Arm Monkey-Bar Traverse","Two lengths, elbows bent, shoulders set, no swinging."],["Ring Rows","Feet forward, body one straight line, 2 × 8, chest to the rings."],["Archer Pull-Up Practice","2 × 2 each side — the long arm stays soft."],["Towel-Grip Active Hang","3 × 15s, shoulders set, step down onto a box."]]'>
+<div class="extop">
+ <div class="ex-left"><div class="exname">Wildcard</div></div>
+ <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="cue">This week's toy. Crisp reps, stop while it's still fun.</div>
+<div class="setup">Rotates every week.</div>
+</div>
+
+</div><!-- /exlist -->
+<div class="fin"><div class="fin-lbl">Got time?</div><p>Monkey-bar traverse laps. Hammer or reverse cable curls. Cable wrist curls both ways. All light, high-rep, soft joints.</p></div>
+<div class="day-complete" data-day="d5"></div>
+</div><!-- /d5 -->
+
+
+<!-- ════════════════════ DAY 1 · MON · PULL ════════════════════ -->
+<div class="section" id="d1">
+<div class="day-hdr">
+ <div class="day-num" style="color:var(--r)">02</div>
+ <div class="day-info">
+ <div class="day-eye" style="color:var(--r)">// Tuesday · Lower A</div>
+ <div class="day-title">LOWER A — BRAKES</div>
+ <div class="day-focus">Skill: pistol · Full ≈ 50 min · Express ≈ 35 min</div>
+ </div>
+</div>
+
+<div class="callout">
+ <div class="callout-t">// Today</div>
+ <p>Hard-lowering day. Slow negatives build your downhill brakes. Smooth reps, nothing to a grind.</p>
+</div>
+
+<div class="wu">
+ <div class="wu-lbl">⚡ Warmup — 5 min</div>
+ <div class="wu-item"><span class="wu-t">90s</span><span>Easy bike or walk — warm hips, knees, ankles.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Glute bridge × 12 — hips awake, ribs down.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Hip CARs × 2 each — slow circles, pelvis still.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog × 5 each — neutral spine, every day.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>5 slow bodyweight squats — knees tracking over toes.</span></div>
+</div>
+
+<div class="exlist">
+
+<div class="excard" data-id="d5e-pistol" data-solo="1">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Pistol Block — 5-Second Lowering</div>
+ <div class="start-l"><span>← Start left side every set</span></div></div>
+ <div class="exmeta"><div class="sets">3 × 4 each</div><div class="rest-lbl">60s rest</div><div class="tempo">5 · 1 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Step, Fingertips, Parallel</div><p>Off a step, never a wall. Rung fingertips for balance only. <strong>Cap at parallel.</strong> Knee drifts inside the second toe: end the set, go 2" shallower next time.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Step platform beside the ladder, working side about 2" from a vertical rung. Bodyweight.</span></div>
+<div class="cue">Five slow counts down — these are your downhill brakes. Free foot's toes stay pulled up.</div>
+<div class="setup">5 counts down to a heel tap, stand up smooth. Free leg slightly forward, toes pulled up, hips back and down, capped at parallel. Drive up through the whole foot. Pelvis tucks or knee caves: rep over.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Too hard today</span><span>Lower step, plain step-down to a heel tap — keep the 5 counts</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Step platform, 5-count lowering, 3 × 4, capped at parallel</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Fingertips off, then a 2-count bottom pause</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>5 lb counterbalance in the opposite hand — same depth cap</span></div>
+</div></div>
+</div>
+
+<div class="ssh"><b>A</b>single-leg ↔ hamstrings · slow lowering<span>1 → rest → 2 → rest · twice through</span></div>
+
+<div class="excard" data-id="d3e3" data-ss="A"
+ data-alt-name="Heel-Elevated Goblet Squat — 15 lb"
+ data-alt-where="One 15 lb dumbbell vertical at the sternum, heels on a wedge or two small plates, feet shoulder-width."
+ data-alt-cue="Chest proud, stop at parallel — the dumbbell is your counterweight."
+ data-alt-how="2 × 10 fixed, never AMRAP. Three counts down, hips back and down together, weight mid-foot. Stop at parallel or the first hint of pelvis tuck. Pause one count, drive through the whole foot; knees never lock. Flat back, ribs down.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">A1</div><div class="exname">Bulgarian Split Squat — 15 lb (7.5 lb each hand)</div>
  <div class="start-l"><span>← Start left side every set</span></div></div>
  <div class="exmeta"><div class="sets">2 × 8 each · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 2 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
@@ -1298,9 +1480,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="excard" data-id="d3e7" data-ss="B">
+<div class="excard" data-id="d3e7" data-ss="A">
 <div class="extop">
- <div class="ex-left"><div class="ssn">B2</div><div class="exname">Nordic Hamstring Curl — Machine Assist</div></div>
+ <div class="ex-left"><div class="ssn">A2</div><div class="exname">Nordic Hamstring Curl — Machine Assist</div></div>
  <div class="exmeta"><div class="sets">2 × 5 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">5 · 3 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
@@ -1316,36 +1498,18 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh"><b>C</b>knee brakes ↔ back armor<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh"><b>B</b>back armor ↔ glute-med<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d3-stepdown" data-ss="C">
+<div class="excard" data-id="d1-backext" data-ss="B">
 <div class="extop">
- <div class="ex-left"><div class="ssn">C1</div><div class="exname">Eccentric Step-Down</div>
- <div class="start-l"><span>← Start left side</span></div></div>
- <div class="exmeta"><div class="sets">2 × 8 each</div><div class="rest-lbl">45s rest</div><div class="tempo">5 · 0 · 1</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">6″ box · bodyweight · the slow lowering IS the lift</span></div>
-<div class="cue">Five seconds down, knee over the second toe. These are your downhill brakes.</div>
-<div class="setup">Stand on the box on one leg, other leg off the front edge. Lower for 5 seconds to a soft heel tap — no weight dumped onto it. Knee tracks over the second toe, top knee stays soft. Box height before load: 4″ → 6″ → 8″.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>6″ box, 2 × 8 each, 5-second lowering</span></div>
- <div class="prog-step"><span class="pn">Up</span><span>8″ box, same tempo — load only once 8″ is clean</span></div>
- <div class="prog-step"><span class="pn">Too hard</span><span>4″ box, keep the tempo</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d1-backext" data-ss="C">
-<div class="extop">
- <div class="ex-left"><div class="ssn">C2</div><div class="exname">45° Back Extension — Hold</div></div>
+ <div class="ex-left"><div class="ssn">B1</div><div class="exname">45° Back Extension — Hold</div></div>
  <div class="exmeta"><div class="sets">6 × 10s</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Straight Line, Never Arched</div><p><strong>Stop at straight — never arch past it.</strong> Fixed holds, never to failure. Low back stays quiet; glutes and hamstrings do the holding.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">45° bench, pad below the hip crease so you hinge at the hips. Bodyweight.</span></div>
 <div class="cue">Glutes on, ribs down — a plank that happens to be tilted.</div>
-<div class="setup">Body one straight line from heels to head, glutes on, ribs down. Hold 10s, rest 10s. Three holds each time through. On and off: hands on the handles, one foot at a time, back flat — then stand 10s before the step-down.</div>
+<div class="setup">Body one straight line from heels to head, glutes on, ribs down. Hold 10s, rest 10s. Three holds each time through. On and off: hands on the handles, one foot at a time, back flat — then stand 10s before moving on.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>6 × 10s</span></div>
@@ -1354,102 +1518,55 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh"><b>D</b>lat width ↔ anti-rotation<span>1 → rest → 2 → rest · twice through</span></div>
-
-<div class="excard" data-id="d1-pullover" data-ss="D">
+<div class="excard" data-id="d3e-abd" data-ss="B"
+ data-alt-name="Side-Lying Hip Abduction — 2s Top Hold"
+ data-alt-where="Mat, lying on your side, bottom knee bent, top leg long and slightly behind you. Bodyweight."
+ data-alt-cue="Toe slightly down, hips stacked — feel the side of the hip, not the front."
+ data-alt-how="Hips stacked, top leg in line with the body or slightly behind it. Lift without rolling back, hold 2 counts at the top, lower for two. Set 2 ends the moment the pelvis rolls or the hip hikes toward the ribs. Right side first.">
 <div class="extop">
- <div class="ex-left"><div class="ssn">D1</div><div class="exname">Straight-Arm Cable Pullover — Rope</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 4</div></div>
+ <div class="ex-left"><div class="ssn">B2</div><div class="exname">Hip Abductor Machine</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ New Here — Start Lightest</div><p>Lightest honest pin for the first two weeks. <strong>Elbows stay soft</strong> — never a locked, hanging arm at the top.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, rope. One step back, soft knees, slight lean from the hips, spine neutral.</span></div>
-<div class="cue">Sweep the hands to your thighs with the lats. Ribs down, shoulders away from the ears.</div>
-<div class="setup">Arms long with a soft elbow. Pull the rope in an arc down to the thighs, squeeze 1 count, then take 4 counts back up into the stretch — stop before the shoulders shrug or the low back arches. This is pure lat width.</div>
+<div class="caveat"><div class="caveat-t">⚠ The Setup Is the Exercise</div><p>Slight forward lean from the hip, spine neutral. Toes neutral. Low back on the pad. <strong>Stop 2–3° short of end-range.</strong></p></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine, 50 lb. Pads on the mid-outer thigh, not the knee.</span></div>
+<div class="cue">Pelvis level. If it hikes, drop the load.</div>
+<div class="setup">Drive out under control through about 30–40° of movement, pause one count, return for two. Never let the stack drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Lightest pin — S1: 12 · S2: AMRAP, 4s return</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin after two clean weeks, rebuild from ~10</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>50 lb — S1: 12 · S2: AMRAP</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Slower return. One-leg machine? Right side takes the AMRAP set</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold 50 lb</strong> — add reps and a slower return first</span></div>
 </div></div>
 </div>
 
-<div class="excard" data-id="d2e6" data-ss="D">
-<div class="extop">
- <div class="ex-left"><div class="ssn">D2</div><div class="exname">Cable Pallof Press — Half-Kneeling</div></div>
- <div class="exmeta"><div class="sets">2 × 10 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 3 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable at chest height, single handle, light pin. Half-kneel side-on, inside knee down.</span></div>
-<div class="cue">Low back quiet — the obliques fight the twist, not the spine.</div>
-<div class="setup">Press straight out from the sternum, hold 3, return. Don't let the torso turn toward the stack. Add a pin before adding reps.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Light pin, half-kneeling, 2 × 10 with 3s hold</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Up one pin — same holds</span></div>
- <div class="prog-step"><span class="pn">Then</span><span>Standing Pallof — no kneeling base, more demand</span></div>
-</div></div>
-</div>
+<div class="ssh" data-opt="1"><b>C</b>hip control ↔ calves<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="ssh" data-x="1"><b>E</b>bonus · right glute ↔ core · same mat<span>skip in Express</span></div>
-
-<div class="excard" data-id="d1-slbridge" data-ss="E" data-x="1">
+<div class="excard" data-id="d1-hiphike" data-ss="C" data-opt="1">
 <div class="extop">
- <div class="ex-left"><div class="ssn">E1</div><div class="exname">Single-Leg Glute Bridge — DB on Hip</div>
+ <div class="ex-left"><div class="ssn">C1</div><div class="exname">Hip Hike — Off a Step</div>
  <div class="start-l"><span>← Start right side</span></div></div>
- <div class="exmeta"><div class="sets">R 2 · L 2 × 10</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <div class="exmeta"><div class="sets">2 × 12 each</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Mat, shoulders down · 10–15 lb DB across the hip crease, towel-padded · right side leads</span></div>
-<div class="cue">Hips up, ribs down — squeeze the glute hard, zero low-back arch.</div>
-<div class="setup">One foot planted, other leg straight up. Drive through the heel until the hip is straight, squeeze two counts, hips level. Bodyweight first; add the dumbbell once 12 is easy.</div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Low step beside a rail. Side-on, one foot on, the other hanging free, fingertips on the rail.</span></div>
+<div class="cue">The side of your standing hip does the lifting — this is what holds the knee straight downhill.</div>
+<div class="setup">Standing knee soft. Let the free hip drop a few centimetres, then lift it level using the outside of the standing hip — 2s up, 2s hold, 2s down. No leaning; the knee never locks.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Bodyweight or 10 lb — R 2 · L 2 × 10</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>15 lb, or a 1s pause at the top</span></div>
- <div class="prog-step"><span class="pn">Right bias</span><span>Add a 3rd right-side set on a dedicated day</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Bodyweight, 2 × 12 each</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>3s holds at the top</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Hold a 5 lb dumbbell on the free side</span></div>
 </div></div>
 </div>
 
-<div class="excard" data-id="d1e-db" data-ss="E" data-x="1">
+<div class="excard" data-id="d4b-calf" data-ss="C" data-opt="1"
+ data-alt-name="Single-Leg Calf Raise — Bodyweight"
+ data-alt-where="Edge of a step, ball of one foot on, heel free. Fingertips on a rail. Bodyweight."
+ data-alt-cue="Controlled stretch down, hard squeeze at the top — straight up, no rolling onto the outer toes."
+ data-alt-how="Lower under control into the stretch, drive all the way up, hold one count, two counts down. Knee long but soft, never locked. Tall spine. Right side first; set 2 ends when the height drops.">
 <div class="extop">
- <div class="ex-left"><div class="ssn">E2</div><div class="exname">Dead Bug — 5 lb in Hands</div></div>
- <div class="exmeta"><div class="sets">2 × 8 each side</div><div class="rest-lbl">45s rest</div><div class="tempo">3 · 1 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Mat, on your back, knees over hips at 90°. One 5 lb dumbbell in both hands above chest.</span></div>
-<div class="cue">The exhale is the rep. Low back peels up? Shorten the reach.</div>
-<div class="setup">Ribs down, low back gently heavy on the floor the whole set. Lower opposite arm and leg away for 3 counts, hard exhale at the long position, return for 3. Alternate sides.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 8 each, heel hovers at the bottom</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>8 lb, or slow the reach to 4 counts</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>Both legs lower, still bent — only if the back never leaves the floor</span></div>
-</div></div>
-</div>
-
-<div class="ssh" data-x="1"><b>F</b>bonus · arms ↔ calves<span>skip in Express</span></div>
-
-<div class="excard" data-id="d1e-curl" data-ss="F" data-x="1">
-<div class="extop">
- <div class="ex-left"><div class="ssn">F1</div><div class="exname">Cable Curl — Behind-Body Stretch</div>
- <div class="start-l"><span>← Start left side every set</span></div></div>
- <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, single handle, light pin. Face away, step forward until the arm drifts slightly behind you.</span></div>
-<div class="cue">The stretch is loaded, so the bottom stays soft — no yank at full length.</div>
-<div class="setup">Upper arm pinned; the elbow doesn't travel forward. Curl, squeeze one count, lower for three to a soft elbow — never snapped straight. Set 2 ends the moment the elbow starts swinging.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Light pin — S1: 12 each · S2: AMRAP</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
- <div class="prog-step"><span class="pn">Variety</span><span>Incline DB curl, light, same soft-elbow rule, when stale</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d4b-calf" data-ss="F" data-x="1">
-<div class="extop">
- <div class="ex-left"><div class="ssn">F2</div><div class="exname">Standing Calf Raise</div></div>
+ <div class="ex-left"><div class="ssn">C2</div><div class="exname">Standing Calf Raise</div></div>
  <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
@@ -1464,19 +1581,65 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
+<div class="ssh" data-x="1"><b>D</b>bonus · front core ↔ side core<span>skip in Express</span></div>
+
+<div class="excard" data-id="d1e-db" data-ss="D" data-x="1">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">D1</div><div class="exname">Dead Bug — 5 lb in Hands</div></div>
+ <div class="exmeta"><div class="sets">2 × 8 each side</div><div class="rest-lbl">45s rest</div><div class="tempo">3 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Mat, on your back, knees over hips at 90°. One 5 lb dumbbell in both hands above chest.</span></div>
+<div class="cue">The exhale is the rep. Low back peels up? Shorten the reach.</div>
+<div class="setup">Ribs down, low back gently heavy on the floor the whole set. Lower opposite arm and leg away for 3 counts, hard exhale at the long position, return for 3. Alternate sides.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 8 each, heel hovers at the bottom</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>8 lb, or slow the reach to 4 counts</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Both legs lower, still bent — only if the back never leaves the floor</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d1e-carry" data-ss="D" data-x="1">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">D2</div><div class="exname">Cable Side-Bend Resist — Anti-Lateral ISO</div></div>
+ <div class="exmeta"><div class="sets">2 × 25s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Single handle, pulley at hip height. Side-on at arm's length, handle at the near thigh. Moderate pin.</span></div>
+<div class="cue">Nothing should visibly happen. The first hint of a lean ends the set.</div>
+<div class="setup">Step out to real tension, knees soft, then stand perfectly level for 25s while the cable tries to bend you sideways. Ribs stacked, hips and shoulders level, breathe normally. Swap sides. Time, not reps.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>2 × 25s each side, dead level</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>25s → 40s, then up one pin and rebuild the time</span></div>
+ <div class="prog-step"><span class="pn">Harder</span><span>Feet closer together — smaller base, same rules</span></div>
+</div></div>
+</div>
+
+<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Wall-sit","3 × 40s, knees at about 70°"],["Skater squat","to parallel, 2 × 5 each"],["Slow bear crawl","three lengths, knees an inch off the floor"],["Tiptoe line walk","three lengths along a line, heels high, hands empty"],["Marching glute bridge","one leg at a time, 2 × 8 each, hips level"]]'>
+<div class="extop">
+ <div class="ex-left"><div class="exname">Wildcard</div></div>
+ <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="cue">This week's toy. Crisp reps, stop while it's still fun.</div>
+<div class="setup">Rotates every week.</div>
+</div>
+
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Got time?</div><p>Hammer or reverse cable curls. Cable wrist curls both ways. Extra monkey-bar laps. All light, high-rep, soft joints.</p></div>
+<div class="fin"><div class="fin-lbl">Got time?</div><p>Tiptoe walks along a line, slow marching bridges, easy hip CARs. Light and playful — the legs already did the hard part.</p></div>
 <div class="day-complete" data-day="d1"></div>
 </div><!-- /d1 -->
 
 <!-- ════════════════════ DAY 3 · WED · LEGS A — ESSENTIALS ════════════════════ -->
 <div class="section" id="d3">
 <div class="day-hdr">
- <div class="day-num" style="color:var(--gld)">02</div>
+ <div class="day-num" style="color:var(--gld)">03</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--gld)">// Wednesday · Full-Body B</div>
- <div class="day-title">FULL-BODY B — HINGE + PRESS</div>
- <div class="day-focus">Skill: handstand · Full ≈ 65 min · Express ≈ 45 min</div>
+ <div class="day-eye" style="color:var(--gld)">// Wednesday · Upper B</div>
+ <div class="day-title">UPPER B — PRESS + HANDSTAND</div>
+ <div class="day-focus">Skill: handstand · Full ≈ 50 min · Express ≈ 35 min</div>
  </div>
 </div>
 
@@ -1490,21 +1653,21 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or brisk walk.</span></div>
  <div class="wu-item"><span class="wu-t">90s</span><span><strong>Wrist prep, mandatory:</strong> circles ×20 · all-fours weight shifts ×10 · finger pulses ×15 · knuckle push-ups ×5.</span></div>
  <div class="wu-item"><span class="wu-t">60s</span><span>Shoulder CARs ×3 each + wall slides ×10 — slow, active control.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Glute bridge × 12 + bird-dog × 5 each.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Dowel hinge × 8 — grooves the RDL.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Bird-dog × 5 each — ribs down, hips still.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Scap pulls × 5 on the bar — active hang, shoulders set.</span></div>
 </div>
 
 <div class="exlist">
 
 <div class="excard" data-id="d5e1" data-solo="1">
 <div class="extop">
- <div class="ex-left"><div class="exname">Handstand Block — Pick 2 + Fun Slot</div></div>
+ <div class="ex-left"><div class="exname">Handstand Block — Pick 2</div></div>
  <div class="exmeta"><div class="sets">~6 min practice</div><div class="rest-lbl">60s rest</div><div class="tempo">CONTROLLED</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Wall, plus a ladder rung or low step. Wrist prep done first.</span></div>
 <div class="cue">Push the floor away, ribs down. Max 8 quality attempts — stop after two that look worse.</div>
-<div class="setup"><strong>Wall hold</strong> 3 × 30s — walk the feet up or a soft kick, one straight line, elbows straight but never jammed. <strong>Chest-to-wall shoulder taps</strong> 3 × 4 each — feet on a rung, hips square. <strong>Pike press at wall</strong> 3 × 20s — low step, hips over hands. <strong>2-min fun slot, rotate:</strong> crow / frog stand → planche lean, feet on the floor, soft elbows.</div>
+<div class="setup"><strong>Wall hold</strong> 3 × 30s — walk the feet up or a soft kick, one straight line, elbows straight but never jammed. <strong>Chest-to-wall shoulder taps</strong> 3 × 4 each — feet on a rung, hips square. <strong>Pike press at wall</strong> 3 × 20s — low step, hips over hands.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Hollow 3×30s · taps 3×4 each on the rung · pike 3×20s, 12″ step</span></div>
@@ -1515,9 +1678,9 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh"><b>A</b>push ↔ pull · both seated<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh"><b>A</b>press ↔ lat width · both seated<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d2e-press" data-ss="A">
+<div class="excard" data-id="d2e-press" data-ss="A" data-alt-name="Push-Up — Hands on a Bar, 3-1-1" data-alt-where="Bar in a rack at hip height, hands just outside shoulders. Lower the bar as reps get easy." data-alt-cue="One plank from heels to head. Stop a fist from the bar, elbows 45°, never lock out." data-alt-how="Body in one straight line, ribs down, glutes on. 3 counts down until the chest is a fist from the bar, 1-count pause, 1 up, stopping just short of locked elbows. Set 2 ends when the hips sag or the shoulders shrug.">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A1</div><div class="exname">Chest Press — Machine</div></div>
  <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
@@ -1536,42 +1699,39 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="excard" data-id="d1e3" data-ss="A">
+<div class="excard" data-id="d1e-pld" data-ss="A" data-alt-name="Close Neutral-Grip Pulldown" data-alt-where="Pulldown machine, close neutral V-handle or parallel grips, thigh pads snug. Start one pin lighter than usual." data-alt-cue="Long arms at the top, shoulders still set down, then elbows drive straight down to the ribs." data-alt-how="Sit tall, tiny lean back that never grows. Pull the handle to the upper chest, elbows brushing the ribs. Squeeze 1, then 4 counts up to long arms without shrugging. AMRAP ends when you rock or the handle stops reaching the chest.">
 <div class="extop">
- <div class="ex-left"><div class="ssn">A2</div><div class="exname">Seated Row — Machine, Chest-Supported</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <div class="ex-left"><div class="ssn">A2</div><div class="exname">Lat Pulldown — Machine</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row machine, neutral grip. Start ~20–30 lb — the pin that makes 12 honest.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Pulldown machine, grip just outside shoulders, thigh pads snug. ~30–40 lb — the pin that makes 12 honest.</span></div>
 <div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue">Chest peels off the pad, the rep didn't count. Feel the lower lat drag the elbow back.</div>
-<div class="setup">Chest glued to the pad. Row elbows to back pockets, not winged out. 1-count squeeze, 3-count lower, full stretch without the shoulders rolling forward. Set 2 ends when the chest leaves the pad or reps get jerky. No machine free: seated cable row, same rules.</div>
+<div class="cue"><strong>Priority lift.</strong> Long arms at the top with shoulders still set down, then elbows to your back pockets.</div>
+<div class="setup">Sit tall with a tiny lean back that never grows. Pull the bar to the collarbone, always in front of the head. Squeeze 1, then 4 counts up to long arms — the stack never pulls you into a shrug. AMRAP ends when you rock or the bar stops reaching the collarbone.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>S1: 12 with 2 in the tank · S2: AMRAP — log it</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>S1: 12 with 2 in the tank, 4-count return · S2: AMRAP — log it</span></div>
  <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
- <div class="prog-step"><span class="pn">Swap</span><span>Half-kneeling single-arm cable row every few weeks</span></div>
 </div></div>
 </div>
 
-<div class="ssh"><b>B</b>hinge ↔ lat width<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh"><b>B</b>overhead push ↔ lat width<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d3-rdl" data-ss="B">
+<div class="excard" data-id="d2e1" data-ss="B">
 <div class="extop">
- <div class="ex-left"><div class="ssn">B1</div><div class="exname">Dumbbell RDL — One Dumbbell, 5 lb</div></div>
- <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 1</div></div>
+ <div class="ex-left"><div class="ssn">B1</div><div class="exname">Pike Push-Up — Feet Elevated</div></div>
+ <div class="exmeta"><div class="sets">S1: 8 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Flat Back, Hips Do the Work</div><p>The rep ends the moment the back would round. Fixed reps, never to failure.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">One dumbbell held in both hands. Feet hip-width, knees soft (15–20°).</span></div>
-<div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue">Hips back like you're closing a car door. The dumbbell just rides along.</div>
-<div class="setup">Push the hips straight back. The dumbbell slides down the thighs to just below the knee — lower only while the back stays long and flat. Stand by driving the hips through — no leaning back at the top. 3 counts down, 1 pause, 1 up.</div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Floor space plus a bench for the feet. Hips high. The bent-knee version counts, indefinitely.</span></div>
+<div class="cue">Ribs down the whole time.</div>
+<div class="setup">Hips high. Head travels forward so the forehead lowers toward the floor between your hands, elbows tracking slightly back. Press up and stop just short of locked elbows. Low back starts to arch: the set is over. After each set: kneel 10 seconds, then stand.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 10, tempo 3·1·1</span></div>
- <div class="prog-step"><span class="pn">Earn it</span><span>Smallest dumbbell jump after two clean weeks and a quiet next morning</span></div>
- <div class="prog-step"><span class="pn">Aim</span><span>25 lb for 2 × 10, one small jump at a time</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Knees bent, feet on the floor behind you</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Legs straight on the floor, then feet up on the bench</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>After a 3 × 30s chest-to-wall hold: 5s lowering to a 4″ pad</span></div>
 </div></div>
 </div>
 
@@ -1593,48 +1753,44 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh"><b>C</b>quads ↔ glute-med · both seated<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-opt="1"><b>C</b>triceps ↔ front core<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d4b-legext" data-ss="C">
+<div class="excard" data-id="d2e3" data-ss="C" data-opt="1" data-alt-name="Overhead Rope Extension — Ribs Down" data-alt-where="Rope on a pulley at about head height. Face away, split stance, slight forward lean. Lighter than pushdowns." data-alt-cue="Ribs down, elbows point forward and stay put. Low back arches = pin too heavy." data-alt-how="Hands start behind the head, elbows by the ears, bent no further than is comfortable. Extend forward and up, stopping 10° short of lockout. 1-count squeeze, 3-count return. Set 2 ends when the elbows wing out or the ribs pop up.">
 <div class="extop">
- <div class="ex-left"><div class="ssn">C1</div><div class="exname">Seated Leg Extension — Full Arc</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 3</div></div>
+ <div class="ex-left"><div class="ssn">C1</div><div class="exname">Rope Pushdown — Cable</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ One Rule — Stop at Straight</div><p>Full arc, every rep. Straight means 0°, never past it — the muscle ends the rep, not the joint. Squeeze the quad; don't rest on a locked knee.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seat reclined to support the low back, pad on the lower shin, not the foot. 30 lb.</span></div>
-<div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue">Full arc, hard top squeeze. Own the 2-count hold — don't hang on it.</div>
-<div class="setup">Press the low back gently into the pad, no pelvic tilt. Extend through the full arc, 2-count quad squeeze at the top, 3-count lower. Breathe — no breath-holding.</div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Rope on the high pulley. Start light — the pin that makes 12 honest.</span></div>
+<div class="cue">Elbows welded to the ribs. Torso pumping = pin too heavy.</div>
+<div class="setup">Stand tall, ribs down, elbows pinned to the ribs. Press the rope down and slightly apart, stopping 10° short of lockout. 1-count squeeze, 3-count return to forearms past parallel. Set 2 ends when the elbows leave the ribs or the shoulders round.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>30 lb — S1: 12 · S2: AMRAP, full arc</span></div>
- <div class="prog-step"><span class="pn">Wk 1–2</span><span>New range, new stimulus — expect the AMRAP to dip; that's real, not regression</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span>AMRAP 15+: <strong>hold 30 lb</strong> — add reps and a 4s lowering first</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Light pin — S1: 12 · S2: AMRAP, no lockout</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
 </div></div>
 </div>
 
-<div class="excard" data-id="d3e-abd" data-ss="C">
+<div class="excard" data-id="d3e-stir" data-ss="C" data-opt="1">
 <div class="extop">
- <div class="ex-left"><div class="ssn">C2</div><div class="exname">Hip Abductor Machine</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
+ <div class="ex-left"><div class="ssn">C2</div><div class="exname">Stir-the-Pot — Ball Plank</div></div>
+ <div class="exmeta"><div class="sets">2 × 6 circles/way</div><div class="rest-lbl">45s rest</div><div class="tempo">SLOW</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ The Setup Is the Exercise</div><p>Slight forward lean from the hip, spine neutral. Toes neutral. Low back on the pad. <strong>Stop 2–3° short of end-range.</strong></p></div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine, 50 lb. Pads on the mid-outer thigh, not the knee.</span></div>
-<div class="cue">Pelvis level. If it hikes, drop the load.</div>
-<div class="setup">Drive out under control through about 30–40° of movement, pause one count, return for two. Never let the stack drop.</div>
+<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Swiss ball, forearms on top, feet a bit wide.</span></div>
+<div class="cue">Hips dead still, spine neutral. Circles only as big as your control — the wobble is the exercise.</div>
+<div class="setup">Forearm plank on the ball, ribs down, glutes squeezed. Stir small, slow circles with the forearms — the torso is a statue, only the arms orbit. 6 one way, 6 the other.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>50 lb — S1: 12 · S2: AMRAP</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Slower return. One-leg machine? Right side takes the AMRAP set</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold 50 lb</strong> — add reps and a slower return first</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>2 × 6 circles each way</span></div>
+ <div class="prog-step"><span class="pn">Too hard</span><span>Kneeling version — the honest regression</span></div>
+ <div class="prog-step"><span class="pn">Up</span><span>Bigger circles</span></div>
 </div></div>
 </div>
 
-<div class="ssh"><b>D</b>shoulders ↔ lateral chain<span>1 → rest → 2 → rest · twice through</span></div>
+<div class="ssh" data-x="1"><b>D</b>bonus · shoulders ↔ hang<span>skip in Express</span></div>
 
-<div class="excard" data-id="d2e2" data-ss="D">
+<div class="excard" data-id="d2e2" data-ss="D" data-x="1" data-alt-name="Cable Lateral Raise — Behind the Back" data-alt-where="Low pulley, single handle, lightest useful pin. Side-on, cable running behind your body, working arm furthest from stack." data-alt-cue="Hand starts just behind the hip, no further. Side-delt cap lifts it, trap stays quiet." data-alt-how="Handle starts just behind the hip — a small reach, never a stretch on the front of the shoulder. Lead with the elbow, raise to shoulder height, no higher, hold 2, lower for 3. No swing, no shrug, no torso lean.">
 <div class="extop">
  <div class="ex-left"><div class="ssn">D1</div><div class="exname">Cable Single-Arm Lateral Raise</div>
  <div class="start-l"><span>← Start left side every set</span></div></div>
@@ -1652,263 +1808,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="excard" data-id="d3e-splank" data-ss="D">
-<div class="extop">
- <div class="ex-left"><div class="ssn">D2</div><div class="exname">Side-Plank Ladder</div>
- <div class="start-l"><span>← Start the weaker side every set</span></div></div>
- <div class="exmeta"><div class="sets">2 × 30s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="cue">Hips tall and level. Log left vs right every time — closing that gap is the assignment.</div>
-<div class="setup">Forearm side plank, elbow under shoulder, feet stacked, ribs stacked — one straight line. Hips sag, set over.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Your rung — 2 × 30s each side</span></div>
- <div class="prog-step"><span class="pn">Rungs</span><span>Knees-bent → full → top leg raised (star) → feet on a low step</span></div>
- <div class="prog-step"><span class="pn">Up</span><span>Climb a rung only when 2×40s is clean on BOTH sides</span></div>
-</div></div>
-</div>
-
-<div class="ssh" data-x="1"><b>E</b>bonus · adductors ↔ triceps<span>skip in Express</span></div>
-
-<div class="excard" data-id="d4b2" data-ss="E" data-x="1">
-<div class="extop">
- <div class="ex-left"><div class="ssn">E1</div><div class="exname">Hip Adductor Machine</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Never Start at the Stretch</div><p>Set the range so the start is a comfortable width, not a max stretch. All the work happens mid-range.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Adductor machine, low back on the pad, comfortable start width. 35–40 lb.</span></div>
-<div class="cue">Own the opening half — it's the half that matters. Groin niggle: narrow the range, drop a pin.</div>
-<div class="setup">Neutral spine. Squeeze the pads together under control, 1-count pause at full squeeze, 2-count return. Never let the stack pull the knees apart faster than you're resisting. Set 2 ends when the return stops being controlled.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>35–40 lb — S1: 12 · S2: AMRAP, mid-range only</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span>AMRAP 15+: <strong>hold 40 lb</strong> — add reps and a slower return first</span></div>
- <div class="prog-step"><span class="pn">Swap</span><span>Short-lever Copenhagen plank for a block</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d2e3" data-ss="E" data-x="1">
-<div class="extop">
- <div class="ex-left"><div class="ssn">E2</div><div class="exname">Rope Pushdown — Cable</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Rope on the high pulley. Start light — the pin that makes 12 honest.</span></div>
-<div class="cue">Elbows welded to the ribs. Torso pumping = pin too heavy.</div>
-<div class="setup">Stand tall, ribs down, elbows pinned to the ribs. Press the rope down and slightly apart, stopping 10° short of lockout. 1-count squeeze, 3-count return to forearms past parallel. Set 2 ends when the elbows leave the ribs or the shoulders round.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Light pin — S1: 12 · S2: AMRAP, no lockout</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
- <div class="prog-step"><span class="pn">Swap</span><span>Overhead rope extension for a block — same no-lockout, ribs-down rules</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d3e-stir" data-solo="1" data-x="1">
-<div class="extop">
- <div class="ex-left"><div class="exname">Stir-the-Pot — Ball Plank</div></div>
- <div class="exmeta"><div class="sets">2 × 6 circles/way</div><div class="rest-lbl">45s rest</div><div class="tempo">SLOW</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Swiss ball, forearms on top, feet a bit wide.</span></div>
-<div class="cue">Hips dead still, spine neutral. Circles only as big as your control — the wobble is the exercise.</div>
-<div class="setup">Forearm plank on the ball, ribs down, glutes squeezed. Stir small, slow circles with the forearms — the torso is a statue, only the arms orbit. 6 one way, 6 the other.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>2 × 6 circles each way</span></div>
- <div class="prog-step"><span class="pn">Too hard</span><span>Kneeling version — the honest regression</span></div>
- <div class="prog-step"><span class="pn">Up</span><span>Bigger circles</span></div>
-</div></div>
-</div>
-
-</div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">After</div><p><strong>Wrist cooldown, 2 min</strong> — reverse prayer, circles, finger stretches. Non-negotiable after handstands. Got time? Cable reverse curls, or extra handstand play at the wall.</p></div>
-<div class="day-complete" data-day="d3"></div>
-</div><!-- /d3 -->
-
-<!-- ════════════════════ DAY 2 · TUE · PUSH ════════════════════ -->
-<div class="section" id="d2">
-<div class="day-hdr">
- <div class="day-num" style="color:var(--b)">03</div>
- <div class="day-info">
- <div class="day-eye" style="color:var(--b)">// Thursday · Full-Body C</div>
- <div class="day-title">FULL-BODY C — GLUTES + SLED</div>
- <div class="day-focus">Skill: pistol · Full ≈ 60 min · Express ≈ 45 min</div>
- </div>
-</div>
-
-<div class="callout">
- <div class="callout-t">// Today</div>
- <p>Low-soreness day — legs stay fresh for the weekend trail. Nothing new, nothing to a grind. Pistols off a <strong>step</strong>, never a wall.</p>
-</div>
-
-<div class="wu">
- <div class="wu-lbl">⚡ Warmup — 5 min</div>
- <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or brisk walk.</span></div>
- <div class="wu-item"><span class="wu-t">60s</span><span><strong>Side-lying hip abduction</strong> × 12 each, toe slightly down — glute-med online first.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Slow sit-to-stand × 10 — knees over toes, 2s lower.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Single-leg balance 30s each + ankle circles × 10.</span></div>
- <div class="wu-item"><span class="wu-t">45s</span><span>Wall slides × 10 — scaps set for the pulldown and presses.</span></div>
-</div>
-
-<div class="exlist">
-
-<div class="excard" data-id="d5e-pistol" data-solo="1">
-<div class="extop">
- <div class="ex-left"><div class="exname">Heel-Tap Pistol Squat — Step Platform</div>
- <div class="start-l"><span>← Start left side every set</span></div></div>
- <div class="exmeta"><div class="sets">3 × 4 each</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Step, Fingertips, Parallel</div><p>Off a step, never a wall. Rung fingertips for balance only. <strong>Cap at parallel.</strong> Knee drifts inside the second toe: end the set, go 2" shallower next time.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Step platform beside the ladder, working side about 2" from a vertical rung. Bodyweight.</span></div>
-<div class="cue">Four slow counts down. Free foot's toes stay pulled up.</div>
-<div class="setup">Free leg slightly forward, toes pulled up. Hips back and down for 4 counts to a heel tap or parallel. Drive up through the whole foot. Pelvis tucks or knee caves: rep over. <strong>2-min fun slot, rotate every 2 weeks:</strong> skater squat → shrimp squat (to parallel) / ring support hold 3 × 15s, elbows soft.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Step platform, smooth 2-count lowering, 3 × 4, capped at parallel</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Fingertips off, then a 2-count bottom pause — slow lowerings live on Tuesday</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>5 lb counterbalance in the opposite hand — same depth cap</span></div>
-</div></div>
-</div>
-
-<div class="ssh"><b>A</b>squat ↔ lat width<span>1 → rest → 2 → rest · twice through</span></div>
-
-<div class="excard" data-id="d3e1" data-ss="A">
-<div class="extop">
- <div class="ex-left"><div class="ssn">A1</div><div class="exname">Goblet Squat — 15 lb</div></div>
- <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Form Rules · No AMRAP</div><p><strong>Flat back, ribs down</strong> — it rounds, the rep is over. Parallel at most, never bounce. Knees track over toes.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">One 15 lb dumbbell vertical at the sternum, elbows down, feet shoulder-width, toes slightly out.</span></div>
-<div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue">Chest proud, stop at parallel — the dumbbell is your counterweight.</div>
-<div class="setup">Brace gently, eyes forward. Three counts down, hips back and down together, weight mid-foot. Stop at parallel or the first hint of pelvis tuck. Pause one count, dead still. Drive through the whole foot, squeeze glutes; knees never lock, no leaning back.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>15 lb, 2 × 10 fixed — note how knees and back feel next morning</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Slow the lowering 3s → 4s → 5s, then reps 10 → 12</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold 15 lb</strong> — two clean weeks and a quiet next morning, then smallest jump</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d1e-pld" data-ss="A">
-<div class="extop">
- <div class="ex-left"><div class="ssn">A2</div><div class="exname">Lat Pulldown — Machine</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Pulldown machine, grip just outside shoulders, thigh pads snug. ~30–40 lb — the pin that makes 12 honest.</span></div>
-<div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue"><strong>Priority lift.</strong> Long arms at the top with shoulders still set down, then elbows to your back pockets.</div>
-<div class="setup">Sit tall with a tiny lean back that never grows. Pull the bar to the collarbone, always in front of the head. Squeeze 1, then 4 counts up to long arms — the stack never pulls you into a shrug. AMRAP ends when you rock or the bar stops reaching the collarbone.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>S1: 12 with 2 in the tank, 4-count return · S2: AMRAP — log it</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Up one pin, rebuild from ~10</span></div>
- <div class="prog-step"><span class="pn">Variety</span><span>Swap grips (neutral / wide) or go half-kneeling single-arm for a block</span></div>
-</div></div>
-</div>
-
-<div class="ssh"><b>B</b>glutes ↔ overhead push<span>1 → rest → 2 → rest · twice through</span></div>
-
-<div class="excard" data-id="d4b1" data-ss="B">
-<div class="extop">
- <div class="ex-left"><div class="ssn">B1</div><div class="exname">Hip Thrust — Machine</div></div>
- <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Hip-thrust machine: pad just below the shoulder blades, belt snug at the hip crease. Lightest setting.</span></div>
-<div class="warmset">⚡ Ramp 1 easy set first</div>
-<div class="cue">Hips up, ribs down. Both sets strong? Add one single-leg set on the right, half load.</div>
-<div class="setup">Feet flat, hip-width, shins near vertical at the top, chin tucked. Drive through the heels until hips line up with knees and shoulders — never arch past that. Squeeze 2, lower without resting. AMRAP ends the instant the low back tries to finish a rep.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Lightest setting — S1: 10 · S2: AMRAP, 2s squeeze every rep</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>One increment up, rebuild from ~10</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>One increment per jump</strong>, only after two clean weeks</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d2e1" data-ss="B">
-<div class="extop">
- <div class="ex-left"><div class="ssn">B2</div><div class="exname">Pike Push-Up — Feet Elevated</div></div>
- <div class="exmeta"><div class="sets">S1: 8 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 4</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Floor space plus a bench for the feet. Hips high. The bent-knee version counts, indefinitely.</span></div>
-<div class="cue">Ribs down the whole time.</div>
-<div class="setup">Hips high. Head travels forward so the forehead lowers toward the floor between your hands, elbows tracking slightly back. Press up and stop just short of locked elbows. Low back starts to arch: the set is over. After each set: kneel 10 seconds, then stand.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Knees bent, feet on the floor behind you</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Legs straight on the floor, then feet up on the bench</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>After a 3 × 30s chest-to-wall hold: 5s lowering to a 4″ pad</span></div>
-</div></div>
-</div>
-
-<div class="ssh"><b>C</b>hamstrings ↔ lateral chain<span>1 → rest → 2 → rest · twice through</span></div>
-
-<div class="excard" data-id="d4b-legcurl" data-ss="C">
-<div class="extop">
- <div class="ex-left"><div class="ssn">C1</div><div class="exname">Lying / Prone Leg Curl</div></div>
- <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Prone, Not Seated</div><p>Run it lying, hips flat — not seated. <strong>Stop ~15° short of straight</strong>; the knee never snaps.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Prone machine, 25 lb. Hips flat on a small pad. Roller on lower shin, not calf.</span></div>
-<div class="cue">Heel to glute, squeeze, slow three down. Cramping? Drop the load.</div>
-<div class="setup">Curl the heel toward the glute, squeeze one count, lower for three. Only a seated machine free? Recline the seat fully, add a low-back pad, brace neutral and keep it light.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Prone, 25 lb — S1: 10 · S2: AMRAP, 3s lowering</span></div>
- <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Slow the lowering to 4s, or single-leg curls, right side first</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold 25 lb</strong> — add reps and a slower lowering first</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d1e-carry" data-ss="C">
-<div class="extop">
- <div class="ex-left"><div class="ssn">C2</div><div class="exname">Cable Side-Bend Resist — Anti-Lateral ISO</div></div>
- <div class="exmeta"><div class="sets">2 × 25s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Single handle, pulley at hip height. Side-on at arm's length, handle at the near thigh. Moderate pin.</span></div>
-<div class="cue">Nothing should visibly happen. The first hint of a lean ends the set.</div>
-<div class="setup">Step out to real tension, knees soft, then stand perfectly level for 25s while the cable tries to bend you sideways. Ribs stacked, hips and shoulders level, breathe normally. Swap sides. Time, not reps.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>2 × 25s each side, dead level</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>25s → 40s, then up one pin and rebuild the time</span></div>
- <div class="prog-step"><span class="pn">Harder</span><span>Feet closer together — smaller base, same rules</span></div>
-</div></div>
-</div>
-
-<div class="ssh"><b>D</b>glute-med ↔ hang<span>1 → rest → 2 → rest · twice through</span></div>
-
-<div class="excard" data-id="d2-cabd" data-ss="D">
-<div class="extop">
- <div class="ex-left"><div class="ssn">D1</div><div class="exname">Cable Hip Abduction — Ankle Strap</div>
- <div class="start-l"><span>← Start right side</span></div></div>
- <div class="exmeta"><div class="sets">2 × 12 each · fixed</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ New Here — Start Lightest</div><p>Lightest pin only. <strong>Stop short of end range</strong>, every rep.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, strap on the OUTSIDE ankle. Stand side-on, one hand on the upright. Lightest pin.</span></div>
-<div class="cue">Heel leads, pelvis stays level. Small and clean beats high.</div>
-<div class="setup">Stance knee soft, never locked. Sweep the strapped leg out to about 30°, leading with the heel. Pelvis level, no torso lean. Pause 1, then a 2-count return — the stack never drops.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Lightest pin — 2 × 12 each, fixed for the first three weeks</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Then set 2 becomes AMRAP, with a 2s hold at the top</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold the lightest pin</strong> — add reps and the top hold first</span></div>
-</div></div>
-</div>
-
-<div class="excard" data-id="d2e-hang" data-ss="D">
+<div class="excard" data-id="d2e-hang" data-ss="D" data-x="1">
 <div class="extop">
  <div class="ex-left"><div class="ssn">D2</div><div class="exname">Active Hang + Pelvic Tuck</div></div>
  <div class="exmeta"><div class="sets">3 × 6</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 5 · 2</div></div>
@@ -1926,7 +1826,182 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="excard" data-id="d2-sled" data-solo="1">
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Crow Hold", "5 tries, soft pad in front, knees on the backs of the arms."], ["Frog Stand", "3 × 15s, knees on elbows, eyes ahead of the hands."], ["Planche Lean", "3 × 10s, feet down, shoulders past the wrists, elbows soft."], ["Ring Support Hold", "3 × 15s, rings turned slightly out, shoulders pressed down."], ["Slow Wall Walk-Ups", "3 walks up to chest-to-wall and back down, one hand at a time."]]'>
+<div class="extop">
+ <div class="ex-left"><div class="exname">Wildcard</div></div>
+ <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="cue">This week's toy. Crisp reps, stop while it's still fun.</div>
+<div class="setup">Rotates every week.</div>
+</div>
+
+</div><!-- /exlist -->
+<div class="fin"><div class="fin-lbl">After</div><p><strong>Wrist cooldown, 2 min</strong> — reverse prayer, circles, finger stretches. Non-negotiable after handstands. Got time? Cable reverse curls, or extra handstand play at the wall.</p></div>
+<div class="day-complete" data-day="d3"></div>
+</div><!-- /d3 -->
+
+<!-- ════════════════════ DAY 2 · TUE · PUSH ════════════════════ -->
+<div class="section" id="d2">
+<div class="day-hdr">
+ <div class="day-num" style="color:var(--b)">04</div>
+ <div class="day-info">
+ <div class="day-eye" style="color:var(--b)">// Thursday · Lower B</div>
+ <div class="day-title">LOWER B — GLUTES + SLED</div>
+ <div class="day-focus">Skill: balance · Full ≈ 50 min · Express ≈ 35 min</div>
+ </div>
+</div>
+
+<div class="callout">
+ <div class="callout-t">// Today</div>
+ <p>Low-soreness legs so you're fresh for the trail — smooth reps, nothing new, nothing to a grind.</p>
+</div>
+
+<div class="wu">
+ <div class="wu-lbl">⚡ Warmup — 5 min</div>
+ <div class="wu-item"><span class="wu-t">60s</span><span>Raise temp — easy spin or brisk walk.</span></div>
+ <div class="wu-item"><span class="wu-t">60s</span><span><strong>Side-lying hip abduction</strong> × 12 each, toe slightly down — glute-med online first.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Slow sit-to-stand × 10 — knees over toes, 2s lower.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Ankle circles × 10 each + hip CARs × 3 each.</span></div>
+ <div class="wu-item"><span class="wu-t">45s</span><span>Hip-hinge drill × 8, hands sliding down the thighs — flat back, grooves the RDL.</span></div>
+</div>
+
+<div class="exlist">
+
+<div class="excard" data-id="d2-balance" data-solo="1">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Balance Block</div></div>
+ <div class="exmeta"><div class="sets">~6 min</div><div class="rest-lbl">45s rest</div><div class="tempo">STEADY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Clear floor beside a rail or upright, plus a flat bench. Shoes off if the gym allows.</span></div>
+<div class="cue">Quiet feet, level hips — this is trail balance.</div>
+<div class="setup"><strong>Single-leg stand, eyes closed 3 × 20s each</strong> — knee soft, hips level, rail within reach. <strong>Copenhagen plank 2 × 15–30s each</strong> — top knee on a bench (short lever), hips stacked. <strong>Tiptoe line walk</strong> × 3 lengths — heels high, slow.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Knee-supported Copenhagen + eyes-closed stand</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Shin on the bench</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Ankle on the bench, 20s eyes-closed without a wobble</span></div>
+</div></div>
+</div>
+
+<div class="ssh"><b>A</b>glutes ↔ quads · both supported<span>1 → rest → 2 → rest · twice through</span></div>
+
+<div class="excard" data-id="d4b1" data-ss="A" data-alt-name="Single-Leg Hip Thrust — 10 lb on the hip, right side leads" data-alt-where="Shoulders on a bench, 10 lb dumbbell on the working hip crease, free knee tucked up." data-alt-cue="Pelvis stays level — the working glute lifts, the low back does nothing." data-alt-how="Right side first. Working foot flat, shin near vertical at the top, chin tucked. Drive through the heel until hip, knee and shoulder line up — never arch past that. Squeeze 2, lower slow. The left side matches the right side count.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">A1</div><div class="exname">Hip Thrust — Machine</div></div>
+ <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Hip-thrust machine: pad just below the shoulder blades, belt snug at the hip crease. Lightest setting.</span></div>
+<div class="warmset">⚡ Ramp 1 easy set first</div>
+<div class="cue">Hips up, ribs down. Both sets strong? Add one single-leg set on the right, half load.</div>
+<div class="setup">Feet flat, hip-width, shins near vertical at the top, chin tucked. Drive through the heels until hips line up with knees and shoulders — never arch past that. Squeeze 2, lower without resting. AMRAP ends the instant the low back tries to finish a rep.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Lightest setting — S1: 10 · S2: AMRAP, 2s squeeze every rep</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>One increment up, rebuild from ~10</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span><strong>One increment per jump</strong>, only after two clean weeks</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d4b-legext" data-ss="A">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">A2</div><div class="exname">Seated Leg Extension — Full Arc</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 2 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ One Rule — Stop at Straight</div><p>Full arc, every rep. Straight means 0°, never past it — the muscle ends the rep, not the joint. Squeeze the quad; don't rest on a locked knee.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seat reclined to support the low back, pad on the lower shin, not the foot. 30 lb.</span></div>
+<div class="warmset">⚡ Ramp 1 easy set first</div>
+<div class="cue">Full arc, hard top squeeze. Own the 2-count hold — don't hang on it.</div>
+<div class="setup">Press the low back gently into the pad, no pelvic tilt. Extend through the full arc, 2-count quad squeeze at the top, 3-count lower. Breathe — no breath-holding.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>30 lb — S1: 12 · S2: AMRAP, full arc</span></div>
+ <div class="prog-step"><span class="pn">Wk 1–2</span><span>New range, new stimulus — expect the AMRAP to dip; that's real, not regression</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span>AMRAP 15+: <strong>hold 30 lb</strong> — add reps and a 4s lowering first</span></div>
+</div></div>
+</div>
+
+<div class="ssh"><b>B</b>hinge ↔ glute-med<span>1 → rest → 2 → rest · twice through</span></div>
+
+<div class="excard" data-id="d3-rdl" data-ss="B">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">B1</div><div class="exname">Dumbbell RDL — One Dumbbell, 5 lb</div></div>
+ <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 1</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Flat Back, Hips Do the Work</div><p>The rep ends the moment the back would round. Fixed reps, never to failure.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">One dumbbell held in both hands. Feet hip-width, knees soft (15–20°).</span></div>
+<div class="warmset">⚡ Ramp 1 easy set first</div>
+<div class="cue">Hips back like you're closing a car door. The dumbbell just rides along.</div>
+<div class="setup">Push the hips straight back. The dumbbell slides down the thighs to just below the knee — lower only while the back stays long and flat. Stand by driving the hips through — no leaning back at the top. 3 counts down, 1 pause, 1 up.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 10, tempo 3·1·1</span></div>
+ <div class="prog-step"><span class="pn">Earn it</span><span>Smallest dumbbell jump after two clean weeks and a quiet next morning</span></div>
+ <div class="prog-step"><span class="pn">Aim</span><span>25 lb for 2 × 10, one small jump at a time</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d2-cabd" data-ss="B">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">B2</div><div class="exname">Cable Hip Abduction — Ankle Strap</div>
+ <div class="start-l"><span>← Start right side</span></div></div>
+ <div class="exmeta"><div class="sets">2 × 12 each · fixed</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ New Here — Start Lightest</div><p>Lightest pin only. <strong>Stop short of end range</strong>, every rep.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, strap on the OUTSIDE ankle. Stand side-on, one hand on the upright. Lightest pin.</span></div>
+<div class="cue">Heel leads, pelvis stays level. Small and clean beats high.</div>
+<div class="setup">Stance knee soft, never locked. Sweep the strapped leg out to about 30°, leading with the heel. Pelvis level, no torso lean. Pause 1, then a 2-count return — the stack never drops.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Lightest pin — 2 × 12 each, fixed for the first three weeks</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Then set 2 becomes AMRAP, with a 2s hold at the top</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold the lightest pin</strong> — add reps and the top hold first</span></div>
+</div></div>
+</div>
+
+<div class="ssh" data-opt="1"><b>C</b>hamstrings ↔ lateral chain<span>1 → rest → 2 → rest · twice through</span></div>
+
+<div class="excard" data-id="d4b-legcurl" data-ss="C" data-opt="1" data-alt-name="Single-Leg Prone Curl" data-alt-where="Prone machine, about half the two-leg load. Hips flat, roller on the lower shin." data-alt-cue="Right leg first. Hips stay flat — no twisting to help the working leg." data-alt-how="One leg curls, the other rests on the pad. Heel toward the glute, squeeze one count, lower for three, stopping about 15° short of straight. The left side matches the right side count. Hips lift or twist: set over.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">C1</div><div class="exname">Lying / Prone Leg Curl</div></div>
+ <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Prone, Not Seated</div><p>Run it lying, hips flat — not seated. <strong>Stop ~15° short of straight</strong>; the knee never snaps.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Prone machine, 25 lb. Hips flat on a small pad. Roller on lower shin, not calf.</span></div>
+<div class="cue">Heel to glute, squeeze, slow three down. Cramping? Drop the load.</div>
+<div class="setup">Curl the heel toward the glute, squeeze one count, lower for three. Only a seated machine free? Recline the seat fully, add a low-back pad, brace neutral and keep it light.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Prone, 25 lb — S1: 10 · S2: AMRAP, 3s lowering</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 15+</span><span>Slow the lowering to 4s, or single-leg curls, right side first</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold 25 lb</strong> — add reps and a slower lowering first</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-id="d3e-splank" data-ss="C" data-opt="1" data-alt-name="Side Plank — Top Leg Raised" data-alt-where="Mat, forearm under the shoulder, feet stacked." data-alt-cue="Lift the top leg a hand-width and keep the hips high." data-alt-how="Same side plank, body one line. Raise the top leg a hand-width and hold it there for the whole set. 2 × 20–30s each side. Hips drop or you twist: the set is over.">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">C2</div><div class="exname">Side-Plank Ladder</div>
+ <div class="start-l"><span>← Start the weaker side every set</span></div></div>
+ <div class="exmeta"><div class="sets">2 × 30s each side</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="cue">Hips tall and level. Log left vs right every time — closing that gap is the assignment.</div>
+<div class="setup">Forearm side plank, elbow under shoulder, feet stacked, ribs stacked — one straight line. Hips sag, set over.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Your rung — 2 × 30s each side</span></div>
+ <div class="prog-step"><span class="pn">Rungs</span><span>Knees-bent → full → top leg raised (star) → feet on a low step</span></div>
+ <div class="prog-step"><span class="pn">Up</span><span>Climb a rung only when 2×40s is clean on BOTH sides</span></div>
+</div></div>
+</div>
+
+<div class="excard" data-opt="1" data-id="d2-sled" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Backward Sled Drag</div></div>
  <div class="exmeta"><div class="sets">4 × 25 m</div><div class="rest-lbl">45s rest</div><div class="tempo">STEADY</div></div>
@@ -1943,38 +2018,53 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div></div>
 </div>
 
-<div class="ssh" data-x="1"><b>E</b>bonus · shoulder health<span>skip in Express</span></div>
+<div class="ssh" data-x="1"><b>D</b>bonus · soleus ↔ adductors · both seated<span>skip in Express</span></div>
 
-<div class="excard" data-id="d2e-serr" data-ss="E" data-x="1">
+<div class="excard" data-id="d3e-scalf" data-ss="D" data-x="1">
 <div class="extop">
- <div class="ex-left"><div class="ssn">E1</div><div class="exname">Push-Up Plus — 8 lb Vest</div></div>
- <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2 · +</div></div>
+ <div class="ex-left"><div class="ssn">D1</div><div class="exname">Seated Calf Raise — Soleus</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">8 lb vest — for this prone move only. No vest: bodyweight, slower tempo.</span></div>
-<div class="cue">The last inch past the top is the whole exercise. Hips never sag.</div>
-<div class="setup">Hands under shoulders, one rigid line, ribs down, elbows about 45° from the ribs. At the top keep pushing the floor away until the upper back domes. Pause 1, lower under control. Knees-down is a fine regression — the plus is what matters.</div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seated calf machine, pads on the lower thighs, light plate to start.</span></div>
+<div class="cue">The soleus soaks up the downhill. Slow, honest stretch at the bottom — never bounce.</div>
+<div class="setup">Balls of the feet on the platform, knees bent under the pads — the bent knee hands the work to the soleus, the endurance calf the standing raise misses. Two counts up, hard 1-count squeeze, two counts down into a full stretch.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>8 lb vest, a deliberate plus every rep — AMRAP ends when hips sag</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>2s pause in the plus, then feet on a low step</span></div>
- <div class="prog-step"><span class="pn">Hold</span><span><strong>Hold the 8 lb vest</strong> — reps and lever climb freely</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Light plate — S1: 12 · S2: AMRAP</span></div>
+ <div class="prog-step"><span class="pn">AMRAP 20+</span><span>Add a small plate — the soleus loves high reps, let it earn them</span></div>
 </div></div>
 </div>
 
-<div class="excard" data-id="d1e5" data-ss="E" data-x="1">
+<div class="excard" data-id="d4b2" data-ss="D" data-x="1">
 <div class="extop">
- <div class="ex-left"><div class="ssn">E2</div><div class="exname">Cable Face Pull — Rope, Eye Height</div></div>
- <div class="exmeta"><div class="sets">S1: 15 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 2</div></div>
+ <div class="ex-left"><div class="ssn">D2</div><div class="exname">Hip Adductor Machine</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Cable: rope, pulley at eye level, ~15 lb.</span></div>
-<div class="cue">Light and controlled. No jerking into end range.</div>
-<div class="setup">Step back to full tension. Pull to the forehead, not the nose, elbows high and wide. At the peak, rotate thumbs behind the ears. Elbows stay above the shoulder line.</div>
+<div class="caveat"><div class="caveat-t">⚠ Never Start at the Stretch</div><p>Set the range so the start is a comfortable width, not a max stretch. All the work happens mid-range.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Adductor machine, low back on the pad, comfortable start width. 35–40 lb.</span></div>
+<div class="cue">Own the opening half — it's the half that matters. Groin niggle: narrow the range, drop a pin.</div>
+<div class="setup">Neutral spine. Squeeze the pads together under control, 1-count pause at full squeeze, 2-count return. Never let the stack pull the knees apart faster than you're resisting. Set 2 ends when the return stops being controlled.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>35–40 lb — S1: 12 · S2: AMRAP, mid-range only</span></div>
+ <div class="prog-step"><span class="pn">Hold</span><span>AMRAP 15+: <strong>hold 40 lb</strong> — add reps and a slower return first</span></div>
+</div></div>
+</div>
+
+<div class="excard wild" data-id="wild-thu" data-solo="1" data-x="1" data-wild='[["Backward Incline Walk", "Treadmill on an incline, walk backwards 4 min easy, hands light on the rails."], ["Lateral Step-Over", "Low hurdle, step sideways over and back, slow, 2 × 8 each."], ["Single-Leg Reach", "Stand on one soft knee, tap three floor targets, 2 × 5 each."], ["Slow Marching Bridge", "Bridge up, hips level, lift one foot at a time, 2 × 10."], ["Flag Chambers", "Low on an upright, tuck and hold 3 × 3–5s each side, bottom shoulder packed."]]'>
+<div class="extop">
+ <div class="ex-left"><div class="exname">Wildcard</div></div>
+ <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="cue">This week's toy. Crisp reps, stop while it's still fun.</div>
+<div class="setup">Rotates every week.</div>
 </div>
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Got time?</div><p><strong>Copenhagen plank</strong> ladder — knee → shin → ankle on a bench, 2 × 15–30s each (also your human-flag builder). <strong>Hammer curls.</strong> Monkey-bar <strong>tuck-flag chambers</strong>.</p></div>
+<div class="fin"><div class="fin-lbl">Got time?</div><p>Monkey-bar <strong>tuck-flag chambers</strong> — a few crisp tries. <strong>Plate pinch holds</strong> 3 × 20s each hand. One more easy sled trip if the knees feel great.</p></div>
 <div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
@@ -1983,21 +2073,21 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div class="day-hdr">
  <div class="day-num" style="color:var(--p)">✚</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--p)">// Mon · Fri · weekend — all optional</div>
- <div class="day-title">FLEX DAYS</div>
+ <div class="day-eye" style="color:var(--p)">// Fri · weekend — all optional</div>
+ <div class="day-title">PLAY DAYS</div>
  <div class="day-focus">Swim · play · hike · dance · bike. All extra — skip any of it, guilt-free.</div>
  </div>
 </div>
 
 <div class="callout" style="border-color:rgba(176,107,255,.28);background:rgba(176,107,255,.06)">
  <div class="callout-t" style="color:var(--p)">// Fun, never fatigue debt</div>
- <p>Monday is the pool, Friday is play, the weekend is the trail. No slow-lowering work the day before a hike. If tomorrow would suffer, it was too much. <strong style="color:var(--txt)">One weekend day: full rest.</strong></p>
+ <p>Friday is play or the pool, the weekend is the trail. No slow-lowering work the day before a hike. If tomorrow would suffer, it was too much. <strong style="color:var(--txt)">One weekend day: full rest.</strong></p>
 </div>
 
 <div class="wu">
  <div class="wu-lbl">Pick by mood</div>
- <div class="wu-item"><span class="wu-t" style="min-width:104px">Mon · Swim</span><span>Zero load on the spine, big lat work. Full session below.</span></div>
- <div class="wu-item"><span class="wu-t" style="min-width:104px">Fri · Play 30</span><span>Handstand floats, monkey bars, curls, backward sled, wall-sit 4 × 40s. No grinding.</span></div>
+ <div class="wu-item"><span class="wu-t" style="min-width:104px">Swim</span><span>Any play slot. Zero load on the spine, easy on the legs. Session below.</span></div>
+ <div class="wu-item"><span class="wu-t" style="min-width:104px">Fri · Play 30</span><span>Handstand floats, flag chambers, monkey bars, rope, rings. Skills only — no grinding, no slow leg lowering.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Weekend · Hike</span><span>Two poles, 5–10 cm longer downhill. Short steps, soft-knee landings, zig-zag the steep bits.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Dance</span><span>Ease back over 2–3 classes, soft knees on spins, build jumps gradually.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Bike / elliptical</span><span>Seat high — hip just above the kneecap at the top. Neutral low back.</span></div>
@@ -2005,7 +2095,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div>
 
 <details id="swim" class="swim-fold">
- <summary>🏊 Monday Swim Session<span class="swim-hint"> — tap to open the full session</span></summary>
+ <summary>🏊 Swim Session<span class="swim-hint"> — tap to open the full session</span></summary>
  <p class="swim-intro">Zero spinal load, big lat volume. A lazy 30-min easy swim counts too.</p>
  <div class="sgrid">
  <div class="scard">
@@ -2160,7 +2250,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div>
 
 </div><!-- /exlist -->
-<div class="fin"><div class="fin-lbl">Keep it honest</div><p><strong>Found a pull-up bar</strong> (park, playground, a doorway one)? Add active-hang pull-ups — the best pull there is — otherwise the table row has it covered. <strong>Hotel gym with machines or dumbbells?</strong> Run your normal Day A/B/C lifts at your usual loads instead. Either way — two near-failure sets a pattern holds everything. That's the whole job.</p></div>
+<div class="fin"><div class="fin-lbl">Keep it honest</div><p><strong>Found a pull-up bar</strong> (park, playground, a doorway one)? Add active-hang pull-ups — the best pull there is — otherwise the table row has it covered. <strong>Hotel gym with machines or dumbbells?</strong> Run your normal sessions at your usual loads instead. Either way — two near-failure sets a pattern holds everything. That's the whole job.</p></div>
 <div class="day-complete" data-day="travel"></div>
 </div><!-- /travel -->
 
@@ -2175,12 +2265,12 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
  <div style="background:rgba(255,46,136,.06);border:1.5px solid rgba(255,46,136,.28);border-radius:6px;padding:18px">
  <div class="t-mono" style="color:var(--r);margin-bottom:10px;font-size:11px">Skill ladders</div>
  <div style="font-size:13px;line-height:1.7">
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin:2px 0 7px">Pull · Day A</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin:2px 0 7px">Pull · Monday</div>
 <p style="margin:0 0 8px"><strong>Muscle-up:</strong> 10 strict pull-ups (done) → 12–15 + chest-to-bar × 5 → high pulls to the lower ribs → feet-assisted low-bar transitions (two feet → one → heels) → jump muscle-up with 5s lowering → strict muscle-up. <em>Shoulders quiet for 48 h before each new rung; no kipping.</em></p>
 <p style="margin:0 0 8px"><strong>One-arm pull-up:</strong> strict → weighted (+10–25 lb) → archer → typewriter → one-arm negatives (5s, spare hand light on the wrist) → finger-assisted → one-arm pull-up. <em>Soft elbow at the bottom. Measured in years.</em></p>
 <p style="margin:0 0 8px"><strong>Front lever:</strong> scap pulls (you’re here) → tuck hold → advanced tuck → single-leg → straddle. <em>Posterior tilt, scaps packed; stop when the low back sags.</em></p>
 <p style="margin:0 0 8px"><strong>Pull variations:</strong> chin-up → wide-grip → close/commando → mixed-grip → around-the-worlds. <em><strong>L-sit pull-up: not yet</strong> — it squeezes the low back.</em></p>
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gld);margin:16px 0 7px">Push &amp; balance · Day B</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gld);margin:16px 0 7px">Push &amp; balance · Wednesday</div>
 <p style="margin:0 0 8px"><strong>Handstand:</strong> back-to-wall hold → chest-to-wall hold → chest-to-wall shoulder taps → toe-pull floats (toes drift off the wall, 5 × 3–5s) → 1–2s free balance → 5s → 10s → shapes (tuck, straddle, stag). <em>Wall is always the catch; active shoulders, never locked joints.</em></p>
 <p style="margin:0 0 8px"><strong>Handstand push-up:</strong> pike push-up → feet-elevated pike → 30s chest-to-wall hold → wall negatives (5s down) → partial → full wall HSPU. <em>Wall only. Cap the depth — never sink into the shoulder.</em></p>
 <p style="margin:0 0 8px"><strong>Press to handstand:</strong> seated pike-compression lifts → wall tuck-ups → straddle-press negatives from the wall handstand → straddle press. <em>Straight arms, hollow body, zero spinal load.</em></p>
@@ -2189,7 +2279,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--b);margin:16px 0 7px">Core &amp; levers</div>
 <p style="margin:0 0 8px"><strong>Human flag:</strong> flagpole grip + support press → vertical hold → chamber/tuck flag 10–20s each side → single-leg → straddle → full. <em>Rigid body, bottom shoulder packed. <strong>Tuck now; full flag not yet</strong> — same straight-arm load.</em></p>
 <p style="margin:0 0 8px"><strong>L-sit / compression:</strong> seated pike lifts → parallette support hold → tuck support with a hard posterior tilt → one leg out. <em><strong>Full L-sit: not yet</strong> — it squeezes the low back. Tucked posterior-tilt holds are the on-ramp.</em></p>
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:16px 0 7px">Legs · Day C</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:16px 0 7px">Legs · Tuesday + Thursday</div>
 <p style="margin:0 0 8px"><strong>Pistol:</strong> tall box sit → lower box → step-platform heel-tap (fingertips for balance only) → no-contact off the step. <em>Off a step, never a wall; cap at parallel.</em></p>
 <p style="margin:0 0 8px"><strong>Cossack squat:</strong> wide stance → sink to one side, other leg straight, heel down → flow side to side (light plate at the chest to counterbalance). <em>Control the descent — never a passive drop into the hip.</em></p>
 <p style="margin:0 0 8px"><strong>Shrimp squat:</strong> hold the rear foot → lower the rear knee to a pad → stand up. <em>Gentler on the kneecap than a deep pistol.</em></p>
@@ -2431,7 +2521,7 @@ a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}
 </div>
 
 <footer>
- <span>BULLETPROOF · FULL-BODY A · B · C + FLEX</span>
+ <span>BULLETPROOF · UPPER · LOWER · UPPER · LOWER + PLAY</span>
  <span>MACHINES · CABLES · BODYWEIGHT · SKILL + CORE EVERY SESSION</span>
  <button class="clear-btn" onclick="confirmClearAll()">Reset all checkmarks</button>
 </footer>
@@ -2549,8 +2639,7 @@ setInterval(updateResetCountdown, 30 * 1000);
 function updateDayComplete() {
  document.querySelectorAll('.day-complete').forEach(el => {
  const dayId = el.dataset.day;
- const express = document.body.classList.contains('express');
- const cards = [...document.querySelectorAll(`#${dayId} .excard`)].filter(c => !(express && c.dataset.x));
+ const cards = [...document.querySelectorAll(`#${dayId} .excard`)].filter(c => !_hidden(c));
  if (!cards.length) return;
  const done = [...cards].filter(c => c.classList.contains('done')).length;
  if (done === cards.length && done > 0) {
@@ -2719,7 +2808,7 @@ _updateNavActive();
 
 // ── "Start today" → jumps to the right session; FAB shows done / total for the day in view ──
 (function(){
- var map = {1:['swim','Swim day',"var(--g)"],0:['daily','Rest day · daily 8 min',"var(--g)"],2:['d1','Start Day A',"var(--r)"],3:['d3','Start Day B',"var(--gld)"],4:['d2','Start Day C',"var(--b)"]};
+ var map = {1:['d5','Start Upper A',"var(--g)"],2:['d1','Start Lower A',"var(--r)"],3:['d3','Start Upper B',"var(--gld)"],4:['d2','Start Lower B',"var(--b)"],5:['d4','Play day',"var(--p)"],6:['d4','Hike day',"var(--p)"],0:['daily','Rest day · daily 8 min',"var(--g)"]};
  var m = map[new Date().getDay()], b = document.getElementById('startBtn'); if (!b) return;
  if (m){ b.href = '#' + m[0]; b.textContent = '▶ ' + m[1]; b.style.background = m[2]; b.style.boxShadow = '0 0 22px -4px ' + m[2]; }
  else { b.href = '#d4'; b.textContent = '▶ Flex day menu'; b.style.background = 'var(--p)'; b.style.boxShadow = '0 0 22px -4px var(--p)'; }
@@ -2731,25 +2820,43 @@ function _fabRest(v){
  dayJump.innerHTML = v > 0 ? v + 's<small>rest</small>' : 'GO';
 }
 function buildDayChips(){
- ['d1','d3','d2'].forEach(function(id){
+ ['d5','d1','d3','d2'].forEach(function(id){
  var info = document.querySelector('#' + id + ' .day-info'); if (!info || info.querySelector('.xchip')) return;
- var b = document.createElement('button'); b.type = 'button'; b.className = 'xchip'; b.textContent = '⏱ Express'; b.onclick = toggleExpress; info.appendChild(b);
+ var row = document.createElement('div'); row.className = 'xrow';
+ var b = document.createElement('button'); b.type = 'button'; b.className = 'xchip'; b.textContent = '⏱ Express'; b.onclick = toggleExpress; row.appendChild(b);
+ var l = document.createElement('button'); l.type = 'button'; l.className = 'xchip low'; l.textContent = '🪫 Low battery'; l.onclick = toggleLowbat; row.appendChild(l);
+ var k = document.createElement('button'); k.type = 'button'; k.className = 'xchip skip'; k.textContent = 'Skip today'; k.onclick = function(){ skipDay(id); }; row.appendChild(k);
+ info.appendChild(row);
+ var bar = document.createElement('div'); bar.className = 'lowbar'; bar.textContent = 'Low battery: skill + two pairs. Set 2 stops 3 reps short. Showing up is the win.';
+ var hdr = document.querySelector('#' + id + ' .day-hdr'); if (hdr) hdr.insertAdjacentElement('afterend', bar);
  });
 }
+function _hidden(c){ var b = document.body.classList; return (c.dataset.x && (b.contains('express') || b.contains('lowbat'))) || (c.dataset.opt && b.contains('lowbat')); }
+function toggleLowbat(){
+ var on = document.body.classList.toggle('lowbat');
+ try { localStorage.setItem('bp-lowbat', on ? _today() : ''); } catch(e){}
+ document.querySelectorAll('.xchip.low').forEach(function(x){ x.classList.toggle('on', on); });
+ updateDayComplete(); updateFabCount(); _toast(on ? 'Low battery — short version' : 'Full power');
+}
+window.toggleLowbat = toggleLowbat;
+function skipDay(id){
+ if (!confirm('Skip this one? No make-up session — the week just rolls on.')) return;
+ try { var w = readCompletedWeek(); w[id] = 'skip:' + Date.now(); localStorage.setItem('bp-week', JSON.stringify(w)); } catch(e){}
+ paintWeek(); _toast('Skipped. Rest counts.');
+}
 function paintWeek(){
- var c = readCompletedWeek(), cell = {d1:'wc-2', d3:'wc-3', d2:'wc-4'};
- Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (el) el.classList.toggle('hit', !!c[d]); });
+ var c = readCompletedWeek(), cell = {d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4'};
+ Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (!el) return; var sk = String(c[d] || '').indexOf('skip') === 0; el.classList.toggle('hit', !!c[d] && !sk); el.classList.toggle('skipped', sk); });
 }
 function readCompletedWeek(){
  var w = {}; try { w = JSON.parse(localStorage.getItem('bp-week') || '{}'); } catch(e){}
  var now = new Date(), mon = new Date(now); mon.setHours(0,0,0,0); mon.setDate(now.getDate() - ((now.getDay() + 6) % 7));
- Object.keys(w).forEach(function(d){ if (w[d] < mon.getTime()) delete w[d]; });
+ Object.keys(w).forEach(function(d){ var t = parseInt(String(w[d]).replace('skip:', '')) || 0; if (t < mon.getTime()) delete w[d]; });
  return w;
 }
 function updateFabCount(){
  if (!dayJump || !_currentDay || dayJump.classList.contains('resting')) return;
- var ex = document.body.classList.contains('express');
- var cards = [].slice.call(document.querySelectorAll('#' + _currentDay + ' .excard')).filter(function(c){ return !(ex && c.dataset.x); });
+ var cards = [].slice.call(document.querySelectorAll('#' + _currentDay + ' .excard')).filter(function(c){ return !_hidden(c); });
  if (!cards.length){ dayJump.innerHTML = '↑ Day'; return; }
  var done = cards.filter(function(c){ return c.classList.contains('done'); }).length;
  dayJump.innerHTML = '↑ Day<small>' + done + '/' + cards.length + '</small>';
@@ -2768,14 +2875,14 @@ function copyWeekLog(){
  const date = d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
  const tpl =
 `WEEK OF ${date}
-Did: A_ B_ C_ Flex_ Travel_ (✓ / skip)
-Top sets (load×reps @RIR):
- A: pull-up_ dips_ goblet_ leg-curl_ abductor_ bridge_ curl_ lat-raise_
- B: chest-press_ row_ pull-thru_ SA-pulldown_ leg-ext_ adductor_ step-down_
- C: BSS_ pulldown_ hip-thrust_ pike_ nordic_ cable-abd_ face-pull_
-Skill blocks: muscle-up_ handstand_ pistol_
-Knee 0/10 L_ R_ · Back 0/10 _ · New leg signal? _
-1st-Sat tests: side-plank L_ R_ · SL-balance-EC L_ R_ · dead-hang_ · wall-HS_
+Did: Mon_ Tue_ Wed_ Thu_ Fri-play_ Hike_ (✓ / skip)
+Best sets (load × reps):
+ Mon: pull-up_ dips_ row_ pullover_
+ Tue: split-squat_ nordic_ back-ext_ abductor_
+ Wed: chest-press_ pulldown_ pike_ SA-pulldown_
+ Thu: hip-thrust_ leg-ext_ RDL_ leg-curl_ sled_
+Skills: muscle-up_ pistol_ handstand_ balance_
+Knees after the hike (0–10) L_ R_ · Back _
 Notes:
 `;
  const btn = document.getElementById('weekLogBtn');
@@ -2798,7 +2905,7 @@ function readLog(){ try { return JSON.parse(localStorage.getItem('bp-log') || '[
 function writeLog(a){ try { localStorage.setItem('bp-log', JSON.stringify(a)); } catch(e){ _toast('⚠ Could not save — storage full or blocked'); } }
 function _logEsc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function _logDate(){ return new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); }
-const DAY_LABELS = { d1:'Full-Body A', d2:'Full-Body C', d3:'Full-Body B', d4:'Flex', d5:'Skill Blocks', travel:'Travel Mode' };
+const DAY_LABELS = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B', d4:'Play', travel:'Travel Mode' };
 
 // debounced saves register a flush — a half-typed note survives locking the phone mid-window
 const _pendingSaves = new Set();
@@ -2901,7 +3008,7 @@ function renderLog(){
 // completed-day tracking so a finished session isn't pruned before it's logged
 function readCompleted(){ try { return JSON.parse(localStorage.getItem('bp-complete') || '{}'); } catch(e){ return {}; } }
 function writeCompleted(o){ try { localStorage.setItem('bp-complete', JSON.stringify(o)); } catch(e){} }
-function markDayComplete(dayId){ try { var w = readCompletedWeek(); if (!w[dayId]){ w[dayId] = Date.now(); localStorage.setItem('bp-week', JSON.stringify(w)); paintWeek(); } } catch(e){}
+function markDayComplete(dayId){ try { var w = readCompletedWeek(); if (!w[dayId] || String(w[dayId]).indexOf('skip') === 0){ w[dayId] = Date.now(); localStorage.setItem('bp-week', JSON.stringify(w)); paintWeek(); } } catch(e){}
  const c = readCompleted(); const today = new Date().toDateString(); if (c[dayId] !== today){ c[dayId] = today; writeCompleted(c); } }
 window.newLogEntry = newLogEntry; window.editLogEntry = editLogEntry; window.saveLogEntry = saveLogEntry; window.closeLogEntry = closeLogEntry; window.discardLogEntry = discardLogEntry; window.deleteLogEntry = deleteLogEntry; window.exportLog = exportLog; window.shareLog = shareLog; window.shareOneEntry = shareOneEntry;
 
@@ -2918,7 +3025,7 @@ window.toggleGym = toggleGym;
 function toggleExpress(){
  const on = document.body.classList.toggle('express');
  const b = document.getElementById('expressBtn');
- if (b){ b.classList.toggle('on', on); b.textContent = on ? '⏱ Express on' : '⏱ Express ≈45'; }
+ if (b){ b.classList.toggle('on', on); b.textContent = on ? '⏱ Express on' : '⏱ Express ≈35'; }
  document.querySelectorAll('.xchip').forEach(function(x){ x.classList.toggle('on', on); });
  try { localStorage.setItem('bp-express', on ? '1' : '0'); } catch(e){}
  updateDayComplete(); updateFabCount();
@@ -3011,7 +3118,7 @@ function exportDayLog(dayId, share){
  if (done.length) lines.push('Done (' + done.length + '): ' + done.join(' · '));
  var jstore = readJots();
  var dayJots = (jstore[dayId] && jstore[dayId].ex) ? jstore[dayId].ex : {};
- var jotIds = [].slice.call(document.querySelectorAll('#' + dayId + ' .excard[data-id]')).map(function(c){ return c.dataset.id; }).filter(function(id){ return dayJots[id]; });
+ var jotIds = [].slice.call(document.querySelectorAll('#' + dayId + ' .excard[data-id]')).map(_logKey).filter(function(id){ return dayJots[id]; });
  jotIds.forEach(function(id){ lines.push('• ' + dayJots[id].name + ' — ' + dayJots[id].text); });
  if (!lines.length){ _toast('Nothing logged for this day yet'); return; }
  var header = _logDate() + ' · ' + dayId.toUpperCase() + ' · ' + (DAY_LABELS[dayId] || dayId);
@@ -3057,6 +3164,37 @@ function saveJot(dayId, exId, name, text){
  if (!Object.keys(j[dayId].ex).length) delete j[dayId];
  writeJots(j);
 }
+// ── 4-week blocks: accessories swap to a sibling lift (Block B text lives in data-alt-*); tracked lifts never change ──
+function _logKey(card){ return card.dataset.id + (card.dataset.blk === 'b' ? '~b' : ''); }
+function readBlock(){ try { return JSON.parse(localStorage.getItem('bp-block') || 'null') || { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
+function applyBlock(){
+ var st = readBlock(); try { if (!localStorage.getItem('bp-block')) localStorage.setItem('bp-block', JSON.stringify(st)); } catch(e){}
+ var isB = st.b === 'B', map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow']];
+ document.querySelectorAll('.excard[data-alt-name]').forEach(function(c){
+ map.forEach(function(m){ var el = c.querySelector(m[0]); if (!el || !c.dataset[m[1]]) return;
+ if (el.dataset.orig === undefined) el.dataset.orig = el.innerHTML;
+ if (isB) el.textContent = c.dataset[m[1]]; else el.innerHTML = el.dataset.orig; });
+ c.dataset.blk = isB ? 'b' : '';
+ });
+ var wk = Math.floor((Date.now() - st.t) / (7 * 864e5)) + 1, chip = document.getElementById('blockBtn');
+ if (chip){ chip.textContent = 'Block ' + st.b + ' · wk ' + Math.min(wk, 9) + '/4'; chip.classList.toggle('due', wk > 4); }
+}
+function toggleBlock(){
+ var st = readBlock(), next = st.b === 'A' ? 'B' : 'A';
+ if (!confirm('Swap the accessory lifts to Block ' + next + '? Your numbers for both blocks are kept.')) return;
+ try { localStorage.setItem('bp-block', JSON.stringify({ b: next, t: Date.now() })); } catch(e){}
+ applyBlock(); document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); }); buildJots(); _toast('Block ' + next + ' — fresh toys');
+}
+window.toggleBlock = toggleBlock;
+// weekly wildcard: one rotating play move per session
+function applyWildcards(){
+ var wk = Math.floor(Date.now() / (7 * 864e5));
+ document.querySelectorAll('.excard.wild').forEach(function(c){ try {
+ var list = JSON.parse(c.dataset.wild), p = list[wk % list.length];
+ c.querySelector('.exname').textContent = 'Wildcard — ' + p[0]; c.querySelector('.cue').textContent = p[1];
+ } catch(e){} });
+}
+
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
 function readHist(){ try { return JSON.parse(localStorage.getItem('bp-hist') || '{}'); } catch(e){ return {}; } }
 function writeHist(o){ try { localStorage.setItem('bp-hist', JSON.stringify(o)); } catch(e){} }
@@ -3075,7 +3213,7 @@ function buildJots(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
  if (card.querySelector('.exlog')) return;
  var sec = card.closest('.section[id]'); var dayId = sec ? sec.id : null; if (!dayId) return;
- var exId = card.dataset.id;
+ var exId = _logKey(card);
  var setsTxt = (card.querySelector('.sets') || {}).textContent || '';
  if (setsTxt.trim().charAt(0) === '~') return; // skill practice blocks: nothing to log
  var timed = /\d\s?s\b/.test(setsTxt), dist = /\d\s?m\b/.test(setsTxt);
@@ -3145,6 +3283,7 @@ function streamlineCards(){
     }
   });
 }
+applyWildcards(); applyBlock();
 streamlineCards();
 buildJots();
 
@@ -3175,7 +3314,7 @@ function foldDayIntros(){
  _introFold(c, t);
  });
  });
- // The big week-overview block above Day A folds too
+ // The big week-overview block above the first day folds too
  [].slice.call(document.querySelectorAll('.callout')).forEach(function(c){
  if (c.closest('.section[id]') || c.closest('.introfold')) return;
  var t = c.querySelector(':scope > .callout-t');
@@ -3193,6 +3332,7 @@ function _toast(msg){
 
 renderLog();
 buildDayChips(); paintWeek();
+(function(){ try { if (localStorage.getItem('bp-lowbat') === _today()){ document.body.classList.add('lowbat'); document.querySelectorAll('.xchip.low').forEach(function(x){ x.classList.add('on'); }); updateDayComplete(); } } catch(e){} })();
 (function(){ var on = document.body.classList.contains('express'); document.querySelectorAll('.xchip').forEach(function(b){ b.classList.toggle('on', on); }); })();
 </script>
 </body>
