@@ -1399,7 +1399,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
  <span class="pill g">Muscle-up ladder</span>
- <span class="pill gld">Full 50–60 · Express 30–40</span>
+ <span class="pill gld">Full 55–60 · Express 35–40</span>
  </div>
 </div>
 
@@ -1676,7 +1676,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--r)">// Tuesday · Lower A</div>
  <div class="day-title">LOWER A — BRAKES</div>
- <div class="day-focus" data-express-min="30">Skill: pistol · Full ≈ 50 min · Express ≈ 30 min</div>
+ <div class="day-focus" data-express-min="35">Skill: pistol · Full ≈ 55 min · Express ≈ 35 min</div>
  </div>
 </div>
 
@@ -1851,7 +1851,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves<span>one set in Express</span></div>
+<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves ↔ side delts<span>one set in Express</span></div>
 
 <div class="excard" data-id="d2e6" data-ss="D" data-x="1">
 <div class="extop">
@@ -1888,6 +1888,24 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="prog-step"><span class="pn">Then</span><span>Heavier dumbbell, smallest jump</span></div>
 </div></div>
 </div>
+<div class="excard" data-id="d1-latraise" data-ss="D" data-x="1" data-alt-name="Seated Dumbbell Lateral Raise — Back Supported" data-alt-where="Upright bench, back flat on the pad, feet down, a light dumbbell in each hand hanging at your sides, palms facing in." data-alt-cue="The bench takes the swing out — if you still need to lean, the weight is too heavy." data-alt-sets="S1: 12 · S2: AMRAP" data-alt-how="1. Sit tall, back on the pad, ribs down, elbows soft and fixed. 2. Lead with the elbows out to shoulder height, no higher; hold 1. 3. Lower for 3 counts under control. 4. Set ends when the shoulders shrug or the back leaves the pad." data-alt-caveat="Shoulder height is the ceiling. Back stays on the pad — no rocking to start the rep." data-alt-prog="Now: Same light pair — S1: 12 · S2: AMRAP, seated | 15 clean: Smallest dumbbell jump next time">
+<div class="extop">
+ <div class="ex-left"><div class="ssn">D3</div><div class="exname">Dumbbell Lateral Raise — Capped at Shoulder</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Shoulder Height Is the Ceiling</div><p><strong>Hands stop level with the shoulders, never above.</strong> Light forever — this one is bought with control, not load. Traps take over or the shoulders shrug: the set is done.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">A light dumbbell in each hand, standing tall, feet hip-width, arms at your sides, palms facing in, elbows soft and slightly bent.</span></div>
+<div class="cue">Lead with the elbows, thumbs level — pour nothing out at the top.</div>
+<div class="setup"><strong>1.</strong> Stand tall, ribs down, elbows soft and fixed at that angle all set. <strong>2.</strong> Raise both arms out to the side for 2 counts, stopping level with the shoulders; hold 1. <strong>3.</strong> Lower for 3 counts, never letting them drop. <strong>4.</strong> Set 2 ends the moment the torso swings or a shoulder hikes toward the ear.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Light pair — S1: 12 · S2: AMRAP, 3s lowering, capped at shoulder height</span></div>
+ <div class="prog-step"><span class="pn">15 clean</span><span>Smallest dumbbell jump next time — never a big one here</span></div>
+ <div class="prog-step"><span class="pn">Why Tuesday</span><span>Second side-delt session of the week without stretching either upper day past an hour</span></div>
+</div></div>
+</div>
+
 
 <div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise","Where: back against a wall, heels a foot-length out on a mat.","How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."],["Side-Lying Leg Lift","Where: mat, lying on your side, head on the bottom arm.","How: 2 × 12 each. Right side first. Bottom leg bent, top leg long, lift a hand-width, lower slowly."],["Slow Bear Crawl","Where: open floor lane or turf, about five metres long.","How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."],["Tiptoe Line Walk","Where: a straight floor line beside a rail, about five metres.","How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."],["Frog Pump","Where: mat, on your back, soles of the feet together, knees relaxed outward.","How: 2 × 20. Ribs down, press through the outer feet, short quick bridges, squeeze 1 at the top. Never arch."]]'>
 <div class="extop">
@@ -3507,10 +3525,10 @@ var TRACK = { 'd1e1':10, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
  'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
  // travel mode logs too — a week away still shows up in the history
- 'd3-inccurl':15, 'd3-stcalf':25,
+ 'd3-inccurl':15, 'd3-stcalf':25, 'd1-latraise':10,
  'tv-hs':0, 'tv-pistol':0, 'tv-push':0, 'tv-row':0, 'tv-bss':0, 'tv-bridge':0, 'tv-abd':0, 'tv-core':0 };
 // Block-B alternates start from their own first weight (0 = bodyweight), not the Block-A lift's
-var TRACK_B = { 'd3-inccurl':15, 'd3-stcalf':90, 'd2e-press':0, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
+var TRACK_B = { 'd1-latraise':10, 'd3-inccurl':15, 'd3-stcalf':90, 'd2e-press':0, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
 // weight-only memory (no reps): "what pin did I use last time?" for every other loaded lift
 var TRACK_W = { 'd1e5':20, 'd5-rdsweep':10, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15, 'd2e3':25, 'd2e2':7.5, 'd2-kick':20, 'd2-cabd':5, 'd3e-scalf':45, 'd1-hiphike':5, 'd3e7':10, 'd2-sled':10, 'd5-tripush':15 };
 function _firstW(card){ if (card.dataset.id in TRACK_W) return TRACK_W[card.dataset.id]; var id = card.dataset.id; return (card.dataset.blk === 'b' && id in TRACK_B) ? TRACK_B[id] : TRACK[id]; }
