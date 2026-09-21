@@ -377,6 +377,9 @@ nav a.active{border-bottom-width:3px;font-weight:700}
  padding:14px var(--pad);
  border-bottom:1px solid var(--bdr);
 }
+.wu.done{opacity:.55}
+.wu-chk{float:right;width:34px;height:34px;margin:-4px -2px 0 8px;border:1.5px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:15px;line-height:1;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.wu.done .wu-chk{border-color:var(--g);color:var(--g)}
 .wu-lbl{
  font-family:'Inter',sans-serif;
  font-size:9px;
@@ -2994,10 +2997,37 @@ function _saveR1(){
  try { sessionStorage.setItem('bp-r1', JSON.stringify(o)); } catch(e){}
 }
 
+// The warmup is 5 minutes of the session and was invisible to the clock, which
+// started on the first lift. Ticking it starts the clock and counts toward the day.
+function _wuId(wu){ var s = wu.closest('.section'); return 'wu-' + (s ? s.id : 'x'); }
+function toggleWarm(btn){
+ var wu = btn.closest('.wu'), id = _wuId(wu), done = wu.classList.toggle('done');
+ btn.textContent = done ? '\u2713' : '\u25cb';
+ var saved = readSaved();
+ if (done){ saved[id] = { t: Date.now() }; var s = wu.closest('.section'); if (s) sessTick(s.id); }
+ else delete saved[id];
+ writeSaved(saved);
+ updateDayComplete(); updateFabCount();
+}
+window.toggleWarm = toggleWarm;
+(function wireWarmups(){
+ document.querySelectorAll('.wu').forEach(function(wu){
+  var lbl = wu.querySelector('.wu-lbl'); if (!lbl || wu.querySelector('.wu-chk')) return;
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'wu-chk'; b.textContent = '\u25cb';
+  b.setAttribute('aria-label', 'Mark warmup done'); b.onclick = function(){ toggleWarm(b); };
+  lbl.appendChild(b);
+ });
+})();
 function applyState() {
  const saved = pruneExpired();
  const r1 = _readR1();
  let r1Changed = false;
+ document.querySelectorAll('.wu').forEach(wu => {
+ const on = !!saved[_wuId(wu)];
+ wu.classList.toggle('done', on);
+ const b = wu.querySelector('.wu-chk'); if (b) b.textContent = on ? '\u2713' : '\u25cb';
+ });
  document.querySelectorAll('.excard').forEach(card => {
  const id = card.dataset.id;
  const isDone = !!saved[id];
@@ -3060,7 +3090,7 @@ setInterval(updateResetCountdown, 30 * 1000);
 function updateDayComplete() {
  document.querySelectorAll('.day-complete').forEach(el => {
  const dayId = el.dataset.day;
- const cards = [...document.querySelectorAll(`#${dayId} .excard`)].filter(c => !_hidden(c));
+ const cards = [...document.querySelectorAll(`#${dayId} .excard, #${dayId} .wu`)].filter(c => !_hidden(c));
  if (!cards.length) return;
  const done = [...cards].filter(c => c.classList.contains('done')).length;
  if (done === cards.length && done > 0) {
@@ -3386,7 +3416,7 @@ function readCompletedWeek(){
 }
 function updateFabCount(){
  if (!dayJump || !_currentDay || dayJump.classList.contains('resting')) return;
- var cards = [].slice.call(document.querySelectorAll('#' + _currentDay + ' .excard')).filter(function(c){ return !_hidden(c); });
+ var cards = [].slice.call(document.querySelectorAll('#' + _currentDay + ' .excard, #' + _currentDay + ' .wu')).filter(function(c){ return !_hidden(c); });
  if (!cards.length){ dayJump.innerHTML = '↑ Day'; return; }
  var done = cards.filter(function(c){ return c.classList.contains('done'); }).length;
  dayJump.innerHTML = '↑ Day<small>' + done + '/' + cards.length + '</small>';
@@ -3913,6 +3943,7 @@ var _ghT = null;
 function ghTouch(){ if (!readGH()) return; clearTimeout(_ghT); _ghT = setTimeout(function(){ ghPush(1); }, 120000); }
 function ghFlush(){ if (!readGH() || !_ghT) return; clearTimeout(_ghT); _ghT = null; ghPush(1); }
 document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') ghFlush(); });
+window.addEventListener('pagehide', ghFlush);   // iOS fires this when the browser really lets go
 
 (function wireGH(){
  var box = document.getElementById('ghBox'); if (!box) return;
