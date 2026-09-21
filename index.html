@@ -1182,6 +1182,9 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .stv{width:46px;height:48px;padding:0;border:0;background:transparent;text-align:right;color:var(--txt);font:700 17px 'Inter',sans-serif;font-variant-numeric:tabular-nums}
 .stv:focus{outline:none;color:var(--g)}
 .stu{padding:0 4px 0 3px;font-size:10.5px;color:var(--dim);letter-spacing:.06em}
+.stu-b{height:48px;border:0;background:transparent;font-family:'Inter',sans-serif;font-weight:600;line-height:48px;border-bottom:1px dotted rgba(255,255,255,.25);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.stu-b:active{color:var(--g)}
+.excard.done .stu-b{border-bottom:0}
 .exlog.has-val .stp{border-color:rgba(93,255,159,.6)}
 .exlog.pr .stp{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
 .exlast{flex-basis:100%;margin-left:0}
@@ -1372,7 +1375,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
  <span class="pill g">Muscle-up ladder</span>
- <span class="pill gld">Full 50 · Express 35</span>
+ <span class="pill gld">Full 50–60 · Express 40–45</span>
  </div>
 </div>
 
@@ -1414,7 +1417,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--g)">// Monday · Upper A</div>
  <div class="day-title">UPPER A — PULL + THE BAR</div>
- <div class="day-focus">Skill: muscle-up · Full ≈ 50 min · Express ≈ 35 min</div>
+ <div class="day-focus" data-express-min="45">Skill: muscle-up · Full ≈ 55 min · Express ≈ 45 min</div>
  </div>
 </div>
 
@@ -1630,7 +1633,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--r)">// Tuesday · Lower A</div>
  <div class="day-title">LOWER A — BRAKES</div>
- <div class="day-focus">Skill: pistol · Full ≈ 50 min · Express ≈ 35 min</div>
+ <div class="day-focus" data-express-min="40">Skill: pistol · Full ≈ 50 min · Express ≈ 40 min</div>
  </div>
 </div>
 
@@ -1864,7 +1867,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--gld)">// Wednesday · Upper B</div>
  <div class="day-title">UPPER B — PRESS + HANDSTAND</div>
- <div class="day-focus">Skill: handstand · Full ≈ 50 min · Express ≈ 35 min</div>
+ <div class="day-focus" data-express-min="45">Skill: handstand · Full ≈ 55 min · Express ≈ 45 min</div>
  </div>
 </div>
 
@@ -1882,7 +1885,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 <div class="exlist">
 
-<div class="excard" data-id="d5e1" data-solo="1">
+<div class="excard" data-id="d5e1" data-unit="sec" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Handstand Block</div></div>
  <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">60s rest</div><div class="tempo">CONTROLLED</div></div>
@@ -2077,7 +2080,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--b)">// Thursday · Lower B</div>
  <div class="day-title">LOWER B — GLUTES + SLED</div>
- <div class="day-focus" data-express-min="40">Skill: balance · Full ≈ 50 min · Express ≈ 40 min</div>
+ <div class="day-focus" data-express-min="40">Skill: balance · Full ≈ 60 min · Express ≈ 40 min</div>
  </div>
 </div>
 
@@ -2095,7 +2098,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 <div class="exlist">
 
-<div class="excard" data-id="d2-balance" data-solo="1">
+<div class="excard" data-id="d2-balance" data-unit="sec" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Balance Block</div></div>
  <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">45s rest</div><div class="tempo">STEADY</div></div>
@@ -2606,7 +2609,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="dailywrap" id="recover">
  <div class="daily-hd"><div class="daily-t" style="color:var(--p)">Recovery Toys</div><div class="daily-sub">// when each one earns its place</div></div>
  <div class="daily-grid">
-  <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Sauna</div><div class="daily-dose">5–10 min to start, 15 max · 2–3× a week</div><div class="daily-note">After a session or on Sunday, never before lifting. Eat and have a salty drink first, sit low, out if you get dizzy, stand up in stages. Never after alcohol.</div></div>
+  <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Sauna</div><div class="daily-dose">5–10 min to start, 15 max · 2–3× a week</div><div class="daily-note">After a session or on Sunday, never before lifting. Eat and have a salty drink first, sit low, out if you get dizzy, stand up in stages.</div></div>
   <div class="daily-card" style="border-left-color:var(--b)"><div class="daily-name">Hot tub</div><div class="daily-dose">10–15 min · 1–2 hours before bed</div><div class="daily-note">Your sleep tool: a warm soak an hour or two before bed helps you drop off. Fine after lifting. No stretching in there — warm joints go too far. Get out slowly.</div></div>
   <div class="daily-card" style="border-left-color:var(--g)"><div class="daily-name">Steam room</div><div class="daily-dose">8–10 min · instead of sauna, not extra</div><div class="daily-note">Same job as the sauna, with less evidence. Sweat can't cool you in wet air, so it hits harder than it feels. Pick one heat per day, and eat afterwards.</div></div>
   <div class="daily-card" style="border-left-color:var(--gld)"><div class="daily-name">Compression boots</div><div class="daily-dose">20–30 min · after lower days or hikes</div><div class="daily-note">Tuesday, Thursday and post-hike evenings, feet up with a snack. Legs feel less sore; they don't get stronger faster. Medium pressure.</div></div>
@@ -3381,8 +3384,17 @@ function rerollWild(id){
 function readHist(){ try { return JSON.parse(store.get('bp-hist') || '{}'); } catch(e){ return {}; } }
 function writeHist(o){ try { store.set('bp-hist', JSON.stringify(o)); } catch(e){} }
 function _today(){ var d = new Date(Date.now() - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
-function _score(e){ return e.w > 0 ? e.w * (1 + e.r/30) : e.r; }
-function _fmt(e){ return e.r > 0 ? (e.w > 0 ? e.w + ' lb × ' : '') + e.r : e.w + ' lb'; }
+// units: some machines here are pinned in kg, some in lb — remembered per lift, tap the unit to switch
+function readUnits(){ try { return JSON.parse(store.get('bp-units') || '{}') || {}; } catch(e){ return {}; } }
+function _unitFor(id){ return readUnits()[id] === 'kg' ? 'kg' : 'lb'; }
+function _setUnit(id, u){ var o = readUnits(); if (u === 'kg') o[id] = 'kg'; else delete o[id]; try { store.set('bp-units', JSON.stringify(o)); } catch(e){} }
+function _rnd(w, u){ var s = u === 'kg' ? 1.25 : 2.5; return Math.round(w / s) * s; }
+function _toLb(w, u){ return u === 'kg' ? w * 2.20462 : w; }
+function _conv(w, from, to){ return from === to || !(w > 0) ? w : _rnd(to === 'kg' ? w / 2.20462 : w * 2.20462, to); }
+function _wstep(w, u, dir){ return u === 'kg' ? (w < 15 || (w === 15 && dir < 0) ? 1.25 : 2.5) : (w < 30 || (w === 30 && dir < 0) ? 2.5 : 5); }
+// best-ever compares across units — everything normalises to lb before scoring
+function _score(e){ return e.w > 0 ? _toLb(e.w, e.u) * (1 + e.r/30) : e.r; }
+function _fmt(e){ var u = ' ' + (e.u || 'lb'); return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + e.r : e.w + u; }
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
 function _prev(arr){ var t = _today(); return (arr || []).filter(function(e){ return e.d !== t; }); }
 function _lastBest(arr){
@@ -3392,11 +3404,15 @@ function _lastBest(arr){
 }
 // tracked lifts only: data-id → first-ever weight (0 = bodyweight, reps only). Everything else is a plain check-off.
 var TRACK = { 'd1e1':10, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3e-abd':70, 'd5e-pistol':0,
- 'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0 };
+ 'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
+ // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
+ 'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
+ // travel mode logs too — a week away still shows up in the history
+ 'tv-hs':0, 'tv-pistol':0, 'tv-push':0, 'tv-row':0, 'tv-bss':0, 'tv-bridge':0, 'tv-abd':0, 'tv-core':0 };
 // Block-B alternates start from their own first weight (0 = bodyweight), not the Block-A lift's
 var TRACK_B = { 'd2e-press':0, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
 // weight-only memory (no reps): "what pin did I use last time?" for every other loaded lift
-var TRACK_W = { 'd1e5':20, 'd5-rdsweep':10, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15, 'd2e3':25, 'd2e2':7.5, 'd2-kick':20, 'd2-cabd':5, 'd3e-scalf':45, 'd1-hiphike':5, 'd3e7':10 };
+var TRACK_W = { 'd1e5':20, 'd5-rdsweep':10, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15, 'd2e3':25, 'd2e2':7.5, 'd2-kick':20, 'd2-cabd':5, 'd3e-scalf':45, 'd1-hiphike':5, 'd3e7':10, 'd2-sled':10 };
 function _firstW(card){ if (card.dataset.id in TRACK_W) return TRACK_W[card.dataset.id]; var id = card.dataset.id; return (card.dataset.blk === 'b' && id in TRACK_B) ? TRACK_B[id] : TRACK[id]; }
 function _esc(t){ return String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 function buildJots(){
@@ -3405,31 +3421,41 @@ function buildJots(){
  var wOnly = card.dataset.id in TRACK_W && !(card.dataset.blk === 'b' && card.dataset.id === 'd2-kick'); // its Block-B alternate is bodyweight
  if (card.querySelector('.exlog') || !((card.dataset.id in TRACK) || wOnly)) return;
  var exId = _logKey(card), name = card.querySelector('.exname').textContent.trim();
- var timed = /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || '');
+ var wUnit = _unitFor(exId);
+ var timed = card.dataset.unit === 'sec' || (card.dataset.unit !== 'reps' && /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || ''));
  var all = hist[exId] || [], p = _prev(all), mine = all.filter(function(e){ return e.d === t; })[0];
  var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/);
  var src = mine || p[p.length-1] || { w: _firstW(card), r: m0 ? +m0[1] : (timed ? 20 : 8) };
- var v = { w: src.w, r: src.r }, bw = !v.w && !_firstW(card), lbl = _esc(name.split(' — ')[0]);
- function stp(k, unit){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
- '<input class="stv" type="text" inputmode="decimal" value="' + v[k] + '" aria-label="' + lbl + ': ' + unit + '"><span class="stu">' + unit + '</span>' +
+ var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r }, bw = !v.w && !_firstW(card), lbl = _esc(name.split(' — ')[0]);
+ function stp(k, unit, tap){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
+ '<input class="stv" type="text" inputmode="decimal" value="' + v[k] + '" aria-label="' + lbl + ': ' + unit + '">' +
+ (tap ? '<button type="button" class="stu stu-b" aria-label="' + lbl + ': unit, now ' + unit + ' — tap to switch">' + unit + '</button>' : '<span class="stu">' + unit + '</span>') +
  '<button type="button" class="stb" data-d="1" aria-label="' + lbl + ': more ' + unit + '">+</button></div>'; }
  var row = document.createElement('div'); row.className = 'exlog' + (mine ? ' has-val' : '');
  var rUnit = timed ? 'sec' : (/S2/.test(st0) ? 'S2 reps' : 'reps');
- row.innerHTML = (bw ? '' : stp('w', 'lb')) + (wOnly ? '' : stp('r', rUnit)) + '<span class="exlast">' + _lastBest(all) + '</span>';
+ row.innerHTML = (bw ? '' : stp('w', wUnit, 1)) + (wOnly ? '' : stp('r', rUnit)) + '<span class="exlast">' + _lastBest(all) + '</span>';
  function commit(){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
  var t = _today(); // not the page-load date — the tab can stay open for days
  var h = readHist(), arr = (h[exId] || []).filter(function(e){ return e.d !== t; });
- var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0;
- var e = { d:t, w:v.w, r:v.r }, pr = !wOnly && !!prevBest && _score(e) > prevBest;
+ var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
+ var e = { d:t, w:v.w, r:v.r }; if (wUnit === 'kg' && v.w > 0) e.u = 'kg';
+ var pr = !wOnly && !!prevBest && _score(e) > prevBest;
  arr.push(e); h[exId] = arr.slice(-12); writeHist(h); paintBests(); renderNumbers();
  row.classList.add('has-val'); row.classList.toggle('pr', pr);
  if (pr && !row.dataset.pr){ row.dataset.pr = '1'; _toast('★ New best — ' + name.split(' — ')[0]); if (navigator.vibrate) navigator.vibrate([40,40,120]); }
  if (!pr) delete row.dataset.pr;
  }
  row.addEventListener('click', function(ev){
+ var u = ev.target.closest('.stu-b');
+ if (u){ var nu = wUnit === 'kg' ? 'lb' : 'kg';
+  v.w = _conv(v.w, wUnit, nu); wUnit = nu; _setUnit(exId, nu);
+  u.textContent = nu; u.setAttribute('aria-label', lbl + ': unit, now ' + nu + ' — tap to switch');
+  row.querySelector('.stp[data-k="w"] .stv').value = v.w;
+  if (navigator.vibrate) navigator.vibrate(10);
+  commit(); _toast(lbl + ' — ' + nu); return; }
  var b = ev.target.closest('.stb'); if (!b) return;
- var k = b.parentNode.dataset.k, step = k === 'w' ? (v.w < 30 || (v.w === 30 && +b.dataset.d < 0) ? 2.5 : 5) : (timed ? 5 : 1);
+ var k = b.parentNode.dataset.k, step = k === 'w' ? _wstep(v.w, wUnit, +b.dataset.d) : (timed ? 5 : 1);
  v[k] = Math.max(0, v[k] + step * b.dataset.d); b.parentNode.querySelector('.stv').value = v[k];
  if (navigator.vibrate) navigator.vibrate(10);
  commit();
