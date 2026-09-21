@@ -1187,6 +1187,24 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .stu{padding:0 4px 0 3px;font-size:10.5px;color:var(--dim);letter-spacing:.06em}
 .stu-b{height:48px;border:0;background:transparent;font-family:'Inter',sans-serif;font-weight:600;line-height:48px;border-bottom:1px dotted rgba(255,255,255,.25);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .stu-b:active{color:var(--g)}
+/* ── exercise figure: moves at the card's own tempo ── */
+.figrow{display:flex;gap:13px;align-items:center;margin:11px 0 2px;padding:10px 12px;border:1px solid var(--bdr);border-radius:12px;background:rgba(255,255,255,.02)}
+.fig{width:86px;height:112px;flex-shrink:0;overflow:visible}
+.fig .bone{stroke:rgba(255,255,255,.3);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.fig .rig{stroke:rgba(255,255,255,.16);stroke-width:3;stroke-linecap:round}
+.fig .head{fill:rgba(255,255,255,.26)}
+.fig .work{stroke:var(--g);stroke-width:10;stroke-linecap:round;fill:none;opacity:.22;transition:opacity .18s}
+.fig .work.hot{opacity:.92;filter:drop-shadow(0 0 5px rgba(93,255,159,.6))}
+.fig .work.second{stroke:var(--b)}
+.fig .lim{fill:none;stroke:var(--r);stroke-width:2.5;opacity:0;transition:opacity .2s}
+.fig .lim.hot{opacity:1}
+.figside{min-width:0;flex:1}
+.figmus{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--g)}
+.figmus i{color:var(--b);font-style:normal}
+.figcue{margin-top:5px;font-size:13.5px;line-height:1.35;color:var(--txt);font-weight:600;min-height:2.7em}
+.figlim{margin-top:5px;font-size:11.5px;color:var(--r);font-weight:600}
+.figrow .figplay{margin-left:auto;flex-shrink:0;width:34px;height:34px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:13px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+@media(prefers-reduced-motion:reduce){.fig .work{transition:none}}
 .excard.done .stu-b{border-bottom:0}
 .exlog.has-val .stp{border-color:rgba(93,255,159,.6)}
 .exlog.pr .stp{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
@@ -3944,6 +3962,139 @@ document.addEventListener('visibilitychange', function(){ if (document.visibilit
  if (readGH()) ghPull(1);
 })();
 window.ghPull = ghPull; window.ghPush = ghPush;
+// ── Exercise figure ───────────────────────────────────────────────────
+// A side-on figure that runs the rep at the card's own tempo, lights the
+// muscles doing the work, and flashes the joint limit at the moment the
+// caveat is about. Poses are joint coordinates; everything tweens between them.
+// j: sh shoulder, el elbow, wr wrist, hp hip, kn knee, an ankle, hd head
+var FIG = {
+ vpull: { mus:'Lats · <i>Biceps</i>', on:['torso'], second:['ua'], lim:{ j:'sh', at:'a', t:'Active hang — shoulders down' },
+  cue:['Lower for 3, stay long','Hang, shoulders set','Chest to the bar'], rig:'M30,12 H100',
+  a:{ hd:[60,34], sh:[60,52], el:[64,32], wr:[66,12], hp:[60,96], kn:[64,124], an:[60,150] },
+  b:{ hd:[60,16], sh:[60,34], el:[78,28], wr:[66,12], hp:[60,78], kn:[66,108], an:[62,136] } },
+ dip: { mus:'Chest · <i>Triceps</i>', on:['torso'], second:['ua'], lim:{ j:'el', at:'b', t:'Stop at 90° — never deeper' },
+  cue:['Lower for 3, chest forward','Pause at the cap','Press up, elbows soft'], rig:'M56,84 H102',
+  a:{ hd:[54,26], sh:[56,46], el:[70,64], wr:[76,84], hp:[54,90], kn:[64,116], an:[74,138] },
+  b:{ hd:[50,44], sh:[54,64], el:[74,78], wr:[76,84], hp:[52,108], kn:[62,132], an:[72,152] } },
+ press: { mus:'Chest · <i>Front delts</i>', on:['torso'], second:['ua'], lim:{ j:'sh', at:'a', t:'Elbows never behind the chest' },
+  cue:['Let it come back for 3','Pause a fist away','Press, stop short of locked'], rig:'M30,150 H96',
+  a:{ hd:[58,24], sh:[58,44], el:[42,58], wr:[56,66], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[58,24], sh:[58,44], el:[76,52], wr:[96,48], hp:[58,92], kn:[60,120], an:[58,148] } },
+ curl: { mus:'Biceps', on:['ua'], second:[], lim:{ j:'el', at:'a', t:'Soft elbow — never snapped straight' },
+  cue:['Lower for 3 to a soft elbow','','Curl, elbow still'], rig:'M30,150 H96',
+  a:{ hd:[58,24], sh:[58,44], el:[55,68], wr:[52,92], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[58,24], sh:[58,44], el:[55,68], wr:[78,52], hp:[58,92], kn:[60,120], an:[58,148] } },
+ pushdown: { mus:'Triceps', on:['fa'], second:['ua'], lim:{ j:'el', at:'b', t:'Stop short of locked' },
+  cue:['Back up until the forearm passes level','','Press down, elbow welded'], rig:'M30,150 H96',
+  a:{ hd:[58,24], sh:[58,44], el:[56,68], wr:[78,58], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[58,24], sh:[58,44], el:[56,68], wr:[62,92], hp:[58,92], kn:[60,120], an:[58,148] } },
+ raise: { mus:'Side delts', on:['sh'], second:['ua'], lim:{ j:'wr', at:'b', t:'Shoulder height is the ceiling' },
+  cue:['Lower for 3, never drop it','Hold level','Lead with the elbow'], rig:'M30,150 H96',
+  a:{ hd:[58,24], sh:[58,44], el:[55,68], wr:[53,92], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[58,24], sh:[58,44], el:[80,46], wr:[102,44], hp:[58,92], kn:[60,120], an:[58,148] } },
+ squat: { mus:'Quads · <i>Glutes</i>', on:['thigh'], second:['torso'], lim:{ j:'kn', at:'b', t:'Cap at parallel · knee over the second toe' },
+  cue:['Sit back for 3','Pause, no bounce','Drive up, knee never locks'], rig:'M26,150 H100',
+  a:{ hd:[58,24], sh:[58,44], el:[62,66], wr:[66,88], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[46,44], sh:[48,62], el:[64,76], wr:[80,78], hp:[42,104], kn:[76,122], an:[58,148] } },
+ hinge: { mus:'Hamstrings · <i>Glutes</i>', on:['thigh'], second:['torso'], lim:{ j:'hp', at:'b', t:'Flat back — the hips move, not the spine' },
+  cue:['Push the hips back for 3','Feel the hamstring','Stand tall, squeeze'], rig:'M26,150 H100',
+  a:{ hd:[58,24], sh:[58,44], el:[60,66], wr:[62,90], hp:[58,92], kn:[60,120], an:[58,148] },
+  b:{ hd:[28,52], sh:[40,58], el:[46,78], wr:[50,98], hp:[70,90], kn:[64,120], an:[58,148] } },
+ calf: { mus:'Calves', on:['shin'], second:[], lim:{ j:'kn', at:'b', t:'Knee straight, never pushed back' },
+  cue:['Heels down for 3, full stretch','Pause at the bottom','Press up tall'], rig:'M26,150 H100',
+  a:{ hd:[58,22], sh:[58,42], el:[62,64], wr:[64,88], hp:[58,90], kn:[59,120], an:[58,148] },
+  b:{ hd:[58,32], sh:[58,52], el:[62,74], wr:[64,98], hp:[58,100], kn:[59,126], an:[58,148] } }
+};
+// which movement each card runs
+var FIG_OF = {
+ 'd1e1':'vpull','d3-chin':'vpull','d1e-pld':'vpull','d3-sapd':'vpull','d1e3':'vpull','d1-pullover':'vpull',
+ 'd1e-dip':'dip','d2e-press':'press','d2e1':'press','d2e-serr':'press',
+ 'd1e-curl':'curl','d3-inccurl':'curl','d5-tripush':'pushdown','d2e3':'pushdown',
+ 'd2e2':'raise','d1-latraise':'raise','d1e5':'raise','d5-rdsweep':'raise',
+ 'd5e-pistol':'squat','d3e3':'squat','d4b-legext':'squat','d4b1':'hinge','d3-rdl':'hinge','d3e7':'hinge','d4b-legcurl':'hinge',
+ 'd4b-calf':'calf','d3e-scalf':'calf','d3-stcalf':'calf'
+};
+var FIG_SEG = { torso:['sh','hp'], ua:['sh','el'], fa:['el','wr'], thigh:['hp','kn'], shin:['kn','an'] };
+function _figTempo(card){
+ var t = ((card.querySelector('.tempo') || {}).textContent || '').split(/[^\dX]+/).filter(Boolean);
+ var n = function(v, d){ return v === 'X' ? 0.7 : (+v > 0 ? +v : d); };
+ return { ecc: n(t[0], 3), hold: t.length > 1 ? n(t[1], 1) : 1, con: n(t[2], 2) };
+}
+function buildFigures(){
+ document.querySelectorAll('.excard[data-id]').forEach(function(card){
+  var key = FIG_OF[card.dataset.id];
+  if (!key || card.querySelector('.figrow')) return;
+  var F = FIG[key], T = _figTempo(card);
+  var wrap = document.createElement('div'); wrap.className = 'figrow';
+  var segs = Object.keys(FIG_SEG).map(function(s){
+   var hot = F.on.indexOf(s) >= 0, sec = F.second.indexOf(s) >= 0;
+   return '<line class="work' + (sec ? ' second' : '') + '" data-seg="' + s + '"' + (hot || sec ? '' : ' style="display:none"') + '></line>';
+  }).join('');
+  wrap.innerHTML =
+   '<svg class="fig" viewBox="18 4 92 152" aria-hidden="true">' +
+   (F.rig ? '<path class="rig" d="' + F.rig + '"></path>' : '') + segs +
+   '<line class="bone neck"></line><circle class="head" r="9"></circle>' +
+   '<line class="bone" data-seg="torso"></line><line class="bone" data-seg="ua"></line><line class="bone" data-seg="fa"></line>' +
+   '<line class="bone" data-seg="thigh"></line><line class="bone" data-seg="shin"></line>' +
+   '<circle class="lim" r="8"></circle></svg>' +
+   '<div class="figside"><div class="figmus">' + F.mus + '</div>' +
+   '<div class="figcue"></div><div class="figlim">⚠ ' + _esc(F.lim.t) + '</div></div>';
+  var svg = wrap.querySelector('svg'), cueEl = wrap.querySelector('.figcue');
+  var put = function(sel, a, b){ svg.querySelectorAll(sel).forEach(function(l){
+   var s = FIG_SEG[l.dataset.seg]; if (!s) return;   // the neck is positioned on its own
+   l.setAttribute('x1', a[s[0]][0]); l.setAttribute('y1', a[s[0]][1]);
+   l.setAttribute('x2', a[s[1]][0]); l.setAttribute('y2', a[s[1]][1]); }); };
+  var lerp = function(u){
+   var pos = {};
+   Object.keys(F.a).forEach(function(k){ pos[k] = [F.a[k][0] + (F.b[k][0] - F.a[k][0]) * u, F.a[k][1] + (F.b[k][1] - F.a[k][1]) * u]; });
+   put('line', pos);
+   var hd = svg.querySelector('.head'); hd.setAttribute('cx', pos.hd[0]); hd.setAttribute('cy', pos.hd[1]);
+   var nk = svg.querySelector('.neck');
+   nk.setAttribute('x1', pos.hd[0]); nk.setAttribute('y1', pos.hd[1]); nk.setAttribute('x2', pos.sh[0]); nk.setAttribute('y2', pos.sh[1]);
+   var lp = pos[F.lim.j], lm = svg.querySelector('.lim');
+   lm.setAttribute('cx', lp[0]); lm.setAttribute('cy', lp[1]);
+   var near = F.lim.at === 'b' ? u > 0.82 : u < 0.18;
+   lm.classList.toggle('hot', near); wrap.querySelector('.figlim').style.opacity = near ? '1' : '.45';
+  };
+  card._fig = { F:F, T:T, lerp:lerp, svg:svg, cue:cueEl, wrap:wrap, t:0 };
+  lerp(0); cueEl.textContent = F.cue[0];
+  var anchor = card.querySelector(':scope > .cue') || card.querySelector(':scope > .band-badge') || card.querySelector(':scope > .extop');
+  if (anchor) anchor.insertAdjacentElement('afterend', wrap);
+ });
+}
+// one ticker, and only for figures actually on screen
+(function figLoop(){
+ var live = [], reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   var card = e.target, f = card._fig; if (!f) return;
+   var i = live.indexOf(f);
+   if (e.isIntersecting && i < 0){ f.t = 0; live.push(f); }
+   else if (!e.isIntersecting && i >= 0) live.splice(i, 1);
+  });
+ }, { rootMargin: '0px 0px -12% 0px' });
+ var last = 0;
+ function frame(now){
+  var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
+  live.forEach(function(f){
+   var T = f.T, total = T.ecc + T.hold + T.con + 0.5;
+   f.t = (f.t + dt) % total;
+   var t = f.t, u, phase;
+   if (t < T.ecc){ u = t / T.ecc; phase = 0; }
+   else if (t < T.ecc + T.hold){ u = 1; phase = 1; }
+   else if (t < T.ecc + T.hold + T.con){ u = 1 - (t - T.ecc - T.hold) / T.con; phase = 2; }
+   else { u = 0; phase = 3; }
+   f.lerp(reduce ? (f.F.lim.at === 'b' ? 1 : 0) : u);
+   var want = f.F.cue[Math.min(phase, 2)] || f.F.cue[2];
+   if (f.cue.textContent !== want) f.cue.textContent = want;
+   f.svg.querySelectorAll('.work').forEach(function(w){ w.classList.toggle('hot', phase === 2 || phase === 1); });
+  });
+  requestAnimationFrame(frame);
+ }
+ requestAnimationFrame(frame);
+ window._figObserve = function(){ document.querySelectorAll('.excard[data-id]').forEach(function(c){ if (c._fig) io.observe(c); }); };
+})();
+
 // ── Session clock ─────────────────────────────────────────────────────
 // Started by the first tick of the day, extended by every tick after.
 // Gives a real duration instead of the estimate printed on the day header.
@@ -4026,7 +4177,7 @@ function streamlineCards(){
   });
 }
 applyWildcards(); applyBlock();
-streamlineCards();
+streamlineCards(); buildFigures(); if (window._figObserve) window._figObserve();
 document.querySelectorAll('.excard > .drills').forEach(function(d){ var c = d.parentNode; if (c.querySelector('.chk2')) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'chk2'; b.textContent = '✓ Block done'; b.onclick = function(){ var k = c.querySelector('.chk'); if (k && !c.classList.contains('done')) k.click(); }; d.insertAdjacentElement('afterend', b); });
 buildJots();
 // solo two-set lifts get the same ½ → ✓ taps as the pairs

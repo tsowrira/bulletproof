@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#060611;display:flex;gap:26px;padding:26px;font:600 11px Inter,system-ui,sans-serif;color:#7c8598}
+.cell{text-align:center}
+svg{width:150px;height:300px;display:block}
+.small svg{width:88px;height:176px}
+.fill{fill:#232a3a}
+.m{fill:#2b3246;stroke:#3d4661;stroke-width:.5;transition:fill .25s,filter .25s}
+.m.p{fill:#5dff9f;filter:drop-shadow(0 0 4px #5dff9f90)}
+.m.s{fill:#1fe0ff80}
+.lbl{margin-top:8px;letter-spacing:.1em;text-transform:uppercase}
+</style></head><body>
+<div class="cell"><svg id="f" viewBox="0 0 100 200"></svg><div class="lbl">front</div></div>
+<div class="cell"><svg id="b" viewBox="0 0 100 200"></svg><div class="lbl">back</div></div>
+<div class="cell"><svg id="f2" viewBox="0 0 100 200"></svg><div class="lbl">dips lit</div></div>
+<div class="cell"><svg id="b2" viewBox="0 0 100 200"></svg><div class="lbl">pull lit</div></div>
+<div class="cell small"><svg id="s1" viewBox="0 0 100 200"></svg><div class="lbl">card size</div></div>
+<div class="cell small"><svg id="s2" viewBox="0 0 100 200"></svg><div class="lbl">card size</div></div>
+<script>
+// body built from soft anatomical blocks; every block is separately lightable
+const BODY = {
+ front:[
+  ['head','M50,5 a9.5,11 0 0,1 0,22 a9.5,11 0 0,1 0,-22z',1],
+  ['neck','M45,25 h10 v10 h-10z',1],
+  ['traps','M35,33 q15,-6 30,0 l-4,8 q-11,-4 -22,0z'],
+  ['delt-l','M31,36 q-9,3 -10,14 q0,7 4,9 q5,-12 10,-16z'],
+  ['delt-r','M69,36 q9,3 10,14 q0,7 -4,9 q-5,-12 -10,-16z'],
+  ['pec-l','M37,42 q-8,3 -10,12 q8,6 21,4 q2,-9 0,-16z'],
+  ['pec-r','M63,42 q8,3 10,12 q-8,6 -21,4 q-2,-9 0,-16z'],
+  ['bi-l','M21,52 q-4,10 -2.5,21 q5,2 8,-2 q-2,-12 -1,-20z'],
+  ['bi-r','M79,52 q4,10 2.5,21 q-5,2 -8,-2 q2,-12 1,-20z'],
+  ['fore-l','M18,76 q-4,12 -1,24 q5,1 8,-3 q-3,-11 -2,-21z'],
+  ['fore-r','M82,76 q4,12 1,24 q-5,1 -8,-3 q3,-11 2,-21z'],
+  ['abs','M41,60 q9,-2 18,0 q2,16 0,32 q-9,3 -18,0 q-2,-16 0,-32z'],
+  ['obl-l','M37,62 q-3,14 0,28 q3,2 4,-1 q-2,-14 0,-27z'],
+  ['obl-r','M63,62 q3,14 0,28 q-3,2 -4,-1 q2,-14 0,-27z'],
+  ['pelvis','M39,93 q11,-3 22,0 q1,8 -3,13 q-8,3 -16,0 q-4,-5 -3,-13z',1],
+  ['quad-l','M40,106 q-5,22 -1.5,39 q6,3 10,-1 q1,-21 -1,-39z'],
+  ['quad-r','M60,106 q5,22 1.5,39 q-6,3 -10,-1 q-1,-21 1,-39z'],
+  ['knee-l','M39,147 h12 v8 h-12z',1],['knee-r','M49,147 h12 v8 h-12z',1],
+  ['calf-l','M40,156 q-4,14 -1,26 q6,2 9,-1 q-1,-14 -2,-25z'],
+  ['calf-r','M60,156 q4,14 1,26 q-6,2 -9,-1 q1,-14 2,-25z'],
+  ['foot-l','M39,183 q6,-2 9,0 v7 h-11z',1],['foot-r','M61,183 q-6,-2 -9,0 v7 h11z',1]
+ ],
+ back:[
+  ['head','M50,5 a9.5,11 0 0,1 0,22 a9.5,11 0 0,1 0,-22z',1],
+  ['neck','M45,25 h10 v10 h-10z',1],
+  ['traps','M34,33 q16,-6 32,0 l-6,18 q-10,-4 -20,0z'],
+  ['delt-l','M30,36 q-9,3 -10,14 q0,7 4,9 q5,-12 10,-16z'],
+  ['delt-r','M70,36 q9,3 10,14 q0,7 -4,9 q-5,-12 -10,-16z'],
+  ['lat-l','M32,50 q-4,16 4,30 q8,-3 12,-9 q-1,-14 -3,-22z'],
+  ['lat-r','M68,50 q4,16 -4,30 q-8,-3 -12,-9 q1,-14 3,-22z'],
+  ['tri-l','M21,52 q-4,10 -2.5,21 q5,2 8,-2 q-2,-12 -1,-20z'],
+  ['tri-r','M79,52 q4,10 2.5,21 q-5,2 -8,-2 q2,-12 1,-20z'],
+  ['fore-l','M18,76 q-4,12 -1,24 q5,1 8,-3 q-3,-11 -2,-21z'],
+  ['fore-r','M82,76 q4,12 1,24 q-5,1 -8,-3 q3,-11 2,-21z'],
+  ['lback','M43,74 q7,-2 14,0 q2,10 0,18 q-7,2 -14,0 q-2,-9 0,-18z'],
+  ['glute-l','M39,93 q10,-3 11,4 q0,9 -4,13 q-7,1 -9,-4 q-1,-8 2,-13z'],
+  ['glute-r','M61,93 q-10,-3 -11,4 q0,9 4,13 q7,1 9,-4 q1,-8 -2,-13z'],
+  ['ham-l','M40,111 q-6,19 -2,35 q7,3 11,-1 q1,-18 -1,-34z'],
+  ['ham-r','M60,111 q6,19 2,35 q-7,3 -11,-1 q-1,-18 1,-34z'],
+  ['knee-l','M39,147 h12 v8 h-12z',1],['knee-r','M49,147 h12 v8 h-12z',1],
+  ['calf-l','M40,156 q-5,14 -1,26 q6,2 9,-1 q-1,-14 -2,-25z'],
+  ['calf-r','M60,156 q5,14 1,26 q-6,2 -9,-1 q1,-14 2,-25z'],
+  ['foot-l','M39,183 q6,-2 9,0 v7 h-11z',1],['foot-r','M61,183 q-6,-2 -9,0 v7 h11z',1]
+ ]
+};
+function draw(el, view, prim=[], sec=[]){
+ el.innerHTML = BODY[view].map(([n,d,filler])=>{
+  const base = filler ? 'fill' : 'm';
+  const cls = prim.includes(n.replace(/-[lr]$/,'')) ? ' p' : sec.includes(n.replace(/-[lr]$/,'')) ? ' s' : '';
+  return `<path class="${base}${cls}" d="${d}"></path>`;
+ }).join('');
+}
+draw(document.getElementById('f'),'front');
+draw(document.getElementById('b'),'back');
+draw(document.getElementById('f2'),'front',['pec','tri','delt'],['abs']);
+draw(document.getElementById('b2'),'back',['lat'],['bi','tri']);
+draw(document.getElementById('s1'),'front',['pec','delt'],['tri']);
+draw(document.getElementById('s2'),'back',['lat'],['bi']);
+</script></body></html>
