@@ -3066,7 +3066,10 @@ function updateDayComplete() {
  if (done === cards.length && done > 0) {
  el.classList.add('shown');
  const saved = [...cards].filter(c => c.querySelector('.exlog.has-val')).length;
- el.textContent = `✓ Session done · ${done}/${done}` + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '');
+ const ss = typeof _curSess === 'function' ? _curSess(dayId) : null;
+ const mins = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
+ el.textContent = `✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '')
+   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '');
  if (!el.dataset.fired){ el.dataset.fired = '1'; document.querySelectorAll('.rest-lbl.running').forEach(r => { if (r._restReset) r._restReset(); }); }
  markDayComplete(dayId);
  } else {
@@ -3100,6 +3103,7 @@ window.toggleDone = function(btn){
  if (card){ delete card.dataset.r1; _saveR1(); btn.classList.remove('half'); }
  _origToggleDone(btn);
  if (card && !wasDone && card.classList.contains('done') && card._commitLog) card._commitLog(); // before the banner counts saved numbers
+ if (card && card.classList.contains('done')){ var _sec = card.closest('.section'); if (_sec) sessTick(_sec.id); }
  updateDayComplete();
  updateResetCountdown();
  updateFabCount();
@@ -3343,7 +3347,11 @@ function _paintDose(){
  var f = document.querySelector('#' + id + ' .day-focus'); if (!f) return;
  if (f.dataset.full === undefined) f.dataset.full = f.textContent;
  var skill = (f.dataset.full.split(' · ')[0] || '');
- f.textContent = st === 'micro' ? skill + ' · Micro ≈ 15 min' : st ? skill + ' · Low battery ≈ 25 min' : ex ? skill + ' · Express ≈ ' + (f.dataset.expressMin || '35') + ' min' : f.dataset.full; });
+ f.textContent = st === 'micro' ? skill + ' · Micro ≈ 15 min' : st ? skill + ' · Low battery ≈ 25 min' : ex ? skill + ' · Express ≈ ' + (f.dataset.expressMin || '35') + ' min' : f.dataset.full;
+  // once there is real data, your own median beats my estimate
+  var sec2 = f.closest('.section'), tp = sec2 && typeof sessTypical === 'function' ? sessTypical(sec2.id) : null;
+  if (tp && tp.n >= 2) f.textContent += ' · you: ' + tp.med + ' min';
+ });
 }
 function setLow(m){
  var b = document.body.classList, next = _lowState() === m ? '' : m;
@@ -3703,7 +3711,7 @@ function paintBW(){
 // ── Backup / restore ──────────────────────────────────────────────────
 // A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
 // one tap, "Save to Files", and the history lands in iCloud Drive.
-var BK_KEYS = ['bp-hist','bp-bw','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
+var BK_KEYS = ['bp-hist','bp-bw','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
 function _bkPayload(){
  var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
  BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
@@ -3824,6 +3832,14 @@ function _ghMerge(d){
   lb.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
   writeBW(lb);
  }
+ if (d['bp-sess']){
+  var rs = []; try { rs = JSON.parse(d['bp-sess']) || []; } catch(e){ rs = []; }
+  var ls = readSess(), sk = {};
+  ls.forEach(function(s){ sk[s.k] = 1; });
+  rs.forEach(function(s){ if (s && s.k && !sk[s.k]){ ls.push(s); added++; } });
+  ls.sort(function(x, y){ return (x.s || 0) - (y.s || 0); });
+  writeSess(ls);
+ }
  ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
  return added;
 }
@@ -3910,6 +3926,36 @@ document.addEventListener('visibilitychange', function(){ if (document.visibilit
  if (readGH()) ghPull(1);
 })();
 window.ghPull = ghPull; window.ghPush = ghPush;
+// ── Session clock ─────────────────────────────────────────────────────
+// Started by the first tick of the day, extended by every tick after.
+// Gives a real duration instead of the estimate printed on the day header.
+function readSess(){ try { return JSON.parse(store.get('bp-sess') || '[]') || []; } catch(e){ return []; } }
+function writeSess(a){ try { store.set('bp-sess', JSON.stringify(a.slice(-60))); } catch(e){} }
+function _sessKey(dayId){ return _today() + '|' + dayId; }
+function sessTick(dayId, doneCount){
+ if (!dayId) return;
+ var a = readSess(), k = _sessKey(dayId), now = Date.now(), cur = null;
+ for (var i = a.length - 1; i >= 0; i--) if (a[i].k === k){ cur = a[i]; break; }
+ // a gap longer than three hours is a new session, not the same one resumed
+ if (cur && now - cur.e > 3 * 3600e3) cur = null;
+ if (!cur){ cur = { k:k, d:_today(), day:dayId, s:now, e:now, n:0 }; a.push(cur); }
+ cur.e = now; if (doneCount != null) cur.n = doneCount;
+ writeSess(a); return cur;
+}
+function _curSess(dayId){
+ var a = readSess(), k = _sessKey(dayId);
+ for (var i = a.length - 1; i >= 0; i--) if (a[i].k === k) return a[i];
+ return null;
+}
+function _mins(ms){ return Math.max(1, Math.round(ms / 6e4)); }
+// median of this day's last few sessions - what it actually takes you, not the label
+function sessTypical(dayId){
+ var xs = readSess().filter(function(s){ return s.day === dayId && s.e > s.s && s.n >= 3; })
+   .slice(-6).map(function(s){ return _mins(s.e - s.s); }).sort(function(a, b){ return a - b; });
+ if (!xs.length) return null;
+ return { n: xs.length, med: xs[(xs.length - 1) >> 1] };
+}
+
 
 
 // ── Add to Home Screen ────────────────────────────────────────────────
