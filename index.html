@@ -34,6 +34,8 @@
 </script>
 <link rel="icon" type="image/png" href="icon-180.png">
 <link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Bulletproof">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
@@ -1317,6 +1319,27 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 @keyframes settle{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}}
 /* my numbers: the numbers are the point */
 #numList .srow span{font-size:15px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
+/* bodyweight — the one number that says whether "gaining slowly" is actually happening */
+.bw{margin:0 0 16px;padding:13px 14px;border:1px solid rgba(93,255,159,.18);border-radius:13px;background:rgba(93,255,159,.03)}
+.bw-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+.bw-t{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.bw-trend{font-size:12.5px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums;text-align:right}
+.bw-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bw-row .stp{display:flex;align-items:center;border:1px solid rgba(93,255,159,.25);border-radius:12px;background:rgba(93,255,159,.04);overflow:hidden}
+.bw .stv{width:62px}
+.bw-save{margin:0!important;min-height:48px;padding:0 16px;white-space:nowrap}
+.bw-note{margin-top:9px;font-size:12px;color:var(--fade);line-height:1.5}
+.bk{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.bk .logbtn{margin:0!important;flex:1 1 auto;min-width:118px}
+.bk-note{margin-top:9px;font-size:12px;color:var(--fade)}
+.bk-note.stale{color:var(--gld)}
+/* "you earned a jump" hint, straight off last session's numbers */
+.upnudge{margin-left:7px;color:var(--gld);font-weight:700;white-space:nowrap}
+/* add-to-home-screen prompt — iOS clears site data after 7 idle days unless installed */
+.a2hs{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:80;display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1px solid var(--g);border-radius:15px;background:rgba(10,14,20,.97);box-shadow:0 10px 34px rgba(0,0,0,.6)}
+.a2hs p{margin:0;font-size:12.5px;line-height:1.55;color:var(--txt)}
+.a2hs b{color:var(--g)}
+.a2hs button{flex-shrink:0;align-self:center;min-height:44px;padding:0 13px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
 /* footer */
 footer{font-size:10.5px}
 .clear-btn{color:var(--r)}
@@ -2679,8 +2702,22 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
+ <div class="bw" id="bwBox">
+  <div class="bw-hd"><span class="bw-t">Bodyweight</span><span class="bw-trend" id="bwTrend"></span></div>
+  <div class="bw-row">
+   <div class="stp" id="bwStp"><button type="button" class="stb" data-d="-1" aria-label="Bodyweight: less">−</button><input class="stv" id="bwIn" type="text" inputmode="decimal" aria-label="Bodyweight"><button type="button" class="stu stu-b" id="bwUnit" aria-label="Bodyweight unit — tap to switch">lb</button><button type="button" class="stb" data-d="1" aria-label="Bodyweight: more">+</button></div>
+   <button class="logbtn ghost bw-save" id="bwSave" type="button">Log today</button>
+  </div>
+  <div class="bw-note" id="bwNote"></div>
+ </div>
  <div id="numList" style="max-width:620px"></div>
- <button class="logbtn ghost" style="margin-top:14px" onclick="copyNumbers()">Copy my numbers</button>
+ <div class="bk">
+  <button class="logbtn ghost" type="button" onclick="backupNumbers()">↓ Save a backup</button>
+  <button class="logbtn ghost" type="button" onclick="restoreNumbers()">↑ Restore</button>
+  <button class="logbtn ghost" type="button" onclick="copyNumbers()">Copy</button>
+ </div>
+ <div class="bk-note" id="bkNote"></div>
+ <input type="file" id="bkFile" accept="application/json,.json" hidden>
 </div>
 
 <!-- SAFETY NET -->
@@ -3492,6 +3529,12 @@ function buildJots(){
  var row = document.createElement('div'); row.className = 'exlog' + (mine ? ' has-val' : '');
  var rUnit = timed ? 'sec' : (/S2/.test(st0) ? 'S2 reps' : 'reps');
  row.innerHTML = (bw ? '' : stp('w', wUnit, 1)) + (wOnly ? '' : stp('r', rUnit)) + '<span class="exlast">' + _lastBest(all) + '</span>';
+ // the ladders say "add a pin when N is clean" — this says it at the moment you earned it
+ var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
+ if (lastP && tgt && !wOnly && lastP.r >= tgt && lastP.w > 0){
+  var jump = _wstep(_conv(lastP.w, lastP.u || 'lb', wUnit), wUnit, 1);
+  row.querySelector('.exlast').insertAdjacentHTML('beforeend', ' <span class="upnudge">→ +' + jump + ' ' + wUnit + '</span>');
+ }
  function commit(){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
  var t = _today(); // not the page-load date — the tab can stay open for days
@@ -3541,6 +3584,7 @@ function renderNumbers(){
  });
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
+ if (typeof paintBackupNote === 'function') paintBackupNote();
 }
 function copyNumbers(){
  var txt = JSON.stringify(readHist());
@@ -3548,6 +3592,151 @@ function copyNumbers(){
  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok).catch(function(){ fallbackCopy(txt, ok); }); else fallbackCopy(txt, ok);
 }
 window.copyNumbers = copyNumbers;
+// ── Bodyweight ────────────────────────────────────────────────────────
+// Gaining slowly is the stated goal, so this is the number that says whether it is working.
+function readBW(){ try { return JSON.parse(store.get('bp-bw') || '[]') || []; } catch(e){ return []; } }
+function writeBW(a){ try { store.set('bp-bw', JSON.stringify(a.slice(-80))); } catch(e){} }
+function _bwUnit(){ return _unitFor('__bw'); }
+function _convBW(w, from, to){ return from === to || !(w > 0) ? w : Math.round((to === 'kg' ? w / 2.20462 : w * 2.20462) * 10) / 10; }
+function _daysAgo(d){ return Math.round((Date.parse(_today()) - Date.parse(d)) / 864e5); }
+function paintBW(){
+ var box = document.getElementById('bwBox'); if (!box) return;
+ var a = readBW(), u = _bwUnit(), inp = document.getElementById('bwIn'), ub = document.getElementById('bwUnit');
+ var last = a[a.length-1];
+ ub.textContent = u;
+ if (document.activeElement !== inp) inp.value = last ? _convBW(last.w, last.u || 'lb', u) : (u === 'kg' ? 70 : 155);
+ // trend across the last 4 weeks, in the unit on screen
+ var tr = document.getElementById('bwTrend'), note = document.getElementById('bwNote');
+ var recent = a.filter(function(e){ return _daysAgo(e.d) <= 28; });
+ if (recent.length >= 2){
+  var f = recent[0], l = recent[recent.length-1], wks = Math.max(1, (_daysAgo(f.d) - _daysAgo(l.d)) / 7);
+  var d = (_toLb(l.w, l.u) - _toLb(f.w, f.u)) / wks;
+  if (u === 'kg') d = d / 2.20462;
+  var s = (d >= 0 ? '+' : '') + (Math.round(d * 10) / 10) + ' ' + u + '/wk';
+  tr.textContent = s + ' · ' + recent.length + ' weigh-ins';
+  tr.style.color = Math.abs(d) < 0.05 ? 'var(--dim)' : (d > 0 ? 'var(--g)' : 'var(--gld)');
+ } else { tr.textContent = ''; }
+ if (!last){ note.textContent = 'Log it once a week, same time of day — first thing, before food.'; note.className = 'bw-note'; return; }
+ var ago = _daysAgo(last.d);
+ note.textContent = (ago === 0 ? 'Logged today' : ago === 1 ? 'Last weigh-in yesterday' : 'Last weigh-in ' + ago + ' days ago')
+   + ' · ' + _convBW(last.w, last.u || 'lb', u) + ' ' + u
+   + (ago >= 7 ? ' — due for another.' : '');
+ note.className = 'bw-note' + (ago >= 7 ? ' stale' : '');
+}
+(function wireBW(){
+ var box = document.getElementById('bwBox'); if (!box) return;
+ var inp = document.getElementById('bwIn');
+ function val(){ return Math.max(0, parseFloat(inp.value) || 0); }
+ document.getElementById('bwStp').addEventListener('click', function(ev){
+  var u = ev.target.closest('#bwUnit');
+  if (u){ var cur = _bwUnit(), nu = cur === 'kg' ? 'lb' : 'kg';
+   inp.value = _convBW(val(), cur, nu); _setUnit('__bw', nu); paintBW();
+   if (navigator.vibrate) navigator.vibrate(10); return; }
+  var b = ev.target.closest('.stb'); if (!b) return;
+  var step = _bwUnit() === 'kg' ? 0.2 : 0.5;
+  inp.value = Math.round(Math.max(0, val() + step * b.dataset.d) * 10) / 10;
+  if (navigator.vibrate) navigator.vibrate(10);
+ });
+ document.getElementById('bwSave').addEventListener('click', function(){
+  var w = val(); if (!(w > 0)) { _toast('Put a number in first'); return; }
+  var t = _today(), a = readBW().filter(function(e){ return e.d !== t; });
+  var e = { d: t, w: w }; if (_bwUnit() === 'kg') e.u = 'kg';
+  a.push(e); writeBW(a); paintBW(); _toast('Bodyweight logged · ' + w + ' ' + _bwUnit());
+  if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
+ });
+ paintBW();
+})();
+
+// ── Backup / restore ──────────────────────────────────────────────────
+// A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
+// one tap, "Save to Files", and the history lands in iCloud Drive.
+var BK_KEYS = ['bp-hist','bp-bw','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
+function _bkPayload(){
+ var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
+ BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
+ return o;
+}
+function paintBackupNote(){
+ var n = document.getElementById('bkNote'); if (!n) return;
+ var last = store.get('bp-bk'), hist = readHist(), any = Object.keys(hist).length;
+ if (!last){ n.textContent = any ? 'Never backed up — your numbers live only in this browser.' : 'Nothing logged yet.';
+  n.className = 'bk-note' + (any ? ' stale' : ''); return; }
+ var ago = _daysAgo(last);
+ n.textContent = 'Last backup ' + (ago === 0 ? 'today' : ago === 1 ? 'yesterday' : ago + ' days ago') + (ago >= 21 ? ' — worth doing again.' : '');
+ n.className = 'bk-note' + (ago >= 21 ? ' stale' : '');
+}
+function backupNumbers(){
+ var o = _bkPayload(), txt = JSON.stringify(o, null, 1);
+ var name = 'bulletproof-' + _today() + '.json';
+ var done = function(){ try { store.set('bp-bk', _today()); } catch(e){} paintBackupNote(); };
+ try {
+  var file = new File([txt], name, { type:'application/json' });
+  if (navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share){
+   navigator.share({ files:[file], title:'Bulletproof numbers' })
+    .then(function(){ done(); _toast('Backup saved'); })
+    .catch(function(e){ if (e && e.name === 'AbortError') return; _bkDownload(txt, name, done); });
+   return;
+  }
+ } catch(e){}
+ _bkDownload(txt, name, done);
+}
+function _bkDownload(txt, name, done){
+ try {
+  var a = document.createElement('a'), url = URL.createObjectURL(new Blob([txt], { type:'application/json' }));
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  done(); _toast('Backup downloaded');
+ } catch(e){ _toast('Could not save — use Copy instead'); }
+}
+function restoreNumbers(){
+ var f = document.getElementById('bkFile'); if (!f) return;
+ f.value = ''; f.click();
+}
+(function wireRestore(){
+ var f = document.getElementById('bkFile'); if (!f) return;
+ f.addEventListener('change', function(){
+  var file = f.files && f.files[0]; if (!file) return;
+  var r = new FileReader();
+  r.onload = function(){
+   var o; try { o = JSON.parse(r.result); } catch(e){ _toast('That file is not a backup'); return; }
+   var d = o && (o.data || (o.app ? null : o));           // accept a raw "Copy my numbers" dump too
+   if (o && !o.data && !o.app) d = { 'bp-hist': JSON.stringify(o) };
+   if (!d || typeof d !== 'object'){ _toast('That file is not a backup'); return; }
+   var keys = Object.keys(d).filter(function(k){ return BK_KEYS.indexOf(k) >= 0; });
+   if (!keys.length){ _toast('Nothing restorable in that file'); return; }
+   var when = o.saved ? new Date(o.saved).toLocaleDateString() : 'an unknown date';
+   if (!confirm('Restore ' + keys.length + ' saved item' + (keys.length === 1 ? '' : 's') + ' from ' + when + '?\n\nThis replaces what is on this device now.')) return;
+   keys.forEach(function(k){ store.set(k, d[k]); });
+   document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
+   applyBlock(); buildJots(); renderNumbers(); paintBests(); paintBW(); paintBackupNote();
+   _toast('Restored — ' + keys.length + ' item' + (keys.length === 1 ? '' : 's'));
+  };
+  r.readAsText(file);
+ });
+ paintBackupNote();
+})();
+window.backupNumbers = backupNumbers; window.restoreNumbers = restoreNumbers;
+
+// ── Add to Home Screen ────────────────────────────────────────────────
+// Not cosmetic: Safari clears a normal site's saved data after 7 idle days.
+// Installed to the Home Screen it is exempt, and the page works with no signal.
+(function a2hs(){
+ var standalone = window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+ var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+ if (standalone || !ios || store.get('bp-a2hs') === 'off') return;
+ setTimeout(function(){
+  var d = document.createElement('div'); d.className = 'a2hs';
+  d.innerHTML = '<p><b>Add this to your Home Screen.</b> Safari wipes a normal site’s saved data after 7 days you don’t open it — installed, your numbers stay put and the page works with no signal. Share → Add to Home Screen.</p><button type="button">Got it</button>';
+  d.querySelector('button').onclick = function(){ try { store.set('bp-a2hs','off'); } catch(e){} d.remove(); };
+  document.body.appendChild(d);
+ }, 2500);
+})();
+
+// offline shell, only where a service worker can actually register
+if ('serviceWorker' in navigator && location.protocol === 'https:'){
+ window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+
 
 // ── Streamline every card: cue + where up front, execution prose folded behind one tap ──
 function streamlineCards(){

@@ -1,0 +1,13 @@
+{
+  "name": "Bulletproof · Joint-Smart Training",
+  "short_name": "Bulletproof",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#060611",
+  "theme_color": "#060611",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
