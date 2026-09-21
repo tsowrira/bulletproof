@@ -968,13 +968,14 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 /* card glass depth + day-keyed focus edge */
 .excard::before{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--card-grad);opacity:0;transition:opacity .25s;pointer-events:none}
 @media (hover:hover) and (pointer:fine){.excard:hover::before{opacity:1}}
-.excard:focus-within,.excard:active{box-shadow:var(--elev)}
-#d1 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,46,136,.5)}
-#d2 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(31,224,255,.5)}
-#d3 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
-#d4 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
-#d5 .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
-#travel .excard:focus-within{box-shadow:var(--elev),inset 3px 0 0 rgba(255,138,76,.5)}
+.excard:active{box-shadow:var(--elev)}
+.excard:has(:focus-visible){box-shadow:var(--elev)}
+#d1 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,46,136,.5)}
+#d2 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(31,224,255,.5)}
+#d3 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
+#d4 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
+#d5 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
+#travel .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,138,76,.5)}
 /* ── SUPERSETS + EXPRESS ── */
 #d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#travel{--dc:var(--o)}
 .ssh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px -18px 0;padding:12px 18px 4px;border-top:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--txt)}
@@ -1042,8 +1043,6 @@ nav a.active{background:rgba(255,46,136,.07);border-radius:7px 7px 0 0}
 /* week strip: make every day clearly clickable */
 .wc{cursor:pointer}
 @media (hover:hover) and (pointer:fine){.wc:hover{background:rgba(234,240,255,.05)}}
-a.wc::after{content:'›';position:absolute;top:5px;right:7px;font-size:12px;line-height:1;color:var(--dim);opacity:.32;transition:opacity .15s}
-@media (hover:hover) and (pointer:fine){a.wc:hover::after{opacity:.8}}
 @media (hover:hover) and (pointer:fine){a.wc:hover .wt{text-decoration:underline;text-underline-offset:3px}}
 /* today: unmistakable */
 .wc.today{background:rgba(255,46,136,.13)}
@@ -1229,6 +1228,90 @@ nav{padding-top:env(safe-area-inset-top);padding-left:max(var(--pad),env(safe-ar
 body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
 .prog-wrap:not(.open){visibility:hidden;transition:max-height .4s cubic-bezier(.25,.8,.3,1),opacity .3s ease,visibility 0s .4s}
+
+/* ═══ v11 — polish ═══ */
+/* three radii only: control, box, pill */
+:root{--rad:6px;--rad-lg:12px}
+.ssh b,.dr-h b,.ssn,.lowbar{border-radius:var(--rad)}
+.drill{border-radius:0 var(--rad) var(--rad) 0}
+nav a.active{border-radius:var(--rad) var(--rad) 0 0}
+/* tablet widths: one nav row that scrolls, centred whenever it fits */
+@media(min-width:760px) and (max-width:1099px){
+ nav{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start}
+ nav a:first-child{margin-left:auto}nav a:last-child{margin-right:auto}
+ nav a{padding-left:10px;padding-right:10px;letter-spacing:.08em}
+}
+/* status bar buttons stop stretching once there is room */
+@media(min-width:760px){.check-status .cs-btns{width:auto}.check-status .cs-btns button{flex:none;padding:0 16px}}
+/* "how it runs" is a flat fold bar like the ones under each day header */
+.callout.howruns{margin:0;border:0;border-bottom:1px solid var(--bdr);border-radius:0;background:var(--s1);padding:0 var(--pad)}
+.callout.howruns .callout-t{font-size:10.5px;letter-spacing:.14em}
+.lowbar{margin-bottom:12px}
+.day-info{min-width:0}
+@media(max-width:430px){.xrow{gap:6px}.xchip{padding:0 10px;letter-spacing:.07em}}
+@media(max-width:380px){.xchip{padding:0 7px;letter-spacing:.05em}}
+/* full-bleed cards: square corners, so the divider never curls at the screen edge */
+.excard{border-radius:0}
+/* week strip: every label readable */
+.wc.flex-day .wt,.wc.rest-day .wt{opacity:1}
+/* card */
+.exname{text-wrap:balance}
+.caveat strong{color:var(--txt)}
+.band-dot{width:6px;height:6px;margin-top:6px;border:0;opacity:.7}
+.exmeta .warmset{margin:0;min-height:28px;display:inline-flex;align-items:center}
+.rest-lbl{min-height:44px;min-width:86px;transition:background .3s,border-color .3s,box-shadow .3s,color .15s,transform .15s}
+.xchip,.reroll,.check-status .cs-btns button,.focusbar button{min-height:44px}
+.prog-step{padding:12px 0}
+.howfold .setup strong:not(:first-child)::before{content:'\A';white-space:pre}
+.acc-btn{gap:7px}
+.acc-btn .arr{font-size:0;line-height:1}
+.acc-btn .arr::before{content:'▸';font-size:11px;color:var(--g)}
+.acc-btn.open .arr{transform:rotate(90deg)}
+.excard:not(.done) .chk:not(.half){font-size:0}
+.chk.half{animation:chkpop .28s cubic-bezier(.2,.8,.3,1.4);box-shadow:0 0 0 3px rgba(255,210,58,.14),0 0 12px -3px var(--gld)}
+.stu{padding:0 6px 0 4px}
+.stv{transition:transform .12s,color .12s}
+.stp:active .stv{transform:scale(1.12);color:var(--g)}
+.drills{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+/* drill number hangs in the margin, so a long title wraps beside it rather than under it */
+.dr-h{position:relative;padding-left:29px}.dr-h b{position:absolute;left:0;top:1px}
+@media(max-width:759px){.dr-h span{flex-basis:100%;margin:0}}
+/* finished card = one row: name · logged value · ✓ */
+.excard{transition:opacity .25s,background .2s,box-shadow .2s,transform .2s,padding .25s cubic-bezier(.2,.8,.3,1)}
+.excard.done{display:flex;align-items:center;gap:10px;animation:settle .28s ease-out}
+.excard.done .extop{display:contents}
+.excard.done .ex-left{flex:1;min-width:0}
+.excard.done .exlog{order:2;margin:0;flex:none}
+.excard.done .chk{order:3;width:44px;height:44px}
+.excard.done .exlast{display:none}
+.excard.done .stv{height:40px}
+.excard.done .exlog.has-val .stp,.excard.done .exlog.pr .stp{border-color:transparent;background:none;box-shadow:none}
+@keyframes settle{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}}
+/* my numbers: the numbers are the point */
+#numList .srow span{font-size:15px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
+/* footer */
+footer{font-size:10.5px}
+.clear-btn{color:var(--r)}
+/* the pill floats over a fade, and the room for it sits at the end of the page, not inside every day */
+.day-jump{height:44px}
+.exlist{padding-bottom:16px}
+footer,body.focus .section.cur{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;height:88px;pointer-events:none;z-index:96;background:linear-gradient(rgba(6,6,17,0),rgba(6,6,17,.88))}
+@media(min-width:760px){
+ body:has(.day-jump.show)::after{max-width:1040px}
+ /* readable measure once the column gets wide */
+ .caveat,.band-badge,.cue,.howfold .setup,.prog-block{max-width:600px}
+ .callout p,.fin p,.wu-item,.swim-intro p{max-width:74ch}
+}
+@media(min-width:1100px){
+ body:has(.day-jump.show)::after{max-width:1180px}
+ /* one left edge for bars, headers and cards */
+ html:not(.dev-mobile){--pad:34px}
+ html:not(.dev-mobile) .caveat,html:not(.dev-mobile) .cue{max-width:600px}
+ html:not(.dev-mobile) .exlist .excard.done{padding-top:10px;padding-bottom:10px}
+}
+@media(min-width:1400px){body:has(.day-jump.show)::after{max-width:1320px}}
+@media print{body::after{display:none!important}}
 
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
@@ -2514,7 +2597,7 @@ a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
  <p class="sub">A plan for the off days, what earns your next skills, what's waiting, and a monthly left–right check.</p>
 
  <details class="swim-fold" style="margin:0 0 10px">
- <summary>Back or knee grumbling — the plan <span class="swim-hint">· decided now, not mid-grumble</span></summary>
+ <summary>Back or knee grumbling — the plan <span class="swim-hint">decided now, not mid-grumble</span></summary>
  <div class="swim-intro" style="padding:4px 16px 14px">
  <p style="margin:0 0 10px"><strong style="color:var(--gld)">Mild</strong> — annoying, nothing new down a leg. 3 days of <strong>Daily Low-Load</strong> + 20-min walks. Retest on day 4. Back to normal? Resume at <strong>half volume</strong> and rebuild over 3 sessions.</p>
  <p style="margin:0 0 10px"><strong style="color:var(--gld)">Sharper</strong> — interrupting sleep or daily stuff. Stop training; walk + easy hangs only. Still loud after 48 h → get it looked at.</p>
@@ -2523,7 +2606,7 @@ a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
  </details>
 
  <details class="swim-fold" style="margin:0 0 10px">
- <summary>What unlocks what <span class="swim-hint">· not yet ≠ never</span></summary>
+ <summary>What unlocks what <span class="swim-hint">not yet ≠ never</span></summary>
  <div class="swim-intro" style="padding:4px 16px 14px">
  <p style="margin:0 0 10px"><strong>Heavier hinge:</strong> dumbbell RDL 25 lb 2 × 10 clean · side plank 3 × 40s each side · back-extension 12 × 10s clean · six steady months → RDL past 35 lb, or a cable pull-through.</p>
  <p style="margin:0 0 10px"><strong>Freestanding handstand:</strong> 60s chest-to-wall hold · 10s chest-to-wall shoulder taps each side · wrists happy across 8 skill sessions in a row.</p>
@@ -2533,7 +2616,7 @@ a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
  </details>
 
  <details class="swim-fold" style="margin:0 0 10px">
- <summary>Not yet — and why <span class="swim-hint">· one reason each</span></summary>
+ <summary>Not yet — and why <span class="swim-hint">one reason each</span></summary>
  <div class="defer-list" style="padding:4px 16px 16px">
  <div class="defer-item"><strong>Single-leg RDL:</strong> lopsided hinge under load. Own the two-leg dumbbell RDL first.</div>
  <div class="defer-item"><strong>Barbell deadlift from the floor:</strong> not yet. The heavier hinge comes first — see above.</div>
@@ -2553,7 +2636,7 @@ a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
  </details>
 
  <details class="swim-fold" style="margin:0 0 10px">
- <summary>Left vs right — 5-minute check <span class="swim-hint">· once a month</span></summary>
+ <summary>Left vs right — 5-minute check <span class="swim-hint">once a month</span></summary>
  <div class="swim-intro" style="padding:4px 16px 14px">
  <p style="margin:0 0 10px"><strong>1.</strong> Rear photo relaxed, then glutes squeezed, then standing on each leg — look for a size gap or the free hip dropping.</p>
  <p style="margin:0 0 10px"><strong>2.</strong> Single-leg bridge, heel on a chair, to clean failure each side, right first — aim 25+, sides within 10%.</p>
@@ -2613,7 +2696,7 @@ a,button,summary,input,[role=button],.prog-step{touch-action:manipulation}
  </div>
 
  <details class="swim-fold">
- <summary>Day timeline <span class="swim-hint">· late riser, evening training</span></summary>
+ <summary>Day timeline <span class="swim-hint">late riser, evening training</span></summary>
  <div style="padding:0 16px 12px">
  <div class="srow">Same wake-up time, all week <span>give or take 30 min</span></div>
  <div class="srow">Meal 1 — skyr bowl or sourdough + PB, ~20–25g protein <span>9:30 AM</span></div>
@@ -3143,7 +3226,9 @@ function applyBlock(){
  document.querySelectorAll('.excard[data-alt-name]').forEach(function(c){
  map.forEach(function(m){ var el = c.querySelector(m[0]); if (!el || !c.dataset[m[1]]) return;
  if (el.dataset.orig === undefined) el.dataset.orig = el.innerHTML;
- if (isB) el.textContent = c.dataset[m[1]]; else el.innerHTML = el.dataset.orig; });
+ if (!isB){ el.innerHTML = el.dataset.orig; return; }
+ el.textContent = c.dataset[m[1]];
+ if (m[1] === 'altHow') el.innerHTML = el.innerHTML.replace(/(^|\s)(\d)\.\s/g, '$1<strong>$2.</strong> '); });
  var sl = c.querySelector('.start-l');
  if (sl && c.dataset.altStart !== undefined){ var sp = sl.querySelector('span'); if (sl.dataset.orig === undefined){ sl.dataset.orig = sp.textContent; sl.dataset.hid = sl.hidden ? '1' : ''; }
  var txt = isB ? c.dataset.altStart : sl.dataset.orig; sp.textContent = txt; sl.hidden = isB ? !txt : !!sl.dataset.hid; }
@@ -3275,6 +3360,7 @@ function streamlineCards(){
     if (clbl) clbl.remove();            // "Coaching Cue" label — the pink box speaks for itself
     if (slbl) slbl.remove();            // "Setup & Execution" label — the fold summary says it
     if (cue && anchor) anchor.insertAdjacentElement('afterend', cue);   // cue to the front
+    var meta = card.querySelector('.exmeta'); if (warm && meta) meta.appendChild(warm);   // ramp chip rides with the dose chips
     if (setup){
       var det = document.createElement('details'); det.className = 'howfold';
       det.innerHTML = '<summary><span class="hf-ic">▸</span> How to do it</summary>';
