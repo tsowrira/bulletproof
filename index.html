@@ -895,6 +895,7 @@ body.gym .howfold{display:none}
 .exlast{margin-left:auto;font-family:'Inter',sans-serif;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .exlog.pr .exlast{color:var(--gld)}.exlog.pr .exnum{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
 .startwhy{margin:9px 0 0;font-size:12.5px;line-height:1.5;color:var(--gld)}
+.startwhy a{color:var(--g);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(93,255,159,.4);padding-bottom:1px}
 .startbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:13px 22px;min-height:48px;border-radius:100px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#060611;background:var(--r);box-shadow:0 0 22px -4px var(--r);position:relative;-webkit-tap-highlight-color:transparent;transition:transform .12s}
 .startbtn:active{transform:scale(.97)}
 .day-jump small{display:block;font-size:11px;letter-spacing:.02em;font-weight:700;margin-top:1px}
@@ -3340,10 +3341,20 @@ function _dow(){ return new Date(Date.now() - DAY_SHIFT_MS).getDay(); }
 var DAY_SLOT = { d5:1, d1:2, d3:3, d2:4 };                 // the weekday each session belongs to
 var DAY_ORDER = ['d1', 'd5', 'd2', 'd3'];                  // what to save when the week goes wrong
 var DAY_NAME = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B' };
-function owedDays(){
+function owedDays(all){
  var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
- if (dow < 1 || dow > 4) return [];                        // Fri/Sat/Sun are play and rest; never make up into them
- return DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= dow; });
+ // Fri/Sat/Sun are play and rest. They never push a session, but with `all` they
+ // will still tell you what is outstanding so the choice is yours, not the app's.
+ var cap = (dow >= 1 && dow <= 4) ? dow : (all ? 4 : 0);
+ if (!cap) return [];
+ return DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= cap; });
+}
+// how long since you last trained anything - a fortnight off is not a missed Monday
+function daysSinceTrained(){
+ var s = (typeof readSess === 'function') ? readSess() : [];
+ var last = 0;
+ s.forEach(function(x){ if (x && x.e > last && x.n >= 3) last = x.e; });
+ return last ? Math.floor((Date.now() - last) / 864e5) : null;
 }
 function suggestDay(){
  var owed = owedDays(), dow = _dow();
@@ -3355,12 +3366,25 @@ function _paintStart(){
  var map = {1:['d5','Start Upper A',"var(--g)"],2:['d1','Start Lower A',"var(--r)"],3:['d3','Start Upper B',"var(--gld)"],4:['d2','Start Lower B',"var(--b)"],5:['d4','Play day',"var(--p)"],6:['d4','Hike day',"var(--p)"],0:['daily','Rest day · daily 9 min',"var(--g)"]};
  var m = map[_dow()], b = document.getElementById('startBtn'); if (!b) return;
  var note = document.getElementById('startWhy');
- if (note){ var owed = (typeof owedDays === 'function') ? owedDays() : [];
-  var late = owed.filter(function(d){ return DAY_SLOT[d] < _dow(); });
-  note.textContent = late.length
-   ? late.map(function(d){ return DAY_NAME[d]; }).join(' and ') + (late.length > 1 ? ' are' : ' is') + ' still owed this week — never doubled up, just reordered.'
-   : '';
-  note.hidden = !late.length; }   // set before any early return, or it goes stale
+ if (note){
+  var dow0 = _dow(), gap = (typeof daysSinceTrained === 'function') ? daysSinceTrained() : null;
+  var owedAll = (typeof owedDays === 'function') ? owedDays(true) : [];
+  var late = owedAll.filter(function(d){ return DAY_SLOT[d] < dow0 || dow0 > 4; });
+  var msg = '', link = '';
+  if (gap !== null && gap >= 10){
+   // the program's own rule for coming back, rather than pretending nothing happened
+   msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
+  } else if (late.length){
+   var ns = late.map(function(d){ return DAY_NAME[d]; });
+   var names = ns.length > 1 ? ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1] : ns[0];
+   msg = dow0 > 4
+    ? names + (late.length > 1 ? ' are' : ' is') + ' still owed. Today is play — do it only if you want to.'
+    : names + (late.length > 1 ? ' are' : ' is') + ' still owed this week — never doubled up, just reordered.';
+   if (dow0 > 4) link = late[0];
+  }
+  note.innerHTML = _esc(msg) + (link ? ' <a href="#' + link + '">Do ' + _esc(DAY_NAME[link]) + '</a>' : '');
+  note.hidden = !msg;
+ }   // set before any early return, or it goes stale
  var sg = (typeof suggestDay === 'function') ? suggestDay() : null;
  if (sg && m && sg.id !== m[0]){                           // an earlier session is owed and outranks today's
   var col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[sg.id];
