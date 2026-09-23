@@ -788,6 +788,10 @@ body.gym .howfold{display:none}
 
 /* ── MISC ── */
 .section{border-bottom:1px solid var(--bdr)}
+/* Only one day is ever on screen, so let the browser skip layout and paint for the
+   other three. Sized per section: a wrong placeholder inflates the page and throws
+   off the jump-to-day links. 'auto' means it remembers the real height once seen. */
+#d5,#d1,#d3,#d2{content-visibility:auto;contain-intrinsic-size:auto 7000px}
 
 /* ── REST TIMER ── */
 .rest-lbl{
@@ -1163,7 +1167,13 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .band-badge{background:none;border:0;padding:0;margin-bottom:10px;gap:8px}
 .band-txt{color:var(--dim);font-size:13px;font-weight:400}
 .band-dot{margin-top:4px;width:8px;height:8px}
-.cue{font-size:15px;line-height:1.45}
+.cue{font-size:15px;line-height:1.45;background:none;padding:1px 0 1px 11px;border-left:2px solid var(--r);border-radius:0;margin:8px 0}
+.caveat{margin:6px 0 8px}
+.band-badge{margin-bottom:8px}
+.excard{padding:15px 18px 13px}
+.exlog{margin-top:9px}
+.howfold{margin:0 0 4px}
+.foldrow{margin-bottom:2px}
 .warmset{margin:0 0 9px;font-size:10.5px;padding:2px 10px}
 .acc-btn{border:0;padding:0;margin-top:2px;min-height:44px;color:var(--dim);font-size:11px;letter-spacing:.1em}
 @media (hover:hover) and (pointer:fine){.acc-btn:hover{background:none;color:var(--txt)}}
@@ -3991,6 +4001,50 @@ window.addEventListener('pagehide', ghFlush);   // iOS fires this when the brows
  if (readGH()) ghPull(1);
 })();
 window.ghPull = ghPull; window.ghPush = ghPush;
+// ── Jumping to a day ──────────────────────────────────────────────────
+// The day sections are content-visibility:auto, so a section that has never been
+// on screen only has an estimated height. A plain #hash jump aims at the estimate,
+// then the sections above it render, change height, and the target slides away.
+// So: scroll, let a frame render, re-measure, scroll again - it converges in two
+// or three passes and is imperceptible.
+function jumpTo(id, done){
+ var el = document.getElementById(id); if (!el) return;
+ if (jumpTo._raf){ cancelAnimationFrame(jumpTo._raf); jumpTo._raf = 0; }
+ var stable = 0, n = 0, running = true;
+ var stop = function(){ running = false; cancelAnimationFrame(jumpTo._raf); jumpTo._raf = 0;
+  window.removeEventListener('wheel', stop); window.removeEventListener('touchstart', stop);
+  if (done) done(); };
+ window.addEventListener('wheel', stop, { passive:true });        // never fight a real scroll
+ window.addEventListener('touchstart', stop, { passive:true });
+ (function step(){
+  if (!running) return;
+  var nav = document.getElementById('topnav'), bar = document.getElementById('focusBar');
+  var off = (nav && nav.offsetHeight ? nav.offsetHeight : 55) + (bar && !bar.hidden ? bar.offsetHeight : 0) + 8;
+  var want = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - off);
+  // the invariant is where the section ENDED UP, not what we last aimed at
+  if (Math.abs(want - window.pageYOffset) < 3){ if (++stable >= 3){ stop(); return; } }
+  else { stable = 0; window.scrollTo(0, want); }
+  if (++n > 90){ stop(); return; }
+  jumpTo._raf = requestAnimationFrame(step);
+ })();
+}
+window.jumpTo = jumpTo;
+document.addEventListener('click', function(ev){
+ var a = ev.target.closest && ev.target.closest('a[href^="#"]'); if (!a) return;
+ var id = a.getAttribute('href').slice(1);
+ if (!id || !document.getElementById(id)) return;
+ ev.preventDefault();
+ try { history.replaceState(null, '', '#' + id); } catch(e){}
+ jumpTo(id);
+}, true);
+// a deep link opened cold needs the same treatment
+window.addEventListener('load', function(){
+ var id = (location.hash || '').slice(1);
+ if (!id || !document.getElementById(id)) return;
+ // a cold load has more still settling than a jump from inside the page, so aim twice
+ [60, 420].forEach(function(d){ setTimeout(function(){ jumpTo(id); }, d); });
+});
+
 // ── Tempo pacer ───────────────────────────────────────────────────────
 // Every loaded card already prints its tempo as "3 · 1 · 2". Tap that chip and
 // it paces the rep for you: a bar fills for the lowering, holds gold at the
