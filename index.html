@@ -895,6 +895,13 @@ body.gym .howfold{display:none}
 .exlast{margin-left:auto;font-family:'Inter',sans-serif;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .exlog.pr .exlast{color:var(--gld)}.exlog.pr .exnum{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
 .startwhy{margin:9px 0 0;font-size:12.5px;line-height:1.5;color:var(--gld)}
+.resume{margin:13px 0 0;padding:13px 14px;border:1px solid var(--g);border-radius:14px;background:rgba(93,255,159,.05);text-align:left}
+.rs-top{font-size:13.5px;line-height:1.5;color:var(--txt)}
+.rs-top b{color:var(--g)}
+.rs-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.rs-btns button{flex:1 1 auto;min-height:44px;padding:0 13px;border-radius:100px;border:1px solid var(--bdr);background:transparent;color:var(--dim);font:700 11px 'Inter',sans-serif;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.rs-btns #rsGo{flex:1 1 100%;border-color:var(--g);color:var(--g);background:rgba(93,255,159,.1)}
+.rs-btns button:active{opacity:.7}
 .startwhy a{color:var(--g);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(93,255,159,.4);padding-bottom:1px}
 .startbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:13px 22px;min-height:48px;border-radius:100px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#060611;background:var(--r);box-shadow:0 0 22px -4px var(--r);position:relative;-webkit-tap-highlight-color:transparent;transition:transform .12s}
 .startbtn:active{transform:scale(.97)}
@@ -1440,6 +1447,14 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <p>Four sessions: upper, lower, upper, lower. Skill first, then supersets, two sets a lift — one in Express. Nothing repeats.</p>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <div class="startwhy" id="startWhy" hidden></div>
+ <div class="resume" id="resumeCard" hidden>
+  <div class="rs-top" id="rsTop"></div>
+  <div class="rs-btns">
+   <button type="button" id="rsGo">Pick up where you left off</button>
+   <button type="button" id="rsDone">Call it done</button>
+   <button type="button" id="rsNew">Start over</button>
+  </div>
+ </div>
  <div class="pills">
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
@@ -3333,6 +3348,96 @@ document.querySelectorAll('a.wc[href]').forEach(function(l){ l.addEventListener(
 
 // ── "Start today" → jumps to the right session; FAB shows done / total for the day in view ──
 function _dow(){ return new Date(Date.now() - DAY_SHIFT_MS).getDay(); }
+// ── Picking up a half-finished session ────────────────────────────────
+// Ticks expire after three hours so a fresh session starts clean, which meant a
+// session abandoned halfway simply vanished: not complete, so still "owed", with
+// no trace of the eight lifts you actually did. The session row now carries the
+// ids, so it can be restored long after the ticks are gone.
+function _ago(ms){
+ var m = Math.round((Date.now() - ms) / 6e4);
+ return m < 60 ? m + ' min ago' : m < 1500 ? Math.round(m / 60) + 'h ago' : 'yesterday';
+}
+function paintResume(){
+ var box = document.getElementById('resumeCard'); if (!box) return;
+ var s = (typeof unfinishedSession === 'function') ? unfinishedSession() : null;
+ if (!s){ box.hidden = true; return; }
+ box.hidden = false;
+ document.getElementById('rsTop').innerHTML =
+  '<b>' + _esc(DAY_NAME[s.day] || s.day) + '</b> — you did ' + s.n + ' of ' + s.of +
+  ', ' + _ago(s.e) + '. Pick it up, or count it and move on.';
+ box._sess = s;
+}
+function resumeSession(){
+ var box = document.getElementById('resumeCard'), s = box && box._sess; if (!s) return;
+ var host = document.getElementById(s.day); if (!host) return;
+ var saved = readSaved(), n = 0;
+ (s.ids || []).forEach(function(id){
+  if (id === 'wu'){
+   var wu = host.querySelector('.wu');
+   if (wu && !wu.classList.contains('done')){ wu.classList.add('done');
+    var wb = wu.querySelector('.wu-chk'); if (wb) wb.textContent = '✓';
+    saved[_wuId(wu)] = { t: Date.now() }; n++; }
+   return;
+  }
+  var c = host.querySelector('.excard[data-id="' + id + '"]');
+  if (c && !c.classList.contains('done')){
+   c.classList.add('done');
+   var b = c.querySelector('.chk'); if (b) b.textContent = '✓';
+   saved[id] = { t: Date.now() }; n++;
+  }
+ });
+ writeSaved(saved);
+ updateDayComplete(); updateFabCount(); if (typeof paintWeek === 'function') paintWeek();
+ box.hidden = true;
+ if (typeof setFocus === 'function') setFocus(s.day);
+ // land on the first thing still to do, not the top of the day
+ var next = host.querySelector('.excard[data-id]:not(.done)');
+ setTimeout(function(){
+  if (next && next.scrollIntoView) next.scrollIntoView({ block:'start' });
+  else if (typeof jumpTo === 'function') jumpTo(s.day);
+ }, 80);
+ _toast('Picked up — ' + n + ' restored, ' + (s.of - s.n) + ' to go');
+}
+function creditSession(){
+ var box = document.getElementById('resumeCard'), s = box && box._sess; if (!s) return;
+ if (!confirm('Count ' + (DAY_NAME[s.day] || s.day) + ' as done with ' + s.n + ' of ' + s.of + '?\n\nIt stops being owed this week.')) return;
+ if (typeof markDayComplete === 'function') markDayComplete(s.day);
+ box.hidden = true; paintResume();
+ _toast((DAY_NAME[s.day] || s.day) + ' counted');
+}
+function dropSession(){
+ var box = document.getElementById('resumeCard'), s = box && box._sess; if (!s) return;
+ if (!confirm('Start ' + (DAY_NAME[s.day] || s.day) + ' over?\n\nThe ' + s.n + ' lifts already logged keep their numbers; only the ticks are cleared.')) return;
+ var a = readSess().filter(function(x){ return x.k !== s.k; });
+ writeSess(a);
+ var saved = readSaved();
+ (s.ids || []).forEach(function(id){ delete saved[id]; });
+ delete saved['wu-' + s.day];
+ writeSaved(saved);
+ var host = document.getElementById(s.day);
+ if (host){ host.querySelectorAll('.excard.done, .wu.done').forEach(function(c){
+  c.classList.remove('done');
+  var b = c.querySelector('.chk, .wu-chk'); if (b) b.textContent = '○'; }); }
+ updateDayComplete(); updateFabCount();
+ box.hidden = true; paintResume();
+ _toast('Cleared — start fresh');
+}
+(function wireResume(){
+ var g = document.getElementById('rsGo'); if (!g) return;
+ g.addEventListener('click', resumeSession);
+ document.getElementById('rsDone').addEventListener('click', creditSession);
+ document.getElementById('rsNew').addEventListener('click', dropSession);
+ // The card lives in the hero, which focus mode hides. Arriving hours later to a
+ // restored focus would bury the prompt, so step out of focus first - if the ticks
+ // are gone you are arriving, not mid-set.
+ window.addEventListener('load', function(){
+  var s = unfinishedSession();
+  if (s && document.body.classList.contains('focus') && !document.querySelectorAll('.excard.done').length
+      && typeof setFocus === 'function') setFocus(null);
+  paintResume();
+ });
+})();
+
 // ── What to do today ──────────────────────────────────────────────────
 // The button used to read the calendar: Wednesday meant Upper B, full stop, and a
 // missed Monday was gone for the week. Now it reads what you have actually done,
@@ -3488,6 +3593,7 @@ function paintWeek(){
  var c = readCompletedWeek(), cell = {d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4'};
  Object.keys(cell).forEach(function(d){ var k = document.querySelector('#' + d + ' .xchip.skip'); if (k){ var sk0 = String(c[d] || '').indexOf('skip') === 0; var _td = {1:'d5',2:'d1',3:'d3',4:'d2'}[_dow()]; k.textContent = sk0 ? 'Skipped · undo' : 'Skip'; k.setAttribute('aria-label', sk0 ? 'Undo skip' : (d === _td ? 'Skip today' : 'Skip this day')); k.classList.toggle('on', sk0); } });
  if (typeof _paintStart === 'function') _paintStart();
+ if (typeof paintResume === 'function') paintResume();
  Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (!el) return; var sk = String(c[d] || '').indexOf('skip') === 0; el.classList.toggle('hit', !!c[d] && !sk); el.classList.toggle('skipped', sk); });
 }
 function _weekStart(){ var m = new Date(); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime(); } // local Monday 00:00
@@ -4210,15 +4316,37 @@ function addFormLinks(){
 function readSess(){ try { return JSON.parse(store.get('bp-sess') || '[]') || []; } catch(e){ return []; } }
 function writeSess(a){ try { store.set('bp-sess', JSON.stringify(a.slice(-60))); } catch(e){} }
 function _sessKey(dayId){ return _today() + '|' + dayId; }
-function sessTick(dayId, doneCount){
+function sessTick(dayId){
  if (!dayId) return;
  var a = readSess(), k = _sessKey(dayId), now = Date.now(), cur = null;
  for (var i = a.length - 1; i >= 0; i--) if (a[i].k === k){ cur = a[i]; break; }
  // a gap longer than three hours is a new session, not the same one resumed
  if (cur && now - cur.e > 3 * 3600e3) cur = null;
- if (!cur){ cur = { k:k, d:_today(), day:dayId, s:now, e:now, n:0 }; a.push(cur); }
- cur.e = now; if (doneCount != null) cur.n = doneCount;
+ if (!cur){ cur = { k:k, d:_today(), day:dayId, s:now, e:now, n:0, ids:[] }; a.push(cur); }
+ cur.e = now;
+ // Record which cards are done, not merely that a tick happened. n was never being
+ // set, so the "you: N min" median filtered itself out of existence; and the ids are
+ // what let a half-finished session be picked up again after the ticks have expired.
+ var host = document.getElementById(dayId), ids = [];
+ if (host){
+  host.querySelectorAll('.excard[data-id].done').forEach(function(c){ ids.push(c.dataset.id); });
+  host.querySelectorAll('.wu.done').forEach(function(){ ids.push('wu'); });
+ }
+ cur.ids = ids; cur.n = ids.length;
+ cur.of = host ? host.querySelectorAll('.excard[data-id], .wu').length : 0;
  writeSess(a); return cur;
+}
+// the most recent session that was started and never finished
+function unfinishedSession(){
+ var a = readSess(), w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {};
+ for (var i = a.length - 1; i >= 0; i--){
+  var s = a[i];
+  if (!s || !s.day || w[s.day]) continue;                      // already credited or skipped
+  if (!s.n || !s.of || s.n >= s.of) continue;                  // nothing done, or actually complete
+  if (Date.now() - s.e > 30 * 3600e3) continue;                // older than a day and a bit: let it go
+  return s;
+ }
+ return null;
 }
 function _curSess(dayId){
  var a = readSess(), k = _sessKey(dayId);
