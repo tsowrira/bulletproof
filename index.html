@@ -1377,6 +1377,10 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 @keyframes settle{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}}
 /* my numbers: the numbers are the point */
 #numList .srow span{font-size:15px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
+#numList .srow{display:flex;align-items:center;gap:9px}
+#numList .srow span{margin-left:auto}
+.srow-x{flex-shrink:0;width:34px;height:34px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.srow-x:active{border-color:var(--r);color:var(--r)}
 /* bodyweight — the one number that says whether "gaining slowly" is actually happening */
 .bw{margin:0 0 16px;padding:13px 14px;border:1px solid rgba(93,255,159,.18);border-radius:13px;background:rgba(93,255,159,.03)}
 .bw-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
@@ -2054,7 +2058,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Set the Range Stop</div><p><strong>Hands never travel behind the chest line.</strong> Set the range stop so the start is not a deep stretch. Elbows finish short of locked.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seated chest press machine. Seat height so the handles sit at mid-chest, range stop set, feet flat, your working weight.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seated chest press machine. Seat height so the handles sit at mid-chest, range stop set, feet flat, your working weight. <strong>No machine? Smith bench press with the safeties set so the bar stops a fist above the chest</strong> — the depth stop is the point, not the machine.</span></div>
 <div class="warmset">⚡ Ramp 1 easy set first</div>
 <div class="cue">Shoulder blades pinned back and down into the pad the whole set.</div>
 <div class="setup"><strong>1.</strong> Sit tall, back and head on the pad, elbows about 45° from the ribs. <strong>2.</strong> Press 2 counts to 10° short of locked elbows. <strong>3.</strong> Return 3 counts to just short of the range stop; pause 1, no bounce. <strong>4.</strong> Set 2 ends when the shoulders roll forward off the pad.</div>
@@ -4029,7 +4033,7 @@ function renderNumbers(){
  var arr = (h[card.dataset.id + v[0]] || []).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], pool = _same(arr, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
- rows += '<div class="srow">' + _esc(nm) + ' <span>' + _fmt(last) + (best !== last ? ' · best ' + _fmt(best) : '') + '</span></div>';
+ rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _esc(nm) + ' <span>' + _fmt(last) + (best !== last ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
@@ -4040,6 +4044,22 @@ function copyNumbers(){
  var ok = function(){ _toast('Numbers copied'); };
  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok).catch(function(){ fallbackCopy(txt, ok); }); else fallbackCopy(txt, ok);
 }
+// Logged the wrong thing, or logged it against the wrong lift? Drop the last entry.
+document.addEventListener('click', function(ev){
+ var x = ev.target.closest && ev.target.closest('.srow-x'); if (!x) return;
+ var row = x.closest('.srow'), key = row && row.dataset.k; if (!key) return;
+ var h = readHist(), arr = _asArr(h[key]); if (!arr.length) return;
+ var lastE = arr[arr.length - 1];
+ var nm = row.textContent.replace(/\u00d7\s*$/, '').trim();
+ if (!confirm('Delete the last entry for this lift?\n\n' + _fmt(lastE) + ' on ' + lastE.d + '\n\nNothing else is touched.')) return;
+ arr.pop();
+ if (arr.length) h[key] = arr; else delete h[key];
+ writeHist(h);
+ document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); });
+ buildJots(); renderNumbers(); paintBests();
+ if (typeof ghTouch === 'function') ghTouch();
+ _toast('Entry deleted');
+});
 window.copyNumbers = copyNumbers;
 // ── Bodyweight ────────────────────────────────────────────────────────
 // Gaining slowly is the stated goal, so this is the number that says whether it is working.
