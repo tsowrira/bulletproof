@@ -2972,6 +2972,11 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <button class="day-jump" id="dayJump" aria-label="Jump to top of current day">↑ Day</button>
 
 <script>
+// A stored value can be absent, corrupt, the wrong shape, or right-shaped with
+// rotten rows - a half-written sync, an old schema, a hand-edited log.json. These
+// two guards are the only thing every reader trusts.
+function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
+function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
 var _mem = {}, store = {
  get: function(k){ try { var v = localStorage.getItem(k); if (v !== null) return v; } catch(e){} return k in _mem ? _mem[k] : null; },
@@ -3008,7 +3013,7 @@ function isExpired(timestamp) {
 }
 
 function readSaved() {
- try { return JSON.parse(store.get('bp-done') || '{}'); }
+ try { return _asObj(JSON.parse(store.get('bp-done') || '{}')); }
  catch (e) { return {}; }
 }
 
@@ -3048,7 +3053,7 @@ function toggleDone(btn) {
 }
 
 // round-1 half-ticks: data-r1 holds the tap time; mirrored to sessionStorage so a tab reload mid-superset keeps them
-function _readR1(){ try { return JSON.parse(sessionStorage.getItem('bp-r1') || '{}') || {}; } catch(e){ return {}; } }
+function _readR1(){ try { return _asObj(JSON.parse(sessionStorage.getItem('bp-r1') || '{}')); } catch(e){ return {}; } }
 function _saveR1(){
  const o = {};
  document.querySelectorAll('.excard[data-r1]').forEach(c => { o[c.dataset.id] = +c.dataset.r1 || Date.now(); });
@@ -3695,7 +3700,7 @@ function paintWeek(){
 function _weekStart(){ var m = new Date(); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime(); } // local Monday 00:00
 function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every local Monday (Monday 00:00 sits mid-bucket, so DST can't double-step it)
 function readCompletedWeek(){
- var w = {}; try { w = JSON.parse(store.get('bp-week') || '{}'); } catch(e){}
+ var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}   // 'null' parses fine and then kills Object.keys
  var mon = _weekStart();
  Object.keys(w).forEach(function(d){ var t = parseInt(String(w[d]).replace('skip:', '')) || 0; if (t < mon) delete w[d]; });
  return w;
@@ -3737,7 +3742,7 @@ function _flushSaves(){ _pendingSaves.forEach(f => f()); }
 window.addEventListener('pagehide', _flushSaves);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _flushSaves(); });
 
-function readCompleted(){ try { return JSON.parse(store.get('bp-complete') || '{}'); } catch(e){ return {}; } }
+function readCompleted(){ try { return _asObj(JSON.parse(store.get('bp-complete') || '{}')); } catch(e){ return {}; } }
 function writeCompleted(o){ try { store.set('bp-complete', JSON.stringify(o)); } catch(e){} }
 function markDayComplete(dayId){ try { var w = readCompletedWeek(); if (!w[dayId] || String(w[dayId]).indexOf('skip') === 0){ var bz = document.createElement('div'); bz.className = 'burst'; document.body.appendChild(bz); setTimeout(function(){ bz.remove(); }, 950); if (navigator.vibrate) navigator.vibrate([60,40,60,40,160]); w[dayId] = Date.now(); store.set('bp-week', JSON.stringify(w)); paintWeek(); } } catch(e){}
  const c = readCompleted(); const today = _tday(Date.now()); if (c[dayId] !== today){ c[dayId] = today; writeCompleted(c); } }
@@ -3782,7 +3787,7 @@ window.toggleExpress = toggleExpress;
 
 // ── 4-week blocks: accessories swap to a sibling lift (Block B text lives in data-alt-*); tracked lifts never change ──
 function _logKey(card){ return card.dataset.id + (card.dataset.blk === 'b' ? '~b' : ''); }
-function readBlock(){ try { return JSON.parse(store.get('bp-block') || 'null') || { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
+function readBlock(){ try { var b = _asObj(JSON.parse(store.get('bp-block') || 'null')); return b.b ? b : { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
 function applyBlock(){
  var st = readBlock(); try { if (!store.get('bp-block')) store.set('bp-block', JSON.stringify(st)); } catch(e){}
  var isB = st.b === 'B', map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow'],['.sets','altSets'],['.tempo','altTempo']];
@@ -3828,7 +3833,7 @@ window.toggleBlock = toggleBlock;
 // weekly wildcard: one rotating play move per session
 function applyWildcards(){
  var wk = _weekNo(), off = {};
- try { var st = JSON.parse(store.get('bp-wild') || '{}'); if (st.wk === wk) off = st.off || {}; } catch(e){}
+ try { var st = _asObj(JSON.parse(store.get('bp-wild') || '{}')); if (st.wk === wk) off = _asObj(st.off); } catch(e){}
  document.querySelectorAll('.excard.wild').forEach(function(c){ try {
  var list = JSON.parse(c.dataset.wild), p = list[(wk + (off[c.dataset.id] || 0)) % list.length];
  c.querySelector('.exname').textContent = 'Wildcard — ' + p[0];
@@ -3843,18 +3848,18 @@ function applyWildcards(){
 }
 function rerollWild(id){
  var wk = _weekNo(), st = { wk: wk, off: {} };
- try { var o = JSON.parse(store.get('bp-wild') || '{}'); if (o.wk === wk) st = o; } catch(e){}
+ try { var o = _asObj(JSON.parse(store.get('bp-wild') || '{}')); if (o.wk === wk) st = o; } catch(e){}
  st.off = st.off || {}; st.off[id] = (st.off[id] || 0) + 1;
  try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
  applyWildcards();
 }
 
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
-function readHist(){ try { return JSON.parse(store.get('bp-hist') || '{}'); } catch(e){ return {}; } }
+function readHist(){ try { return _asObj(JSON.parse(store.get('bp-hist') || '{}')); } catch(e){ return {}; } }
 function writeHist(o){ try { store.set('bp-hist', JSON.stringify(o)); } catch(e){} }
 function _today(){ var d = new Date(Date.now() - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 // units: some machines here are pinned in kg, some in lb — remembered per lift, tap the unit to switch
-function readUnits(){ try { return JSON.parse(store.get('bp-units') || '{}') || {}; } catch(e){ return {}; } }
+function readUnits(){ try { return _asObj(JSON.parse(store.get('bp-units') || '{}')); } catch(e){ return {}; } }
 function _unitFor(id){ return readUnits()[id] === 'kg' ? 'kg' : 'lb'; }
 function _setUnit(id, u){ var o = readUnits(); if (u === 'kg') o[id] = 'kg'; else delete o[id]; try { store.set('bp-units', JSON.stringify(o)); } catch(e){} }
 function _rnd(w, u){ var s = u === 'kg' ? 1.25 : 2.5; return Math.round(w / s) * s; }
@@ -3867,7 +3872,7 @@ function _fmt(e){ var u = ' ' + (e.u || 'lb'); return e.r > 0 ? (e.w > 0 ? e.w +
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
 function _prev(arr){ var t = _today(); return (arr || []).filter(function(e){ return e.d !== t; }); }
 function _lastBest(arr){
- var p = _prev(arr); if (!p.length) return '';
+ var p = _prev(_asArr(arr)); if (!p.length) return '';
  var last = p[p.length-1], pool = _same(p, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  return 'last ' + _fmt(last) + (best !== last && last.r > 0 ? ' · best ' + _fmt(best) : '');
 }
@@ -3893,7 +3898,7 @@ function buildJots(){
  var exId = _logKey(card), name = card.querySelector('.exname').textContent.trim();
  var wUnit = _unitFor(exId);
  var timed = card.dataset.unit === 'sec' || (card.dataset.unit !== 'reps' && /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || ''));
- var all = hist[exId] || [], p = _prev(all), mine = all.filter(function(e){ return e.d === t; })[0];
+ var all = _asArr(hist[exId]), p = _prev(all), mine = all.filter(function(e){ return e.d === t; })[0];
  var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/);
  var src = mine || p[p.length-1] || { w: _firstW(card), r: m0 ? +m0[1] : (timed ? 20 : 8) };
  var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r }, bw = !v.w && !_firstW(card), lbl = _esc(name.split(' — ')[0]);
@@ -3983,7 +3988,7 @@ function copyNumbers(){
 window.copyNumbers = copyNumbers;
 // ── Bodyweight ────────────────────────────────────────────────────────
 // Gaining slowly is the stated goal, so this is the number that says whether it is working.
-function readBW(){ try { return JSON.parse(store.get('bp-bw') || '[]') || []; } catch(e){ return []; } }
+function readBW(){ try { return _asArr(JSON.parse(store.get('bp-bw') || '[]')); } catch(e){ return []; } }
 function writeBW(a){ try { store.set('bp-bw', JSON.stringify(a.slice(-80))); } catch(e){} }
 function _bwUnit(){ return _unitFor('__bw'); }
 function _convBW(w, from, to){ return from === to || !(w > 0) ? w : Math.round((to === 'kg' ? w / 2.20462 : w * 2.20462) * 10) / 10; }
@@ -4111,7 +4116,7 @@ window.backupNumbers = backupNumbers; window.restoreNumbers = restoreNumbers;
 // to Contents read+write on the log repo alone: then a leaked token costs
 // one private training log, never the code and never the account.
 var GH_API = 'https://api.github.com';          // the only host the token is ever sent to
-function readGH(){ try { return JSON.parse(store.get('bp-gh') || 'null') || null; } catch(e){ return null; } }
+function readGH(){ try { var c = _asObj(JSON.parse(store.get('bp-gh') || 'null')); return (c.repo && c.tok) ? c : null; } catch(e){ return null; } }
 function writeGH(o){ try { if (o) store.set('bp-gh', JSON.stringify(o)); else store.del('bp-gh'); } catch(e){} }
 function _ghHead(c){ return { 'Authorization':'Bearer ' + c.tok, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' }; }
 function _ghUrl(c){ return GH_API + '/repos/' + c.repo + '/contents/log.json'; }
@@ -4409,7 +4414,7 @@ function addFormLinks(){
 // ── Session clock ─────────────────────────────────────────────────────
 // Started by the first tick of the day, extended by every tick after.
 // Gives a real duration instead of the estimate printed on the day header.
-function readSess(){ try { return JSON.parse(store.get('bp-sess') || '[]') || []; } catch(e){ return []; } }
+function readSess(){ try { return _asArr(JSON.parse(store.get('bp-sess') || '[]')); } catch(e){ return []; } }
 function writeSess(a){ try { store.set('bp-sess', JSON.stringify(a.slice(-60))); } catch(e){} }
 function _sessKey(dayId){ return _today() + '|' + dayId; }
 function sessTick(dayId){
@@ -4521,7 +4526,7 @@ document.addEventListener('click', function(ev){ var t = ev.target.closest && ev
  var m = t.textContent.trim().match(/^(\d+|X) · (\d+|X) · (\d+|X)$/), f = function(v, w){ return v === 'X' ? 'fast ' + w : v + 's ' + w; };
  _toast(m ? f(m[1], 'lower') + ' · ' + (m[2] === '0' ? 'no pause' : m[2] + 's hold') + ' · ' + f(m[3], 'lift') : t.textContent.trim() === 'ISO' ? 'Hold still — no movement' : 'Smooth and controlled'); });
 // machine settings memory: one short note per card that has a seat, pad or roller to set
-(function(){ var notes = {}; try { notes = JSON.parse(store.get('bp-seat') || '{}'); } catch(e){}
+(function(){ var notes = {}; try { notes = _asObj(JSON.parse(store.get('bp-seat') || '{}')); } catch(e){}
  document.querySelectorAll('.excard[data-id] > .band-badge').forEach(function(bd){ var c = bd.parentNode; if (c.classList.contains('wild') || !/machine|seat|thigh pad/i.test(bd.textContent)) return;
  var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.maxLength = 40; i.placeholder = 'Seat / pad settings — tap to note'; i.setAttribute('aria-label', 'Machine settings note');
  function key(){ return _logKey(c); } function paint(){ i.value = notes[key()] || ''; i.classList.toggle('has', !!i.value); }
@@ -4578,7 +4583,7 @@ buildDayChips(); paintWeek();
  if (f[0] && f[1] === _today() && document.getElementById(f[0]) && (!h || h === f[0])) setFocus(f[0]); } catch(e){} })();
 // tap a level-up rung when you own it — it stays ticked, the button shows how far up the ladder you are
 (function(){
- var got = {}; try { got = JSON.parse(store.get('bp-rungs') || '{}'); } catch(e){}
+ var got = {}; try { got = _asObj(JSON.parse(store.get('bp-rungs') || '{}')); } catch(e){}
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
  var steps = card.querySelectorAll('.prog-step'), btn = card.querySelector('.acc-btn'); if (!steps.length || !btn) return;
  var label = btn.textContent.replace(/[▼\s]+/, ' ').trim();
