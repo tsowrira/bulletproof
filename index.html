@@ -1209,7 +1209,7 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .excard.done .exmeta,.excard.done .ssn,.excard.done .start-l,.excard.done .exlog:not(.has-val){display:none}
 .excard.done .extop{margin:0;align-items:center}
 .excard.done .exname{font-size:15px;margin:0}
-.excard.done .exlog{margin-top:4px}.excard.done .stb{display:none}.excard.done .stp{border-color:transparent;background:none}
+.excard.done .exlog{margin-top:4px}.excard.done .stp{border-color:transparent;background:none}
 /* superset header: say the rule once per day */
 .ssh~.ssh span{display:none}.ssh[data-x] span{display:inline}
 /* log steppers */
@@ -1217,6 +1217,9 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .stp{display:flex;align-items:center;border:1px solid rgba(93,255,159,.25);border-radius:12px;background:rgba(93,255,159,.04);overflow:hidden}
 .stb{width:48px;height:48px;border:0;background:transparent;color:var(--g);font-size:24px;font-weight:700;line-height:1;touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
 .stb:active{background:rgba(93,255,159,.18)}
+.exlog.two .stp{flex-shrink:1}
+.exlog.two .stv{width:36px}
+.exlog.two .stb{width:42px}
 .stv{width:46px;height:48px;padding:0;border:0;background:transparent;text-align:right;color:var(--txt);font:700 17px 'Inter',sans-serif;font-variant-numeric:tabular-nums}
 .stv:focus{outline:none;color:var(--g)}
 .stu{padding:0 4px 0 3px;font-size:10.5px;color:var(--dim);letter-spacing:.06em}
@@ -1332,10 +1335,13 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 @media(max-width:759px){.dr-h span{flex-basis:100%;margin:0}}
 /* finished card = one row: name · logged value · ✓ */
 .excard{transition:opacity .25s,background .2s,box-shadow .2s,transform .2s,padding .25s cubic-bezier(.2,.8,.3,1)}
-.excard.done{display:flex;align-items:center;gap:10px;animation:settle .28s ease-out}
+.excard.done{display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:settle .28s ease-out}
 .excard.done .extop{display:contents}
-.excard.done .ex-left{flex:1;min-width:0}
-.excard.done .exlog{order:2;margin:0;flex:none}
+.excard.done .ex-left{flex:1 1 42%;min-width:0}
+/* a two-set lift carries three steppers; on a narrow screen they take their own
+   row rather than running off the edge where S2 cannot be reached */
+.excard.done .exlog{order:2;margin:0;flex:1 1 auto;min-width:0;flex-wrap:nowrap}
+.excard.done .exlog.two{flex-basis:100%;order:4;margin-top:6px}
 .excard.done .chk{order:3;width:44px;height:44px}
 .excard.done .exlast{display:none}
 .excard.done .exlog.has-val .stp,.excard.done .exlog.pr .stp{border-color:transparent;background:none;box-shadow:none}
@@ -3190,8 +3196,8 @@ window.toggleDone = function(btn){
  card.dataset.r1 = String(Date.now()); _saveR1(); btn.textContent = '½'; btn.classList.add('half');
  if (navigator.vibrate) navigator.vibrate(20);
  if (_r0 && _r0._restStart){ _r0._restReset(); _r0._restStart(); }
- _armAudio(); var _p = _partner(card); if (_p && !_p.classList.contains('done')) _glide(_p);
- requestWakeLock(); return;
+ _armAudio();
+ requestWakeLock(); return;   // no glide on the half-tick: you are still on this lift
  }
  if (card){ delete card.dataset.r1; _saveR1(); btn.classList.remove('half'); }
  _origToggleDone(btn);
@@ -3209,7 +3215,9 @@ window.toggleDone = function(btn){
  if (navigator.vibrate) navigator.vibrate(30); // confirm tap (eyes on the rack)
  var _sec = card.closest('.section'), _fin = _sec && document.querySelector('.day-complete.shown[data-day="' + _sec.id + '"]');
  if (!_fin){ if (rest && rest._restStart) rest._restStart(); // one tap = logged + rest clock running
- _armAudio(); var _pp = _partner(card); _glide(_pp && !_pp.classList.contains('done') ? _pp : _nextOpen(card)); }
+ _armAudio(); }
+ // Nothing auto-scrolls any more. Moving the page under a thumb mid-set is how a
+ // mistyped rep count becomes permanent: the field you wanted slides out of reach.
  } else if (!nowDone && wasDone && rest && rest._restReset){
  rest._restReset();
  }
@@ -3868,7 +3876,9 @@ function _conv(w, from, to){ return from === to || !(w > 0) ? w : _rnd(to === 'k
 function _wstep(w, u, dir){ return u === 'kg' ? (w < 15 || (w === 15 && dir < 0) ? 1.25 : 2.5) : (w < 30 || (w === 30 && dir < 0) ? 2.5 : 5); }
 // best-ever compares across units — everything normalises to lb before scoring
 function _score(e){ return e.w > 0 ? _toLb(e.w, e.u) * (1 + e.r/30) : e.r; }
-function _fmt(e){ var u = ' ' + (e.u || 'lb'); return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + e.r : e.w + u; }
+function _fmt(e){ var u = ' ' + (e.u || 'lb');
+ var reps = (e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r;   // set 1 / set 2
+ return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + reps : e.w + u; }
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
 function _prev(arr){ var t = _today(); return (arr || []).filter(function(e){ return e.d !== t; }); }
 function _lastBest(arr){
@@ -3901,14 +3911,19 @@ function buildJots(){
  var all = _asArr(hist[exId]), p = _prev(all), mine = all.filter(function(e){ return e.d === t; })[0];
  var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/);
  var src = mine || p[p.length-1] || { w: _firstW(card), r: m0 ? +m0[1] : (timed ? 20 : 8) };
- var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r }, bw = !v.w && !_firstW(card), lbl = _esc(name.split(' — ')[0]);
+ var twoSets = !timed && !wOnly && /S1/.test(st0) && /S2/.test(st0);
+ var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, r1: (src.r1 != null ? src.r1 : (m0 ? +m0[1] : src.r)) };
+ var bw = !v.w && !_firstW(card), lbl = _esc(name.split(' — ')[0]);
  function stp(k, unit, tap){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
  '<input class="stv" type="text" inputmode="decimal" value="' + v[k] + '" aria-label="' + lbl + ': ' + unit + '">' +
  (tap ? '<button type="button" class="stu stu-b" aria-label="' + lbl + ': unit, now ' + unit + ' — tap to switch">' + unit + '</button>' : '<span class="stu">' + unit + '</span>') +
  '<button type="button" class="stb" data-d="1" aria-label="' + lbl + ': more ' + unit + '">+</button></div>'; }
  var row = document.createElement('div'); row.className = 'exlog' + (mine ? ' has-val' : '');
- var rUnit = timed ? 'sec' : (/S2/.test(st0) ? 'S2 reps' : 'reps');
- row.innerHTML = (bw ? '' : stp('w', wUnit, 1)) + (wOnly ? '' : stp('r', rUnit)) + '<span class="exlast">' + _lastBest(all) + '</span>';
+ var rUnit = timed ? 'sec' : 'reps';
+ row.innerHTML = (bw ? '' : stp('w', wUnit, 1))
+  + (wOnly ? '' : (twoSets ? stp('r1', 'S1') + stp('r', 'S2') : stp('r', rUnit)))
+  + '<span class="exlast">' + _lastBest(all) + '</span>';
+ if (twoSets) row.classList.add('two');
  // the ladders say "add a pin when N is clean" — this says it at the moment you earned it
  var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
  if (lastP && tgt && !wOnly && lastP.r >= tgt && lastP.w > 0){
@@ -3934,6 +3949,7 @@ function buildJots(){
  var h = readHist(), arr = (h[exId] || []).filter(function(e){ return e.d !== t; });
  var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
  var e = { d:t, w:v.w, r:v.r }; if (wUnit === 'kg' && v.w > 0) e.u = 'kg';
+  if (twoSets && v.r1 > 0) e.r1 = v.r1;   // set 1 rides along; older entries simply lack it
  var pr = !wOnly && !!prevBest && _score(e) > prevBest;
  arr.push(e); h[exId] = arr.slice(-12); writeHist(h); paintBests(); renderNumbers();
  row.classList.add('has-val'); row.classList.toggle('pr', pr);
