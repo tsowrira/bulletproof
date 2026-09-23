@@ -894,6 +894,7 @@ body.gym .howfold{display:none}
 .exx{color:var(--dim);font-size:13px}
 .exlast{margin-left:auto;font-family:'Inter',sans-serif;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .exlog.pr .exlast{color:var(--gld)}.exlog.pr .exnum{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
+.startwhy{margin:9px 0 0;font-size:12.5px;line-height:1.5;color:var(--gld)}
 .startbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:13px 22px;min-height:48px;border-radius:100px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#060611;background:var(--r);box-shadow:0 0 22px -4px var(--r);position:relative;-webkit-tap-highlight-color:transparent;transition:transform .12s}
 .startbtn:active{transform:scale(.97)}
 .day-jump small{display:block;font-size:11px;letter-spacing:.02em;font-weight:700;margin-top:1px}
@@ -1375,7 +1376,8 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 .gh-in{display:block;width:100%;margin-top:5px;padding:0 11px;height:46px;border:1px solid var(--bdr);border-radius:10px;background:rgba(0,0,0,.25);color:var(--txt);font:500 16px 'Inter',sans-serif}
 .gh-in:focus{outline:none;border-color:var(--g)}
 /* "you earned a jump" hint, straight off last session's numbers */
-.upnudge{margin-left:7px;color:var(--gld);font-weight:700;white-space:nowrap}
+.upnudge{margin-left:2px;padding:3px 9px;border:1px solid rgba(255,210,58,.45);border-radius:100px;background:rgba(255,210,58,.08);color:var(--gld);font:700 11.5px 'Inter',sans-serif;white-space:nowrap;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;vertical-align:middle}
+.upnudge:active{background:rgba(255,210,58,.2)}
 /* add-to-home-screen prompt — iOS clears site data after 7 idle days unless installed */
 .a2hs{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:80;display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1px solid var(--g);border-radius:15px;background:rgba(10,14,20,.97);box-shadow:0 10px 34px rgba(0,0,0,.6)}
 .a2hs p{margin:0;font-size:12.5px;line-height:1.55;color:var(--txt)}
@@ -1436,6 +1438,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
  <p>Four sessions: upper, lower, upper, lower. Skill first, then supersets, two sets a lift — one in Express. Nothing repeats.</p>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
+ <div class="startwhy" id="startWhy" hidden></div>
  <div class="pills">
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
@@ -3329,9 +3332,40 @@ document.querySelectorAll('a.wc[href]').forEach(function(l){ l.addEventListener(
 
 // ── "Start today" → jumps to the right session; FAB shows done / total for the day in view ──
 function _dow(){ return new Date(Date.now() - DAY_SHIFT_MS).getDay(); }
+// ── What to do today ──────────────────────────────────────────────────
+// The button used to read the calendar: Wednesday meant Upper B, full stop, and a
+// missed Monday was gone for the week. Now it reads what you have actually done,
+// and offers whatever is most owed - in the program's own busy-week order,
+// "Tue + Mon first, then Thu, then Wed", so Upper B is what falls off a bad week.
+var DAY_SLOT = { d5:1, d1:2, d3:3, d2:4 };                 // the weekday each session belongs to
+var DAY_ORDER = ['d1', 'd5', 'd2', 'd3'];                  // what to save when the week goes wrong
+var DAY_NAME = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B' };
+function owedDays(){
+ var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
+ if (dow < 1 || dow > 4) return [];                        // Fri/Sat/Sun are play and rest; never make up into them
+ return DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= dow; });
+}
+function suggestDay(){
+ var owed = owedDays(), dow = _dow();
+ if (!owed.length) return null;
+ var pick = owed[0];
+ return { id: pick, late: DAY_SLOT[pick] < dow, name: DAY_NAME[pick] };
+}
 function _paintStart(){
  var map = {1:['d5','Start Upper A',"var(--g)"],2:['d1','Start Lower A',"var(--r)"],3:['d3','Start Upper B',"var(--gld)"],4:['d2','Start Lower B',"var(--b)"],5:['d4','Play day',"var(--p)"],6:['d4','Hike day',"var(--p)"],0:['daily','Rest day · daily 9 min',"var(--g)"]};
  var m = map[_dow()], b = document.getElementById('startBtn'); if (!b) return;
+ var note = document.getElementById('startWhy');
+ if (note){ var owed = (typeof owedDays === 'function') ? owedDays() : [];
+  var late = owed.filter(function(d){ return DAY_SLOT[d] < _dow(); });
+  note.textContent = late.length
+   ? late.map(function(d){ return DAY_NAME[d]; }).join(' and ') + (late.length > 1 ? ' are' : ' is') + ' still owed this week — never doubled up, just reordered.'
+   : '';
+  note.hidden = !late.length; }   // set before any early return, or it goes stale
+ var sg = (typeof suggestDay === 'function') ? suggestDay() : null;
+ if (sg && m && sg.id !== m[0]){                           // an earlier session is owed and outranks today's
+  var col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[sg.id];
+  m = [sg.id, 'Start ' + sg.name, col];
+ }
  b.onclick = (m && /^d[1235]$/.test(m[0])) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
  var _wk = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, _st = m && _wk[m[0]];
  if (m && _st){ var _sk = String(_st).indexOf('skip') === 0; b.href = '#' + m[0]; b.textContent = (_sk ? '– Skipped today' : '✓ ' + m[1].replace('Start ', '') + ' done'); b.style.background = 'transparent'; b.style.boxShadow = 'inset 0 0 0 1px ' + m[2]; b.style.color = m[2]; return; }
@@ -3648,7 +3682,20 @@ function buildJots(){
  var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
  if (lastP && tgt && !wOnly && lastP.r >= tgt && lastP.w > 0){
   var jump = _wstep(_conv(lastP.w, lastP.u || 'lb', wUnit), wUnit, 1);
-  row.querySelector('.exlast').insertAdjacentHTML('beforeend', ' <span class="upnudge">→ +' + jump + ' ' + wUnit + '</span>');
+  var nb = document.createElement('button');
+  nb.type = 'button'; nb.className = 'upnudge';
+  nb.textContent = '→ +' + jump + ' ' + wUnit;
+  nb.setAttribute('aria-label', 'You earned it: add ' + jump + ' ' + wUnit + ' to ' + lbl);
+  nb.addEventListener('click', function(ev){
+   ev.stopPropagation();
+   v.w = v.w + jump;
+   row.querySelector('.stp[data-k="w"] .stv').value = v.w;
+   nb.remove(); commit();
+   if (navigator.vibrate) navigator.vibrate([20, 30, 20]);
+   _toast(lbl + ' → ' + v.w + ' ' + wUnit);
+  });
+  var ex = row.querySelector('.exlast');
+  ex.appendChild(document.createTextNode(' ')); ex.appendChild(nb);
  }
  function commit(){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
