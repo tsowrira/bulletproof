@@ -895,6 +895,19 @@ body.gym .howfold{display:none}
 .exlast{margin-left:auto;font-family:'Inter',sans-serif;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .exlog.pr .exlast{color:var(--gld)}.exlog.pr .exnum{border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
 .startwhy{margin:9px 0 0;font-size:12.5px;line-height:1.5;color:var(--gld)}
+.squeeze{margin:13px 0 0;padding:13px 14px;border:1px solid var(--gld);border-radius:14px;background:rgba(255,210,58,.05);text-align:left}
+.sq-top{font-size:13px;line-height:1.5;color:var(--gld);font-weight:600}
+.sq-day{margin-top:11px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07)}
+.sq-h{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.sq-day ul{margin:7px 0 10px;padding-left:17px}
+.sq-day li{font-size:13px;line-height:1.55;color:var(--fade);margin:3px 0}
+.sq-day li b{color:var(--txt)}
+.sq-go,.sq-skip{min-height:42px;padding:0 14px;margin-right:7px;border-radius:100px;border:1px solid var(--gld);background:rgba(255,210,58,.1);color:var(--gld);font:700 11px 'Inter',sans-serif;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sq-skip{border-color:var(--bdr);background:transparent;color:var(--dim)}
+/* key-only: the rescued lifts and nothing else */
+.section.keyonly .excard:not([data-key]),.section.keyonly .ssh,.section.keyonly .wu,.section.keyonly .fin{display:none}
+.section.keyonly .keybanner{display:block}
+.keybanner{display:none;width:100%;margin:0 0 12px;padding:11px 13px;border:1px dashed var(--gld);border-radius:12px;background:rgba(255,210,58,.06);color:var(--gld);font:700 11px 'Inter',sans-serif;letter-spacing:.09em;text-transform:uppercase;text-align:left;cursor:pointer}
 .resume{margin:13px 0 0;padding:13px 14px;border:1px solid var(--g);border-radius:14px;background:rgba(93,255,159,.05);text-align:left}
 .rs-top{font-size:13.5px;line-height:1.5;color:var(--txt)}
 .rs-top b{color:var(--g)}
@@ -1447,6 +1460,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <p>Four sessions: upper, lower, upper, lower. Skill first, then supersets, two sets a lift — one in Express. Nothing repeats.</p>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <div class="startwhy" id="startWhy" hidden></div>
+ <div class="squeeze" id="sqCard" hidden></div>
  <div class="resume" id="resumeCard" hidden>
   <div class="rs-top" id="rsTop"></div>
   <div class="rs-btns">
@@ -3348,6 +3362,87 @@ document.querySelectorAll('a.wc[href]').forEach(function(l){ l.addEventListener(
 
 // ── "Start today" → jumps to the right session; FAB shows done / total for the day in view ──
 function _dow(){ return new Date(Date.now() - DAY_SHIFT_MS).getDay(); }
+// ── When the week cannot fit ──────────────────────────────────────────
+// Rather than enumerate miss patterns, count. Sessions still to do versus training
+// slots still available: the difference is how many are going to be lost, whatever
+// combination got you here. The lowest-priority ones go, and their key lifts - the
+// movements nothing else in the week covers - get offered as a tail on a session
+// you are actually doing.
+var KEY_LIFTS = {
+ d5: [['d1e3', 'the week\u2019s only horizontal pull'], ['d1e1', 'your heaviest vertical pull']],
+ d3: [['d2e-press', 'the week\u2019s only horizontal press'], ['d3-chin', 'the other loaded chin pattern']],
+ d1: [['d3e7', 'the week\u2019s only hamstring eccentric'], ['d3e-abd', 'loaded side-glute work']],
+ d2: [['d3-rdl', 'the week\u2019s only hinge'], ['d4b1', 'your main glute lift']]
+};
+function _weekMath(){
+ var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
+ var settled = DAY_ORDER.filter(function(d){ return w[d]; });          // done or deliberately skipped
+ var toDo = DAY_ORDER.length - settled.length;
+ var slots = (dow >= 1 && dow <= 4) ? (5 - dow) : 0;                   // today through Thursday
+ var todayId = { 1:'d5', 2:'d1', 3:'d3', 4:'d2' }[dow];
+ if (todayId && w[todayId]) slots -= 1;                                // today's slot already spent
+ return { toDo: toDo, slots: Math.max(0, slots), lost: Math.max(0, toDo - Math.max(0, slots)) };
+}
+// the sessions that arithmetic says will not happen: lowest priority first
+function lostDays(){
+ var m = _weekMath(); if (!m.lost) return [];
+ var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {};
+ var open = DAY_ORDER.filter(function(d){ return !w[d]; });
+ return open.slice(-m.lost);
+}
+function paintSqueeze(){
+ var box = document.getElementById('sqCard'); if (!box) return;
+ var lost = (typeof lostDays === 'function') ? lostDays() : [];
+ if (!lost.length){ box.hidden = true; return; }
+ var rows = lost.slice(0, 2).map(function(d){
+  var keys = (KEY_LIFTS[d] || []).map(function(k){
+   var c = document.querySelector('.excard[data-id="' + k[0] + '"] .exname');
+   return '<li><b>' + _esc(c ? c.textContent.split(' \u2014 ')[0] : k[0]) + '</b> \u2014 ' + _esc(k[1]) + '</li>';
+  }).join('');
+  return '<div class="sq-day"><div class="sq-h">' + _esc(DAY_NAME[d]) + ' will not fit this week</div><ul>' + keys +
+   '</ul><button type="button" class="sq-go" data-day="' + d + '">Squeeze these in</button>' +
+   '<button type="button" class="sq-skip" data-day="' + d + '">Let it go</button></div>';
+ }).join('');
+ box.innerHTML = '<div class="sq-top">' + (lost.length > 1 ? lost.length + ' sessions will not fit' : 'One session will not fit') +
+  ' \u2014 do the lifts nothing else covers, at the end of whatever you train.</div>' + rows;
+ box.hidden = false;
+}
+// show only the lifts worth rescuing from a day, so it is a five-minute tail
+function keyOnly(dayId, on){
+ var sec = document.getElementById(dayId); if (!sec) return;
+ sec.classList.toggle('keyonly', on !== false);
+ if (on !== false){
+  if (typeof setFocus === 'function') setFocus(dayId);
+  setTimeout(function(){ if (typeof jumpTo === 'function') jumpTo(dayId); }, 60);
+  _toast('Just the key lifts \u2014 tap the banner to see the whole day');
+ }
+}
+(function markKeyLifts(){
+ Object.keys(KEY_LIFTS).forEach(function(d){
+  KEY_LIFTS[d].forEach(function(k){
+   var c = document.querySelector('.excard[data-id="' + k[0] + '"]');
+   if (c) c.setAttribute('data-key', '1');
+  });
+  var sec = document.getElementById(d), list = sec && sec.querySelector('.exlist');
+  if (list && !list.querySelector('.keybanner')){
+   var b = document.createElement('button');
+   b.type = 'button'; b.className = 'keybanner';
+   b.textContent = '\u2691 Rescued lifts only \u00b7 tap for the whole day';
+   list.insertBefore(b, list.firstChild);
+  }
+ });
+})();
+document.addEventListener('click', function(ev){
+ var g = ev.target.closest && ev.target.closest('.sq-go');
+ if (g){ keyOnly(g.dataset.day, true); return; }
+ var s = ev.target.closest && ev.target.closest('.sq-skip');
+ if (s){ if (!confirm('Let ' + DAY_NAME[s.dataset.day] + ' go this week?')) return;
+  try { var w = readCompletedWeek(); w[s.dataset.day] = 'skip:' + Date.now(); store.set('bp-week', JSON.stringify(w)); } catch(e){}
+  paintWeek(); _toast('Let go. Rest counts.'); return; }
+ var b = ev.target.closest && ev.target.closest('.keybanner');
+ if (b){ keyOnly(b.closest('.section').id, false); }
+});
+
 // ── Picking up a half-finished session ────────────────────────────────
 // Ticks expire after three hours so a fresh session starts clean, which meant a
 // session abandoned halfway simply vanished: not complete, so still "owed", with
@@ -3594,6 +3689,7 @@ function paintWeek(){
  Object.keys(cell).forEach(function(d){ var k = document.querySelector('#' + d + ' .xchip.skip'); if (k){ var sk0 = String(c[d] || '').indexOf('skip') === 0; var _td = {1:'d5',2:'d1',3:'d3',4:'d2'}[_dow()]; k.textContent = sk0 ? 'Skipped · undo' : 'Skip'; k.setAttribute('aria-label', sk0 ? 'Undo skip' : (d === _td ? 'Skip today' : 'Skip this day')); k.classList.toggle('on', sk0); } });
  if (typeof _paintStart === 'function') _paintStart();
  if (typeof paintResume === 'function') paintResume();
+ if (typeof paintSqueeze === 'function') paintSqueeze();
  Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (!el) return; var sk = String(c[d] || '').indexOf('skip') === 0; el.classList.toggle('hit', !!c[d] && !sk); el.classList.toggle('skipped', sk); });
 }
 function _weekStart(){ var m = new Date(); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime(); } // local Monday 00:00
