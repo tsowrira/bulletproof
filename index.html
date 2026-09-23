@@ -845,6 +845,8 @@ body.gym .howfold{display:none}
 .day-jump[data-day="travel"]{border-color:var(--o);color:var(--o)}
 
 /* ── DAY COMPLETE BANNER ── */
+.finbtn{display:block;width:100%;margin:14px 0 4px;min-height:50px;border-radius:13px;border:1px solid rgba(93,255,159,.4);background:rgba(93,255,159,.07);color:var(--g);font:700 12px 'Inter',sans-serif;letter-spacing:.11em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.finbtn:active{background:rgba(93,255,159,.16)}
 .day-complete{
  display:none;
  padding:18px var(--pad);
@@ -1745,6 +1747,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Got time?</div><p>Arm &amp; grip play — see Skills.</p></div>
+<button type="button" class="finbtn" data-day="d5" hidden>✓ Finish this session</button>
 <div class="day-complete" data-day="d5"></div>
 </div><!-- /d5 -->
 
@@ -1989,6 +1992,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Got time?</div><p>Tiptoe walks along a line, slow stepping bridges, easy hip circles. Light and playful — the legs already did the hard part.</p></div>
+<button type="button" class="finbtn" data-day="d1" hidden>✓ Finish this session</button>
 <div class="day-complete" data-day="d1"></div>
 </div><!-- /d1 -->
 
@@ -2238,6 +2242,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">After</div><p><strong>Wrist cooldown, 2 min</strong> — reverse prayer, circles, finger stretches. Non-negotiable after handstands. Got time? Cable reverse curls, or extra handstand play at the wall.</p></div>
+<button type="button" class="finbtn" data-day="d3" hidden>✓ Finish this session</button>
 <div class="day-complete" data-day="d3"></div>
 </div><!-- /d3 -->
 
@@ -2479,6 +2484,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 </div><!-- /exlist -->
 <div class="fin"><div class="fin-lbl">Got time?</div><p><strong>Plate pinch holds</strong> 3 × 20s each hand — left side first, right matches. One more easy backward trip if the knees feel great.</p></div>
+<button type="button" class="finbtn" data-day="d2" hidden>✓ Finish this session</button>
 <div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
@@ -3162,12 +3168,23 @@ function updateDayComplete() {
  const cards = [...document.querySelectorAll(`#${dayId} .excard, #${dayId} .wu`)].filter(c => !_hidden(c));
  if (!cards.length) return;
  const done = [...cards].filter(c => c.classList.contains('done')).length;
+ // The real work is everything that is not a bonus. Finish those and the day is
+ // done, whether or not you got to the extras - otherwise skipping one lift left
+ // a session uncredited and still counted as owed.
+ const core = cards.filter(c => !c.dataset.opt && !c.dataset.x);
+ const coreDone = core.filter(c => c.classList.contains('done')).length;
+ const fin = document.querySelector(`.finbtn[data-day="${dayId}"]`);
+ if (fin) fin.hidden = done === 0 || done === cards.length;
+ if (core.length && coreDone === core.length && done < cards.length) markDayComplete(dayId);
  if (done === cards.length && done > 0) {
  el.classList.add('shown');
  const saved = [...cards].filter(c => c.querySelector('.exlog.has-val')).length;
  const ss = typeof _curSess === 'function' ? _curSess(dayId) : null;
- const mins = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
- el.textContent = `✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '')
+ // working time, not wall time: a long gap is a conversation, not a set
+ const mins = ss ? _mins(ss.act || (ss.e - ss.s)) : 0;
+ const elapsed = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
+ const paused = elapsed - mins >= 5 ? ` · ${elapsed} min door to door` : '';
+ el.textContent = `✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '') + paused
    + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '');
  if (!el.dataset.fired){ el.dataset.fired = '1'; document.querySelectorAll('.rest-lbl.running').forEach(r => { if (r._restReset) r._restReset(); }); }
  markDayComplete(dayId);
@@ -3530,6 +3547,17 @@ function dropSession(){
  box.hidden = true; paintResume();
  _toast('Cleared — start fresh');
 }
+document.addEventListener('click', function(ev){
+ var f = ev.target.closest && ev.target.closest('.finbtn'); if (!f) return;
+ var day = f.dataset.day, sec = document.getElementById(day);
+ var cards = sec ? [].slice.call(sec.querySelectorAll('.excard, .wu')).filter(function(c){ return !_hidden(c); }) : [];
+ var done = cards.filter(function(c){ return c.classList.contains('done'); }).length;
+ if (!confirm('Finish ' + (DAY_NAME[day] || day) + ' with ' + done + ' of ' + cards.length + ' done?\n\nIt counts for the week and stops being owed.')) return;
+ markDayComplete(day);
+ f.hidden = true;
+ if (typeof paintResume === 'function') paintResume();
+ _toast((DAY_NAME[day] || day) + ' done \u00b7 ' + done + ' logged');
+});
 (function wireResume(){
  var g = document.getElementById('rsGo'); if (!g) return;
  g.addEventListener('click', resumeSession);
@@ -3724,8 +3752,19 @@ function updateFabCount(){
 // ── Highlight today's day in week strip ──
 function markToday() {
  document.querySelectorAll('.wc.today').forEach(c => c.classList.remove('today'));
- const cell = document.getElementById('wc-' + _dow());
+ var CELL_OF = { d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4' };
+ var sg = (typeof suggestDay === 'function') ? suggestDay() : null;
+ var id = sg ? CELL_OF[sg.id] : ('wc-' + _dow());
+ document.querySelectorAll('.wc.today').forEach(function(x){ x.classList.remove('today'); });
+ var cell = document.getElementById(id);
  if (cell) cell.classList.add('today');
+ // A session done off its usual day should not claim to be that day. Every cell
+ // keeps its weekday except the one you are actually doing, which says TODAY.
+ document.querySelectorAll('.wc').forEach(function(x){
+  var d = x.querySelector('.wd'); if (!d) return;
+  if (d.dataset.day === undefined) d.dataset.day = d.textContent;
+  d.textContent = (x === cell && id !== 'wc-' + _dow()) ? 'TODAY' : d.dataset.day;
+ });
 }
 markToday();
 
@@ -4440,6 +4479,7 @@ function sessTick(dayId){
  // a gap longer than three hours is a new session, not the same one resumed
  if (cur && now - cur.e > 3 * 3600e3) cur = null;
  if (!cur){ cur = { k:k, d:_today(), day:dayId, s:now, e:now, n:0, ids:[] }; a.push(cur); }
+ if (cur.e && now > cur.e) cur.act = (cur.act || 0) + Math.min(now - cur.e, 6 * 60000);  // a gap longer than a rest is a break, not training
  cur.e = now;
  // Record which cards are done, not merely that a tick happened. n was never being
  // set, so the "you: N min" median filtered itself out of existence; and the ids are
@@ -4473,8 +4513,8 @@ function _curSess(dayId){
 function _mins(ms){ return Math.max(1, Math.round(ms / 6e4)); }
 // median of this day's last few sessions - what it actually takes you, not the label
 function sessTypical(dayId){
- var xs = readSess().filter(function(s){ return s.day === dayId && s.e > s.s && s.n >= 3; })
-   .slice(-6).map(function(s){ return _mins(s.e - s.s); }).sort(function(a, b){ return a - b; });
+ var xs = readSess().filter(function(s){ return s.day === dayId && s.n >= 3; })
+   .slice(-6).map(function(s){ return _mins(s.act || (s.e - s.s)); }).sort(function(a, b){ return a - b; });
  if (!xs.length) return null;
  return { n: xs.length, med: xs[(xs.length - 1) >> 1] };
 }
