@@ -1393,15 +1393,6 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 .srow-x{flex-shrink:0;width:44px;height:44px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .srow-x:active{border-color:var(--r);color:var(--r)}
 /* bodyweight — the one number that says whether "gaining slowly" is actually happening */
-.bw{margin:0 0 16px;padding:13px 14px;border:1px solid rgba(93,255,159,.18);border-radius:13px;background:rgba(93,255,159,.03)}
-.bw-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
-.bw-t{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.bw-trend{font-size:12.5px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums;text-align:right}
-.bw-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.bw-row .stp{display:flex;align-items:center;border:1px solid rgba(93,255,159,.25);border-radius:12px;background:rgba(93,255,159,.04);overflow:hidden}
-.bw .stv{width:62px}
-.bw-save{margin:0!important;min-height:48px;padding:0 16px;white-space:nowrap}
-.bw-note{margin-top:9px;font-size:12px;color:var(--fade);line-height:1.5}
 .bk{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 .bk .logbtn{margin:0!important;flex:1 1 auto;min-width:118px}
 .bk-note{margin-top:9px;font-size:12px;color:var(--fade)}
@@ -2794,14 +2785,6 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
- <div class="bw" id="bwBox">
-  <div class="bw-hd"><span class="bw-t">Bodyweight</span><span class="bw-trend" id="bwTrend"></span></div>
-  <div class="bw-row">
-   <div class="stp" id="bwStp"><button type="button" class="stb" data-d="-1" aria-label="Bodyweight: less">−</button><input class="stv" id="bwIn" type="text" inputmode="decimal" aria-label="Bodyweight"><button type="button" class="stu stu-b" id="bwUnit" aria-label="Bodyweight unit — tap to switch">lb</button><button type="button" class="stb" data-d="1" aria-label="Bodyweight: more">+</button></div>
-   <button class="logbtn ghost bw-save" id="bwSave" type="button">Log today</button>
-  </div>
-  <div class="bw-note" id="bwNote"></div>
- </div>
  <div id="numList" style="max-width:620px"></div>
  <div class="bk">
   <button class="logbtn ghost" type="button" onclick="backupNumbers()">↓ Save a backup</button>
@@ -4230,66 +4213,11 @@ document.addEventListener('click', function(ev){
  _toast('Entry deleted');
 });
 window.copyNumbers = copyNumbers;
-// ── Bodyweight ────────────────────────────────────────────────────────
-// Gaining slowly is the stated goal, so this is the number that says whether it is working.
-function readBW(){ try { return _asArr(JSON.parse(store.get('bp-bw') || '[]')); } catch(e){ return []; } }
-function writeBW(a){ try { store.set('bp-bw', JSON.stringify(a.slice(-80))); } catch(e){} }
-function _bwUnit(){ return _unitFor('__bw'); }
-function _convBW(w, from, to){ return from === to || !(w > 0) ? w : Math.round((to === 'kg' ? w / 2.20462 : w * 2.20462) * 10) / 10; }
-function _daysAgo(d){ return Math.round((Date.parse(_today()) - Date.parse(d)) / 864e5); }
-function paintBW(){
- var box = document.getElementById('bwBox'); if (!box) return;
- var a = readBW(), u = _bwUnit(), inp = document.getElementById('bwIn'), ub = document.getElementById('bwUnit');
- var last = a[a.length-1];
- ub.textContent = u;
- if (document.activeElement !== inp) inp.value = last ? _convBW(last.w, last.u || 'lb', u) : (u === 'kg' ? 70 : 155);
- // trend across the last 4 weeks, in the unit on screen
- var tr = document.getElementById('bwTrend'), note = document.getElementById('bwNote');
- var recent = a.filter(function(e){ return _daysAgo(e.d) <= 28; });
- if (recent.length >= 2){
-  var f = recent[0], l = recent[recent.length-1], wks = Math.max(1, (_daysAgo(f.d) - _daysAgo(l.d)) / 7);
-  var d = (_toLb(l.w, l.u) - _toLb(f.w, f.u)) / wks;
-  if (u === 'kg') d = d / 2.20462;
-  var s = (d >= 0 ? '+' : '') + (Math.round(d * 10) / 10) + ' ' + u + '/wk';
-  tr.textContent = s + ' · ' + recent.length + ' weigh-ins';
-  tr.style.color = Math.abs(d) < 0.05 ? 'var(--dim)' : (d > 0 ? 'var(--g)' : 'var(--gld)');
- } else { tr.textContent = ''; }
- if (!last){ note.textContent = 'Log it once a week, same time of day — first thing, before food.'; note.className = 'bw-note'; return; }
- var ago = _daysAgo(last.d);
- note.textContent = (ago === 0 ? 'Logged today' : ago === 1 ? 'Last weigh-in yesterday' : 'Last weigh-in ' + ago + ' days ago')
-   + ' · ' + _convBW(last.w, last.u || 'lb', u) + ' ' + u
-   + (ago >= 7 ? ' — due for another.' : '');
- note.className = 'bw-note' + (ago >= 7 ? ' stale' : '');
-}
-(function wireBW(){
- var box = document.getElementById('bwBox'); if (!box) return;
- var inp = document.getElementById('bwIn');
- function val(){ return Math.max(0, parseFloat(inp.value) || 0); }
- document.getElementById('bwStp').addEventListener('click', function(ev){
-  var u = ev.target.closest('#bwUnit');
-  if (u){ var cur = _bwUnit(), nu = cur === 'kg' ? 'lb' : 'kg';
-   inp.value = _convBW(val(), cur, nu); _setUnit('__bw', nu); paintBW();
-   if (navigator.vibrate) navigator.vibrate(10); return; }
-  var b = ev.target.closest('.stb'); if (!b) return;
-  var step = _bwUnit() === 'kg' ? 0.2 : 0.5;
-  inp.value = Math.round(Math.max(0, val() + step * b.dataset.d) * 10) / 10;
-  if (navigator.vibrate) navigator.vibrate(10);
- });
- document.getElementById('bwSave').addEventListener('click', function(){
-  var w = val(); if (!(w > 0)) { _toast('Put a number in first'); return; }
-  var t = _today(), a = readBW().filter(function(e){ return e.d !== t; });
-  var e = { d: t, w: w }; if (_bwUnit() === 'kg') e.u = 'kg';
-  a.push(e); writeBW(a); paintBW(); _toast('Bodyweight logged · ' + w + ' ' + _bwUnit());
-  if (typeof ghTouch === 'function') ghTouch();
-  if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
- });
- paintBW();
-})();
 
 // ── Backup / restore ──────────────────────────────────────────────────
 // A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
 // one tap, "Save to Files", and the history lands in iCloud Drive.
-var BK_KEYS = ['bp-hist','bp-bw','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
+var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
 function _bkPayload(){
  var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
  BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
@@ -4363,7 +4291,7 @@ function restoreNumbers(){
    if (!confirm('Restore ' + keys.length + ' saved item' + (keys.length === 1 ? '' : 's') + ' from ' + when + '?\n\nThis replaces what is on this device now.')) return;
    keys.forEach(function(k){ store.set(k, d[k]); });
    document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
-   applyBlock(); buildJots(); renderNumbers(); paintBests(); paintBW(); paintBackupNote();
+   applyBlock(); buildJots(); renderNumbers(); paintBests(); paintBackupNote();
    _toast('Restored — ' + keys.length + ' item' + (keys.length === 1 ? '' : 's'));
   };
   r.readAsText(file);
@@ -4433,14 +4361,6 @@ function _ghMerge(d){
   });
   writeHist(loc);
  }
- if (d['bp-bw']){
-  var rb = []; try { rb = JSON.parse(d['bp-bw']) || []; } catch(e){ rb = []; }
-  var lb = readBW(), s2 = {};
-  lb.forEach(function(e){ s2[e.d] = 1; });
-  rb.forEach(function(e){ if (e && e.d && !s2[e.d]){ lb.push(e); added++; } });
-  lb.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
-  writeBW(lb);
- }
  if (d['bp-sess']){
   var rs = []; try { rs = JSON.parse(d['bp-sess']) || []; } catch(e){ rs = []; }
   var ls = readSess(), sk = {};
@@ -4454,7 +4374,7 @@ function _ghMerge(d){
 }
 function _ghRepaint(){
  document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
- buildJots(); renderNumbers(); paintBests(); paintBW(); paintBackupNote();
+ buildJots(); renderNumbers(); paintBests(); paintBackupNote();
 }
 
 function ghPull(quiet){
