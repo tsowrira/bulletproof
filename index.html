@@ -1361,7 +1361,8 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .excard.done .exlog.two{flex-basis:100%;order:4;margin-top:6px}
 .excard.done .chk{order:3;width:44px;height:44px}
 .excard.done .exlast{display:none}
-.excard.done .exlog.has-val .stp,.excard.done .exlog.pr .stp{border-color:transparent;background:none;box-shadow:none}
+.excard.done .exlog.has-val:not(.pr) .stp{border-color:transparent;background:none;box-shadow:none}
+.excard.done .exlog.pr .stp{background:none}
 /* ═══ v13 — second walkthrough ═══ */
 .ssh{scroll-margin-top:calc(var(--navh,55px) + 64px)}
 .tempo{cursor:pointer}
@@ -1394,7 +1395,7 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 #numList .srow span{font-size:15px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
 #numList .srow{display:flex;align-items:center;gap:9px}
 #numList .srow span{margin-left:auto}
-.srow-x{flex-shrink:0;width:34px;height:34px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.srow-x{flex-shrink:0;width:44px;height:44px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .srow-x:active{border-color:var(--r);color:var(--r)}
 /* bodyweight — the one number that says whether "gaining slowly" is actually happening */
 .bw{margin:0 0 16px;padding:13px 14px;border:1px solid rgba(93,255,159,.18);border-radius:13px;background:rgba(93,255,159,.03)}
@@ -1462,11 +1463,13 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  .excard:not(.done) .exlog.two .stp{justify-content:space-between}
  .excard:not(.done) .exlog.two .exlast{grid-column:1 / -1}
 }
-.exmeta .laterbtn{float:none!important;margin:0!important;min-height:40px!important}
+.exmeta .laterbtn{float:none!important;margin:0!important;min-height:44px!important}
 .bp-toast{white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 /* built day */
+@media(max-width:759px){.jstrip{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}}
+.spk{width:60px;height:16px;fill:none;stroke:var(--g);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin:0 8px 0 4px;flex:none}
 .excard[data-off],.ssh[data-off]{display:none!important}
-.section.planned .drills .drill:nth-child(n+3){display:none}
+.section.planned .excard:not([data-id="d5e1"]) .drills .drill:nth-child(n+3){display:none}
 .planbar{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:12px var(--pad);border-bottom:1px solid var(--bdr);background:rgba(176,107,255,.06)}
 .planbar[hidden]{display:none}
 .planbar b{flex:1;min-width:0;font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--p)}
@@ -1502,6 +1505,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  #sheet{display:block;position:fixed;left:0;right:0;bottom:0;z-index:115;max-height:80vh;overflow-y:auto;overscroll-behavior:contain;background:#0c0c1e;border-radius:16px 16px 0 0;border-top:1px solid var(--bdr);padding:14px 16px calc(76px + env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .22s cubic-bezier(.2,.8,.3,1),visibility 0s .22s}
  #sheet.open{transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.8,.3,1)}
  #sheet #log{display:block!important;margin:0 -16px;border:0}
+ .sh-x{position:sticky;top:0;float:right;z-index:2;min-height:44px;min-width:64px;margin:-6px -4px 0 8px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
  .sh-t{font:700 11px 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:2px 0 10px}
  .sh-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 4px;background:none;border:0;border-bottom:1px solid var(--bdr);color:var(--txt);text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
  .sh-row:active{background:rgba(234,240,255,.04)}
@@ -1659,10 +1663,10 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Step Down, Never Drop</div><p><strong>Every rep starts from an active hang — shoulders set, elbows soft.</strong></p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, overhand grip just outside the shoulders. Dip belt (or the 8 lb vest) — start about +10 lb. Box underneath.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, overhand grip just outside the shoulders. Dip belt (or the 8 lb vest) — start about +5 lb. Box underneath.</span></div>
 <div class="warmset">⚡ Ramp 1 easy set first</div>
 <div class="cue">Lead with the chest, not the chin — elbows drive to the back pockets.</div>
-<div class="setup"><strong>1.</strong> Start every rep in an active hang — shoulders set down, elbows soft, body still. <strong>2.</strong> Pull fast, chest up to the bar, pause 1, lower for 3s. <strong>3.</strong> Set 1: 5 reps at a load that leaves 2 in the tank — about +10 lb. Set 2: bodyweight, count only chest touches, stop one short. <strong>4.</strong> Step down onto the box — never drop.</div>
+<div class="setup"><strong>1.</strong> Start every rep in an active hang — shoulders set down, elbows soft, body still. <strong>2.</strong> Pull fast, chest up to the bar, pause 1, lower for 3s. <strong>3.</strong> Set 1: 5 reps at a load that leaves 2 in the tank — about +5 lb. Set 2: bodyweight, count only chest touches, stop one short. <strong>4.</strong> Step down onto the box — never drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>5 clean with 2 in the tank</span></div>
@@ -2063,7 +2067,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 
 
-<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise", "Where: back against a wall, heels a foot-length out on a mat.", "How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."], ["Short-Foot + Toe Yoga", "Where: barefoot on a mat, seated first, then standing.", "How: 2 × 10 each. Dome the arch without curling the toes, hold 3. Then lift the big toe alone, then the four small toes alone."], ["Slow Bear Crawl", "Where: open floor lane or turf, about five metres long.", "How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."], ["Tiptoe Line Walk", "Where: a straight floor line beside a rail, about five metres.", "How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."], ["Frog Pump", "Where: mat, on your back, soles of the feet together, knees relaxed outward.", "How: 2 × 20. Ribs down, press through the outer feet, short quick bridges, squeeze 1 at the top. Never arch."]]'>
+<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise", "Where: back against a wall, heels a foot-length out on a mat.", "How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."], ["Short-Foot + Toe Yoga", "Where: barefoot on a mat, seated first, then standing.", "How: 2 × 10 each. Dome the arch without curling the toes, hold 3. Then lift the big toe alone, then the four small toes alone."], ["Slow Bear Crawl", "Where: open floor lane or turf, about five metres long.", "How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."], ["Tiptoe Line Walk", "Where: a straight floor line beside a rail, about five metres.", "How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."], ["Frog Pump", "Where: mat, on your back, soles of the feet together, knees relaxed outward.", "How: 2 × 20. Ribs down, press through the outer feet, 2-count bridges, squeeze 1 at the top. Never arch."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2130,7 +2134,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 <div class="ssh" data-alt-pair="press ↔ the bar"><b>A</b>press ↔ the bar · chin-ups while fresh<span>1 → rest → 2 → rest · twice through</span></div>
 
-<div class="excard" data-id="d2e-press" data-ss="A" data-alt-caveat-t="⚠ The Floor Sets the Range" data-alt-name="Dumbbell Floor Press — Neutral Grip" data-alt-tempo="3 · 1 · 2" data-alt-where="Mat, two dumbbells. On your back, knees bent, feet flat, palms facing in, upper arms about 45° out." data-alt-sets="S1: 10 · S2: AMRAP" data-alt-cue="Upper arms touch the floor softly — pause, then press. No bounce." data-alt-how="1. Lie back with the dumbbells over the chest, palms in, ribs down. 2. Lower for 3 counts until the upper arms rest lightly on the floor; pause 1. 3. Press up, stopping short of locked elbows. 4. Set 2 ends when the dumbbells drift or the shoulders shrug." data-alt-caveat="Upper arms rest on the floor — never bounce off it. Elbows finish short of locked." data-alt-prog="Now: Your working dumbbells — S1: 10 · S2: AMRAP | 15 clean: Next dumbbells up">
+<div class="excard" data-id="d2e-press" data-ss="A" data-alt-caveat-t="⚠ The Floor Sets the Range" data-alt-name="Dumbbell Floor Press — Neutral Grip" data-alt-tempo="3 · 1 · 2" data-alt-where="Mat, two dumbbells. On your back, knees bent, feet flat, palms facing in, upper arms about 45° out." data-alt-sets="S1: 10 · S2: AMRAP" data-alt-cue="Upper arms touch the floor softly — pause, then press. No bounce." data-alt-how="1. Sit down, rest each dumbbell on a knee, then lie back one arm at a time, ribs down. 2. Lower for 3 counts until the upper arms rest lightly on the floor; pause 1. 3. Press up, stopping short of locked elbows. 4. Set 2 ends when the dumbbells drift or the shoulders shrug." data-alt-caveat="Upper arms rest on the floor — never bounce off it. Elbows finish short of locked." data-alt-prog="Now: Your working dumbbells — S1: 10 · S2: AMRAP | 15 clean: Next dumbbells up">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A1</div><div class="exname">Chest Press — Machine</div></div>
  <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
@@ -2385,7 +2389,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Flat Back, Hips Do the Work</div><p><strong>The rep ends the moment the back would round.</strong> The dumbbell stops just below the knee. Fixed reps, never to failure.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Open floor by the dumbbell rack. One 5 lb dumbbell held by both ends, feet hip-width, knees softly bent.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Open floor by the dumbbell rack. One dumbbell at your working weight, held by both ends, feet hip-width, knees softly bent.</span></div>
 <div class="warmset">⚡ Ramp: 3 easy reps first</div>
 <div class="cue">Hips back like you're closing a car door. The dumbbell just rides along.</div>
 <div class="setup"><strong>1.</strong> Stand tall, dumbbell against the thighs, knees softly bent and staying that way. <strong>2.</strong> Push the hips straight back for 3 counts, dumbbell sliding down the thighs, back long and flat. <strong>3.</strong> Stop just below the knee — no lower — and pause 1. <strong>4.</strong> Drive the hips forward to stand tall, no leaning back.</div>
@@ -2681,7 +2685,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="slbl">How</div>
-<div class="setup"><strong>1.</strong> Stand in front of a chair or bed edge, one leg out front, fingertips on a wall for balance only. <strong>2.</strong> Lower under control to a tap, capped at parallel. <strong>3.</strong> Stand back up — never a hand pushing off. Too easy: a lower seat.</div>
+<div class="setup"><strong>1.</strong> Stand in front of a chair or bed edge, one leg out front, fingertips on a doorframe or chair-back for balance only. <strong>2.</strong> Lower under control to a tap, capped at parallel. <strong>3.</strong> Stand back up — never a hand pushing off. Too easy: a lower seat.</div>
 <div class="cue">Off a seat, never a wall-push. Slow down = balance.</div>
 </div>
 
@@ -3051,7 +3055,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="leg-item"><div class="leg-dot" style="background:#b06bff"></div><div><div class="leg-name">Machines &amp; cables</div><div class="leg-desc">Set 2 hits 15 clean → one pin up next time. Jump too big? Stay, slow the lowering to 4s first.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#ffd23a"></div><div><div class="leg-name">Squat &amp; split squat — ~25 lb</div><div class="leg-desc">One dumbbell. Fixed reps, never to failure. Two clean weeks + a quiet next morning → smallest jump.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Hinge — 5 lb and climbing</div><div class="leg-desc">One-dumbbell RDL, 2 × 10, flat back. A clean week or two + a quiet next morning → smallest dumbbell jump. Aim 35 lb for 2 × 8, then two dumbbells. Barbell off the floor: not yet.</div></div></div>
- <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Pull-ups — about +10 lb</div><div class="leg-desc">Dip belt (or the 8 lb vest to start), set 1 only: 5 reps, 2 in the tank. 5 clean → +2.5 lb, at most weekly, shoulders quiet 48 h. Aim +25 lb × 3.</div></div></div>
+ <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Pull-ups — about +5 lb</div><div class="leg-desc">Dip belt (or the 8 lb vest to start), set 1 only: 5 reps, 2 in the tank. 5 clean → +2.5 lb, at most weekly, shoulders quiet 48 h. Aim +25 lb × 3.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#5dff9f"></div><div><div class="leg-name">Vest — 8 lb</div><div class="leg-desc">Push-up plus and pull-ups only — face-down or hanging. Never worn standing.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#ff2e88"></div><div><div class="leg-name">Week 4 of every block</div><div class="leg-desc">Easy week: Express sessions, set 2 stops at set-1 reps. Swap blocks the week after.</div></div></div>
  </div>
@@ -3071,7 +3075,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <button data-tab="more" type="button"><b>≡</b>More</button>
 </div>
 <div id="scrim" hidden></div>
-<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><div id="sheetBody"></div></div>
+<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><button type="button" class="sh-x" onclick="closeSheet()" aria-label="Close">Done</button><div id="sheetBody"></div></div>
 <button class="day-jump" id="dayJump" aria-label="Jump to top of current day">↑ Day</button>
 
 <script>
@@ -3279,7 +3283,7 @@ function updateDayComplete() {
  const elapsed = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
  const paused = elapsed - mins >= 5 ? ` · ${elapsed} min door to door` : '';
  el.textContent = `✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '') + paused
-   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '');
+   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '') + _sessWins(cards);
  if (!el.dataset.fired){ el.dataset.fired = '1'; document.querySelectorAll('.rest-lbl.running').forEach(r => { if (r._restReset) r._restReset(); }); }
  markDayComplete(dayId);
  } else {
@@ -3288,6 +3292,15 @@ function updateDayComplete() {
  }
  });
  paintJump();
+}
+function _sessWins(cards){
+ var h = readHist(), t = _today(), vol = 0, prs = [];
+ cards.forEach(function(c){ var id = c.dataset && c.dataset.id; if (!id) return;
+  var arr = _asArr(h[_logKey(c)]), e = arr.filter(function(x){ return x.d === t; })[0]; if (!e) return;
+  if (e.w > 0) vol += _toLb(e.w, e.u) * ((e.r || 0) + (e.r1 || 0));
+  var prev = _same(arr.filter(function(x){ return x.d !== t; }), e.w);
+  if (prev.length && _score(e) > Math.max.apply(null, prev.map(_score))) prs.push(c.querySelector('.exname').textContent.split(' — ')[0]); });
+ return (vol ? ' · ' + Math.round(vol).toLocaleString() + ' lb moved' : '') + (prs.length ? ' · ★ ' + prs.join(', ') : '');
 }
 function _reduced(){ try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
 function _shown(c){ return c && c.offsetParent !== null; }
@@ -3516,9 +3529,9 @@ function _weekMath(){
  var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
  var settled = DAY_ORDER.filter(function(d){ return w[d]; });          // done or deliberately skipped
  var toDo = DAY_ORDER.length - settled.length;
- var slots = (dow >= 1 && dow <= 4) ? (5 - dow) : 0;                   // today through Thursday
- var todayId = { 1:'d5', 2:'d1', 3:'d3', 4:'d2' }[dow];
- if (todayId && w[todayId]) slots -= 1;                                // today's slot already spent
+ var slots = 7 - ((dow + 6) % 7);                                      // today through Sunday — any day can hold a session
+ var t0 = _tday(Date.now());
+ if (Object.keys(w).some(function(d){ var t = parseInt(String(w[d]).replace('skip:', '')) || 0; return String(w[d]).indexOf('skip') !== 0 && _tday(t) === t0; })) slots -= 1;   // today already trained
  return { toDo: toDo, slots: Math.max(0, slots), lost: Math.max(0, toDo - Math.max(0, slots)) };
 }
 // the sessions that arithmetic says will not happen: lowest priority first
@@ -3692,11 +3705,12 @@ var DAY_ORDER = ['d1', 'd5', 'd2', 'd3'];                  // what to save when 
 var DAY_NAME = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B' };
 function owedDays(all){
  var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
- // Fri/Sat/Sun are play and rest. They never push a session, but with `all` they
- // will still tell you what is outstanding so the choice is yours, not the app's.
- var cap = (dow >= 1 && dow <= 4) ? dow : (all ? 4 : 0);
- if (!cap) return [];
- return DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= cap; });
+ // any day works: Fri–Sun offer whatever is still open this week (training is optional there, not banned)
+ var cap = (dow >= 1 && dow <= 4) ? dow : 4;
+ var due = DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= cap; });
+ // later sessions of the week come after, in week order — so a day that can't take the due one still gets an offer
+ var ahead = Object.keys(DAY_SLOT).sort(function(a, b){ return DAY_SLOT[a] - DAY_SLOT[b]; }).filter(function(d){ return !w[d] && DAY_SLOT[d] > cap; });
+ return all === 'due' ? due : due.concat(ahead);
 }
 // how long since you last trained anything - a fortnight off is not a missed Monday
 function daysSinceTrained(){
@@ -3709,13 +3723,16 @@ function daysSinceTrained(){
 // that would repeat yesterday's half gives way to an owed session of the other.
 var DAY_HALF = { d5:'U', d3:'U', d1:'L', d2:'L' };
 function _yesterdayHalf(){
- var w = readCompletedWeek(), y = _tday(Date.now() - 864e5), h = null;
+ var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}   // raw, not this week's copy: Sunday still counts on Monday
+ var y = _tday(Date.now() - 864e5), h = null;
  Object.keys(w).forEach(function(d){ var t = +w[d]; if (t && _tday(t) === y) h = DAY_HALF[d]; });
  return h;
 }
+// the session already trained today, if any — one a day, never doubled up
+function _doneToday(){ var w = readCompletedWeek(), t0 = _tday(Date.now()); return Object.keys(w).filter(function(d){ return DAY_HALF[d] && String(w[d]).indexOf('skip') !== 0 && _tday(+w[d]) === t0; })[0] || null; }
 function suggestDay(){
  var owed = owedDays(), dow = _dow();
- if (!owed.length) return null;
+ if (!owed.length || _doneToday()) return null;
  var yh = _yesterdayHalf(), pick = owed[0];
  if (yh && DAY_HALF[pick] === yh) pick = owed.filter(function(d){ return DAY_HALF[d] !== yh; })[0] || pick;
  return { id: pick, late: DAY_SLOT[pick] < dow, name: DAY_NAME[pick] };
@@ -3743,8 +3760,9 @@ function _paintStart(){
   note.innerHTML = _esc(msg) + (link ? ' <a href="#' + link + '">Do ' + _esc(DAY_NAME[link]) + '</a>' : '');
   note.hidden = !msg;
  }   // set before any early return, or it goes stale
- var sg = (typeof suggestDay === 'function') ? suggestDay() : null;
- if (sg && m && sg.id !== m[0]){                           // an earlier session is owed and outranks today's
+ var sg = (typeof suggestDay === 'function') ? suggestDay() : null, dt = _doneToday();
+ if (dt) m = [dt, 'Start ' + DAY_NAME[dt], { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[dt]];   // shows "✓ … done"
+ else if (sg && m && sg.id !== m[0]){                           // an earlier session is owed and outranks today's
   var col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[sg.id];
   m = [sg.id, 'Start ' + sg.name, col];
  }
@@ -3778,6 +3796,10 @@ function setFocus(id, keep){
  try { var sv = (sessionStorage.getItem('bp-pos-' + id) || '').split('|'); if (sv[0] === _today() && +sv[1] > 0) pos = +sv[1]; } catch(e){}
  window.scrollTo(0, Math.max(0, pos != null ? top + pos : top - off)); }
  } else if (!keep) window.scrollTo(0, 0);
+ if (id && DAY_HALF[id]){ var _wk = readCompletedWeek(), _t0 = _tday(Date.now());
+  var _dbl = Object.keys(_wk).some(function(d){ return d !== id && DAY_HALF[d] && String(_wk[d]).indexOf('skip') !== 0 && _tday(+_wk[d]) === _t0; });
+  if (_dbl) _toast('Second session today — keep it easy');
+  else if (_yesterdayHalf() === DAY_HALF[id]) _toast((DAY_HALF[id] === 'U' ? 'Upper' : 'Lower') + ' yesterday too — the other half is the better pick'); }
  if (id && typeof buildDay === 'function'){ var _sg = suggestDay(); if ((_sg && _sg.id === id) || readPlan()) buildDay(id); }
  paintJump();
 }
@@ -3869,7 +3891,7 @@ function paintWeek(){
  if (typeof paintSqueeze === 'function') paintSqueeze();
  Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (!el) return; var sk = String(c[d] || '').indexOf('skip') === 0; el.classList.toggle('hit', !!c[d] && !sk); el.classList.toggle('skipped', sk); });
 }
-function _weekStart(){ var m = new Date(); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime(); } // local Monday 00:00
+function _weekStart(){ var m = new Date(Date.now() - DAY_SHIFT_MS); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime() + DAY_SHIFT_MS; } // Monday 04:00, the training-day boundary
 function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every local Monday (Monday 00:00 sits mid-bucket, so DST can't double-step it)
 function readCompletedWeek(){
  var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}   // 'null' parses fine and then kills Object.keys
@@ -3951,7 +3973,7 @@ document.getElementById('tabbar').addEventListener('click', function(ev){
  var b = ev.target.closest('button'); if (!b) return;
  if (b.dataset.tab !== 'today'){ openSheet(b.dataset.tab); return; }
  closeSheet();
- var sg = typeof suggestDay === 'function' ? suggestDay() : null, id = sg ? sg.id : _todayId(), cur = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null;
+ var sg = typeof suggestDay === 'function' ? suggestDay() : null, id = _doneToday() || (sg ? sg.id : _todayId()), cur = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null;
  if (!id){ _goSection('daily'); return; }
  if (cur && cur.id === id){ var now = cur.querySelector('.excard.now'); if (now && typeof goCard === 'function') goCard(now); else cur.scrollIntoView({ block: 'start' }); }
  else setFocus(id);
@@ -4134,7 +4156,7 @@ function _lastBest(arr){
  return 'last ' + _fmt(last) + (best !== last && last.r > 0 ? ' · best ' + _fmt(best) : '');
 }
 // tracked lifts only: data-id → first-ever weight (0 = bodyweight, reps only). Everything else is a plain check-off.
-var TRACK = { 'd1e1':10, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3e-abd':70, 'd5e-pistol':0,
+var TRACK = { 'd1e1':5, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3e-abd':70, 'd5e-pistol':0,
  'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
  'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
@@ -4205,7 +4227,8 @@ function buildJots(){
   var ex1 = row.querySelector('.exlast'); ex1.insertBefore(aim, ex1.firstChild);
  }
  // the ladders say "add a pin when N is clean" — this says it at the moment you earned it
- if (!amrap && lastP && tgt && !wOnly && lastP.r >= tgt && lastP.w > 0){
+ var _twoClean = !/fixed/i.test(st0) || (p.length >= 2 && p[p.length-2].r >= tgt && p[p.length-2].w === lastP.w && p[p.length-2].d !== lastP.d);   // fixed-rep lifts: a clean week or two, never one good day
+ if (!amrap && lastP && tgt && !wOnly && lastP.r >= tgt && lastP.w > 0 && _twoClean){
   var jump = _wstep(_conv(lastP.w, lastP.u || 'lb', wUnit), wUnit, 1);
   var nb = document.createElement('button');
   nb.type = 'button'; nb.className = 'upnudge';
@@ -4252,7 +4275,8 @@ function buildJots(){
  });
  row.addEventListener('change', function(ev){
  var i = ev.target.closest('.stv'); if (!i) return;
- v[i.parentNode.dataset.k] = Math.max(0, parseFloat(i.value) || 0); i.value = v[i.parentNode.dataset.k]; commit();
+ var _n = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(_n)){ i.value = v[i.parentNode.dataset.k]; return; }
+ v[i.parentNode.dataset.k] = Math.max(0, _n); i.value = v[i.parentNode.dataset.k]; commit();
  });
  card._commitLog = commit; // the ✓ tap saves "same as last time" with zero extra taps
  var top = card.querySelector(':scope > .extop'); // numbers live right under the title, next to the check button
@@ -4260,6 +4284,12 @@ function buildJots(){
  });
 }
 // "My numbers": last + best for every tracked lift, straight from the saved history
+// a tiny trend line per lift: is it going up?
+function _spark(arr){
+ var pts = arr.slice(-8).map(_score); if (pts.length < 2) return '';
+ var mn = Math.min.apply(0, pts), mx = Math.max.apply(0, pts), sp = mx - mn || 1;
+ return '<svg class="spk" viewBox="0 0 60 16" aria-hidden="true"><polyline points="' + pts.map(function(v, i){ return (i / (pts.length - 1) * 58 + 1).toFixed(1) + ',' + (15 - (v - mn) / sp * 13).toFixed(1); }).join(' ') + '"/></svg>';
+}
 function renderNumbers(){
  var host = document.getElementById('numList'); if (!host) return;
  var h = readHist(), rows = '';
@@ -4269,7 +4299,7 @@ function renderNumbers(){
  var arr = (h[card.dataset.id + v[0]] || []).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], pool = _same(arr, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
- rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _esc(nm) + ' <span>' + _fmt(last) + (best !== last ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
+ rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _esc(nm) + ' ' + _spark(arr) + '<span>' + _fmt(last) + (best !== last ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
@@ -4478,7 +4508,7 @@ function _ghMerge(d){
   Object.keys(rem).forEach(function(k){
    var a = (loc[k] || []).slice(), seen = {};
    a.forEach(function(e){ seen[e.d] = 1; });
-   (rem[k] || []).forEach(function(e){ if (e && e.d && !seen[e.d]){ a.push(e); added++; } });
+   _asArr(rem[k]).forEach(function(e){ if (e && e.d && !seen[e.d]){ a.push(e); added++; } });
    a.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
    loc[k] = a.slice(-12);
   });
@@ -4532,7 +4562,7 @@ function ghPull(quiet){
 function ghPush(quiet, retried){
  var c = readGH(); if (!c) return Promise.resolve(false);
  var hist = readHist(), t = _today(), today = 0;
- Object.keys(hist).forEach(function(k){ (hist[k] || []).forEach(function(e){ if (e.d === t) today++; }); });
+ Object.keys(hist).forEach(function(k){ _asArr(hist[k]).forEach(function(e){ if (e.d === t) today++; }); });
  var msg = 'log: ' + t + (today ? ' · ' + today + ' lift' + (today === 1 ? '' : 's') : '');
  var body = { message: msg, content: _b64enc(JSON.stringify(_bkPayload(), null, 1)) };
  if (c.sha) body.sha = c.sha;
@@ -4901,6 +4931,7 @@ var SLOT = {
  'd4b-legext':'quad', d3e7:'hamknee', 'd1-backext':'backext', 'd3e-abd':'gmed', 'd1-hiphike':'gmed', 'd1e-carry':'corelat', d2e6:'corerot', 'd4b-calf':'calf', 'd1-latraise':'sdelt',
  'd3-rdl':'hamhip', 'd2-cabd':'gmed', d4b1:'glute', d3e3:'quad', 'd4b-legcurl':'hamknee', 'd3e-splank':'corelat', 'd2-kick':'glute', 'd2-sled':'cond', 'd3e-scalf':'calf'
 };
+var NO_RESCUE = { 'd3-rdl':1, d3e3:1 };   // spine-loaded, fixed-rep: they stay on their own day
 var PRIORITY_SLOT = { vpull:1, latuni:1, latiso:1, hpull:1, sdelt:1, gmed:1, corelat:1 };   // lats, side delts, side glutes, side core
 function _ymd(ts){ var d = new Date(ts - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 // minutes per lift, from your own sessions (working time where it was measured)
@@ -4929,8 +4960,9 @@ function planDay(dayId, budget){
  // pairs stay together; core first, bonus next, the wildcard last
  var groups = [];
  cards.forEach(function(c){ var g = groups[groups.length - 1];
-  if (g && c.dataset.ss && g.ss === c.dataset.ss) g.c.push(c);
-  else groups.push({ ss: c.dataset.ss || '', c: [c], r: c.classList.contains('wild') ? 3 : c.dataset.x ? 2 : c.dataset.opt ? 1 : 0 }); });
+  if (g && g.ss && c.dataset.ss && g.ss === c.dataset.ss && !g.solo && !(c.dataset.x && PRIORITY_SLOT[SLOT[c.dataset.id]])) g.c.push(c);
+  else { var pri = c.dataset.x && PRIORITY_SLOT[SLOT[c.dataset.id]];   // a bonus lift that is a weekly priority (side delts) stays in, on its own
+  groups.push({ ss: pri ? '' : (c.dataset.ss || ''), solo: !!pri, c: [c], r: c.classList.contains('wild') ? 3 : pri ? 1 : c.dataset.x ? 2 : !c.dataset.ss && !PRIORITY_SLOT[SLOT[c.dataset.id]] ? 1.5 : c.dataset.opt ? 1 : 0 }); } });   // a lone non-priority lift waits behind anything rescued
  var keep = [], take = function(g, part){ g.c.slice(0, part ? room - keep.length : g.c.length).forEach(function(c){ keep.push(c); }); };
  groups.filter(function(g){ return g.r <= 1; }).forEach(function(g){ if (keep.length + g.c.length <= room) take(g); });
  // rescue: the same half's other session, if it is settled (done / counted / skipped) or will not fit this week
@@ -4940,13 +4972,14 @@ function planDay(dayId, budget){
   var got = _loggedSince(_weekStart()), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
   keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
   var keyIds = (KEY_LIFTS[other] || []).map(function(k){ return k[0]; });
-  [].slice.call(document.querySelectorAll('#' + other + ' .excard[data-id]')).forEach(function(c){
+  [].slice.call(document.querySelectorAll('#' + other + ' .excard[data-id]')).sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b.dataset.id]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a.dataset.id]] ? 1 : 0); }).forEach(function(c){
    var id = c.dataset.id, sl = SLOT[id];
-   if (rescue.length >= 2 || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || got[id] || !sl || have[sl] || yday[sl]) return;
+   if (NO_RESCUE[id] || rescue.length >= 2 || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || got[id] || !sl || have[sl] || yday[sl]) return;
    if (!PRIORITY_SLOT[sl] && keyIds.indexOf(id) < 0) return;
    rescue.push(id); have[sl] = 1;
   });
  }
+ groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
  return { d: _today(), day: dayId, from: rescue.length ? other : '', keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, min: budget, lifts: keep.length + rescue.length };
 }
@@ -4965,7 +4998,7 @@ function applyPlan(p){
  if (!p) return;
  var sec = document.getElementById(p.day); if (!sec) return;
  sec.classList.add('planned');
- sec.querySelectorAll('.excard > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = '~5 min · 2 drills'; } });
+ sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = '~5 min · 2 drills'; } });
  sec.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_isSkill(c) && p.keep.indexOf(c.dataset.id) < 0) c.dataset.off = '1'; });
  // rescued lifts move into today for the day, then go home
  var list = sec.querySelector('.exlist'), anchor = list && list.querySelector('.excard.wild');
@@ -4997,7 +5030,8 @@ function buildDay(dayId, force){
  p = planDay(dayId); if (!p) return;
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
- _toast('Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : ''));
+ var _bm = 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
+ setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
 
@@ -5112,7 +5146,7 @@ function paintJump(){
 function paintBests(){
  var el = document.getElementById('bestsCount'); if (!el) return;
  var h = readHist(), mon = _weekStart(), n = 0;
- Object.keys(h).forEach(function(k){ var arr = h[k]; arr.forEach(function(e, i){ if (new Date(e.d + 'T12:00').getTime() < mon) return;
+ Object.keys(h).forEach(function(k){ var arr = _asArr(h[k]); arr.forEach(function(e, i){ if (new Date(e.d + 'T12:00').getTime() < mon) return;
  var prev = _same(arr.slice(0, i), e.w); if (prev.length && _score(e) > Math.max.apply(null, prev.map(_score))) n++; }); });
  el.textContent = n ? '★ ' + n + ' best' + (n > 1 ? 's' : '') + ' this week' : '';
 }
