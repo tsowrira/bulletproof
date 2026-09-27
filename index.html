@@ -1484,6 +1484,12 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .rungbar i.on{background:var(--g);box-shadow:0 0 6px -1px var(--g)}
 #sbPlus{min-width:48px;min-height:40px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--fade);font:700 13px 'Inter',sans-serif;cursor:pointer}
 #sbPlus[hidden]{display:none}
+/* drills tick one by one */
+.dr-h .dchk{margin-left:auto;flex:none;width:44px;height:44px;margin-top:-10px;margin-bottom:-10px;margin-right:-6px;border-radius:50%;border:1.5px solid rgba(234,240,255,.3);background:none;color:var(--fade);font:700 16px 'Inter',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.drill.ticked{opacity:.6}
+.drill.ticked .dchk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g)}
+.drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
+@media(max-width:759px){.dr-h span{order:3}.dr-h .dchk{order:2}}
 /* built day */
 @media(max-width:759px){.jstrip{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}}
 .spk{width:60px;height:16px;fill:none;stroke:var(--g);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin:0 8px 0 4px;flex:none}
@@ -1655,18 +1661,18 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Shoulders Decide the Pace</div><p><strong>Legs carry the flip.</strong> No kipping. Step down, never drop. Next rung: 4 clean sessions + shoulders quiet 48 h.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, plus a fixed bar locked at chest height (Smith or low bar).</span></div>
-<div class="cue">Win it at chest height — pull higher, not more.</div>
+<div class="cue">Roll the chest over the bar — smooth and slow, never forced.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
- <div class="drill"><div class="dr-h"><b>1</b>High Pulls<span>3 × 3 · 60s between</span></div><div class="dr-w">Where: pull-up bar, overhand grip just outside the shoulders, thumbs wrapped around the bar.</div><div class="dr-d">Warm in: 5 shoulder-blade pulls + 3 easy pull-ups. Active hang, lean back, pull in an arc to the sternum, not the ribs yet. Lower 3s, no swing.</div></div>
+  <div class="drill"><div class="dr-h"><b>1</b>Wrist Turnover<span>2 × 8 · no rest needed</span></div><div class="dr-w">Where: chest-height fixed bar, standing on the floor, overhand grip.</div><div class="dr-d">No bodyweight, just the hands: roll from hanging grip to on-top-of-the-bar support grip and back, slow. Knuckles lead, elbows soft.</div></div>
  <div class="drill"><div class="dr-h"><b>2</b>Feet-Assisted Transitions<span>2 × 4 · 60s between</span></div><div class="dr-w">Where: Smith or fixed bar at chest height. Feet flat in front, knees bent, arms long, elbows soft.</div><div class="dr-d">Pull to the lower ribs, roll chest and wrists over the bar — legs carry the flip. Press up, elbows soft. Reverse over 3s, legs carrying it.</div></div>
- <div class="drill"><div class="dr-h"><b>3</b>Straight-Bar Support + Top-Half Lowering<span>2 × 3 lowerings · 45s between</span></div><div class="dr-w">Where: same chest-height bar, overhand grip, box set so your toes stay on it all rep.</div><div class="dr-d">On top of the bar: arms straight but soft, shoulders pressed down. Lower 3s to elbows ~90° — shoulders never below elbow height — press up, toes helping. Step down.</div></div>
+ <div class="drill"><div class="dr-h"><b>3</b>Top-of-the-Bar Hold<span>3 × 15s · 45s between</span></div><div class="dr-w">Where: same chest-height bar, box close enough that the toes rest on it.</div><div class="dr-d">Hop the hands on top, arms straight but soft, shoulders pressed down, chest slightly over the bar. Hold still, toes light. Step down.</div></div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Done</span><span>10 strict pull-ups</span></div>
- <div class="prog-step"><span class="pn">Now</span><span>High pulls 3 × 3 to the sternum + two-feet transitions 2 × 4</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>High pulls to the lower ribs — once chest-to-bar × 5 is clean</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Wrist turnovers + two-feet transitions 2 × 4 + top-of-the-bar hold 3 × 15s</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Top hold with toes hovering; chest-to-bar reps in pair A reach the lower ribs</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Transitions: two feet → one foot → heels only</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Toes-on-box muscle-up, 3s lowering — legs help less only after 4 clean sessions</span></div>
  <div class="prog-step"><span class="pn">Goal</span><span><strong>Strict muscle-up</strong></span></div>
@@ -1841,7 +1847,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 
 
-<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Standing Rope Pulls", "Where: climbing rope hanging within reach, standing, feet flat.", "How: 2 × 6 pulls. Hand over hand like climbing, feet never leave the ground, slow release."], ["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long pull-up rig over a mat, overhand grip.", "How: 2 lengths. 45s between. Elbows bent about 90°, shoulders set down, move hand to hand with no swinging. Step down."], ["Incline Prone Y-Raise", "Where: incline bench at about 30°, chest on the pad, two very light dumbbells or none.", "How: 2 × 10. Thumbs up, raise the arms into a Y to ear height, blades down and back, 3 counts down."], ["Parallel-Bar Support Walk", "Where: dip bars over a mat, palms facing in, footplate underneath.", "How: 2 lengths. Arms straight but soft, shoulders pressed down, small hand steps, legs still. Step down, never drop."], ["Cable Wrist Curls — Both Ways", "Where: low pulley, straight bar, forearms resting on a bench, lightest pin.", "How: 2 × 15 each way. Palms up, then palms down. Only the wrists move, 2 counts each way."]]'>
+<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Standing Rope Pulls", "Where: climbing rope hanging within reach, standing, feet flat.", "How: 2 × 6 pulls. Hand over hand like climbing, feet never leave the ground, slow release."], ["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long pull-up rig over a mat, overhand grip.", "How: 2 lengths. 45s between. Elbows bent about 90°, shoulders set down, move hand to hand with no swinging. Step down."], ["Cable Wrist Curls — Both Ways", "Where: low pulley, straight bar, forearms resting on a bench, lightest pin.", "How: 2 × 15 each way. Palms up, then palms down. Only the wrists move, 2 counts each way."], ["Plate Pinch Hold", "Where: two smooth weight plates pinched together, standing tall.", "How: 2 × 20s each hand. Fingers flat, thumb straight, shoulders down. Left hand first."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2086,7 +2092,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 
 
-<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise", "Where: back against a wall, heels a foot-length out on a mat.", "How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."], ["Short-Foot + Toe Yoga", "Where: barefoot, standing beside a rail.", "How: 2 × 10 each. Dome the arch without curling the toes, hold 3. Then lift the big toe alone, then the four small toes alone."], ["Slow Bear Crawl", "Where: open floor lane or turf, about five metres long.", "How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."], ["Tiptoe Line Walk", "Where: a straight floor line beside a rail, about five metres.", "How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."], ["Standing Cable Hip Extension", "Where: lowest pulley, ankle strap, facing the stack, hands on the frame.", "How: 2 × 12 each. Straight leg sweeps a short way back, squeeze 1, return for 3. The low back never arches."]]'>
+<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise", "Where: back against a wall, heels a foot-length out on a mat.", "How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."], ["Short-Foot + Toe Yoga", "Where: barefoot, standing beside a rail.", "How: 2 × 10 each. Dome the arch without curling the toes, hold 3. Then lift the big toe alone, then the four small toes alone."], ["Slow Bear Crawl", "Where: open floor lane or turf, about five metres long.", "How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."], ["Tiptoe Line Walk", "Where: a straight floor line beside a rail, about five metres.", "How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."], ["Ankle Alphabet, One Leg", "Where: standing beside a rail, fingertips on it.", "How: 2 rounds each foot. Stand on one leg, trace A to Z in the air with the other foot, slow. Right leg standing first."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2336,7 +2342,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Crow Hold", "Where: open floor, a pad in front of your head.", "How: 5 × 5–10s. Squat, knees high on the backs of bent arms, lean forward until the toes float."], ["Frog Stand", "Where: open floor, a pad in front, fingers spread wide.", "How: 3 × 15s. Knees rest on bent elbows, eyes ahead of the hands, tip forward until the feet lift."], ["Planche Lean", "Where: open floor, a pad in front, fingers turned slightly out.", "How: 3 × 10s. Push-up position, lean shoulders past wrists, upper back rounded, elbows soft."], ["Ring Support Hold", "Where: rings low enough to step out of, about hip height.", "How: 3 × 15s. Arms by the sides, elbows straight, never jammed, rings turned out, shoulders down, feet hover. Step out, never drop."], ["Wall Slide Lift-Offs", "Where: back against a bare wall, feet a step out, knees soft.", "How: 2 × 8. Forearms slide up the wall, lift the hands an inch off at the top, hold 2. Ribs down."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Crow Hold", "Where: open floor, a pad in front of your head.", "How: 5 × 5–10s. Squat, knees high on the backs of bent arms, lean forward until the toes float."], ["Frog Stand", "Where: open floor, a pad in front, fingers spread wide.", "How: 3 × 15s. Knees rest on bent elbows, eyes ahead of the hands, tip forward until the feet lift."], ["Planche Lean", "Where: open floor, a pad in front, fingers turned slightly out.", "How: 3 × 10s. Push-up position, lean shoulders past wrists, upper back rounded, elbows soft."], ["Ring Support Hold", "Where: rings low enough to step out of, about hip height.", "How: 3 × 15s. Arms by the sides, elbows straight, never jammed, rings turned out, shoulders down, feet hover. Step out, never drop."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2383,19 +2389,19 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">45s rest</div><div class="tempo">STEADY</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Clear floor beside a rail, a flat bench and a mat. Shoes off if the gym allows.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Clear floor beside a rail and a low hurdle. Shoes off if the gym allows.</span></div>
 <div class="cue">Quiet feet, level hips — this is trail balance.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Single-Leg Stand, Eyes Closed<span>2 × 20s each · 30s between</span></div><div class="dr-w">Where: clear floor, rail within reach, shoes off if allowed, one hand hovering over the rail.</div><div class="dr-d">Stand on one leg, knee soft, hips level. Close the eyes, hold 20s; touch the rail only to save it. Right leg first, left matches.</div></div>
- <div class="drill"><div class="dr-h"><b>2</b>Standing Cable Adduction<span>2 × 12 each · 45s between</span></div><div class="dr-w">Where: lowest pulley, ankle strap on the near leg, side-on to the stack, hand on the frame.</div><div class="dr-d">Standing tall, sweep the strapped leg across in front of the other, pause 1, return for 3. Hips level, no lean. Right leg first, left matches.</div></div>
+ <div class="drill"><div class="dr-h"><b>2</b>Backward Line Walk, Eyes Up<span>2 lengths · 30s between</span></div><div class="dr-w">Where: a straight floor line about five metres long, beside a rail.</div><div class="dr-d">Walk backward heel-to-toe along the line, eyes ahead not down, arms loose. Slow and quiet — a wobble means slow down, not stop.</div></div>
  <div class="drill"><div class="dr-h"><b>3</b>Lateral Step-Over<span>2 × 8 each way · 30s between</span></div><div class="dr-w">Where: low hurdle or a rolled mat beside a rail, fingertips on the rail.</div><div class="dr-d">Side-on to the hurdle. Lift the near knee high, step over, the trail foot follows cleanly; hips level, feet land quietly. Right leg leads first, left matches.</div></div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Cable adduction + eyes-closed stand + quiet step-overs</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>One pin up on the adduction; 20s eyes-closed without a wobble</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>Eyes-closed stand on a folded mat + 2 × 15 adduction</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Eyes-closed stand + backward line walk + quiet step-overs</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>20s eyes-closed without a wobble; line walk without the rail</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Eyes-closed stand on a folded mat; step-overs on a higher hurdle</span></div>
 </div></div>
 </div>
 
@@ -2578,7 +2584,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-thu" data-solo="1" data-x="1" data-wild='[["Single-Leg Reach", "Where: three cones on a bench an arm-length ahead, fingertips on a rail.", "How: 2 × 5 each. Right leg first. On one soft knee, hips back, back flat, tap each cone, stand tall between."], ["Low Step-Up, Knee Drive", "Where: low step or box beside a rail, fingertips on the rail.", "How: 2 × 8 each. Step up slow, drive the free knee to hip height, pause 1, step down for 3. Right leg first."], ["Flag Grip Press", "Where: upright post over a mat, side-on; top hand overhand at head height.", "How: 3 × 5s each. Left hand on top first. Bottom hand underhand at hip height, elbow soft. Press and pull until the feet feel light — feet stay down."], ["Seated Ball Balance — One Foot Up", "Where: swiss ball on a mat, beside a rail.", "How: 3 × 20s each. Sit tall, lift one foot a hand-width off the floor, hips level. Right foot up first."]]'>
+<div class="excard wild" data-id="wild-thu" data-solo="1" data-x="1" data-wild='[["Seated Ball Balance — One Foot Up", "Where: swiss ball on a mat, beside a rail.", "How: 3 × 20s each. Sit tall, lift one foot a hand-width off the floor, hips level. Right foot up first."], ["Heel Walks + Toe Walks", "Where: a clear floor lane beside a rail, about five metres.", "How: 2 lengths each. Toes up walking on heels, then up on the toes. Tall, quiet steps."], ["Grapevine Walk", "Where: a clear floor lane beside a rail, about five metres.", "How: 2 lengths each way. Step side, cross behind, step side, cross in front — slow, quiet feet, hips facing forward."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -3101,9 +3107,11 @@ function applyState() {
  if (btn) { btn.textContent = isDone ? '✓' : (card.dataset.r1 ? '½' : '○'); btn.classList.toggle('half', !isDone && !!card.dataset.r1); }
  });
  if (r1Changed) _saveR1();
+ if (typeof paintDrills === 'function') document.querySelectorAll('.excard > .drills').forEach(function(d){ paintDrills(d.parentNode); });
 }
 
 function clearAllChecks() {
+ try { store.del('bp-drills'); } catch(e){}
  try { store.del('bp-done'); store.del('bp-complete'); var wk0 = readCompletedWeek(), t0 = _tday(Date.now()); Object.keys(wk0).forEach(function(d){ var ts = parseInt(String(wk0[d]).replace('skip:', '')) || 0; if (_tday(ts) === t0) delete wk0[d]; }); store.set('bp-week', JSON.stringify(wk0)); paintWeek(); } catch(e){}
  document.querySelectorAll('.excard').forEach(card => { card.classList.remove('done'); delete card.dataset.r1; });
  _saveR1();
@@ -4062,7 +4070,7 @@ function buildJots(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
  // every lift logs weight and reps — a weight-only row left no way to say how many you actually did
  var wOnly = false;
- if (card.querySelector('.exlog') || !((card.dataset.id in TRACK) || (card.dataset.id in TRACK_W))) return;
+ if (card.querySelector('.exlog') || card.querySelector(':scope > .drills') || !((card.dataset.id in TRACK) || (card.dataset.id in TRACK_W))) return;
  var exId = _logKey(card), name = card.querySelector('.exname').textContent.trim();
  var wUnit = _unitFor(exId);
  var timed = card.dataset.unit === 'sec' || (card.dataset.unit !== 'reps' && /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || ''));
@@ -4775,6 +4783,52 @@ document.querySelectorAll('.excard > .drills').forEach(function(d){ var c = d.pa
 buildJots();
 // solo two-set lifts get the same ½ → ✓ taps as the pairs
 document.querySelectorAll('.excard[data-solo]:not(.wild)').forEach(function(c){ if (!c.querySelector('.drills') && /^(S1:|2 )/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1'; });
+
+// the drills are the block — they go right under its warning, before the setup text
+document.querySelectorAll('.excard > .drills').forEach(function(list){ var card = list.parentNode, anchor = card.querySelector(':scope > .caveat') || card.querySelector(':scope > .extop');
+ var rule = card.querySelector(':scope > .rule'), done = card.querySelector(':scope > .chk2');
+ anchor.insertAdjacentElement('afterend', list); if (rule) list.insertAdjacentElement('beforebegin', rule); if (done) list.insertAdjacentElement('afterend', done); });
+// ── Skill blocks come apart: every drill has its own tick, and the block is done when the drills you can see are ──
+function readDrills(){ try { return _asObj(JSON.parse(store.get('bp-drills') || '{}')); } catch(e){ return {}; } }
+function writeDrills(o){ try { store.set('bp-drills', JSON.stringify(o)); } catch(e){} }
+function _drillsShown(card){ return [].slice.call(card.querySelectorAll(':scope > .drills > .drill')).filter(function(d){ return getComputedStyle(d).display !== 'none'; }); }
+function paintDrills(card){
+ var st = readDrills()[card.dataset.id], k = st && !isExpired(st.t) ? st.k || {} : {}, done = card.classList.contains('done');
+ var all = [].slice.call(card.querySelectorAll(':scope > .drills > .drill')), n = 0;
+ all.forEach(function(d, i){ var on = done || !!k[i]; d.classList.toggle('ticked', on); var b = d.querySelector('.dchk'); if (b){ b.textContent = on ? '✓' : '○'; b.setAttribute('aria-pressed', on ? 'true' : 'false'); } if (on) n++; });
+ var chk = card.querySelector(':scope > .extop .chk');
+ if (chk && !done){ chk.textContent = n ? '½' : '○'; chk.classList.toggle('half', n > 0); }
+}
+function tickDrill(card, i){
+ var o = readDrills(), st = o[card.dataset.id]; if (!st || isExpired(st.t)) st = { k: {} };
+ st.k[i] = st.k[i] ? 0 : 1; st.t = Date.now(); o[card.dataset.id] = st; writeDrills(o);
+ if (navigator.vibrate) navigator.vibrate(15);
+ var shown = _drillsShown(card), all = [].slice.call(card.querySelectorAll(':scope > .drills > .drill'));
+ var left = shown.filter(function(d){ return !st.k[all.indexOf(d)]; }).length;
+ if (st.k[i]){ var r = card.querySelector('.rest-lbl'); if (left && r && r._restStart){ r._restReset(); r._restStart(); } }
+ var chk = card.querySelector(':scope > .extop .chk');
+ if (!left && !card.classList.contains('done') && chk) chk.click();          // last drill ticked → the block is done
+ else if (left && card.classList.contains('done') && chk) chk.click();       // un-ticked one → the block reopens
+ paintDrills(card);
+}
+document.querySelectorAll('.excard > .drills').forEach(function(list){
+ var card = list.parentNode;
+ [].slice.call(list.querySelectorAll(':scope > .drill')).forEach(function(d, i){
+  var h = d.querySelector('.dr-h'); if (!h || h.querySelector('.dchk')) return;
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'dchk'; b.textContent = '○';
+  b.setAttribute('aria-label', 'Drill ' + (i + 1) + ' done');
+  b.addEventListener('click', function(ev){ ev.stopPropagation(); tickDrill(card, i); });
+  h.appendChild(b);
+ });
+ // ticking the whole block by its circle ticks every drill; opening it again clears them
+ var chk = card.querySelector(':scope > .extop .chk');
+ if (chk) chk.addEventListener('click', function(){ setTimeout(function(){
+  var o = readDrills(); if (!card.classList.contains('done')){ var st = o[card.dataset.id];
+   if (st && Object.keys(st.k || {}).filter(function(x){ return st.k[x]; }).length >= _drillsShown(card).length){ delete o[card.dataset.id]; writeDrills(o); } }
+  paintDrills(card); }, 0); });
+ paintDrills(card);
+});
+
 // tap a tempo chip to decode it
 document.addEventListener('click', function(ev){ var t = ev.target.closest && ev.target.closest('.tempo'); if (!t) return;
  if (t.getAttribute('role') === 'button') return;   // countable tempos now pace instead of explaining themselves
