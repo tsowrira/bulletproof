@@ -1513,6 +1513,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  #sbDay{flex:1;min-width:0;min-height:44px;text-align:left;background:none;border:0;padding:0;color:var(--day,var(--g));font:700 12px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
  #sbProg{position:relative;font:700 12px 'Inter',sans-serif;color:var(--fade);padding-bottom:5px;font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
  #sbProg b{color:var(--g)}
+ #sbProg::before{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(234,240,255,.12);border-radius:2px}
  #sbProg i{position:absolute;left:0;bottom:0;height:2px;background:var(--g);border-radius:2px;transition:width .3s}
  #sbRest{min-width:72px;min-height:40px;border-radius:100px;border:1px solid var(--r);background:rgba(255,46,136,.18);color:#ffd0e6;font:700 16px 'Inter',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer}
  #sbRest.go{border-color:var(--g);background:rgba(93,255,159,.2);color:var(--g)}
