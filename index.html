@@ -1003,7 +1003,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 #d4 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
 #d5 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
 /* ── SUPERSETS + EXPRESS ── */
-#d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}
+#d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#d6{--dc:var(--o)}
 .ssh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px -18px 0;padding:12px 18px 4px;border-top:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--txt)}
 .ssh b{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;letter-spacing:0;color:#060611;background:var(--dc,var(--b));box-shadow:0 0 12px -2px var(--dc,var(--b))}
 .ssh span{margin-left:auto;font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--dim);font-size:11px}
@@ -1481,6 +1481,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .drill.ticked .dchk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g)}
 .drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
 @media(max-width:759px){.dr-h span{order:3}.dr-h .dchk{order:2}}
+#d6 .day-hdr::before{background:var(--o);box-shadow:0 0 13px var(--o)}
 /* built day */
 @media(max-width:759px){.jstrip{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}}
 .spk{width:60px;height:16px;fill:none;stroke:var(--g);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin:0 8px 0 4px;flex:none}
@@ -1550,10 +1551,11 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <!-- NAV -->
 <nav id="topnav">
  <a href="#top">Today</a>
- <a href="#d5" style="color:var(--g)" id="n-d5">Mon</a>
- <a href="#d1" style="color:var(--r)" id="n-d1">Tue</a>
- <a href="#d3" style="color:var(--gld)" id="n-d3">Wed</a>
- <a href="#d2" style="color:var(--b)" id="n-d2">Thu</a>
+ <a href="#d6" style="color:var(--o)" id="n-d6">Snack</a>
+ <a href="#d5" style="color:var(--g)" id="n-d5">Upper A</a>
+ <a href="#d1" style="color:var(--r)" id="n-d1">Lower A</a>
+ <a href="#d3" style="color:var(--gld)" id="n-d3">Upper B</a>
+ <a href="#d2" style="color:var(--b)" id="n-d2">Lower B</a>
  <a href="#d4" style="color:var(--p)" id="n-d4">Play</a>
  <a href="#variety" style="color:var(--g)">Skills</a>
  <a href="#daily">Daily</a>
@@ -1568,7 +1570,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="hero" id="top">
  <div class="hero-eye">// Bulletproof · Joint-Smart Training</div>
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
- <p>Four sessions: upper, lower, upper, lower. Skill first, then supersets, two sets a lift — one in Express. Nothing repeats.</p>
+ <p>Tue upper · Wed lower · Thu upper — Lower A and B take turns. Short skill snack Monday and a short lower Friday if you feel like it. Skill first, two sets a lift.</p>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <div class="startwhy" id="startWhy" hidden></div>
  <div class="squeeze" id="sqCard" hidden></div>
@@ -1599,13 +1601,13 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 
 <!-- WEEK STRIP -->
 <div class="week">
- <a class="wc core" id="wc-1" href="#d5"><div class="wd">Mon</div><div class="wt" style="color:var(--g)">Upper<br>Pull</div></a>
- <a class="wc core" id="wc-2" href="#d1"><div class="wd">Tue</div><div class="wt" style="color:var(--r)">Lower<br>Brakes</div></a>
- <a class="wc core" id="wc-3" href="#d3"><div class="wd">Wed</div><div class="wt" style="color:var(--gld)">Upper<br>Press</div></a>
- <a class="wc core" id="wc-4" href="#d2"><div class="wd">Thu</div><div class="wt" style="color:var(--b)">Lower<br>Drag</div></a>
- <a class="wc flex-day" id="wc-5" href="#d4"><div class="wd">Fri</div><div class="wt" style="color:var(--p)">Play</div></a>
- <a class="wc flex-day" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--p)">Hike</div></a>
- <div class="wc rest-day" id="wc-0"><div class="wd">Sun</div><div class="wt" style="color:var(--dim)">Rest</div></div>
+ <a class="wc flex-day" id="wc-1" href="#d6"><div class="wd">Mon</div><div class="wt" style="color:var(--o)">Skill<br>snack</div></a>
+ <a class="wc core" id="wc-2" href="#d5"><div class="wd">Tue</div><div class="wt" style="color:var(--g)">Upper A<br>Pull</div></a>
+ <a class="wc core" id="wc-3" href="#d1"><div class="wd">Wed</div><div class="wt" style="color:var(--r)">Lower<br>A</div></a>
+ <a class="wc core" id="wc-4" href="#d3"><div class="wd">Thu</div><div class="wt" style="color:var(--gld)">Upper B<br>Press</div></a>
+ <a class="wc flex-day" id="wc-5" href="#d2"><div class="wd">Fri</div><div class="wt" style="color:var(--b)">Short<br>lower</div></a>
+ <div class="wc rest-day" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Rest</div></div>
+ <a class="wc flex-day" id="wc-0" href="#d4"><div class="wd">Sun</div><div class="wt" style="color:var(--p)">Hike</div></a></div>
 </div>
 
 <div class="callout howruns" id="howruns">
@@ -1614,7 +1616,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 = every clean rep you've got — log it on the big lifts. Same as last time is a good day. Cards marked fixed stay fixed. Machines: set 2 hits 15 clean → one pin up next time.</p>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
- <p><strong>Tired?</strong> ⏱ Express keeps every lift and runs one hard set each. 🔋 Low battery = skill + two pairs, stop 3 short. Tap again for ⚡ Micro = skill + pair A. Skip freely: never make up, never double up. Busy week: Tue + Mon first, then Thu, then Wed.</p>
+ <p><strong>Tired?</strong> ⏱ Express keeps every lift and runs one hard set each. 🔋 Low battery = skill + two pairs, stop 3 short. Tap again for ⚡ Micro = skill + pair A. Skip freely: never make up, never double up. Missed a day? The next day offers whatever you have gone longest without — nothing is owed.</p>
  <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · C2B = chest to bar · fixed = no extra reps · ISO = hold · 3 · 1 · 2 = secs lower · pause · lift · X = fast</p>
 </div>
 
@@ -1624,7 +1626,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="day-hdr">
  <div class="day-num" style="color:var(--g)">01</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--g)">// Monday · Upper A</div>
+ <div class="day-eye" style="color:var(--g)">// Tuesday · Upper A</div>
  <div class="day-title">UPPER A — PULL + THE BAR</div>
  <div class="day-focus" data-express-min="40">Skill: muscle-up · Full ≈ 60 min · Express ≈ 40 min</div>
  </div>
@@ -1783,6 +1785,24 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
+<div class="excard" data-id="d1-latraise" data-solo="1" data-alt-name="Seated Dumbbell Lateral Raise — Back Supported" data-alt-where="Upright bench, back flat on the pad, feet down, a light dumbbell in each hand hanging at your sides, palms facing in." data-alt-cue="The bench takes the swing out — if you still need to lean, the weight is too heavy." data-alt-sets="S1: 12 · S2: AMRAP" data-alt-how="1. Sit tall, back on the pad, ribs down, elbows soft and fixed. 2. Lead with the elbows out to shoulder height, no higher; hold 1. 3. Lower for 3 counts under control. 4. Set ends when the shoulders shrug or the back leaves the pad." data-alt-caveat="Shoulder height is the ceiling. Back stays on the pad — no rocking to start the rep." data-alt-prog="Now: Same light pair — S1: 12 · S2: AMRAP, seated | 15 clean: Smallest dumbbell jump next time">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Dumbbell Lateral Raise — Capped at Shoulder</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Shoulder Height Is the Ceiling</div><p><strong>Hands stop level with the shoulders, never above.</strong> Light forever — this one is bought with control, not load. Traps take over or the shoulders shrug: the set is done.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">A light dumbbell in each hand, standing tall, feet hip-width, arms at your sides, palms facing in, elbows soft and slightly bent.</span></div>
+<div class="cue">Lead with the elbows, thumbs level — pour nothing out at the top.</div>
+<div class="setup"><strong>1.</strong> Stand tall, ribs down, elbows soft and fixed at that angle all set. <strong>2.</strong> Raise both arms out to the side for 2 counts, stopping level with the shoulders; hold 1. <strong>3.</strong> Lower for 3 counts, never letting them drop. <strong>4.</strong> Set 2 ends the moment the torso swings or a shoulder hikes toward the ear.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>Light pair — S1: 12 · S2: AMRAP, 3s lowering, capped at shoulder height</span></div>
+ <div class="prog-step"><span class="pn">15 clean</span><span>Smallest dumbbell jump next time — never a big one here</span></div>
+</div></div>
+</div>
+
+
 <div class="ssh" data-x="1" data-alt-pair="bonus · shoulder rotators ↔ biceps"><b>D</b>arms · rear delts ↔ biceps ↔ triceps<span>one set in Express</span></div>
 
 <div class="excard" data-id="d5-rdsweep" data-ss="D" data-x="1" data-alt-name="Cable External Rotation — Elbow at Side" data-alt-where="Pulley at elbow height, single D-handle. Side-on, far hand holds it, elbow bent 90° and tucked against a folded towel." data-alt-cue="Elbow glued to your side; only the forearm swings out." data-alt-how="1. Stand tall, elbow pinned, forearm across the belly. 2. Rotate the forearm outward until it points straight ahead or a little past, no further. 3. Pause 1, return for 3. 4. The set ends when the elbow leaves your side or the shoulder hikes." data-alt-caveat="Lightest pin you can feel. Elbow stays on the towel — if it lifts, the weight is too heavy." data-alt-prog="Now: Lightest useful pin — S1: 12 each · S2: AMRAP, 3s return | 15 clean: One pin up — smallest jump only">
@@ -1860,7 +1880,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="day-hdr">
  <div class="day-num" style="color:var(--r)">02</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--r)">// Tuesday · Lower A</div>
+ <div class="day-eye" style="color:var(--r)">// Wednesday · Lower A — takes turns with Lower B</div>
  <div class="day-title">LOWER A — BRAKES</div>
  <div class="day-focus" data-express-min="35">Skill: pistol · Full ≈ 55 min · Express ≈ 35 min</div>
  </div>
@@ -2027,7 +2047,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves ↔ side delts<span>one set in Express</span></div>
+<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves<span>one set in Express</span></div>
 
 <div class="excard" data-id="d2e6" data-ss="D" data-x="1">
 <div class="extop">
@@ -2064,25 +2084,6 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="prog-step"><span class="pn">Then</span><span>Heavier dumbbell, smallest jump</span></div>
 </div></div>
 </div>
-<div class="excard" data-id="d1-latraise" data-ss="D" data-x="1" data-alt-name="Seated Dumbbell Lateral Raise — Back Supported" data-alt-where="Upright bench, back flat on the pad, feet down, a light dumbbell in each hand hanging at your sides, palms facing in." data-alt-cue="The bench takes the swing out — if you still need to lean, the weight is too heavy." data-alt-sets="S1: 12 · S2: AMRAP" data-alt-how="1. Sit tall, back on the pad, ribs down, elbows soft and fixed. 2. Lead with the elbows out to shoulder height, no higher; hold 1. 3. Lower for 3 counts under control. 4. Set ends when the shoulders shrug or the back leaves the pad." data-alt-caveat="Shoulder height is the ceiling. Back stays on the pad — no rocking to start the rep." data-alt-prog="Now: Same light pair — S1: 12 · S2: AMRAP, seated | 15 clean: Smallest dumbbell jump next time">
-<div class="extop">
- <div class="ex-left"><div class="ssn">D3</div><div class="exname">Dumbbell Lateral Raise — Capped at Shoulder</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Shoulder Height Is the Ceiling</div><p><strong>Hands stop level with the shoulders, never above.</strong> Light forever — this one is bought with control, not load. Traps take over or the shoulders shrug: the set is done.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">A light dumbbell in each hand, standing tall, feet hip-width, arms at your sides, palms facing in, elbows soft and slightly bent.</span></div>
-<div class="cue">Lead with the elbows, thumbs level — pour nothing out at the top.</div>
-<div class="setup"><strong>1.</strong> Stand tall, ribs down, elbows soft and fixed at that angle all set. <strong>2.</strong> Raise both arms out to the side for 2 counts, stopping level with the shoulders; hold 1. <strong>3.</strong> Lower for 3 counts, never letting them drop. <strong>4.</strong> Set 2 ends the moment the torso swings or a shoulder hikes toward the ear.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Light pair — S1: 12 · S2: AMRAP, 3s lowering, capped at shoulder height</span></div>
- <div class="prog-step"><span class="pn">15 clean</span><span>Smallest dumbbell jump next time — never a big one here</span></div>
- <div class="prog-step"><span class="pn">Why Tuesday</span><span>Second side-delt session of the week without stretching either upper day past an hour</span></div>
-</div></div>
-</div>
-
-
 <div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Tibialis Raise", "Where: back against a wall, heels a foot-length out on a mat.", "How: 2 × 15. Knees soft, lift the toes toward the shins, lower slowly."], ["Short-Foot + Toe Yoga", "Where: barefoot, standing beside a rail.", "How: 2 × 10 each. Dome the arch without curling the toes, hold 3. Then lift the big toe alone, then the four small toes alone."], ["Slow Bear Crawl", "Where: open floor lane or turf, about five metres long.", "How: 3 lengths. Flat back, knees hover an inch, opposite hand and foot, small slow steps."], ["Tiptoe Line Walk", "Where: a straight floor line beside a rail, about five metres.", "How: 3 lengths. High on the balls of the feet, heel-to-toe, heels never drop."], ["Ankle Alphabet, One Leg", "Where: standing beside a rail, fingertips on it.", "How: 2 rounds each foot. Stand on one leg, trace A to Z in the air with the other foot, slow. Right leg standing first."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
@@ -2104,7 +2105,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="day-hdr">
  <div class="day-num" style="color:var(--gld)">03</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--gld)">// Wednesday · Upper B</div>
+ <div class="day-eye" style="color:var(--gld)">// Thursday · Upper B</div>
  <div class="day-title">UPPER B — PRESS + HANDSTAND</div>
  <div class="day-focus" data-express-min="40">Skill: handstand · Full ≈ 60 min · Express ≈ 40 min</div>
  </div>
@@ -2315,25 +2316,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 
 
-<div class="excard" data-id="d3-stcalf" data-solo="1" data-alt-name="Leg-Press Calf Press" data-alt-where="Leg-press sled, balls of the feet on the bottom edge of the platform, hip-width. Safeties in, knees straight but never locked back." data-alt-cue="Push the platform away with the balls of the feet — the knee angle never changes." data-alt-sets="S1: 12 · S2: stop 2 short" data-alt-how="1. Set the safeties, feet low on the platform, knees straight but soft. 2. Let the heels travel down for 3 counts to a full stretch. 3. Pause 2 at the bottom, press all the way up to a hard squeeze. 4. Set ends when the knees start bending to help." data-alt-caveat="Safeties in. Knees straight but never pushed back — they do not bend to help the rep." data-alt-prog="Now: Your working weight — S1: 12 · S2: stop 2 short, 2s bottom pause | 15 clean: One plate up next time">
-<div class="extop">
- <div class="ex-left"><div class="exname">Standing Calf Raise — Straight Knee</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="caveat"><div class="caveat-t">⚠ Straight, Not Pushed Back</div><p><strong>The knee sits at straight — never locked backwards.</strong> Same rule as your monthly side-photo check. Slow down out of the bottom; no bouncing off the stretch.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Standing calf machine, or the balls of both feet on a step holding one dumbbell. Feet hip-width, toes straight ahead, knees straight but soft.</span></div>
-<div class="cue">Straight knee is the whole point — this is the half Thursday's seated raise cannot reach.</div>
-<div class="setup"><strong>1.</strong> Balls of the feet on the edge, heels free, knees straight but not pushed back. <strong>2.</strong> Lower the heels for 3 counts to a full stretch. <strong>3.</strong> Pause 2 at the bottom, then press up tall and squeeze. <strong>4.</strong> Set ends when the knees bend to help or the bottom starts bouncing.</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>S1: 12 · S2: stop 2 short, 2s pause at the bottom</span></div>
- <div class="prog-step"><span class="pn">15 clean</span><span>One pin up next time</span></div>
- <div class="prog-step"><span class="pn">Why</span><span>Straight knee loads the calf Thursday’s bent-knee raise misses — it is the brake on descents</span></div>
-</div></div>
-</div>
-
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Crow Hold", "Where: open floor, a pad in front of your head.", "How: 5 × 5–10s. Squat, knees high on the backs of bent arms, lean forward until the toes float."], ["Frog Stand", "Where: open floor, a pad in front, fingers spread wide.", "How: 3 × 15s. Knees rest on bent elbows, eyes ahead of the hands, tip forward until the feet lift."], ["Planche Lean", "Where: open floor, a pad in front, fingers turned slightly out.", "How: 3 × 10s. Push-up position, lean shoulders past wrists, upper back rounded, elbows soft."], ["Ring Support Hold", "Where: rings low enough to step out of, about hip height.", "How: 3 × 15s. Arms by the sides, elbows straight, never jammed, rings turned out, shoulders down, feet hover. Step out, never drop."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, a pad in front, fingers turned slightly out.", "How: 3 × 10s. Push-up position, lean shoulders past wrists, upper back rounded, elbows soft."], ["Ring Support Hold", "Where: rings low enough to step out of, about hip height.", "How: 3 × 15s. Arms by the sides, elbows straight, never jammed, rings turned out, shoulders down, feet hover. Step out, never drop."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2354,7 +2337,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="day-hdr">
  <div class="day-num" style="color:var(--b)">04</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--b)">// Thursday · Lower B</div>
+ <div class="day-eye" style="color:var(--b)">// Wednesday · Lower B — takes turns with Lower A</div>
  <div class="day-title">LOWER B — GLUTES + BACKWARD DRAG</div>
  <div class="day-focus" data-express-min="40">Skill: balance · Full ≈ 60 min · Express ≈ 40 min</div>
  </div>
@@ -2559,6 +2542,24 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
+<div class="excard" data-id="d3-stcalf" data-solo="1" data-alt-name="Leg-Press Calf Press" data-alt-where="Leg-press sled, balls of the feet on the bottom edge of the platform, hip-width. Safeties in, knees straight but never locked back." data-alt-cue="Push the platform away with the balls of the feet — the knee angle never changes." data-alt-sets="S1: 12 · S2: stop 2 short" data-alt-how="1. Set the safeties, feet low on the platform, knees straight but soft. 2. Let the heels travel down for 3 counts to a full stretch. 3. Pause 2 at the bottom, press all the way up to a hard squeeze. 4. Set ends when the knees start bending to help." data-alt-caveat="Safeties in. Knees straight but never pushed back — they do not bend to help the rep." data-alt-prog="Now: Your working weight — S1: 12 · S2: stop 2 short, 2s bottom pause | 15 clean: One plate up next time">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Standing Calf Raise — Straight Knee</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 2 · 3</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Straight, Not Pushed Back</div><p><strong>The knee sits at straight — never locked backwards.</strong> Same rule as your monthly side-photo check. Slow down out of the bottom; no bouncing off the stretch.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Standing calf machine, or the balls of both feet on a step holding one dumbbell. Feet hip-width, toes straight ahead, knees straight but soft.</span></div>
+<div class="cue">Straight knee is the whole point — this is the half Thursday's seated raise cannot reach.</div>
+<div class="setup"><strong>1.</strong> Balls of the feet on the edge, heels free, knees straight but not pushed back. <strong>2.</strong> Lower the heels for 3 counts to a full stretch. <strong>3.</strong> Pause 2 at the bottom, then press up tall and squeeze. <strong>4.</strong> Set ends when the knees bend to help or the bottom starts bouncing.</div>
+<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
+<div class="prog-wrap"><div class="prog-block">
+ <div class="prog-step"><span class="pn">Now</span><span>S1: 12 · S2: stop 2 short, 2s pause at the bottom</span></div>
+ <div class="prog-step"><span class="pn">15 clean</span><span>One pin up next time</span></div>
+ <div class="prog-step"><span class="pn">Why</span><span>Straight knee loads the calf the bent-knee raise misses — it is the brake on descents</span></div>
+</div></div>
+</div>
+
 <div class="excard" data-id="d3e-scalf" data-x="1" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Seated Calf Raise — Bent Knee</div></div>
@@ -2591,27 +2592,80 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="day-complete" data-day="d2"></div>
 </div><!-- /d2 -->
 
+<!-- ════════════════════ MONDAY · SKILL SNACK ════════════════════ -->
+<div class="section" id="d6">
+<div class="day-hdr">
+ <div class="day-num" style="color:var(--o)">✦</div>
+ <div class="day-info">
+ <div class="day-eye" style="color:var(--o)">// Monday · Skill snack — optional</div>
+ <div class="day-title">SKILL SNACK — SHORT + FUN</div>
+ <div class="day-focus">≈ 20 min · no legs after the hike, nothing heavy before Tuesday</div>
+ </div>
+</div>
+<div class="exlist">
+
+<div class="excard" data-id="d6-hs" data-solo="1">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Handstand Touch</div></div>
+ <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="caveat"><div class="caveat-t">⚠ Fresh Only</div><p><strong>Stop while it still looks good.</strong> Back arches or wrists complain: done for today.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor with a clear body-length all round, and a bare wall.</span></div>
+<div class="cue">Short and crisp — practice, not a workout.</div>
+<div class="drills">
+ <div class="drill"><div class="dr-h"><b>1</b>Wrist Rocks on the Wall<span>60s</span></div><div class="dr-w">Where: bare wall, palms flat at shoulder height, fingers spread.</div><div class="dr-d">Lean in and rock the shoulders past the fingertips and back × 10, slow, elbows soft.</div></div>
+ <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>6 tries · 30s between</span></div><div class="dr-w">Where: open floor, a clear body-length in every direction.</div><div class="dr-d">Straight lead leg, hips over hands, ribs in, push tall. Back starts to arch: cartwheel out sideways.</div></div>
+</div>
+</div>
+
+<div class="excard" data-id="d6-crow" data-solo="1">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Crow → Frog Stand</div></div>
+ <div class="exmeta"><div class="sets">3 × 10s each</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor, a folded mat in front of your head, fingers spread wide.</span></div>
+<div class="cue">Lean forward until the toes float — eyes ahead of the hands.</div>
+<div class="setup"><strong>1.</strong> Squat, hands shoulder-width, knees high on the backs of the upper arms. <strong>2.</strong> Lean forward until the toes float; hold 10s. <strong>3.</strong> Frog: knees rest on the outside of bent elbows, same lean. <strong>4.</strong> Tip back to the feet, never onto the head.</div>
+</div>
+
+<div class="excard" data-id="d6-spin" data-solo="1">
+<div class="extop">
+ <div class="ex-left"><div class="exname">Easy Spin or Walk</div></div>
+ <div class="exmeta"><div class="sets">10 min</div><div class="tempo">EASY</div></div>
+ <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
+</div>
+<div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Bike, rower or a treadmill walk — any easy pace.</span></div>
+<div class="cue">Conversation pace. It loosens the legs after the hike.</div>
+</div>
+
+</div><!-- /exlist -->
+<div class="day-complete" data-day="d6"></div>
+</div><!-- /d6 -->
+
+
 <!-- ════════════════════ PLAY DAYS ════════════════════ -->
 <div class="section" id="d4">
 <div class="day-hdr">
  <div class="day-num" style="color:var(--p)">✚</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--p)">// Fri · weekend — all optional</div>
+ <div class="day-eye" style="color:var(--p)">// Sat · Sun — rest, play, hike</div>
  <div class="day-title">PLAY DAYS</div>
- <div class="day-focus">Breathless Friday · play · hike · walk · dance. Skip any of it.</div>
+ <div class="day-focus">Play · hike · walk · dance. Skip any of it.</div>
  </div>
 </div>
 
 <div class="callout" style="border-color:rgba(176,107,255,.28);background:rgba(176,107,255,.06)">
  <div class="callout-t" style="color:var(--p)">// Friday: one breathless session a week</div>
  <p>Bike or pool: get properly out of breath, once. The weekend is the trail — no slow-lowering work the day before a hike. <strong style="color:var(--txt)">One weekend day: full rest.</strong></p>
- <p><strong style="color:var(--txt)">Hiking tomorrow?</strong> Keep Friday to Play 30 or a walk — make the climb your breathless session: 4 × 4 min hard uphill.</p>
+ <p><strong style="color:var(--txt)">Hiking Sunday?</strong> Keep Saturday to rest or a walk — make the climb your breathless session: 4 × 4 min hard uphill.</p>
 </div>
 
 <div class="wu">
  <div class="wu-lbl">Pick by mood</div>
- <div class="wu-item"><span class="wu-t" style="min-width:104px">Fri · Bike</span><span>Seat high. 4 × 3–4 min hard / 3 min easy, seated, ~25 min. Finish seated, stand up slowly.</span></div>
- <div class="wu-item"><span class="wu-t" style="min-width:104px">Fri · Swim</span><span>Main set 6 × 100 m hard, 60s rest. Full session below.</span></div>
+ <div class="wu-item"><span class="wu-t" style="min-width:104px">Play · Bike</span><span>Seat high. 4 × 3–4 min hard / 3 min easy, seated, ~25 min. Finish seated, stand up slowly.</span></div>
+ <div class="wu-item"><span class="wu-t" style="min-width:104px">Play · Swim</span><span>Main set 6 × 100 m hard, 60s rest. Full session below.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Play 30</span><span>Handstand floats (kneel 10s after), low rope, ring rows, monkey bars. Skills only.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Weekend · Hike</span><span>Two poles, 5–10 cm longer downhill. Short steps, soft-knee landings, zig-zag the steep bits.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Walk</span><span>20 brisk minutes, most days.</span></div>
@@ -2774,7 +2828,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
   <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Sauna</div><div class="daily-dose">5–10 min to start, 15 max · 2–3× a week</div><div class="daily-note">After a session or on Sunday, never before lifting. Eat and have a salty drink first, sit low, out if you get dizzy, stand up in stages.</div></div>
   <div class="daily-card" style="border-left-color:var(--b)"><div class="daily-name">Hot tub</div><div class="daily-dose">10–15 min · 1–2 hours before bed</div><div class="daily-note">Your sleep tool: a warm soak an hour or two before bed helps you drop off. Fine after lifting. No stretching in there — warm joints go too far. Get out slowly.</div></div>
   <div class="daily-card" style="border-left-color:var(--g)"><div class="daily-name">Steam room</div><div class="daily-dose">8–10 min · instead of sauna, not extra</div><div class="daily-note">Same job as the sauna, with less evidence. Sweat can't cool you in wet air, so it hits harder than it feels. Pick one heat per day, and eat afterwards.</div></div>
-  <div class="daily-card" style="border-left-color:var(--gld)"><div class="daily-name">Compression boots</div><div class="daily-dose">20–30 min · after lower days or hikes</div><div class="daily-note">Tuesday, Thursday and post-hike evenings, feet up with a snack. Legs feel less sore; they don't get stronger faster. Medium pressure.</div></div>
+  <div class="daily-card" style="border-left-color:var(--gld)"><div class="daily-name">Compression boots</div><div class="daily-dose">20–30 min · after lower days or hikes</div><div class="daily-note">Wednesday, Friday and post-hike evenings, feet up with a snack. Legs feel less sore; they don't get stronger faster. Medium pressure.</div></div>
   <div class="daily-card" style="border-left-color:var(--o)"><div class="daily-name">Massage gun</div><div class="daily-dose">30–60 sec per muscle · warm-up or evening</div><div class="daily-note">Low speed on meaty muscle: quads, glutes, calves, lats, upper traps. Calms tight spots; never use it to chase more range. Never on neck, spine, low back or back of the knee.</div></div>
   <div class="daily-card" style="border-left-color:var(--r)"><div class="daily-name">Lacrosse ball</div><div class="daily-dose">60–90 sec per spot · evenings or rest day</div><div class="daily-note">Against a wall: glutes, upper back, chest, feet. Lean in gently until it lets go. Tingling down a limb: move off. Never the spine, front of the neck or back of the knee.</div></div>
  </div>
@@ -3293,8 +3347,8 @@ document.querySelectorAll('.rest-lbl').forEach(el => {
 });
 
 // ── Day / section IDs (declared once — used by both the FAB and the nav observer) ──
-const dayIds = ['d1','d2','d3','d4','d5'];
-const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)'};
+const dayIds = ['d1','d2','d3','d4','d5','d6'];
+const dayColors = {d1:'var(--r)',d2:'var(--b)',d3:'var(--gld)',d4:'var(--p)',d5:'var(--g)',d6:'var(--o)'};
 
 // ── Day-jump FAB ──
 const dayJump = document.getElementById('dayJump');
@@ -3384,8 +3438,8 @@ function _centerNav(){
 }
 window.addEventListener('scroll', function(){ if (_isPhone()) return; if (!_navRAF){ _navRAF = true; requestAnimationFrame(function(){ _updateNavActive(); _pickDay(); }); } clearTimeout(_navIdle); _navIdle = setTimeout(_centerNav, 160); }, {passive: true});
 _updateNavActive();
-_navLinks.forEach(function(l){ l.addEventListener('click', function(ev){ var id = l.getAttribute('href').slice(1); if (/^d[1235]$/.test(id)){ ev.preventDefault(); setFocus(id); } else if (document.body.classList.contains('focus')) setFocus(null); }); });
-document.querySelectorAll('a.wc[href]').forEach(function(l){ l.addEventListener('click', function(ev){ var id = l.getAttribute('href').slice(1); if (/^d[1235]$/.test(id)){ ev.preventDefault(); setFocus(id); } }); });
+_navLinks.forEach(function(l){ l.addEventListener('click', function(ev){ var id = l.getAttribute('href').slice(1); if (/^d[1-6]$/.test(id)){ ev.preventDefault(); setFocus(id); } else if (document.body.classList.contains('focus')) setFocus(null); }); });
+document.querySelectorAll('a.wc[href]').forEach(function(l){ l.addEventListener('click', function(ev){ var id = l.getAttribute('href').slice(1); if (/^d[1-6]$/.test(id)){ ev.preventDefault(); setFocus(id); } }); });
 
 // ── "Start today" → jumps to the right session; FAB shows done / total for the day in view ──
 function _dow(){ return new Date(Date.now() - DAY_SHIFT_MS).getDay(); }
@@ -3412,6 +3466,7 @@ function _weekMath(){
 }
 // the sessions that arithmetic says will not happen: lowest priority first
 function lostDays(){
+ return [];   // nothing is owed any more — the next session is simply whatever waited longest
  var m = _weekMath(); if (!m.lost) return [];
  var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {};
  var open = DAY_ORDER.filter(function(d){ return !w[d]; });
@@ -3578,15 +3633,19 @@ document.addEventListener('click', function(ev){
 // "Tue + Mon first, then Thu, then Wed", so Upper B is what falls off a bad week.
 var DAY_SLOT = { d5:1, d1:2, d3:3, d2:4 };                 // the weekday each session belongs to
 var DAY_ORDER = ['d1', 'd5', 'd2', 'd3'];                  // what to save when the week goes wrong
-var DAY_NAME = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B' };
-function owedDays(all){
- var w = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, dow = _dow();
- // any day works: Fri–Sun offer whatever is still open this week (training is optional there, not banned)
- var cap = (dow >= 1 && dow <= 4) ? dow : 4;
- var due = DAY_ORDER.filter(function(d){ return !w[d] && DAY_SLOT[d] <= cap; });
- // later sessions of the week come after, in week order — so a day that can't take the due one still gets an offer
- var ahead = Object.keys(DAY_SLOT).sort(function(a, b){ return DAY_SLOT[a] - DAY_SLOT[b]; }).filter(function(d){ return !w[d] && DAY_SLOT[d] > cap; });
- return all === 'due' ? due : due.concat(ahead);
+var DAY_NAME = { d5:'Upper A', d1:'Lower A', d3:'Upper B', d2:'Lower B', d6:'Skill snack' };
+// the week: Tue Upper A · Wed lower (A and B take turns) · Thu Upper B. Mon skill snack and Fri short lower are
+// optional; Sat rest, Sun hike. A miss is never owed: the next day offers what has waited longest.
+function _lastDone(id){
+ var t = 0; try { var w = _asObj(JSON.parse(store.get('bp-week') || '{}')); if (w[id] && String(w[id]).indexOf('skip') !== 0) t = +w[id] || 0; } catch(e){}
+ readSess().forEach(function(x){ if (x && x.day === id && x.n >= 3 && x.e > t) t = x.e; });
+ return t;
+}
+function _nextLower(){ return _lastDone('d1') <= _lastDone('d2') ? 'd1' : 'd2'; }
+function _wedLower(){ var w = readCompletedWeek(); return w.d1 && !w.d2 ? 'd1' : w.d2 && !w.d1 ? 'd2' : _nextLower(); }
+function owedDays(){
+ var w = readCompletedWeek(), core = ['d5', 'd3'].concat(w.d1 || w.d2 ? [] : [_nextLower()]);
+ return core.filter(function(d){ return !w[d]; }).sort(function(a, b){ return _lastDone(a) - _lastDone(b); });
 }
 // how long since you last trained anything - a fortnight off is not a missed Monday
 function daysSinceTrained(){
@@ -3607,51 +3666,39 @@ function _yesterdayHalf(){
 // the session already trained today, if any — one a day, never doubled up
 function _doneToday(){ var w = readCompletedWeek(), t0 = _tday(Date.now()); return Object.keys(w).filter(function(d){ return DAY_HALF[d] && String(w[d]).indexOf('skip') !== 0 && _tday(+w[d]) === t0; })[0] || null; }
 function _daysRunning(){ var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}
- var on = {}; Object.keys(w).forEach(function(d){ var t = +w[d]; if (t) on[_tday(t)] = 1; }); readSess().forEach(function(x){ if (x && x.n >= 3 && x.e) on[_tday(x.e)] = 1; });
+ var on = {}; Object.keys(w).forEach(function(d){ var t = +w[d]; if (t && d !== 'd6') on[_tday(t)] = 1; }); readSess().forEach(function(x){ if (x && x.n >= 3 && x.e && x.day !== 'd6') on[_tday(x.e)] = 1; });
  var n = 0; while (on[_tday(Date.now() - (n + 1) * 864e5)]) n++; return n; }
+function _snackToday(){ var w = readCompletedWeek(); return w.d6 && _tday(+w.d6) === _tday(Date.now()); }
 function suggestDay(){
- var owed = owedDays(), dow = _dow();
- if (!owed.length || _doneToday() || _daysRunning() >= 4) return null;
- var yh = _yesterdayHalf(), pick = owed[0];
- if (yh && DAY_HALF[pick] === yh) pick = owed.filter(function(d){ return DAY_HALF[d] !== yh; })[0] || pick;
- return { id: pick, late: DAY_SLOT[pick] < dow, name: DAY_NAME[pick] };
+ var w = readCompletedWeek(), dow = _dow();
+ if (_doneToday() || _snackToday() || _daysRunning() >= 4) return null;
+ var yh = _yesterdayHalf(), ok = function(d){ return d && !w[d] && DAY_HALF[d] !== yh; }, lowDone = w.d1 || w.d2;
+ var mk = function(id, opt, min){ return { id: id, name: DAY_NAME[id], optional: !!opt, min: min || PLAN_MIN }; };
+ if (dow === 1) return mk('d6', true, 20);                          // Monday: skill snack — no legs after the hike, nothing heavy before Tuesday
+ if (dow === 6 || dow === 0) return null;                          // Saturday rest, Sunday hike
+ if (dow === 5){ var f = lowDone ? (w.d1 ? 'd2' : 'd1') : _nextLower(); return ok(f) ? mk(f, true, 25) : null; }
+ var planned = { 2:'d5', 3:_nextLower(), 4:'d3' }[dow];
+ if (ok(planned) && !(DAY_HALF[planned] === 'L' && lowDone)) return mk(planned);
+ var open = owedDays().filter(ok);
+ return open.length ? mk(open[0]) : null;
 }
 function _paintStart(){
- var map = {1:['d5','Start Upper A',"var(--g)"],2:['d1','Start Lower A',"var(--r)"],3:['d3','Start Upper B',"var(--gld)"],4:['d2','Start Lower B',"var(--b)"],5:['d4','Play day',"var(--p)"],6:['d4','Hike day',"var(--p)"],0:['daily','Rest day · daily 9 min',"var(--g)"]};
- var m = map[_dow()], b = document.getElementById('startBtn'); if (!b) return;
- var note = document.getElementById('startWhy');
- if (note){
-  var dow0 = _dow(), gap = (typeof daysSinceTrained === 'function') ? daysSinceTrained() : null;
-  var owedAll = (typeof owedDays === 'function') ? owedDays(true) : [];
-  var late = owedAll.filter(function(d){ return DAY_SLOT[d] < dow0 || dow0 > 4; });
-  var msg = '', link = '';
-  if (gap !== null && gap >= 10){
-   // the program's own rule for coming back, rather than pretending nothing happened
-   msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
-  } else if (late.length){
-   var ns = late.map(function(d){ return DAY_NAME[d]; });
-   var names = ns.length > 1 ? ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1] : ns[0];
-   msg = dow0 > 4
-    ? names + (late.length > 1 ? ' are' : ' is') + ' still open. Today is play or rest — train only if you want to.'
-    : names + (late.length > 1 ? ' are' : ' is') + ' still open this week — never doubled up, just reordered.';
-   if (dow0 > 4) link = late[0];
-  }
-  note.innerHTML = _esc(msg) + (link ? ' <a href="#' + link + '">Do ' + _esc(DAY_NAME[link]) + '</a>' : '');
-  note.hidden = !msg;
- }   // set before any early return, or it goes stale
- var sg = (typeof suggestDay === 'function') ? suggestDay() : null, dt = _doneToday(), run = _daysRunning();
- if (!dt && run >= 4) m = ['daily', 'Rest day · ' + run + ' days in a row', 'var(--g)'];
- else if (dt) m = [dt, 'Start ' + DAY_NAME[dt], { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[dt]];   // shows "✓ … done"
- else if (sg && m && sg.id !== m[0] && _dow() >= 1 && _dow() <= 4){                           // an earlier session is owed and outranks today's
-  var col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)' }[sg.id];
-  m = [sg.id, 'Start ' + sg.name, col];
- }
- b.onclick = (m && /^d[1235]$/.test(m[0])) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
- var _wk = (typeof readCompletedWeek === 'function') ? readCompletedWeek() : {}, _st = m && _wk[m[0]];
- if (m && _st){ var _sk = String(_st).indexOf('skip') === 0; b.href = '#' + m[0]; b.textContent = (_sk ? '– Skipped today' : '✓ ' + m[1].replace('Start ', '') + ' done'); b.style.background = 'transparent'; b.style.boxShadow = 'inset 0 0 0 1px ' + m[2]; b.style.color = m[2]; return; }
- b.style.color = '';
- if (m){ b.href = '#' + m[0]; b.textContent = '▶ ' + m[1]; b.style.background = m[2]; b.style.boxShadow = '0 0 22px -4px ' + m[2]; }
- else { b.href = '#d4'; b.textContent = '▶ Play day'; b.style.background = 'var(--p)'; b.style.boxShadow = '0 0 22px -4px var(--p)'; }
+ var b = document.getElementById('startBtn'); if (!b) return;
+ var dow = _dow(), col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)', d6:'var(--o)', d4:'var(--p)', daily:'var(--g)' };
+ var dt = _doneToday() || (_snackToday() ? 'd6' : null), sg = suggestDay(), run = _daysRunning();
+ var gap = (typeof daysSinceTrained === 'function') ? daysSinceTrained() : null, note = document.getElementById('startWhy'), msg = '';
+ var m;
+ if (dt) m = [dt, '✓ ' + DAY_NAME[dt] + ' done', col[dt], 1];
+ else if (sg) m = [sg.id, sg.optional ? '▶ Short ' + sg.name + ' · ≈' + sg.min + ' min' : '▶ Start ' + sg.name, col[sg.id]];
+ else if (run >= 4) m = ['daily', 'Rest day · ' + run + ' in a row', col.daily];
+ else m = dow === 0 ? ['d4', 'Hike day', col.d4] : dow === 6 ? ['recover', 'Rest day', col.daily] : ['recover', 'Rest or play', col.d4];
+ if (gap !== null && gap >= 10) msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
+ else if (sg && sg.optional) msg = 'Optional — rest is a fine answer too.';
+ if (note){ note.textContent = msg; note.hidden = !msg; }
+ b.href = '#' + m[0];
+ b.onclick = /^d[1-6]$/.test(m[0]) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
+ b.textContent = m[1]; b.style.color = m[3] ? m[2] : '';
+ b.style.background = m[3] ? 'transparent' : m[2]; b.style.boxShadow = m[3] ? 'inset 0 0 0 1px ' + m[2] : '0 0 22px -4px ' + m[2];
 }
 _paintStart();
 function _savePos(){
@@ -3766,11 +3813,17 @@ function skipDay(id){
 }
 function paintWeek(){
  var c = readCompletedWeek(), cell = {d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4'};
- Object.keys(cell).forEach(function(d){ var k = document.querySelector('#' + d + ' .xchip.skip'); if (k){ var sk0 = String(c[d] || '').indexOf('skip') === 0; var _td = {1:'d5',2:'d1',3:'d3',4:'d2'}[_dow()]; k.textContent = sk0 ? 'Skipped · undo' : 'Skip'; k.setAttribute('aria-label', sk0 ? 'Undo skip' : (d === _td ? 'Skip today' : 'Skip this day')); k.classList.toggle('on', sk0); } });
+ Object.keys(cell).forEach(function(d){ var k = document.querySelector('#' + d + ' .xchip.skip'); if (k){ var sk0 = String(c[d] || '').indexOf('skip') === 0; var _td = (suggestDay() || {}).id; k.textContent = sk0 ? 'Skipped · undo' : 'Skip'; k.setAttribute('aria-label', sk0 ? 'Undo skip' : (d === _td ? 'Skip today' : 'Skip this day')); k.classList.toggle('on', sk0); } });
  if (typeof _paintStart === 'function') _paintStart();
  if (typeof paintResume === 'function') paintResume();
  if (typeof paintSqueeze === 'function') paintSqueeze();
- Object.keys(cell).forEach(function(d){ var el = document.getElementById(cell[d]); if (!el) return; var sk = String(c[d] || '').indexOf('skip') === 0; el.classList.toggle('hit', !!c[d] && !sk); el.classList.toggle('skipped', sk); });
+ document.querySelectorAll('.wc').forEach(function(el){ el.classList.remove('hit', 'skipped'); });
+ Object.keys(c).forEach(function(d){ var ts = parseInt(String(c[d]).replace('skip:', '')) || 0; if (!ts) return;
+  var el = document.getElementById('wc-' + new Date(ts - DAY_SHIFT_MS).getDay()); if (!el) return; var sk = String(c[d]).indexOf('skip') === 0;
+  el.classList.toggle('hit', !sk || el.classList.contains('hit')); el.classList.toggle('skipped', sk && !el.classList.contains('hit')); });
+ var wl = _wedLower(), fl = wl === 'd1' ? 'd2' : 'd1', w3 = document.getElementById('wc-3'), w5 = document.getElementById('wc-5');
+ if (w3){ w3.setAttribute('href', '#' + wl); var t3 = w3.querySelector('.wt'); t3.innerHTML = 'Lower<br>' + (wl === 'd1' ? 'A' : 'B'); t3.style.color = wl === 'd1' ? 'var(--r)' : 'var(--b)'; }
+ if (w5){ w5.setAttribute('href', '#' + fl); w5.querySelector('.wt').style.color = fl === 'd1' ? 'var(--r)' : 'var(--b)'; }
 }
 function _weekStart(){ var m = new Date(Date.now() - DAY_SHIFT_MS); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime() + DAY_SHIFT_MS; } // Monday 04:00, the training-day boundary
 function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every local Monday (Monday 00:00 sits mid-bucket, so DST can't double-step it)
@@ -3792,7 +3845,7 @@ function updateFabCount(){
 
 // ── Phone shell: bottom tabs · session row · sheets ──
 function _isPhone(){ return matchMedia('(max-width:759px)').matches; }
-function _todayId(){ return {1:'d5',2:'d1',3:'d3',4:'d2',5:'d4',6:'d4'}[_dow()] || null; }
+function _todayId(){ var sg = suggestDay(); return sg ? sg.id : ({ 1:'d6', 2:'d5', 3:_wedLower(), 4:'d3', 0:'d4' }[_dow()] || null); }
 function _paintSess(){
  var sec = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null, pg = document.getElementById('sbProg'); if (!sec || !pg) return;
  var cs = [].slice.call(sec.querySelectorAll('.excard[data-id], .wu')).filter(function(c){ return !_hidden(c) && (c.offsetParent !== null || c.classList.contains('wu')); }), d = cs.filter(function(c){ return c.classList.contains('done'); }).length;
@@ -3801,7 +3854,7 @@ function _paintSess(){
 var _sheetKind = null, _logHome = null;
 function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
- return '<div class="sh-t">This week</div>' + [['d5','Mon'],['d1','Tue'],['d3','Wed'],['d2','Thu'],['d4','Fri–Sun']].map(function(x){
+ return '<div class="sh-t">This week</div>' + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
  var sec = document.getElementById(x[0]); if (!sec) return '';
  var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
  var tag = sk ? '<em>skipped</em>' : st ? '<em class="ok">✓ done</em>' : sg && sg.id === x[0] ? '<em class="td">up next</em>' : '';
@@ -3854,7 +3907,7 @@ document.getElementById('tabbar').addEventListener('click', function(ev){
  var b = ev.target.closest('button'); if (!b) return;
  if (b.dataset.tab !== 'today'){ openSheet(b.dataset.tab); return; }
  closeSheet();
- var wkday = _dow() >= 1 && _dow() <= 4, sg = wkday && typeof suggestDay === 'function' ? suggestDay() : null, id = _doneToday() || (sg ? sg.id : _todayId()), cur = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null;
+ var sg = suggestDay(), id = _doneToday() || (_snackToday() ? 'd6' : null) || (sg ? sg.id : _todayId()), cur = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null;
  if (!id){ _goSection('daily'); return; }
  if (cur && cur.id === id){ var now = cur.querySelector('.excard.now'); if (now && typeof goCard === 'function') goCard(now); else cur.scrollIntoView({ block: 'start' }); }
  else setFocus(id);
@@ -3862,20 +3915,8 @@ document.getElementById('tabbar').addEventListener('click', function(ev){
 
 // ── Highlight today's day in week strip ──
 function markToday() {
- document.querySelectorAll('.wc.today').forEach(c => c.classList.remove('today'));
- var CELL_OF = { d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4' };
- var sg = (typeof suggestDay === 'function') ? suggestDay() : null;
- var id = sg ? CELL_OF[sg.id] : ('wc-' + _dow());
- document.querySelectorAll('.wc.today').forEach(function(x){ x.classList.remove('today'); });
- var cell = document.getElementById(id);
- if (cell) cell.classList.add('today');
- // A session done off its usual day should not claim to be that day. Every cell
- // keeps its weekday except the one you are actually doing, which says TODAY.
- document.querySelectorAll('.wc').forEach(function(x){
-  var d = x.querySelector('.wd'); if (!d) return;
-  if (d.dataset.day === undefined) d.dataset.day = d.textContent;
-  d.textContent = (x === cell && id !== 'wc-' + _dow()) ? 'TODAY' : d.dataset.day;
- });
+ document.querySelectorAll('.wc.today').forEach(function(c){ c.classList.remove('today'); });
+ var cell = document.getElementById('wc-' + _dow()); if (cell) cell.classList.add('today');
 }
 markToday();
 
@@ -4855,7 +4896,7 @@ function planDay(dayId, budget){
  // rescue: the same half's other session, if it is settled (done / counted / skipped) or will not fit this week
  var other = Object.keys(DAY_HALF).filter(function(d){ return d !== dayId && DAY_HALF[d] === DAY_HALF[dayId]; })[0];
  var wk = readCompletedWeek(), lost = typeof lostDays === 'function' ? lostDays() : [], rescue = [];
- if (other && (wk[other] || lost.indexOf(other) >= 0)){
+ if (other && _lastDone(other) < Date.now() - 6 * 864e5){
   var got = _loggedSince(_weekStart()), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
   keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
   var keyIds = (KEY_LIFTS[other] || []).map(function(k){ return k[0]; });
@@ -4907,14 +4948,14 @@ function applyPlan(p){
   bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '<span>Bonus lifts wait for a day with time.</span>') + '<button type="button" class="pl-full">Full day</button>';
   bar.hidden = false; }
 }
-function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; }); }
+function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ ' + p.min + ' · built' : '✦ Build ' + (_dow() === 5 ? 25 : 45); }); }
 function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
 // build (or restore) today's plan for a day you are about to train
 function buildDay(dayId, force){
  var p = readPlan();
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
- p = planDay(dayId); if (!p) return;
+ p = planDay(dayId, _dow() === 5 ? 25 : PLAN_MIN); if (!p) return;
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
  var _bm = 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
@@ -4931,7 +4972,7 @@ buildDayChips(); paintWeek();
 // already loaded. Once a day only: "← All days" sticks for the rest of it.
 function autoStart(){
  var t = _today();
- if (!(_dow() >= 1 && _dow() <= 4)) return;   // weekends never open a session by themselves
+ if (!(_dow() >= 1 && _dow() <= 5)) return;   // the weekend never opens a session by itself
  if ((location.hash || '').length > 1 || store.get('bp-autostart') === t) return;
  if (!readSess().length) return;                                        // first visit: show the whole plan
  if (typeof unfinishedSession === 'function' && unfinishedSession()) return;   // the pick-up card asks first
