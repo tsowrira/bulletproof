@@ -69,7 +69,7 @@
 
 /* ── RESET ── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;overflow-x:clip}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;overscroll-behavior-y:none}
 body{overflow-x:clip}
 body{
  background:
@@ -1421,6 +1421,7 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 .a2hs{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:80;display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1px solid var(--g);border-radius:15px;background:rgba(10,14,20,.97);box-shadow:0 10px 34px rgba(0,0,0,.6)}
 .a2hs p{margin:0;font-size:12.5px;line-height:1.55;color:var(--txt)}
 .a2hs b{color:var(--g)}
+.a2hs button.a2hs-go{border-color:var(--g);color:var(--g)}
 .a2hs button{flex-shrink:0;align-self:center;min-height:44px;padding:0 13px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
 /* footer */
 footer{font-size:10.5px}
@@ -1527,7 +1528,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  #tabbar button:active{background:rgba(234,240,255,.05)}
  #scrim{position:fixed;inset:0;z-index:112;background:rgba(0,0,0,.6)}
  #scrim:not([hidden]){display:block}
- #sheet{display:block;position:fixed;left:0;right:0;bottom:0;z-index:115;max-height:80vh;overflow-y:auto;overscroll-behavior:contain;background:#0c0c1e;border-radius:16px 16px 0 0;border-top:1px solid var(--bdr);padding:14px 16px calc(76px + env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .22s cubic-bezier(.2,.8,.3,1),visibility 0s .22s}
+ #sheet{display:block;position:fixed;left:0;right:0;bottom:0;z-index:115;max-height:80vh;max-height:80dvh;overflow-y:auto;overscroll-behavior:contain;background:#0c0c1e;border-radius:16px 16px 0 0;border-top:1px solid var(--bdr);padding:14px 16px calc(76px + env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .22s cubic-bezier(.2,.8,.3,1),visibility 0s .22s}
  #sheet.open{transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.8,.3,1)}
  #sheet #log{display:block!important;margin:0 -16px;border:0}
  .sh-x{position:sticky;top:0;float:right;z-index:2;min-height:44px;min-width:64px;margin:-6px -4px 0 8px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
@@ -4715,11 +4716,15 @@ function sessTypical(dayId){
 (function a2hs(){
  var standalone = window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
  var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
- if (standalone || !ios || store.get('bp-a2hs') === 'off') return;
+ var chrome = /CriOS/.test(navigator.userAgent);
+ if (standalone || !ios || store.get('bp-a2hs') === 'off' || (chrome && readGH())) return;   // Chrome can't install it; a synced log is the safety net there
  setTimeout(function(){
   var d = document.createElement('div'); d.className = 'a2hs';
-  d.innerHTML = '<p><b>Add this to your Home Screen.</b> Safari wipes a normal site’s saved data after 7 days you don’t open it — installed, your numbers stay put and the page works with no signal. Share → Add to Home Screen.</p><button type="button">Got it</button>';
-  d.querySelector('button').onclick = function(){ try { store.set('bp-a2hs','off'); } catch(e){} d.remove(); };
+  d.innerHTML = chrome
+   ? '<p><b>Your numbers live only in this browser.</b> Chrome on iPhone can’t install this as an app, so sync them to your private log once and they’re safe.</p><button type="button" class="a2hs-go">Set up</button><button type="button">Got it</button>'
+   : '<p><b>Add this to your Home Screen.</b> Safari wipes a normal site’s saved data after 7 days you don’t open it — installed, your numbers stay put and the page works with no signal. Share → Add to Home Screen.</p><button type="button">Got it</button>';
+  d.querySelectorAll('button').forEach(function(b){ b.onclick = function(){ try { store.set('bp-a2hs','off'); } catch(e){} d.remove();
+   if (b.classList.contains('a2hs-go')){ if (typeof openSheet === 'function' && _isPhone()) openSheet('numbers'); var g = document.getElementById('ghBox'); if (g){ g.open = true; g.scrollIntoView({ block: 'nearest' }); } } }; });
   document.body.appendChild(d);
  }, 2500);
 })();
