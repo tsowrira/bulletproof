@@ -1482,6 +1482,9 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
 @media(max-width:759px){.dr-h span{order:3}.dr-h .dchk{order:2}}
 #d6 .day-hdr::before{background:var(--o);box-shadow:0 0 13px var(--o)}
+/* skip-aware tags */
+.skiptag{margin-top:6px;font:600 11.5px 'Inter',sans-serif;color:var(--p);letter-spacing:.02em}
+.skiptag button{min-height:32px;padding:0 10px;margin-left:2px;border-radius:100px;border:1px solid rgba(176,107,255,.45);background:none;color:var(--p);font:700 11px 'Inter',sans-serif;cursor:pointer}
 /* built day */
 @media(max-width:759px){.jstrip{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}}
 .spk{width:60px;height:16px;fill:none;stroke:var(--g);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin:0 8px 0 4px;flex:none}
@@ -2631,15 +2634,15 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="setup"><strong>1.</strong> Squat, hands shoulder-width, knees high on the backs of the upper arms. <strong>2.</strong> Lean forward until the toes float; hold 10s. <strong>3.</strong> Frog: knees rest on the outside of bent elbows, same lean. <strong>4.</strong> Tip back to the feet, never onto the head.</div>
 </div>
 
-<div class="excard" data-id="d6-hollow" data-solo="1">
+<div class="excard" data-id="d6-plank" data-solo="1">
 <div class="extop">
- <div class="ex-left"><div class="exname">Bench Hollow Hold — Knees Bent</div></div>
- <div class="exmeta"><div class="sets">3 × 20s</div><div class="rest-lbl">45s rest</div><div class="tempo">ISO</div></div>
+ <div class="ex-left"><div class="exname">Bench Plank — Slow Shoulder Taps</div></div>
+ <div class="exmeta"><div class="sets">3 × 6 taps each side</div><div class="rest-lbl">45s rest</div><div class="tempo">SLOW</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Flat bench, on your back along it, hands holding the bench behind your head, knees bent over the hips.</span></div>
-<div class="cue">Low back stays heavy on the bench — breathe out and hold.</div>
-<div class="setup"><strong>1.</strong> Ribs down, press the low back into the bench. <strong>2.</strong> Lift the head and shoulders a hand-width, knees over the hips. <strong>3.</strong> Hold 20s, breathing slowly. <strong>4.</strong> Low back lifts off the bench: stop. Easier: feet on the bench.</div>
+<div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Hands on a flat bench under the shoulders, feet wide on the floor, body one straight line.</span></div>
+<div class="cue">Hips stay still and level — the tap is slow, the body is stone.</div>
+<div class="setup"><strong>1.</strong> High plank on the bench, ribs down, glutes on, feet wide. <strong>2.</strong> Lift one hand and tap the other shoulder, 2 counts, set it down. <strong>3.</strong> Alternate, 6 each side. <strong>4.</strong> Hips rock or sag: set over. Harder: feet closer together.</div>
 </div>
 
 <div class="excard" data-id="d6-spin" data-solo="1">
@@ -4001,8 +4004,9 @@ function _logKey(card){ return card.dataset.id + (card.dataset.blk === 'b' ? '~b
 function readBlock(){ try { var b = _asObj(JSON.parse(store.get('bp-block') || 'null')); return b.b ? b : { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
 function applyBlock(){
  var st = readBlock(); try { if (!store.get('bp-block')) store.set('bp-block', JSON.stringify(st)); } catch(e){}
- var isB = st.b === 'B', map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow'],['.sets','altSets'],['.tempo','altTempo']];
+ var isB0 = st.b === 'B', isB = isB0, SW = _swaps(), map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow'],['.sets','altSets'],['.tempo','altTempo']];
  document.querySelectorAll('.excard[data-alt-name]').forEach(function(c){
+ var isB = isB0 !== (SW[c.dataset.id] === 'alt');
  map.forEach(function(m){ var el = c.querySelector(m[0]); if (!el || !c.dataset[m[1]]) return;
  if (el.dataset.orig === undefined) el.dataset.orig = el.innerHTML;
  if (!isB){ el.innerHTML = el.dataset.orig; return; }
@@ -4668,6 +4672,7 @@ function sessTick(dayId){
   host.querySelectorAll('.wu.done').forEach(function(){ ids.push('wu'); });
  }
  cur.ids = ids; cur.n = ids.length;
+ if (host){ var off = cur.off || []; host.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_hidden(c) && off.indexOf(c.dataset.id) < 0) off.push(c.dataset.id); }); cur.off = off; }
  cur.of = host ? host.querySelectorAll('.excard[data-id], .wu').length : 0;
  writeSess(a); return cur;
 }
@@ -4903,6 +4908,13 @@ function planDay(dayId, budget){
   if (g && g.ss && c.dataset.ss && g.ss === c.dataset.ss && !g.solo && !(c.dataset.x && PRIORITY_SLOT[SLOT[c.dataset.id]])) g.c.push(c);
   else { var pri = c.dataset.x && PRIORITY_SLOT[SLOT[c.dataset.id]];   // a bonus lift that is a weekly priority (side delts) stays in, on its own
   groups.push({ ss: pri ? '' : (c.dataset.ss || ''), solo: !!pri, c: [c], r: c.classList.contains('wild') ? 3 : pri ? 1 : c.dataset.x ? 2 : !c.dataset.ss && !PRIORITY_SLOT[SLOT[c.dataset.id]] ? 1.5 : c.dataset.opt ? 1 : 0 }); } });   // a lone non-priority lift waits behind anything rescued
+ // what the log says: left out twice running → it goes in first; only ever cut for time → it waits with the bonus lifts; parked as a bonus by choice → bonus
+ var sw = _swaps(), up = [];
+ groups.forEach(function(g){ var st = g.c.map(function(c){ return _skipStats(c.dataset.id); }), key = function(c){ return PRIORITY_SLOT[SLOT[c.dataset.id]] || (KEY_LIFTS[dayId] || []).some(function(k){ return k[0] === c.dataset.id; }); };
+  if (g.c.some(function(c){ return sw[c.dataset.id] === 'bonus'; })) g.r = 2;
+  else if (st.some(function(x){ return x.slip && !x.tailOnly; }) || g.c.some(function(c, i){ return st[i].slip && key(c); })){ g.r = -1; g.c.forEach(function(c, i){ if (st[i].slip) up.push(c.dataset.id); }); }
+  else if (g.r <= 1.5 && st.every(function(x){ return x.tailOnly; }) && !g.c.some(key)) g.r = 2.5; });
+ groups.sort(function(a, b){ return (a.r < 0 ? -1 : 0) - (b.r < 0 ? -1 : 0); });
  var keep = [], take = function(g, part){ g.c.slice(0, part ? room - keep.length : g.c.length).forEach(function(c){ keep.push(c); }); };
  groups.filter(function(g){ return g.r <= 1; }).forEach(function(g){ if (keep.length + g.c.length <= room) take(g); });
  // rescue: the same half's other session, if it is settled (done / counted / skipped) or will not fit this week
@@ -4921,8 +4933,42 @@ function planDay(dayId, budget){
  }
  groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
- return { d: _today(), day: dayId, from: rescue.length ? other : '', keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, min: budget, lifts: keep.length + rescue.length };
+ return { d: _today(), day: dayId, from: rescue.length ? other : '', keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length };
 }
+// How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
+// A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
+function _skipStats(id){
+ var t = _today(), xs = readSess().filter(function(x){ return x && x.d !== t && x.n >= 3 && Array.isArray(x.off) && x.off.indexOf(id) >= 0; }).slice(-4).reverse();
+ var r = xs.map(function(x){ var i = x.off.indexOf(id); return { skip: (x.ids || []).indexOf(id) < 0, tail: i >= Math.ceil(x.off.length * 0.67) }; });
+ var sk = r.filter(function(e){ return e.skip; });
+ return { n: r.length, slip: r.length >= 2 && r[0].skip && r[1].skip, tailOnly: sk.length >= 2 && r[0].skip && r[1].skip && r[0].tail && r[1].tail,
+  passed: r.length >= 3 && sk.length >= 3 && sk.filter(function(e){ return !e.tail; }).length >= 2 };
+}
+function _swaps(){ try { return _asObj(JSON.parse(store.get('bp-swap') || '{}')); } catch(e){ return {}; } }
+function _setSwap(id, v){ var o = _swaps(); if (v) o[id] = v; else delete o[id]; try { store.set('bp-swap', JSON.stringify(o)); } catch(e){} }
+function paintSkipTags(){
+ var sw = _swaps();
+ document.querySelectorAll('.skiptag').forEach(function(x){ x.remove(); });
+ document.querySelectorAll('.section[id^="d"] .excard[data-id]').forEach(function(c){
+  var id = c.dataset.id; if (_isSkill(c) || c.classList.contains('wild') || c.classList.contains('done')) return;
+  var left = c.querySelector('.ex-left'); if (!left) return;
+  var tag = document.createElement('div'); tag.className = 'skiptag';
+  if (sw[id]){ tag.innerHTML = (sw[id] === 'alt' ? 'Swapped in for you' : 'Bonus by choice') + ' · <button type="button" data-undo="' + _esc(id) + '">undo</button>'; left.appendChild(tag); return; }
+  var st = _skipStats(id);
+  if (st.passed){
+   var alt = c.dataset.altName && !c.dataset.blk ? c.dataset.altName.split(' — ')[0] : '';
+   tag.innerHTML = 'Left out a lot lately · <button type="button" data-sw="' + _esc(id) + '" data-v="' + (alt ? 'alt' : 'bonus') + '">' + (alt ? 'swap for ' + _esc(alt) : 'make it a bonus') + '</button>';
+   left.appendChild(tag);
+  } else if (st.slip && !st.tailOnly){ tag.textContent = 'Left out the last two times — early today'; left.appendChild(tag); }
+ });
+}
+document.addEventListener('click', function(ev){
+ var b = ev.target.closest && ev.target.closest('.skiptag button'); if (!b) return;
+ var id = b.dataset.sw || b.dataset.undo; _setSwap(id, b.dataset.undo ? null : b.dataset.v);
+ applyBlock(); document.querySelectorAll('.excard[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); applyState();
+ var p = readPlan(); if (p && !p.full){ buildDay(p.day, true); }
+ paintSkipTags(); _toast(b.dataset.undo ? 'Back to the usual lift' : b.dataset.v === 'alt' ? 'Swapped — undo sits on the card' : 'It waits with the bonus lifts now');
+});
 function readPlan(){ try { var p = JSON.parse(store.get('bp-plan') || 'null'); return p && p.d === _today() && Array.isArray(p.keep) ? p : null; } catch(e){ return null; } }
 function clearPlan(){
  document.querySelectorAll('[data-off]').forEach(function(x){ delete x.dataset.off; });
@@ -4957,7 +5003,8 @@ function applyPlan(p){
  if (!bar && list){ bar = document.createElement('div'); bar.className = 'planbar'; list.insertBefore(bar, list.firstChild);
   bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: p.day, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day'); } }); }
  if (bar){ var names = p.rescue.map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '<span>Bonus lifts wait for a day with time.</span>') + '<button type="button" class="pl-full">Full day</button>';
+  var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
+  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + (!names.length && !upN.length ? '<span>Bonus lifts wait for a day with time.</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
   bar.hidden = false; }
 }
 function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; }); }
@@ -4968,9 +5015,11 @@ function buildDay(dayId, force){
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
  p = planDay(dayId); if (!p) return;
+ var gap = daysSinceTrained();
+ if (gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ setLow('low'); p.back = gap; }
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
- var _bm = 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
+ var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
  setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
@@ -5097,7 +5146,7 @@ function paintBests(){
 paintBests();
 (function(){ try { var v = (store.get('bp-lowbat') || '').split('|'); if (v[0] === _today()){ document.body.classList.add('lowbat'); if (v[1] === 'micro') document.body.classList.add('micro'); _paintLow(); updateDayComplete(); } } catch(e){} })();
 document.querySelectorAll('.ssh').forEach(function(h){ var l = h.querySelector('b'); if (l && l.textContent.trim() === 'B') h.dataset.b = '1'; });
-paintTabs(); _paintSess(); if (typeof _paintPlanChips === 'function') _paintPlanChips();
+paintTabs(); _paintSess(); if (typeof _paintPlanChips === 'function') _paintPlanChips(); if (typeof paintSkipTags === 'function') paintSkipTags();
 _paintExpress();
 // the tab can sit open for days: repaint everything that depends on "today" when she comes back to it
 function refreshDay(){ _paintStart(); markToday(); paintWeek(); paintBests(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
