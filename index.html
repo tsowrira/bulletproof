@@ -1262,6 +1262,10 @@ body.focus .section.cur .excard:not(.done) .laterbtn{display:inline-flex;align-i
 body.focus .section.cur .excard.later .laterbtn{float:none;margin-left:0;color:var(--gld);border:1px dashed var(--gld);background:rgba(255,210,58,.06)}
 .laterbtn:active{transform:scale(.96)}
 .excard.now{background:rgba(31,224,255,.035);box-shadow:inset 3px 0 0 var(--b),0 0 0 1px rgba(31,224,255,.18)}
+/* in a session only the lift you're on opens up; the rest read as a slim list — tap one to open it */
+body.focus .section.cur .excard[data-id]:not(.now):not(.done)>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.rule,.drills,.chk2,.foldrow,.howfold,.acc-btn,.prog-wrap),
+body.focus .section.cur .excard[data-id]:not(.now):not(.done) :is(.laterbtn,.warmset,.rest-lbl,.tempo,.notebtn:not(.has)){display:none}
+body.focus .section.cur .excard[data-id]:not(.now):not(.done){cursor:pointer}
 .excard.later:not(.now){box-shadow:inset 3px 0 0 var(--gld)}
 .excard.later:not(.now) .ex-left{opacity:.7}
 .exlast .aim{font-weight:700;color:var(--b)}
@@ -5004,8 +5008,8 @@ function applyPlan(p){
   bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: p.day, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day'); } }); }
  if (bar){ var names = p.rescue.map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + (!names.length && !upN.length ? '<span>Bonus lifts wait for a day with time.</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
-  bar.hidden = false; }
+  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
+  bar.hidden = !names.length && !upN.length; }
 }
 function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; }); }
 function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
@@ -5020,7 +5024,7 @@ function buildDay(dayId, force){
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
  var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
- setTimeout(function(){ _toast(_bm); }, 700);
+ if (force || p.back || p.rescue.length) setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
 
@@ -5053,8 +5057,10 @@ function readLater(){ try { var o = _asObj(JSON.parse(store.get('bp-later') || '
 function writeLater(ids){ try { store.set('bp-later', JSON.stringify({ d: _today(), ids: ids })); } catch(e){} }
 function _dayCards(sec){ return [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_hidden(c) && (!sec.classList.contains('keyonly') || c.dataset.key); }); }
 function _setNow(card){
+ var y0 = card ? card.getBoundingClientRect().top : 0;
  document.querySelectorAll('.excard.now').forEach(function(c){ if (c !== card) c.classList.remove('now'); });
- if (card) card.classList.add('now');
+ if (card){ card.classList.add('now');
+  var dy = card.getBoundingClientRect().top - y0; if (Math.abs(dy) > 1) window.scrollBy(0, dy); }   // the card above folding shouldn't pull this one from under your thumb
 }
 function goCard(card){
  if (!card) return;
@@ -5086,6 +5092,7 @@ function paintJump(){
   strip.addEventListener('click', function(ev){ var b = ev.target.closest('.jchip'); if (!b) return;
    var c = document.querySelector('.section.cur .excard[data-id="' + b.dataset.id + '"]'); if (c) goCard(c); }); }
  var later = readLater(), parked = 0;
+ if (!cards.some(function(c){ return c.classList.contains('now'); })){ var first = cards.filter(function(c){ return !c.classList.contains('done') && later.indexOf(c.dataset.id) < 0; })[0]; if (first) first.classList.add('now'); }
  document.querySelectorAll('.excard[data-id]').forEach(function(c){ var p = later.indexOf(c.dataset.id) >= 0 && !c.classList.contains('done'); c.classList.toggle('later', p);
   var lb = c.querySelector('.laterbtn'); if (lb) lb.textContent = p ? '⟲ Parked · tap to do it now' : '⟲ Busy? Later'; });
  strip.innerHTML = cards.map(function(c){
