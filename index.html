@@ -1263,8 +1263,8 @@ body.focus .section.cur .excard.later .laterbtn{float:none;margin-left:0;color:v
 .laterbtn:active{transform:scale(.96)}
 .excard.now{background:rgba(31,224,255,.035);box-shadow:inset 3px 0 0 var(--b),0 0 0 1px rgba(31,224,255,.18)}
 /* in a session only the lift you're on opens up; the rest read as a slim list — tap one to open it */
-body.focus .section.cur .excard[data-id]:not(.now):not(.done)>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.rule,.drills,.chk2,.foldrow,.howfold,.acc-btn,.prog-wrap),
-body.focus .section.cur .excard[data-id]:not(.now):not(.done) :is(.laterbtn,.warmset,.rest-lbl,.tempo,.notebtn:not(.has)){display:none}
+body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills))>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.foldrow,.howfold,.acc-btn,.prog-wrap),
+body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills)) :is(.laterbtn,.warmset,.rest-lbl,.tempo,.notebtn:not(.has)){display:none}
 body.focus .section.cur .excard[data-id]:not(.now):not(.done){cursor:pointer}
 .excard.later:not(.now){box-shadow:inset 3px 0 0 var(--gld)}
 .excard.later:not(.now) .ex-left{opacity:.7}
@@ -5125,10 +5125,16 @@ function paintJump(){
   b.addEventListener('click', function(ev){ ev.stopPropagation(); if (card.classList.contains('later')) goCard(card); else parkCard(card); });
   var meta = card.querySelector('.exmeta'); if (meta) meta.appendChild(b); else top.insertAdjacentElement('afterend', b);
  });
- // tapping anywhere on a card makes it the one you are on
- document.addEventListener('click', function(ev){
-  var c = ev.target.closest && ev.target.closest('.section.cur .excard[data-id]'); if (!c || c.classList.contains('done') || ev.target.closest('.laterbtn')) return;
-  if (!c.classList.contains('now')){ _setNow(c); paintJump(); }
+ // tapping anywhere on a card makes it the one you are on — a listener on the card itself, because
+ // iOS only turns a tap into a click for elements that are clickable in their own right
+ document.querySelectorAll('.excard[data-id]').forEach(function(c){
+  function pick(ev){ if (c.classList.contains('done') || !c.closest('.section.cur') || ev.target.closest('.laterbtn')) return;
+   if (!c.classList.contains('now')){ _setNow(c); paintJump(); } }
+  c.addEventListener('click', pick);
+  var t0 = null;
+  c.addEventListener('touchstart', function(ev){ var t = ev.touches[0]; t0 = t ? [t.clientX, t.clientY] : null; }, { passive: true });
+  c.addEventListener('touchend', function(ev){ var t = ev.changedTouches[0]; if (!t0 || !t || Math.abs(t.clientX - t0[0]) > 10 || Math.abs(t.clientY - t0[1]) > 10) return;
+   if (ev.target.closest('button, input, a, summary, .stp')) return; pick(ev); }, { passive: true });
  });
 })();
 // tap a level-up rung when you own it — it stays ticked, the button shows how far up the ladder you are
