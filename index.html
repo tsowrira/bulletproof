@@ -1482,10 +1482,14 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 #sbPlus[hidden]{display:none}
 /* drills tick one by one */
 .dr-h .dchk{margin-left:auto;flex:none;width:44px;height:44px;margin-top:-10px;margin-bottom:-10px;margin-right:-6px;border-radius:50%;border:1.5px solid rgba(234,240,255,.3);background:none;color:var(--fade);font:700 16px 'Inter',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dr-h .dnum{flex:none;width:52px;height:36px;margin:-6px 0 -6px auto;padding:0 6px;border:1px solid rgba(93,255,159,.25);border-radius:10px;background:rgba(93,255,159,.04);color:var(--txt);text-align:center;font:700 15px 'Inter',sans-serif;font-variant-numeric:tabular-nums}
+.dr-h .dnum::placeholder{color:var(--fade);font-weight:600}
+.dr-h .dnum.has{border-color:rgba(93,255,159,.6)}
+.dr-h .dnum+.dchk{margin-left:8px}
 .drill.ticked{opacity:.6}
 .drill.ticked .dchk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g)}
 .drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
-@media(max-width:759px){.dr-h span{order:3}.dr-h .dchk{order:2}}
+@media(max-width:759px){.dr-h{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:8px;align-items:center}.dr-h span{grid-column:1/-1;grid-row:2}.dr-h .dnum{grid-column:2;grid-row:1;margin-left:0}.dr-h .dchk{grid-column:3;grid-row:1;margin-left:0}}
 #d6 .day-hdr::before{background:var(--o);box-shadow:0 0 13px var(--o)}
 /* skip-aware tags */
 .skiptag{margin-top:6px;font:600 11.5px 'Inter',sans-serif;color:var(--p);letter-spacing:.02em}
@@ -2651,7 +2655,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 <div class="setup"><strong>1.</strong> High plank on the bench, ribs down, glutes on, feet wide. <strong>2.</strong> Lift one hand and tap the other shoulder, 2 counts, set it down. <strong>3.</strong> Alternate, 6 each side. <strong>4.</strong> Hips rock or sag: set over. Harder: feet closer together.</div>
 </div>
 
-<div class="excard" data-id="d6-spin" data-solo="1">
+<div class="excard" data-id="d6-spin" data-unit="min" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Bike — Easy or Brisk</div></div>
  <div class="exmeta"><div class="sets">15–20 min</div><div class="tempo">YOUR CALL</div></div>
@@ -4006,7 +4010,8 @@ window.toggleExpress = toggleExpress;
 })();
 
 // ── 4-week blocks: accessories swap to a sibling lift (Block B text lives in data-alt-*); tracked lifts never change ──
-function _logKey(card){ return card.dataset.id + (card.dataset.blk === 'b' ? '~b' : ''); }
+function _logKey(card){ if (card.classList.contains('wild')) return 'wild:' + card.querySelector('.exname').textContent.replace(/^Wildcard\s*—\s*/, '').trim();
+ return card.dataset.id + (card.dataset.blk === 'b' ? '~b' : ''); }
 function readBlock(){ try { var b = _asObj(JSON.parse(store.get('bp-block') || 'null')); return b.b ? b : { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
 function applyBlock(){
  var st = readBlock(); try { if (!store.get('bp-block')) store.set('bp-block', JSON.stringify(st)); } catch(e){}
@@ -4073,6 +4078,7 @@ function rerollWild(id){
  st.off = st.off || {}; st.off[id] = (st.off[id] || 0) + 1;
  try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
  applyWildcards();
+ document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots();
 }
 
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
@@ -4104,7 +4110,7 @@ var TRACK = { 'd1e1':5, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3
  'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
  'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
- 'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0 };
+ 'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0, 'd6-crow':0, 'd6-plank':0, 'd6-spin':0 };
 // Block-B alternates start from their own first weight (0 = bodyweight), not the Block-A lift's
 var TRACK_B = { 'd3-wrow':15, 'd2e-press':15, 'd1-latraise':10, 'd3-inccurl':15, 'd3-stcalf':90, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
 // weight-only memory (no reps): "what pin did I use last time?" for every other loaded lift
@@ -4116,13 +4122,15 @@ function buildJots(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
  // every lift logs weight and reps — a weight-only row left no way to say how many you actually did
  var wOnly = false;
- if (card.querySelector('.exlog') || card.querySelector(':scope > .drills') || !((card.dataset.id in TRACK) || (card.dataset.id in TRACK_W))) return;
+ var wild = card.classList.contains('wild');
+ if (card.querySelector('.exlog') || card.querySelector(':scope > .drills') || !(wild || (card.dataset.id in TRACK) || (card.dataset.id in TRACK_W))) return;
  var exId = _logKey(card), name = card.querySelector('.exname').textContent.trim();
  var wUnit = _unitFor(exId);
- var timed = card.dataset.unit === 'sec' || (card.dataset.unit !== 'reps' && /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || ''));
+ var mins = card.dataset.unit === 'min';
+ var timed = card.dataset.unit === 'sec' || (!mins && card.dataset.unit !== 'reps' && /\d\s?s\b/.test((card.querySelector('.sets') || {}).textContent || ''));
  var all = _asArr(hist[exId]), p = _prev(all), mine = all.filter(function(e){ return e.d === t; })[0];
- var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/);
- var src = mine || p[p.length-1] || { w: _firstW(card), r: m0 ? +m0[1] : (timed ? 20 : 8) };
+ var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/) || ((wild || mins) ? st0.match(/(\d+)/) : null);
+ var src = mine || p[p.length-1] || { w: _firstW(card) || 0, r: m0 ? +m0[1] : (timed ? 20 : 8) };
  var twoSets = !timed && !wOnly && /S1/.test(st0) && /S2/.test(st0);
  var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, r1: (src.r1 != null ? src.r1 : (m0 ? +m0[1] : src.r)) };
  // Today is programmed before you arrive: an all-out set 2 that reached the ladder's
@@ -4137,13 +4145,13 @@ function buildJots(){
   auto = _wstep(_conv(lastP.w, lastP.u || 'lb', wUnit), wUnit, 1);   // offered, never applied for her
  }
  // bodyweight lifts get a "+lb" box for added load (belt, vest, dumbbell); skill blocks stay reps-only
- var bw = !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
+ var bw = wild || mins || /^d6-/.test(card.dataset.id) || !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
  function stp(k, unit, tap){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
  '<input class="stv" type="text" inputmode="decimal" value="' + v[k] + '" aria-label="' + lbl + ': ' + unit + '">' +
  (tap ? '<button type="button" class="stu stu-b" aria-label="' + lbl + ': unit, now ' + unit + ' — tap to switch">' + unit + '</button>' : '<span class="stu">' + unit + '</span>') +
  '<button type="button" class="stb" data-d="1" aria-label="' + lbl + ': more ' + unit + '">+</button></div>'; }
  var row = document.createElement('div'); row.className = 'exlog' + (mine ? ' has-val' : '');
- var rUnit = timed ? 'sec' : 'reps';
+ var rUnit = timed ? 'sec' : mins ? 'min' : 'reps';
  row.innerHTML = (bw ? '' : stp('w', plus + wUnit, 1))
   + (wOnly ? '' : (twoSets ? stp('r1', 'S1') + stp('r', 'S2') : stp('r', rUnit)))
   + '<span class="exlast">' + _lastBest(all) + '</span>';
@@ -4208,7 +4216,7 @@ function buildJots(){
   if (navigator.vibrate) navigator.vibrate(10);
   commit(); _toast(lbl + ' — ' + nu); return; }
  var b = ev.target.closest('.stb'); if (!b) return;
- var k = b.parentNode.dataset.k, step = k === 'w' ? _wstep(v.w, wUnit, +b.dataset.d) : (timed ? 5 : 1);
+ var k = b.parentNode.dataset.k, step = k === 'w' ? _wstep(v.w, wUnit, +b.dataset.d) : ((timed || mins) ? 5 : 1);
  v[k] = Math.max(0, v[k] + step * b.dataset.d); b.parentNode.querySelector('.stv').value = v[k];
  if (navigator.vibrate) navigator.vibrate(10);
  commit();
@@ -4239,6 +4247,10 @@ function _spark(arr){
  var mn = Math.min.apply(0, pts), mx = Math.max.apply(0, pts), sp = mx - mn || 1;
  return '<svg class="spk" viewBox="0 0 60 16" aria-hidden="true"><polyline points="' + pts.map(function(v, i){ return (i / (pts.length - 1) * 58 + 1).toFixed(1) + ',' + (15 - (v - mn) / sp * 13).toFixed(1); }).join(' ') + '"/></svg>';
 }
+function _drillName(k){ var m = k.match(/^(.+)#(\d+)$/); if (!m) return '';
+ var card = document.querySelector('.excard[data-id="' + m[1] + '"]'), d = card && card.querySelectorAll(':scope > .drills > .drill')[+m[2]]; if (!d) return '';
+ var h = d.querySelector('.dr-h'), nm = ''; h.childNodes.forEach(function(x){ if (x.nodeType === 3) nm += x.textContent; });
+ return card.querySelector('.exname').textContent.split(' — ')[0].replace(/ Block$/, '') + ' · ' + nm.trim(); }
 function renderNumbers(){
  var host = document.getElementById('numList'); if (!host) return;
  var h = readHist(), rows = '';
@@ -4250,6 +4262,12 @@ function renderNumbers(){
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
  rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '"><b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
+ });
+ Object.keys(h).filter(function(k){ return /^wild:|#\d+$/.test(k); }).sort().forEach(function(k){
+ var arr = _asArr(h[k]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
+ var last = arr[arr.length-1], best = arr.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, arr[0]);
+ var nm = k.slice(0, 5) === 'wild:' ? k.slice(5) : _drillName(k); if (!nm) return;
+ rows += '<div class="srow" data-k="' + _esc(k) + '"><b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
  if (typeof paintBackupNote === 'function') paintBackupNote();
@@ -4793,7 +4811,7 @@ function tickDrill(card, i){
  if (navigator.vibrate) navigator.vibrate(15);
  var shown = _drillsShown(card), all = [].slice.call(card.querySelectorAll(':scope > .drills > .drill'));
  var left = shown.filter(function(d){ return !st.k[all.indexOf(d)]; }).length;
- if (st.k[i]){ var r = card.querySelector('.rest-lbl'); if (left && r && r._restStart){ r._restReset(); r._restStart(); } }
+ if (st.k[i]){ var r = card.querySelector('.rest-lbl'); if (left && r && r._restStart){ r._restReset(); r._restStart(); } if (all[i]._logDrill) all[i]._logDrill(); }
  var chk = card.querySelector(':scope > .extop .chk');
  if (!left && !card.classList.contains('done') && chk) chk.click();          // last drill ticked → the block is done
  else if (left && card.classList.contains('done') && chk) chk.click();       // un-ticked one → the block reopens
@@ -4803,6 +4821,19 @@ document.querySelectorAll('.excard > .drills').forEach(function(list){
  var card = list.parentNode;
  [].slice.call(list.querySelectorAll(':scope > .drill')).forEach(function(d, i){
   var h = d.querySelector('.dr-h'); if (!h || h.querySelector('.dchk')) return;
+  // reps or seconds for the drill — the dose is the placeholder, the tick saves it unless she typed her own
+  var key = card.dataset.id + '#' + i, dose = ((h.querySelector('span') || {}).textContent || '').split('·')[0], dm = dose.match(/×\s*(\d+)/) || dose.match(/(\d+)/), sec = /\d\s?s\b|\bmin\b/.test(dose);
+  var n = document.createElement('input'); n.type = 'text'; n.className = 'dnum'; n.inputMode = 'decimal';
+  n.setAttribute('aria-label', 'Drill ' + (i + 1) + ': ' + (sec ? 'seconds' : 'reps') + ' done');
+  function hist(){ return _asArr(readHist()[key]); }
+  function paintN(){ var all = hist(), t = _today(), mine = all.filter(function(e){ return e.d === t; })[0], last = _prev(all).pop();
+   n.value = mine ? mine.r : ''; n.placeholder = (last ? last.r : (dm ? dm[1] : '')) + (sec ? 's' : ''); n.classList.toggle('has', !!mine); }
+  function save(r){ if (!(r > 0)) return; var t = _today(), o = readHist(), arr = _asArr(o[key]).filter(function(e){ return e.d !== t; });
+   arr.push({ d: t, w: 0, r: r }); o[key] = arr.slice(-12); writeHist(o); paintN(); paintBests(); renderNumbers(); if (typeof ghTouch === 'function') ghTouch(); }
+  n.addEventListener('change', function(){ var r = parseFloat(String(n.value).replace(',', '.')); if (isFinite(r) && r > 0) save(r); else paintN(); });
+  n.addEventListener('click', function(ev){ ev.stopPropagation(); });
+  d._logDrill = function(){ if (!n.value) save(parseFloat(n.placeholder)); };
+  paintN(); h.appendChild(n);
   var b = document.createElement('button'); b.type = 'button'; b.className = 'dchk'; b.textContent = '○';
   b.setAttribute('aria-label', 'Drill ' + (i + 1) + ' done');
   b.addEventListener('click', function(ev){ ev.stopPropagation(); tickDrill(card, i); });
@@ -4811,7 +4842,8 @@ document.querySelectorAll('.excard > .drills').forEach(function(list){
  // ticking the whole block by its circle ticks every drill; opening it again clears them
  var chk = card.querySelector(':scope > .extop .chk');
  if (chk) chk.addEventListener('click', function(){ setTimeout(function(){
-  var o = readDrills(); if (!card.classList.contains('done')){ var st = o[card.dataset.id];
+  var o = readDrills(); if (card.classList.contains('done')) _drillsShown(card).forEach(function(d){ if (d._logDrill) d._logDrill(); });
+  if (!card.classList.contains('done')){ var st = o[card.dataset.id];
    if (st && Object.keys(st.k || {}).filter(function(x){ return st.k[x]; }).length >= _drillsShown(card).length){ delete o[card.dataset.id]; writeDrills(o); } }
   paintDrills(card); }, 0); });
  paintDrills(card);
