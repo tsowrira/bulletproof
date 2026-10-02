@@ -1498,7 +1498,9 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 @media(max-width:759px){.jstrip{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}}
 .spk{width:60px;height:16px;fill:none;stroke:var(--g);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin:0 8px 0 4px;flex:none}
 .excard[data-off],.ssh[data-off]{display:none!important}
-.section.planned .excard:not([data-id="d5e1"]) .drills .drill:nth-child(n+3){display:none}
+.section.planned:not(.long) .excard:not([data-id="d5e1"]) .drills .drill:nth-child(n+3){display:none}
+.sets.longdose{display:none;color:var(--gld)}.section.long .sets.longdose{display:block}
+.xchip.long.on{border-color:var(--gld);color:var(--gld)}
 .planbar{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:12px var(--pad);border-bottom:1px solid var(--bdr);background:rgba(176,107,255,.06)}
 .planbar[hidden]{display:none}
 .planbar b{flex:1;min-width:0;font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--p)}
@@ -3777,6 +3779,9 @@ function buildDayChips(){
  var info = document.querySelector('#' + id + ' .day-info'); if (!info || info.querySelector('.xchip')) return;
  var row = document.createElement('div'); row.className = 'xrow';
  var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'xchip plan'; pb.onclick = function(){ var p = readPlan(); if (p && p.day === id && !p.full){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _paintPlanChips(); _toast('Full day'); } else { buildDay(id, true); _paintPlanChips(); } }; row.appendChild(pb);
+ var lg = document.createElement('button'); lg.type = 'button'; lg.className = 'xchip long'; lg.textContent = '⏳ Long 80';
+ lg.onclick = function(){ var p = readPlan(); if (_lowState()) setLow(_lowState()); if (document.body.classList.contains('express')) toggleExpress();   // a long day means energy: the short modes go off
+  if (p && p.day === id && p.long){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _paintPlanChips(); _toast('Full day'); } else buildDay(id, true, 80); }; row.appendChild(lg);
  var b = document.createElement('button'); b.type = 'button'; b.className = 'xchip'; b.textContent = '⏱ Express ≈35'; b.onclick = toggleExpress; row.appendChild(b);
  var l = document.createElement('button'); l.type = 'button'; l.className = 'xchip low'; l.dataset.m = 'low'; l.onclick = function(){ setLow('low'); }; row.appendChild(l);
  var mc = document.createElement('button'); mc.type = 'button'; mc.className = 'xchip low'; mc.dataset.m = 'micro'; mc.onclick = function(){ setLow('micro'); }; row.appendChild(mc);
@@ -3810,8 +3815,11 @@ function _lowDose(t){
 function _paintDose(){
  var st = _lowState(), ex = document.body.classList.contains('express');
  ['d5','d1','d3','d2'].forEach(function(id){
- document.querySelectorAll('#' + id + ' .excard .exmeta > .sets:not(.lowdose)').forEach(function(c){
- var low = _lowDose(c.textContent.trim()), sib = c.parentNode.querySelector('.sets.lowdose');
+ document.querySelectorAll('#' + id + ' .excard .exmeta > .sets:not(.lowdose):not(.longdose)').forEach(function(c){
+ var card = c.closest('.excard'), t3 = c.textContent.trim(), lp = typeof readPlan === 'function' ? readPlan() : null, ls = c.parentNode.querySelector('.sets.longdose');
+ var key3 = typeof NO_RESCUE === 'object' && card && lp && lp.long && lp.day === id && /S2:/.test(t3) && !/fixed/i.test(t3) && !NO_RESCUE[card.dataset.id] && (PRIORITY_SLOT[SLOT[card.dataset.id]] || (KEY_LIFTS[id] || []).some(function(k){ return k[0] === card.dataset.id; }));
+ if (key3 && !ls){ ls = document.createElement('div'); ls.className = 'sets longdose'; ls.textContent = '+ S3 · same weight · stop 2 short'; c.insertAdjacentElement('afterend', ls); } else if (!key3 && ls) ls.remove();
+ var low = _lowDose(t3), sib = c.parentNode.querySelector('.sets.lowdose');
  if (!low){ if (sib) sib.remove(); c.classList.remove('haslow'); return; }
  if (!sib){ sib = document.createElement('div'); sib.className = 'sets lowdose'; c.insertAdjacentElement('afterend', sib); }
  sib.textContent = low; c.classList.add('haslow'); });
@@ -3992,7 +4000,7 @@ window.toggleGym = toggleGym;
 // behaviour deleted the D pair, the week's only biceps, side-delt and calf work. ──
 function _paintExpress(){
  var on = document.body.classList.contains('express');
- document.querySelectorAll('.xchip:not(.low):not(.skip):not(.plan)').forEach(function(x){ x.classList.toggle('on', on); var sec = x.closest('.section'), f = sec && sec.querySelector('.day-focus'), mn = (f && f.dataset.expressMin) || '35'; x.textContent = on ? '⏱ Express on' : '⏱ Express ' + mn; });
+ document.querySelectorAll('.xchip:not(.low):not(.skip):not(.plan):not(.long)').forEach(function(x){ x.classList.toggle('on', on); var sec = x.closest('.section'), f = sec && sec.querySelector('.day-focus'), mn = (f && f.dataset.expressMin) || '35'; x.textContent = on ? '⏱ Express on' : '⏱ Express ' + mn; });
  if (typeof _paintDose === 'function') _paintDose();
 }
 function toggleExpress(){
@@ -4968,8 +4976,9 @@ function _isSkill(c){ return !!c.querySelector(':scope > .drills'); }
 function planDay(dayId, budget){
  var sec = document.getElementById(dayId); if (!sec || !DAY_HALF[dayId]) return null;
  budget = budget || PLAN_MIN;
- var pace = _pace(), skill = sec.querySelector('.excard[data-id] > .drills') ? 5 : 0;
- var room = Math.max(4, Math.floor((budget - 3 - skill) / pace));
+ var long = budget >= 80, cap = long ? 4 : 2;
+ var pace = _pace(), skill = sec.querySelector('.excard[data-id] > .drills') ? (long ? 10 : 5) : 0;
+ var room = long ? 99 : Math.max(4, Math.floor((budget - 3 - skill) / pace));
  var cards = [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_isSkill(c) && !c.dataset.rescued; });
  // pairs stay together; core first, bonus next, the wildcard last
  var groups = [];
@@ -4993,7 +5002,7 @@ function planDay(dayId, budget){
  keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
  var isKey = function(o, id){ return PRIORITY_SLOT[SLOT[id]] || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; }); };
  var tryAdd = function(id, o, left){ var c = document.querySelector('#' + o + ' .excard[data-id="' + id + '"]'), sl = SLOT[id];
-  if (!ever || !c || NO_RESCUE[id] || rescue.length >= 2 || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
+  if (!ever || !c || NO_RESCUE[id] || rescue.length >= cap || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
   rescue.push(id); src[id] = o; if (left) carry[id] = 1; else if (!(dow > SCHED[o])) late[id] = 1; have[sl] = 1; };
  var SCHED = { d5:2, d1:3, d2:3, d3:4 };   // Tue upper A · Wed lower · Thu upper B
  var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
@@ -5005,9 +5014,12 @@ function planDay(dayId, budget){
   if (DAY_HALF[o] === 'L' && DAY_HALF[dayId] === 'L' && (wk.d1 || wk.d2) && !String(wk[o] || '').match(/^skip/)) return;   // the lower day already done this week isn't the missed one
   byPri([].map.call(document.querySelectorAll('#' + o + ' .excard[data-id]'), function(c){ return c.dataset.id; })).forEach(function(id){ tryAdd(id, o, false); }); });
  var other = rescue.length ? src[rescue[0]] : '';
+ // extra time: the engine finisher comes over from Monday, logged in minutes like it is there
+ var extra = [];
+ if (long){ var eng = document.querySelector('#d6 .excard[data-id="d6-spin"]'); if (eng && !eng.classList.contains('done') && !got['d6-spin']) extra.push('d6-spin'); }
  groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
- return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length };
+ return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length + extra.length };
 }
 // How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
 // A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
@@ -5051,24 +5063,24 @@ function clearPlan(){
   var tg = c.querySelector('.rtag'); if (tg) tg.remove();
   if (home && home.parentNode){ home.parentNode.insertBefore(c, home); home.remove(); } c._home = null; });
  document.querySelectorAll('.exmeta > .sets[data-porig]').forEach(function(st){ st.textContent = st.dataset.porig; delete st.dataset.porig; });
- document.querySelectorAll('.section.planned').forEach(function(x){ x.classList.remove('planned'); var b = x.querySelector('.planbar'); if (b) b.hidden = true; });
+ document.querySelectorAll('.section.planned').forEach(function(x){ x.classList.remove('planned'); x.classList.remove('long'); var b = x.querySelector('.planbar'); if (b) b.hidden = true; });
 }
 function applyPlan(p){
  clearPlan();
  if (!p) return;
  var sec = document.getElementById(p.day); if (!sec) return;
- sec.classList.add('planned');
- sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = '~5 min · 2 drills'; } });
+ sec.classList.add('planned'); sec.classList.toggle('long', !!p.long);
+ if (!p.long) sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = '~5 min · 2 drills'; } });
  sec.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_isSkill(c) && p.keep.indexOf(c.dataset.id) < 0) c.dataset.off = '1'; });
  // rescued lifts move into today for the day, then go home
  var list = sec.querySelector('.exlist'), anchor = list && list.querySelector('.excard.wild');
- p.rescue.forEach(function(id){
-  var c = document.querySelector('.excard[data-id="' + id + '"]'); if (!c || !list) return;
+ p.rescue.concat(p.extra || []).forEach(function(id){
+  var c = document.querySelector('.excard[data-id="' + id + '"]'), xtra = (p.extra || []).indexOf(id) >= 0; if (!c || !list) return;
   var home = document.createComment('home'); c.parentNode.insertBefore(home, c); c._home = home;
   c.dataset.ss0 = c.dataset.ss || ''; delete c.dataset.ss; c.dataset.rescued = DAY_NAME[(p.src || {})[id] || p.from] || '';
   if (/S1/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1';
-  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.textContent = ((p.carry || {})[id] ? '↩ Left from ' : (p.late || {})[id] ? '↩ Missed last week · ' : '↩ Missed from ') + c.dataset.rescued; left.insertBefore(t, left.firstChild); }
-  if (anchor) list.insertBefore(c, anchor); else list.appendChild(c);
+  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.textContent = xtra ? '⏳ Extra time · to finish' : ((p.carry || {})[id] ? '↩ Left from ' : (p.late || {})[id] ? '↩ Missed last week · ' : '↩ Missed from ') + c.dataset.rescued; left.insertBefore(t, left.firstChild); }
+  if (xtra) list.appendChild(c); else if (anchor) list.insertBefore(c, anchor); else list.appendChild(c);
  });
  sec.querySelectorAll('.ssh').forEach(function(h){ var x = h.nextElementSibling, n = 0, off = 0;
   while (x && x.classList.contains('excard')){ n++; if (x.dataset.off) off++; x = x.nextElementSibling; }
@@ -5079,23 +5091,24 @@ function applyPlan(p){
  if (bar){ var nm = function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; };
   var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Missed last week, added: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
-  bar.hidden = !names.length && !lateN.length && !leftN.length && !upN.length; }
+  bar.innerHTML = '<b>' + (p.long ? '⏳ Long day · ≈80 min · ' : '✦ Built for today · ≈' + p.min + ' min · ') + p.lifts + ' lifts</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Missed last week, added: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
+  bar.hidden = !p.long && !names.length && !lateN.length && !leftN.length && !upN.length; }
 }
-function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; }); }
+function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full && !p.long; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; });
+ document.querySelectorAll('.xchip.long').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && p.long; x.classList.toggle('on', !!on); x.textContent = on ? '⏳ 80 · on' : '⏳ Long 80'; }); }
 function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
 // build (or restore) today's plan for a day you are about to train
-function buildDay(dayId, force){
+function buildDay(dayId, force, budget){
  var p = readPlan();
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
- p = planDay(dayId); if (!p) return;
+ p = planDay(dayId, budget); if (!p) return;
  var gap = daysSinceTrained();
- if (gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ setLow('low'); p.back = gap; }
+ if (gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow('low'); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
  var nc = Object.keys(p.carry || {}).length, nm = p.rescue.length - nc;
- var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (nm ? ' · +' + nm + ' missed' : '') + (nc ? ' · +' + nc + ' unfinished' : '');
+ var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (nm ? ' · +' + nm + ' missed' : '') + (nc ? ' · +' + nc + ' unfinished' : '') + (p.long ? ' · every drill, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') : '');
  if (force || p.back || p.rescue.length) setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
