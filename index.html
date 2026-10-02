@@ -2869,6 +2869,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
   <button class="logbtn ghost" type="button" onclick="backupNumbers()">↓ Save a backup</button>
   <button class="logbtn ghost" type="button" onclick="restoreNumbers()">↑ Restore</button>
   <button class="logbtn ghost" type="button" onclick="copyNumbers()">Copy</button>
+  <button class="logbtn ghost" type="button" onclick="resetNumbers()">Start fresh</button>
  </div>
  <div class="wkview" id="wkView"></div>
  <div class="bk-note" id="bkNote"></div>
@@ -2887,6 +2888,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
    <div class="bk-note" id="ghNote"></div>
   </div>
  </details>
+ <div class="bk-note" id="appV" style="margin-top:10px"></div>
 </div>
 
 <!-- SAFETY NET -->
@@ -3046,6 +3048,11 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
+var APP_V = '2026-10-02';
+// if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
+var _lastErr = null;
+window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
+ setTimeout(function(){ try { if (typeof applyWildcards === 'function') applyWildcards(); } catch(e){} try { if (typeof applyBlock === 'function') applyBlock(); } catch(e){} try { if (typeof buildJots === 'function') buildJots(); } catch(e){} try { if (typeof renderNumbers === 'function') renderNumbers(); } catch(e){} try { if (typeof _toast === 'function') _toast('Something broke — see Numbers'); } catch(e){} }, 0); });
 var _mem = {}, store = {
  get: function(k){ try { var v = localStorage.getItem(k); if (v !== null) return v; } catch(e){} return k in _mem ? _mem[k] : null; },
  set: function(k, v){ _mem[k] = String(v); try { localStorage.setItem(k, v); } catch(e){} },
@@ -3095,7 +3102,7 @@ function pruneExpired() {
  const today = _tday(Date.now());
  let changed = false;
  Object.keys(saved).forEach(id => {
- const t = typeof saved[id] === 'object' ? saved[id].t : null;
+ const t = saved[id] && typeof saved[id] === 'object' ? saved[id].t : null;
  if (!t) { delete saved[id]; changed = true; return; }
  const card = document.querySelector('.excard[data-id="' + id + '"]');
  const daySec = card && card.closest('.section[id]');
@@ -4084,6 +4091,7 @@ function rerollWild(id){
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
 function readHist(){ try { return _asObj(JSON.parse(store.get('bp-hist') || '{}')); } catch(e){ return {}; } }
 function writeHist(o){ try { store.set('bp-hist', JSON.stringify(o)); } catch(e){} }
+function _daysAgo(d){ var n = Math.round((Date.parse(_today()) - Date.parse(d)) / 864e5); return isFinite(n) ? n : 0; }
 function _today(){ var d = new Date(Date.now() - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 // units: some machines here are pinned in kg, some in lb — remembered per lift, tap the unit to switch
 function readUnits(){ try { return _asObj(JSON.parse(store.get('bp-units') || '{}')); } catch(e){ return {}; } }
@@ -4196,13 +4204,14 @@ function buildJots(){
  function commit(){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
  var t = _today(); // not the page-load date — the tab can stay open for days
- var h = readHist(), arr = (h[exId] || []).filter(function(e){ return e.d !== t; });
+ var h = readHist(), arr = _asArr(h[exId]).filter(function(e){ return e.d !== t; });
  var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
  var e = { d:t, w:v.w, r:v.r }; if (wUnit === 'kg' && v.w > 0) e.u = 'kg'; if (v.n) e.n = v.n;
   if (twoSets && v.r1 > 0) e.r1 = v.r1;   // set 1 rides along; older entries simply lack it
  var pr = !wOnly && !!prevBest && _score(e) > prevBest;
- arr.push(e); h[exId] = arr.slice(-12); writeHist(h); paintBests(); renderNumbers();
+ arr.push(e); h[exId] = arr.slice(-12); writeHist(h);
  row.classList.add('has-val'); row.classList.toggle('pr', pr);
+ try { paintBests(); renderNumbers(); } catch(e2){}
   if (typeof ghTouch === 'function') ghTouch();
  if (pr && !row.dataset.pr){ row.dataset.pr = '1'; }
  if (!pr) delete row.dataset.pr;
@@ -4257,7 +4266,7 @@ function renderNumbers(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
  if (!(card.dataset.id in TRACK) && !(card.dataset.id in TRACK_W)) return;
  [['', card.dataset.blk === 'b' ? (card.querySelector('.exname').dataset.orig || '') : card.querySelector('.exname').innerHTML], ['~b', card.dataset.altName || '']].forEach(function(v){
- var arr = (h[card.dataset.id + v[0]] || []).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
+ var arr = _asArr(h[card.dataset.id + v[0]]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], pool = _same(arr, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
  rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '"><b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
@@ -4294,11 +4303,22 @@ document.addEventListener('click', function(ev){
  _toast('Entry deleted');
 });
 window.copyNumbers = copyNumbers;
+// old numbers were logged wrong: wipe the history, start again from the programme's first weights, and keep the sync log from bringing the old entries back
+function _resetDate(){ return store.get('bp-reset') || ''; }
+function resetNumbers(){
+ if (!confirm('Start your numbers fresh?\n\nEvery saved weight and rep is deleted, here and in your synced log. Sessions and settings stay.')) return;
+ store.set('bp-reset', _today()); store.del('bp-hist');
+ document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); });
+ buildJots(); renderNumbers(); paintBests(); paintBackupNote();
+ if (readGH()) ghPush(1);
+ _toast('Fresh start — today is day one');
+}
+window.resetNumbers = resetNumbers;
 
 // ── Backup / restore ──────────────────────────────────────────────────
 // A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
 // one tap, "Save to Files", and the history lands in iCloud Drive.
-var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild'];
+var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild','bp-reset'];
 function _bkPayload(){
  var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
  BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
@@ -4319,9 +4339,11 @@ function paintWeeks(){
 }
 function paintBackupNote(){
  if (typeof paintWeeks === 'function') paintWeeks();
+ var av = document.getElementById('appV'); if (av){ var le = _lastErr || store.get('bp-err');
+  av.innerHTML = 'v' + APP_V + (le ? ' · <span style="color:var(--r)">last error: ' + _esc(le) + '</span> · <a href="#" onclick="store.del(\'bp-err\');location.reload();return false">reload</a>' : ' · <a href="#" onclick="location.reload();return false">reload</a>'); }
  var n = document.getElementById('bkNote'); if (!n) return;
  var last = store.get('bp-bk'), hist = readHist(), any = Object.keys(hist).length, gh = readGH();
- if (gh && gh.at){ var ga = _daysAgo(new Date(gh.at).toISOString().slice(0, 10)); n.textContent = 'Synced to your private log ' + (ga === 0 ? 'today' : ga === 1 ? 'yesterday' : ga + ' days ago') + '.'; n.className = 'bk-note'; n.onclick = null; return; }
+ if (gh && gh.at && isFinite(+gh.at)){ var ga = _daysAgo(_ymd(+gh.at)); n.textContent = 'Synced to your private log ' + (ga === 0 ? 'today' : ga === 1 ? 'yesterday' : ga + ' days ago') + '.'; n.className = 'bk-note'; n.onclick = null; return; }
  n.onclick = any ? function(){ var b = document.getElementById('ghBox'); if (b){ b.open = true; b.scrollIntoView({ block: 'nearest' }); } } : null;
  if (!last){ n.textContent = any ? 'Only on this phone so far — tap to sync to your private log.' : 'Nothing logged yet.';
   n.className = 'bk-note' + (any ? ' stale' : ''); return; }
@@ -4430,20 +4452,24 @@ function _ghErr(c, msg){ c.err = msg; writeGH(c); paintGH(); }
 function _ghMerge(d){
  if (!d) return 0;
  var added = 0;
- if (d['bp-hist']){
-  var rem = {}; try { rem = JSON.parse(d['bp-hist']) || {}; } catch(e){ rem = {}; }
+ // a fresh start on any device wins: entries from before it are dropped on both sides
+ var rd = String(d['bp-reset'] || ''), ld = _resetDate(), reset = rd > ld ? rd : ld;
+ if (rd > ld) store.set('bp-reset', rd);
+ if (d['bp-hist'] || reset){
+  var rem = {}; try { rem = JSON.parse(d['bp-hist'] || '{}') || {}; } catch(e){ rem = {}; }
   var loc = readHist();
+  if (reset) Object.keys(loc).forEach(function(k){ loc[k] = _asArr(loc[k]).filter(function(e){ return e.d >= reset; }); if (!loc[k].length) delete loc[k]; });
   Object.keys(rem).forEach(function(k){
-   var a = (loc[k] || []).slice(), seen = {};
+   var a = _asArr(loc[k]).slice(), seen = {};
    a.forEach(function(e){ seen[e.d] = 1; });
-   _asArr(rem[k]).forEach(function(e){ if (e && e.d && !seen[e.d]){ a.push(e); added++; } });
+   _asArr(rem[k]).forEach(function(e){ if (e && e.d && !seen[e.d] && !(reset && e.d < reset)){ a.push(e); added++; } });
    a.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
    loc[k] = a.slice(-12);
   });
   writeHist(loc);
  }
  if (d['bp-sess']){
-  var rs = []; try { rs = JSON.parse(d['bp-sess']) || []; } catch(e){ rs = []; }
+  var rs = []; try { rs = _asArr(JSON.parse(d['bp-sess'])); } catch(e){ rs = []; }
   var ls = readSess(), sk = {};
   ls.forEach(function(s){ sk[s.k] = 1; });
   rs.forEach(function(s){ if (s && s.k && !sk[s.k]){ ls.push(s); added++; } });
@@ -4675,6 +4701,7 @@ function addFormLinks(){
 // ── Session clock ─────────────────────────────────────────────────────
 // Started by the first tick of the day, extended by every tick after.
 // Gives a real duration instead of the estimate printed on the day header.
+function _ids(x){ return Array.isArray(x && x.ids) ? x.ids : []; }
 function readSess(){ try { return _asArr(JSON.parse(store.get('bp-sess') || '[]')); } catch(e){ return []; } }
 function writeSess(a){ try { store.set('bp-sess', JSON.stringify(a.slice(-60))); } catch(e){} }
 function _sessKey(dayId){ return _today() + '|' + dayId; }
@@ -4696,7 +4723,7 @@ function sessTick(dayId){
   host.querySelectorAll('.wu.done').forEach(function(){ ids.push('wu'); });
  }
  cur.ids = ids; cur.n = ids.length;
- if (host){ var off = cur.off || []; host.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_hidden(c) && off.indexOf(c.dataset.id) < 0) off.push(c.dataset.id); }); cur.off = off; }
+ if (host){ var off = Array.isArray(cur.off) ? cur.off : []; host.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_hidden(c) && off.indexOf(c.dataset.id) < 0) off.push(c.dataset.id); }); cur.off = off; }
  cur.of = host ? host.querySelectorAll('.excard[data-id], .wu').length : 0;
  writeSess(a); return cur;
 }
@@ -4929,7 +4956,7 @@ function _pace(){
 function _loggedSince(ts){
  var got = {}, h = readHist();
  Object.keys(h).forEach(function(k){ _asArr(h[k]).forEach(function(e){ if (e.d && new Date(e.d + 'T12:00').getTime() >= ts) got[k.replace(/~b$/, '')] = 1; }); });
- readSess().forEach(function(x){ if (x && x.e >= ts) (x.ids || []).forEach(function(id){ got[id] = 1; }); });
+ readSess().forEach(function(x){ if (x && x.e >= ts) _ids(x).forEach(function(id){ got[id] = 1; }); });
  return got;
 }
 function _slotsOn(ymd){
@@ -4959,29 +4986,34 @@ function planDay(dayId, budget){
  groups.sort(function(a, b){ return (a.r < 0 ? -1 : 0) - (b.r < 0 ? -1 : 0); });
  var keep = [], take = function(g, part){ g.c.slice(0, part ? room - keep.length : g.c.length).forEach(function(c){ keep.push(c); }); };
  groups.filter(function(g){ return g.r <= 1; }).forEach(function(g){ if (keep.length + g.c.length <= room) take(g); });
- // rescue: the same half's other session, if it is settled (done / counted / skipped) or will not fit this week
- var other = Object.keys(DAY_HALF).filter(function(d){ return d !== dayId && DAY_HALF[d] === DAY_HALF[dayId]; })[0];
- var wk = readCompletedWeek(), lost = typeof lostDays === 'function' ? lostDays() : [], rescue = [];
- if (other && _lastDone(other) < Date.now() - 6 * 864e5){
-  var got = _loggedSince(_weekStart()), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
-  keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
-  var keyIds = (KEY_LIFTS[other] || []).map(function(k){ return k[0]; });
-  [].slice.call(document.querySelectorAll('#' + other + ' .excard[data-id]')).sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b.dataset.id]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a.dataset.id]] ? 1 : 0); }).forEach(function(c){
-   var id = c.dataset.id, sl = SLOT[id];
-   if (NO_RESCUE[id] || rescue.length >= 2 || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || got[id] || !sl || have[sl] || yday[sl]) return;
-   if (!PRIORITY_SLOT[sl] && keyIds.indexOf(id) < 0) return;
-   rescue.push(id); have[sl] = 1;
-  });
- }
+ // rescue, in this order: lifts left undone in a session you started this week, then the key lifts of a
+ // day that went missing — the same half first, the other half only once its scheduled day has passed
+ var wk = readCompletedWeek(), rescue = [], src = {}, carry = {}, late = {}, mon = _weekStart(), dow = _dow(), t0 = _today(), ever = daysSinceTrained() !== null;
+ var got = _loggedSince(mon), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
+ keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
+ var isKey = function(o, id){ return PRIORITY_SLOT[SLOT[id]] || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; }); };
+ var tryAdd = function(id, o, left){ var c = document.querySelector('#' + o + ' .excard[data-id="' + id + '"]'), sl = SLOT[id];
+  if (!ever || !c || NO_RESCUE[id] || rescue.length >= 2 || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
+  rescue.push(id); src[id] = o; if (left) carry[id] = 1; else if (!(dow > SCHED[o])) late[id] = 1; have[sl] = 1; };
+ var SCHED = { d5:2, d1:3, d2:3, d3:4 };   // Tue upper A · Wed lower · Thu upper B
+ var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
+ readSess().filter(function(x){ return x && x.day !== dayId && DAY_HALF[x.day] && x.d !== t0 && x.e >= mon && x.n >= 1 && Array.isArray(x.off); }).slice(-2).reverse().forEach(function(x){
+  byPri(x.off.filter(function(id){ return _ids(x).indexOf(id) < 0; })).forEach(function(id){ tryAdd(id, x.day, true); }); });
+ Object.keys(DAY_HALF).filter(function(d){ return d !== dayId; }).sort(function(a, b){ return (DAY_HALF[a] === DAY_HALF[dayId] ? 0 : 1) - (DAY_HALF[b] === DAY_HALF[dayId] ? 0 : 1); }).forEach(function(o){
+  if (_lastDone(o) >= Date.now() - 6 * 864e5) return;                    // trained lately: nothing to rescue
+  if (DAY_HALF[o] !== DAY_HALF[dayId] && !(dow > SCHED[o] && !(wk[o] && String(wk[o]).indexOf('skip') !== 0))) return;   // other half: only a day that already went missing this week
+  if (DAY_HALF[o] === 'L' && DAY_HALF[dayId] === 'L' && (wk.d1 || wk.d2) && !String(wk[o] || '').match(/^skip/)) return;   // the lower day already done this week isn't the missed one
+  byPri([].map.call(document.querySelectorAll('#' + o + ' .excard[data-id]'), function(c){ return c.dataset.id; })).forEach(function(id){ tryAdd(id, o, false); }); });
+ var other = rescue.length ? src[rescue[0]] : '';
  groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
- return { d: _today(), day: dayId, from: rescue.length ? other : '', keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length };
+ return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length };
 }
 // How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
 // A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
 function _skipStats(id){
  var t = _today(), xs = readSess().filter(function(x){ return x && x.d !== t && x.n >= 3 && Array.isArray(x.off) && x.off.indexOf(id) >= 0; }).slice(-4).reverse();
- var r = xs.map(function(x){ var i = x.off.indexOf(id); return { skip: (x.ids || []).indexOf(id) < 0, tail: i >= Math.ceil(x.off.length * 0.67) }; });
+ var r = xs.map(function(x){ var i = x.off.indexOf(id); return { skip: _ids(x).indexOf(id) < 0, tail: i >= Math.ceil(x.off.length * 0.67) }; });
  var sk = r.filter(function(e){ return e.skip; });
  return { n: r.length, slip: r.length >= 2 && r[0].skip && r[1].skip, tailOnly: sk.length >= 2 && r[0].skip && r[1].skip && r[0].tail && r[1].tail,
   passed: r.length >= 3 && sk.length >= 3 && sk.filter(function(e){ return !e.tail; }).length >= 2 };
@@ -5011,7 +5043,7 @@ document.addEventListener('click', function(ev){
  var p = readPlan(); if (p && !p.full){ buildDay(p.day, true); }
  paintSkipTags(); _toast(b.dataset.undo ? 'Back to the usual lift' : b.dataset.v === 'alt' ? 'Swapped — undo sits on the card' : 'It waits with the bonus lifts now');
 });
-function readPlan(){ try { var p = JSON.parse(store.get('bp-plan') || 'null'); return p && p.d === _today() && Array.isArray(p.keep) ? p : null; } catch(e){ return null; } }
+function readPlan(){ try { var p = JSON.parse(store.get('bp-plan') || 'null'); if (p && !Array.isArray(p.rescue)) p.rescue = []; return p && p.d === _today() && Array.isArray(p.keep) ? p : null; } catch(e){ return null; } }
 function clearPlan(){
  document.querySelectorAll('[data-off]').forEach(function(x){ delete x.dataset.off; });
  document.querySelectorAll('.excard[data-rescued]').forEach(function(c){
@@ -5033,9 +5065,9 @@ function applyPlan(p){
  p.rescue.forEach(function(id){
   var c = document.querySelector('.excard[data-id="' + id + '"]'); if (!c || !list) return;
   var home = document.createComment('home'); c.parentNode.insertBefore(home, c); c._home = home;
-  c.dataset.ss0 = c.dataset.ss || ''; delete c.dataset.ss; c.dataset.rescued = DAY_NAME[p.from] || '';
+  c.dataset.ss0 = c.dataset.ss || ''; delete c.dataset.ss; c.dataset.rescued = DAY_NAME[(p.src || {})[id] || p.from] || '';
   if (/S1/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1';
-  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.textContent = '↩ Missed from ' + c.dataset.rescued; left.insertBefore(t, left.firstChild); }
+  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.textContent = ((p.carry || {})[id] ? '↩ Left from ' : (p.late || {})[id] ? '↩ Missed last week · ' : '↩ Missed from ') + c.dataset.rescued; left.insertBefore(t, left.firstChild); }
   if (anchor) list.insertBefore(c, anchor); else list.appendChild(c);
  });
  sec.querySelectorAll('.ssh').forEach(function(h){ var x = h.nextElementSibling, n = 0, off = 0;
@@ -5044,10 +5076,11 @@ function applyPlan(p){
  var bar = sec.querySelector('.planbar');
  if (!bar && list){ bar = document.createElement('div'); bar.className = 'planbar'; list.insertBefore(bar, list.firstChild);
   bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: p.day, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day'); } }); }
- if (bar){ var names = p.rescue.map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
+ if (bar){ var nm = function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; };
+  var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
-  bar.hidden = !names.length && !upN.length; }
+  bar.innerHTML = '<b>✦ Built for today · ≈' + p.min + ' min · ' + p.lifts + ' lifts</b>' + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Missed last week, added: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
+  bar.hidden = !names.length && !lateN.length && !leftN.length && !upN.length; }
 }
 function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; }); }
 function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
@@ -5061,7 +5094,8 @@ function buildDay(dayId, force){
  if (gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ setLow('low'); p.back = gap; }
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
- var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (p.rescue.length ? ' · +' + p.rescue.length + ' missed' : '');
+ var nc = Object.keys(p.carry || {}).length, nm = p.rescue.length - nc;
+ var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lifts ≈ ' + p.min + ' min' + (nm ? ' · +' + nm + ' missed' : '') + (nc ? ' · +' + nc + ' unfinished' : '');
  if (force || p.back || p.rescue.length) setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
