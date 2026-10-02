@@ -3083,7 +3083,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-02.2';
+var APP_V = '2026-10-02.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3301,7 +3301,7 @@ function updateDayComplete() {
 }
 // what today looked like next to last time, in one or two lines under the banner
 function _recap(dayId){
- var h = readHist(), t = _today(), bests = [], ups = [], same = 0;
+ var h = readHist(), t = _today(), bests = [], ups = [], same = 0, down = 0;
  var nameOf = function(k){ var id = k.replace(/~b$/, ''), c = document.querySelector('#' + dayId + ' .excard[data-id="' + id + '"]') || document.querySelector('.excard[data-id="' + id + '"]');
   if (!c) return k.indexOf('wild:') === 0 ? k.slice(5) : (typeof _drillName === 'function' ? _drillName(k) : ''); return (c.querySelector('.exname') || {}).textContent.split(' — ')[0].trim(); };
  // only what was on today's page: a second session the same day keeps its own recap
@@ -3309,19 +3309,20 @@ function _recap(dayId){
  var cardOf = function(k){ return mine[k] || mine[k.replace(/~b$/, '')] || mine[k.split('#')[0]] || null; };
  Object.keys(h).forEach(function(k){ var arr = _asArr(h[k]), i = -1; arr.forEach(function(e, j){ if (e.d === t) i = j; }); if (i < 0) return;
   var own = cardOf(k); if (!own) return;
-  var e = arr[i], prev = arr.slice(0, i), nm = nameOf(k); if (!nm || !prev.length) return;
+  var e = arr[i], prev = arr.slice(0, i).filter(function(x){ return x.r > 0; }), nm = nameOf(k); if (!nm || !prev.length) return;
   var un = own.dataset.unit === 'min' ? 'minute' : (own.dataset.unit === 'sec' || (own.dataset.unit !== 'reps' && /\d\s?s\b/.test((own.querySelector('.sets') || {}).textContent || ''))) ? 'second' : 'rep';
   var pool = _same(prev, e.w); if (pool.length && _score(e) > Math.max.apply(null, pool.map(_score))) bests.push(nm);
   var last = prev[prev.length - 1], dw = (e.w || 0) - (last.w || 0), dr = (e.r || 0) - (last.r || 0), sameU = (e.u || 'lb') === (last.u || 'lb');
   if (!sameU) return;
   if (dw > 0) ups.push({ n: nm, t: '+' + dw + ' ' + (e.u || 'lb') + ' on ' + nm, v: 2 + dw / 10 });
   else if (dr > 0 && dw === 0) ups.push({ n: nm, t: dr + ' more ' + un + (dr > 1 ? 's' : '') + ' on ' + nm, v: 1 + dr / 10 });
-  else if (dr === 0 && dw === 0) same++; });
+  else if (dr === 0 && dw === 0) same++;
+  else if (dr < 0 || dw < 0) down++; });
  var out = '';
  if (bests.length) out += '<span class="rc">★ ' + (bests.length === 1 ? 'A best: ' : bests.length + ' bests: ') + _esc(bests.slice(0, 3).join(', ')) + (bests.length > 3 ? '…' : '') + '</span>';
  ups.sort(function(a, b){ return b.v - a.v; });
  if (ups.length) out += '<span class="rc">' + _esc(ups[0].t.charAt(0).toUpperCase() + ups[0].t.slice(1)) + ' than last time' + (ups.length > 1 ? ', and ' + (ups.length - 1) + ' more lift' + (ups.length > 2 ? 's' : '') + ' moved up' : '') + '.</span>';
- else if (same) out += '<span class="rc">Same numbers as last time — a good day too.</span>';
+ else if (same && !down) out += '<span class="rc">Same numbers as last time — a good day too.</span>';
  return out;
 }
 function _reduced(){ try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
@@ -4197,7 +4198,7 @@ function _wstep(w, u, dir){ return u === 'kg' ? (w < 15 || (w === 15 && dir < 0)
 // best-ever compares across units — everything normalises to lb before scoring
 function _score(e){ return e.w > 0 ? _toLb(e.w, e.u) * (1 + e.r/30) : e.r; }
 function _fmt(e){ var u = ' ' + (e.u || 'lb');
- var reps = (e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r;   // set 1 / set 2
+ var reps = ((e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r) + (e.t === 's' ? 's' : e.t === 'm' ? ' min' : '');   // set 1 / set 2
  return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + reps : e.w + u; }
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
 function _prev(arr){ var t = _today(); return (arr || []).filter(function(e){ return e.d !== t; }); }
@@ -4228,7 +4229,7 @@ function _sugg(p, o){
  var cm = o.ladder.match(/(\d+)\s*clean/i) || s1, thr = cm ? +cm[1] : o.two ? (o.hi ? 20 : 15) : (o.tgt ? o.tgt + 3 : 0);
  var same = function(e){ return e && e.w === L.w && (e.u || 'lb') === u; };
  var P = same(p[p.length-2]) ? p[p.length-2] : null, Q = P && same(p[p.length-3]) ? p[p.length-3] : null;
- var unitR = o.timed ? ' s' : ' reps', wt = w > 0 ? w + ' ' + un : '';
+ var unitR = o.mins ? ' min' : o.timed ? ' s' : ' reps', wt = w > 0 ? w + ' ' + un : '';
  if (gap >= 28 && w > 0){ var w2 = Math.max(_rnd(w * 0.9, un), 0); return { w:w2, down:1, t:'Back after ' + gap + ' days: ' + w2 + ' ' + un + ', every set stops 2 short' }; }
  if (gap >= 14) return { t:'Back after ' + gap + ' days: ' + (wt ? 'same ' + wt + ', ' : '') + 'every set stops 2 short' };
  if (o.fixed) return { t:'Today: ' + (wt ? wt + ', ' : '') + 'same reps — this one stays fixed' };
@@ -4255,11 +4256,12 @@ function buildJots(){
  var src = mine || p[p.length-1] || { w: _firstW(card) || 0, r: m0 ? +m0[1] : (timed ? 20 : 8) };
  var twoSets = !timed && !wOnly && /S1/.test(st0) && /S2/.test(st0);
  var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, r1: (src.r1 != null ? src.r1 : (m0 ? +m0[1] : src.r)) };
+ if (!(v.r > 0)){ v.r = m0 ? +m0[1] : (timed ? 20 : 8); if (!(v.r1 > 0)) v.r1 = v.r; }   // old weight-only entries carry r:0, which would make the tick save nothing
  var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
  var amrap = twoSets && /S2:[^·]*AMRAP/i.test(st0);
  var ladder = card.dataset.blk === 'b' ? (card.dataset.altProg || '') : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .pn'), function(x){ return x.textContent; }).join(' | ');
  var full = card.dataset.blk === 'b' ? ladder : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .prog-step'), function(x){ return x.textContent; }).join(' | ');
- var sg = (!mine && !wOnly) ? _sugg(p, { tgt:tgt, ladder:ladder, full:full, two:twoSets, unit:wUnit, fixed:/fixed/i.test(st0) || NO_UP[card.dataset.id], timed:timed || mins, hi:/lateral|rear-delt|face pull/i.test(name) }) : null;
+ var sg = (!mine && !wOnly) ? _sugg(p, { tgt:tgt, ladder:ladder, full:full, two:twoSets, unit:wUnit, fixed:/fixed/i.test(st0) || NO_UP[card.dataset.id], timed:timed || mins, mins:mins, hi:/lateral|rear-delt|face pull/i.test(name) }) : null;
  if (sg && sg.down) v.w = sg.w;   // only ever lowers what's preloaded; going up is her tap
  // bodyweight lifts get a "+lb" box for added load (belt, vest, dumbbell); skill blocks stay reps-only
  var bw = wild || mins || /^d6-/.test(card.dataset.id) || !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
@@ -4295,6 +4297,7 @@ function buildJots(){
  var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
  var e = { d:t, w:v.w, r:v.r }; if (wUnit === 'kg' && v.w > 0) e.u = 'kg'; if (v.n) e.n = v.n;
   if (twoSets && v.r1 > 0) e.r1 = v.r1;   // set 1 rides along; older entries simply lack it
+  if (timed) e.t = 's'; else if (mins) e.t = 'm';
  var pr = !wOnly && !!prevBest && _score(e) > prevBest;
  arr.push(e); h[exId] = arr.slice(-12); writeHist(h);
  row.classList.add('has-val'); row.classList.toggle('pr', pr);
@@ -4310,18 +4313,21 @@ function buildJots(){
   u.textContent = plus + nu; u.setAttribute('aria-label', lbl + ': unit, now ' + nu + ' — tap to switch');
   row.querySelector('.stp[data-k="w"] .stv').value = v.w;
   if (navigator.vibrate) navigator.vibrate(10);
-  commit(); _toast(lbl + ' — ' + nu); return; }
+  if (row.classList.contains('has-val')) commit(); _toast(lbl + ' — ' + nu); return; }
  var b = ev.target.closest('.stb'); if (!b) return;
  var k = b.parentNode.dataset.k, step = k === 'w' ? _wstep(v.w, wUnit, +b.dataset.d) : ((timed || mins) ? 5 : 1);
- v[k] = Math.max(0, v[k] + step * b.dataset.d); b.parentNode.querySelector('.stv').value = v[k];
+ v[k] = Math.max(k === 'w' ? 0 : 1, Math.round((v[k] + step * b.dataset.d) * 100) / 100); b.parentNode.querySelector('.stv').value = v[k];
  if (navigator.vibrate) navigator.vibrate(10);
  commit();
  });
  row.addEventListener('change', function(ev){
  var i = ev.target.closest('.stv'); if (!i) return;
  var _n = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(_n)){ i.value = v[i.parentNode.dataset.k]; return; }
- v[i.parentNode.dataset.k] = Math.max(0, _n); i.value = v[i.parentNode.dataset.k]; commit();
+ v[i.parentNode.dataset.k] = Math.max(i.parentNode.dataset.k === 'w' ? 0 : 1, Math.round(_n * 100) / 100); i.value = v[i.parentNode.dataset.k]; commit();
  });
+ // iOS can keep the box focused when the ✓ is tapped, so change never fires: track keystrokes so the tick saves what's typed
+ row.addEventListener('input', function(ev){ var i = ev.target.closest('.stv'); if (!i) return;
+  var _n = parseFloat(String(i.value).replace(',', '.')); if (isFinite(_n) && (_n > 0 || i.parentNode.dataset.k === 'w')) v[i.parentNode.dataset.k] = Math.round(_n * 100) / 100; });
  // a note travels with today's numbers; last time's note shows until you write a new one
  var lastN = (p.filter(function(e){ return e.n; }).pop() || {}).n;
  if (mine && mine.n) v.n = mine.n;
@@ -4385,7 +4391,7 @@ document.addEventListener('click', function(ev){
  if (arr.length) h[key] = arr; else delete h[key];
  writeHist(h);
  document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); });
- buildJots(); renderNumbers(); paintBests();
+ buildJots(); renderNumbers(); paintBests(); _repaintDrills();
  if (typeof ghTouch === 'function') ghTouch();
  _toast('Entry deleted');
 });
@@ -4396,7 +4402,7 @@ function resetNumbers(){
  if (!confirm('Start your numbers fresh?\n\nEvery saved weight and rep is deleted, here and in your synced log. Sessions and settings stay.')) return;
  store.set('bp-reset', _today()); store.del('bp-hist');
  document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); });
- buildJots(); renderNumbers(); paintBests(); paintBackupNote();
+ buildJots(); renderNumbers(); paintBests(); paintBackupNote(); _repaintDrills();
  if (readGH()) ghPush(1);
  _toast('Fresh start — today is day one');
 }
@@ -4580,9 +4586,10 @@ function _ghMerge(d){
  ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
  return added;
 }
+function _repaintDrills(){ document.querySelectorAll('.drill').forEach(function(d){ if (d._paintN) d._paintN(); }); }
 function _ghRepaint(){
  document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
- buildJots(); renderNumbers(); paintBests(); paintBackupNote();
+ buildJots(); renderNumbers(); paintBests(); paintBackupNote(); _repaintDrills();
 }
 
 function ghPull(quiet){
@@ -4959,11 +4966,11 @@ document.querySelectorAll('.excard > .drills').forEach(function(list){
   function paintN(){ var all = hist(), t = _today(), mine = all.filter(function(e){ return e.d === t; })[0], last = _prev(all).pop();
    n.value = mine ? mine.r : ''; n.placeholder = (last ? last.r : (dm ? dm[1] : '')) + (sec ? 's' : ''); n.classList.toggle('has', !!mine); }
   function save(r){ if (!(r > 0)) return; var t = _today(), o = readHist(), arr = _asArr(o[key]).filter(function(e){ return e.d !== t; });
-   arr.push({ d: t, w: 0, r: r }); o[key] = arr.slice(-12); writeHist(o); paintN(); paintBests(); renderNumbers(); if (typeof ghTouch === 'function') ghTouch(); }
+   var de = { d: t, w: 0, r: r }; if (sec) de.t = /\bmin\b/.test(dose) ? 'm' : 's'; arr.push(de); o[key] = arr.slice(-12); writeHist(o); paintN(); paintBests(); renderNumbers(); if (typeof ghTouch === 'function') ghTouch(); }
   n.addEventListener('change', function(){ var r = parseFloat(String(n.value).replace(',', '.')); if (isFinite(r) && r > 0) save(r); else paintN(); });
   n.addEventListener('click', function(ev){ ev.stopPropagation(); });
-  d._logDrill = function(){ if (!n.value) save(parseFloat(n.placeholder)); };
-  paintN(); h.appendChild(n);
+  d._logDrill = function(){ var t = _today(); if (hist().some(function(e){ return e.d === t; })) return; var typed = parseFloat(String(n.value).replace(',', '.')); save(typed > 0 ? typed : parseFloat(n.placeholder)); };
+  d._paintN = paintN; paintN(); h.appendChild(n);
   var b = document.createElement('button'); b.type = 'button'; b.className = 'dchk'; b.textContent = '○';
   b.setAttribute('aria-label', 'Drill ' + (i + 1) + ' done');
   b.addEventListener('click', function(ev){ ev.stopPropagation(); tickDrill(card, i); });
