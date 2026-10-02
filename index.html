@@ -840,6 +840,8 @@ body.gym .howfold{display:none}
 /* ── DAY COMPLETE BANNER ── */
 .finbtn{display:block;width:100%;margin:14px 0 4px;min-height:50px;border-radius:13px;border:1px solid rgba(93,255,159,.4);background:rgba(93,255,159,.07);color:var(--g);font:700 12px 'Inter',sans-serif;letter-spacing:.11em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .finbtn:active{background:rgba(93,255,159,.16)}
+.day-complete .rc{display:block;margin-top:8px;letter-spacing:.02em;color:var(--txt);font-weight:600}
+.day-complete .rc:first-of-type{color:var(--gld)}
 .day-complete{
  display:none;
  padding:18px var(--pad);
@@ -931,6 +933,7 @@ body.gym .excard.wild .howfold .setup{display:block}
 .dr-h span{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--b);font-variant-numeric:tabular-nums}
 .dr-w{margin-top:6px;font-size:12.5px;color:#9fe8ff;line-height:1.45}
 .dr-d{margin-top:4px;font-size:13.5px;color:var(--fade);line-height:1.5}
+.reroll.jar{margin-left:8px}
 .reroll{margin-top:10px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gld);background:transparent;border:1px solid rgba(255,210,58,.35);border-radius:100px;padding:0 14px;min-height:40px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .prog-step{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .prog-step.got{color:var(--g)}.prog-step.got .pn{color:var(--g)}.prog-step.got .pn::before{content:'✓ '}
@@ -1476,6 +1479,8 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .wk-f{font-size:12px;color:var(--dim);margin:8px 0 4px}
 .bk-note[onclick],.bk-note.stale{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
 .rungbar{display:flex;gap:4px;margin-top:6px}
+.rungtxt{display:block;margin-top:5px;padding:0;border:0;background:none;text-align:left;font:600 11px 'Inter',sans-serif;letter-spacing:.04em;color:var(--fade);cursor:pointer}
+.rungtxt.ready{color:var(--gld)}
 .rungbar i{width:18px;height:4px;border-radius:2px;background:rgba(234,240,255,.14)}
 .rungbar i.on{background:var(--g);box-shadow:0 0 6px -1px var(--g)}
 #sbPlus{min-width:48px;min-height:40px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--fade);font:700 13px 'Inter',sans-serif;cursor:pointer}
@@ -1539,6 +1544,14 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  #sheet #log{display:block!important;margin:0 -16px;border:0}
  .sh-x{position:sticky;top:0;float:right;z-index:2;min-height:44px;min-width:64px;margin:-6px -4px 0 8px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
  .sh-t{font:700 11px 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:2px 0 10px}
+ .wring{display:flex;align-items:center;gap:14px;padding:4px 4px 14px;border-bottom:1px solid var(--bdr);margin-bottom:6px}
+ .wring svg{width:64px;height:64px;flex:none;transform:rotate(-90deg)}
+ .wring circle{fill:none;stroke:rgba(234,240,255,.1);stroke-width:5}
+ .wring circle.on{stroke:var(--g);stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+ .wr-t{position:absolute;width:64px;text-align:center;line-height:1;pointer-events:none}
+ .wr-t b{display:block;font:800 20px 'Inter',sans-serif;color:var(--txt)}.wr-t small{font-size:11px;color:var(--fade)}.wr-t span{font:600 8.5px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--fade)}
+ .wr-s b{display:block;font:600 13.5px 'Inter',sans-serif;color:var(--txt)}.wr-s span{font:500 12px 'Inter',sans-serif;color:var(--fade)}
+ .wring{position:relative}
  .sh-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 4px;background:none;border:0;border-bottom:1px solid var(--bdr);color:var(--txt);text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
  .sh-row:active{background:rgba(234,240,255,.04)}
  .sh-d{width:54px;flex:none;font:700 12px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--c,var(--g))}
@@ -3254,8 +3267,8 @@ function updateDayComplete() {
  const mins = ss ? _mins(ss.act || (ss.e - ss.s)) : 0;
  const elapsed = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
  const paused = elapsed - mins >= 5 ? ` · ${elapsed} min door to door` : '';
- el.textContent = `✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '') + paused
-   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '');
+ el.innerHTML = _esc(`✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '') + paused
+   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '')) + (typeof _recap === 'function' ? _recap(dayId) : '');
  if (!el.dataset.fired){ el.dataset.fired = '1'; document.querySelectorAll('.rest-lbl.running').forEach(r => { if (r._restReset) r._restReset(); }); }
  markDayComplete(dayId);
  } else {
@@ -3264,6 +3277,25 @@ function updateDayComplete() {
  }
  });
  paintJump();
+}
+// what today looked like next to last time, in one or two lines under the banner
+function _recap(dayId){
+ var h = readHist(), t = _today(), bests = [], ups = [], same = 0;
+ var nameOf = function(k){ var id = k.replace(/~b$/, ''), c = document.querySelector('#' + dayId + ' .excard[data-id="' + id + '"]') || document.querySelector('.excard[data-id="' + id + '"]');
+  if (!c) return k.indexOf('wild:') === 0 ? k.slice(5) : (typeof _drillName === 'function' ? _drillName(k) : ''); return (c.querySelector('.exname') || {}).textContent.split(' — ')[0].trim(); };
+ Object.keys(h).forEach(function(k){ var arr = _asArr(h[k]), i = -1; arr.forEach(function(e, j){ if (e.d === t) i = j; }); if (i < 0) return;
+  var e = arr[i], prev = arr.slice(0, i), nm = nameOf(k); if (!nm || !prev.length) return;
+  var pool = _same(prev, e.w); if (pool.length && _score(e) > Math.max.apply(null, pool.map(_score))) bests.push(nm);
+  var last = prev[prev.length - 1], dw = (e.w || 0) - (last.w || 0), dr = (e.r || 0) - (last.r || 0);
+  if (dw > 0 && (e.u || 'lb') === (last.u || 'lb')) ups.push({ n: nm, t: '+' + dw + ' ' + (e.u || 'lb') + ' on ' + nm, v: 2 + dw / 10 });
+  else if (dr > 0 && dw === 0) ups.push({ n: nm, t: dr + ' more rep' + (dr > 1 ? 's' : '') + ' on ' + nm, v: 1 + dr / 10 });
+  else if (dr === 0 && dw === 0) same++; });
+ var out = '';
+ if (bests.length) out += '<span class="rc">★ ' + (bests.length === 1 ? 'A best: ' : bests.length + ' bests: ') + _esc(bests.slice(0, 3).join(', ')) + (bests.length > 3 ? '…' : '') + '</span>';
+ ups.sort(function(a, b){ return b.v - a.v; });
+ if (ups.length) out += '<span class="rc">' + _esc(ups[0].t.charAt(0).toUpperCase() + ups[0].t.slice(1)) + ' than last time' + (ups.length > 1 ? ', and ' + (ups.length - 1) + ' more lift' + (ups.length > 2 ? 's' : '') + ' moved up' : '') + '.</span>';
+ else if (same) out += '<span class="rc">Same numbers as last time — a good day too.</span>';
+ return out;
 }
 function _reduced(){ try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
 function _shown(c){ return c && c.offsetParent !== null; }
@@ -3894,7 +3926,10 @@ function _paintSess(){
 var _sheetKind = null, _logHome = null;
 function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
- return '<div class="sh-t">This week</div>' + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
+ var done = Object.keys(wk).filter(function(d){ return String(wk[d]).indexOf('skip') !== 0; }).length, goal = 4, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
+ var dow = _dow(), restLeft = dow === 0 ? 1 : dow === 6 ? 2 : 2, sub2 = done >= 3 ? 'Enough for the week — the rest is bonus.' : 'Three to four a week, plus rest. Rest counts.';
+ var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + done + '<small>/' + goal + '</small></b><span>sessions</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? restLeft + ' rest days still planned' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
+ return '<div class="sh-t">This week</div>' + ring + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
  var sec = document.getElementById(x[0]); if (!sec) return '';
  var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
  var tag = sk ? '<em>skipped</em>' : st ? '<em class="ok">✓ done</em>' : sg && sg.id === x[0] ? '<em class="td">up next</em>' : '';
@@ -4073,10 +4108,12 @@ function toggleBlock(){
 window.toggleBlock = toggleBlock;
 // weekly wildcard: one rotating play move per session
 function applyWildcards(){
- var wk = _weekNo(), off = {};
- try { var st = _asObj(JSON.parse(store.get('bp-wild') || '{}')); if (st.wk === wk) off = _asObj(st.off); } catch(e){}
+ var wk = _weekNo(), off = {}, jar = {};
+ try { var st = _asObj(JSON.parse(store.get('bp-wild') || '{}')); if (st.wk === wk){ off = _asObj(st.off); jar = _asObj(st.jar); } } catch(e){}
  document.querySelectorAll('.excard.wild').forEach(function(c){ try {
  var list = JSON.parse(c.dataset.wild), p = list[(wk + (off[c.dataset.id] || 0)) % list.length];
+ var j = jar[c.dataset.id], jc = j && document.querySelector('.excard.wild[data-id="' + j[0] + '"]');   // a toy borrowed from another day's jar
+ if (jc){ var jl = JSON.parse(jc.dataset.wild); if (jl[j[1]]) p = jl[j[1]]; }
  c.querySelector('.exname').textContent = 'Wildcard — ' + p[0];
  var badge = c.querySelector('.band-badge');
  if (!badge){ badge = document.createElement('div'); badge.className = 'band-badge'; badge.innerHTML = '<div class="band-dot" style="background:#ffd23a"></div><span class="band-txt"></span>'; c.querySelector('.extop').insertAdjacentElement('afterend', badge); }
@@ -4084,16 +4121,31 @@ function applyWildcards(){
  var how = (p.length > 2 ? p[2] : p[1]).replace(/^How:\s*/i, ''), cut = how.indexOf('. ');
  if (cut > 0 && cut < 24 && /\d/.test(how.slice(0, cut))){ c.querySelector('.sets').textContent = how.slice(0, cut); how = how.slice(cut + 2); }
  c.querySelector('.setup').textContent = how;
- if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.textContent = '🎲 Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b); }
+ if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.textContent = '🎲 Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b);
+  var jb = document.createElement('button'); jb.type = 'button'; jb.className = 'reroll jar'; jb.textContent = '🫙 Any day\u2019s toy'; jb.onclick = function(){ jarWild(c.dataset.id); }; c.appendChild(jb); }
  } catch(e){} });
 }
-function rerollWild(id){
- var wk = _weekNo(), st = { wk: wk, off: {} };
+function _wildState(){ var wk = _weekNo(), st = { wk: wk, off: {} };
  try { var o = _asObj(JSON.parse(store.get('bp-wild') || '{}')); if (o.wk === wk) st = o; } catch(e){}
- st.off = st.off || {}; st.off[id] = (st.off[id] || 0) + 1;
+ st.off = _asObj(st.off); st.jar = _asObj(st.jar); return st; }
+// the whole jar: every day's toys, one at random that isn't the one showing
+function jarWild(id){
+ var st = _wildState(), cur = ((document.querySelector('.excard.wild[data-id="' + id + '"] .exname') || {}).textContent || '').replace(/^Wildcard\s*—\s*/, '');
+ var all = []; document.querySelectorAll('.excard.wild').forEach(function(c){ try { JSON.parse(c.dataset.wild).forEach(function(p, i){ if (p[0] !== cur) all.push([c.dataset.id, i]); }); } catch(e){} });
+ if (!all.length) return;
+ st.jar[id] = all[Math.floor(Math.random() * all.length)];
  try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
  applyWildcards();
- document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots();
+ document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); if (typeof paintJump === 'function') paintJump();
+ if (navigator.vibrate) navigator.vibrate(15);
+}
+window.jarWild = jarWild;
+function rerollWild(id){
+ var st = _wildState();
+ delete st.jar[id]; st.off[id] = (st.off[id] || 0) + 1;
+ try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
+ applyWildcards();
+ document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); if (typeof paintJump === 'function') paintJump();
 }
 
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
@@ -5226,8 +5278,16 @@ function paintJump(){
  btn.innerHTML = '<span class="arr">▼</span> ' + label + (n ? ' · ' + n + '/' + steps.length : '');
  if (card.querySelector(':scope > .drills')){ var left = card.querySelector('.ex-left'), rb = left && left.querySelector('.rungbar');
   if (left && !rb){ rb = document.createElement('div'); rb.className = 'rungbar'; rb.setAttribute('aria-hidden', 'true'); left.appendChild(rb); }
-  if (rb) rb.innerHTML = [].map.call(steps, function(_, i){ return '<i' + (got[card.dataset.id + ':' + i] ? ' class="on"' : '') + '></i>'; }).join(''); } }
- steps.forEach(function(st, i){ st.addEventListener('click', function(){ var k = card.dataset.id + ':' + i; if (got[k]) delete got[k]; else { got[k] = 1; if (navigator.vibrate) navigator.vibrate(25); }
+  if (rb) rb.innerHTML = [].map.call(steps, function(_, i){ return '<i' + (got[card.dataset.id + ':' + i] ? ' class="on"' : '') + '></i>'; }).join('');
+  // clean sessions since the last rung you took: the ladders say four earns a look at the next one
+  var since = 0; steps.forEach(function(_, i){ var v = +got[card.dataset.id + ':' + i]; if (v > since) since = v; });
+  var secId = (card.closest('.section') || {}).id, days = {};
+  readSess().forEach(function(x){ if (x && x.day === secId && x.e > since && _ids(x).indexOf(card.dataset.id) >= 0) days[x.d] = 1; });
+  var k = Object.keys(days).length, tx = left && left.querySelector('.rungtxt');
+  if (left && !tx){ tx = document.createElement('button'); tx.type = 'button'; tx.className = 'rungtxt'; tx.addEventListener('click', function(ev){ ev.stopPropagation(); btn.click(); var w = card.querySelector('.prog-wrap'); if (w) w.scrollIntoView({ block: 'nearest' }); }); left.appendChild(tx); }
+  if (tx){ var ready = k >= 4 && n < steps.length; tx.classList.toggle('ready', ready);
+   tx.textContent = ready ? '4 clean sessions — the next rung is yours to try ›' : 'Rung ' + n + '/' + steps.length + ' · clean sessions ' + Math.min(k, 4) + '/4'; } } }
+ steps.forEach(function(st, i){ st.addEventListener('click', function(){ var k = card.dataset.id + ':' + i; if (got[k]) delete got[k]; else { got[k] = Date.now(); if (navigator.vibrate) navigator.vibrate(25); }
  try { store.set('bp-rungs', JSON.stringify(got)); } catch(e){} paint(); });
  st.setAttribute('role', 'button'); st.setAttribute('tabindex', '0');
  st.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar'){ ev.preventDefault(); st.click(); } }); });
