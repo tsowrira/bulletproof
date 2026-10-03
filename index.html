@@ -942,10 +942,15 @@ body.gym .excard.wild .howfold .setup{display:block}
 @keyframes burst{0%{opacity:0;transform:scale(.6)}25%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
 .xrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .xrow .xchip{margin-top:0}
-body.lowbat [data-x],body.lowbat [data-opt],body.micro [data-ss="B"]:not([data-micro="keep"]),body.micro .ssh[data-b]:not([data-micro="keep"]),body.micro [data-micro="drop"]{display:none!important}
+.tseg{display:grid!important;grid-template-columns:repeat(4,1fr);gap:6px!important;overflow:visible!important;max-width:420px}
+.xchip.tm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:52px;padding:4px 0!important;border-radius:12px;letter-spacing:.06em!important}
+.xchip.tm b{font:800 17px/1 'Inter',sans-serif;letter-spacing:0;color:var(--txt)}
+.xchip.tm small{font-size:9.5px;letter-spacing:.1em}
+.xchip.tm.on{color:var(--day,var(--g));border-color:var(--day,var(--g));background:rgba(234,240,255,.05)}
+.xchip.tm.on b{color:var(--day,var(--g))}
+.tskip{margin-top:4px}.tskip .xchip.skip{border:0;background:none;padding:0 2px;min-height:40px;color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 .lowbar{display:none;margin:12px var(--pad) 0;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,210,58,.35);background:rgba(255,210,58,.07);color:var(--gld);font-size:13px;line-height:1.5}
 body.lowbat .lowbar{display:block}
-.xchip.low.on{color:var(--gld);border-color:var(--gld);background:rgba(255,210,58,.08)}
 .wc.skipped .wd::after{content:' –';color:var(--dim);font-weight:800}
 .xchip{margin-top:10px;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid var(--bdr);border-radius:100px;padding:0 14px;min-height:36px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .xchip.on{color:var(--g);border-color:var(--g);background:rgba(93,255,159,.08)}
@@ -1005,7 +1010,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 #d3 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
 #d4 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
 #d5 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
-/* ── SUPERSETS + EXPRESS ── */
+/* ── SUPERSETS ── */
 #d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#d6{--dc:var(--o)}
 .ssh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px -18px 0;padding:12px 18px 4px;border-top:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--txt)}
 .ssh b{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;letter-spacing:0;color:#060611;background:var(--dc,var(--b));box-shadow:0 0 12px -2px var(--dc,var(--b))}
@@ -1014,7 +1019,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 .excard[data-ss]{border-bottom-color:transparent}
 .excard[data-ss]::after{content:'';position:absolute;left:0;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--dc,var(--b));opacity:.45}
 .excard[data-x] .exname::after{content:'last pair';margin-left:8px;font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--bdr);border-radius:100px;padding:2px 7px;vertical-align:middle}
-body.express .xset{display:inline-block}
+
 .xset{display:none;font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);border:1px solid var(--g);border-radius:100px;padding:2px 7px;margin-left:6px;vertical-align:middle}
 .callout.howruns p{margin:0 0 5px}.callout.howruns p:last-child{margin:0}
 /* travel sub-session header */
@@ -1385,7 +1390,7 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .foldrow>details{flex:1;min-width:0}
 .sets.lowdose{display:none}
 body.lowbat .sets.haslow{display:none}body.lowbat .sets.lowdose{display:block}
-body.micro .drills .drill+.drill{display:none}
+.section.planned.short .excard:not([data-id="d5e1"]) .drills .drill:nth-child(n+2){display:none}
 .seatjot{display:block;width:100%;margin:2px 0 10px;padding:0 10px;height:36px;border-radius:9px;border:1px dashed rgba(176,107,255,.3);background:transparent;color:var(--fade);font:500 16px 'Inter',sans-serif}
 .seatjot::placeholder{color:var(--dim);font-size:13px}.seatjot:focus{outline:none;border-color:var(--p);border-style:solid}
 .seatjot.has{border-color:transparent;padding-left:0;color:var(--p);height:28px}
@@ -1505,7 +1510,6 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .excard[data-off],.ssh[data-off]{display:none!important}
 .section.planned:not(.long) .excard:not([data-id="d5e1"]) .drills .drill:nth-child(n+3){display:none}
 .sets.longdose{display:none;color:var(--gld)}.section.long .sets.longdose{display:block}
-.xchip.long.on{border-color:var(--gld);color:var(--gld)}
 .planbar{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:12px var(--pad);border-bottom:1px solid var(--bdr);background:rgba(176,107,255,.06)}
 .planbar[hidden]{display:none}
 .planbar b{flex:1;min-width:0;font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--p)}
@@ -1513,7 +1517,6 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .planbar .pl-full{margin-left:auto;min-height:36px;padding:0 12px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--dim);font:600 11px 'Inter',sans-serif;letter-spacing:.06em;cursor:pointer}
 .rtag{font:700 10.5px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--p);margin-bottom:4px}
 .excard[data-rescued] .ssn{display:none}
-.xchip.plan.on{border-color:var(--p);color:var(--p)}
 /* phone home: today, this week, what's next — the program lives behind Today / Week / More */
 .home,.hm-next,.hm-any{display:none}
 @media(max-width:759px){
@@ -1643,7 +1646,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <span class="pill r">Strong back</span>
  <span class="pill b">Downhill knees</span>
  <span class="pill g">Muscle-up ladder</span>
- <span class="pill gld">Full 55–60 · Express 35–40</span>
+ <span class="pill gld">20 · 45 · 60 · 80 min</span>
  </div>
 </div>
 
@@ -1674,7 +1677,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 = every clean rep you've got, unless the card says stop short — log it on the big lifts. Same as last time is a good day. Cards marked fixed stay fixed. Set 2 hits 15 clean (20 on lateral and rear-delt raises) → one pin or the next dumbbell next time; reps drop a few, rebuild from there. Clean = tempo held, no swing.</p>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
- <p><strong>Tired?</strong> ⏱ Express keeps every lift and runs one hard set each. 🔋 Low battery = skill + two pairs, stop 3 short. Tap again for ⚡ Micro = skill + pair A. Skip freely: never make up, never double up. Missed a day? The next day offers whatever you have gone longest without — nothing is owed.</p>
+ <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 Full</b>: everything on the page. <b>80 Long</b>: every drill, a third set on the key lifts. Skip freely: never make up, never double up.</p>
  <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · C2B = chest to bar · fixed = no extra reps · ISO = hold · 3 · 1 · 2 = secs lower · pause · lift · X = fast</p>
 </div>
 
@@ -1686,7 +1689,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--g)">// Tuesday · Upper A</div>
  <div class="day-title">UPPER A — PULL + THE BAR</div>
- <div class="day-focus" data-express-min="40">Skill: muscle-up · Full ≈ 60 min · Express ≈ 40 min</div>
+ <div class="day-focus">Skill: muscle-up · Full ≈ 60 min</div>
  </div>
 </div>
 
@@ -1861,7 +1864,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div>
 
 
-<div class="ssh" data-x="1" data-alt-pair="bonus · shoulder rotators ↔ biceps"><b>D</b>arms · side delts ↔ biceps ↔ triceps<span>one set in Express</span></div>
+<div class="ssh" data-x="1" data-alt-pair="bonus · shoulder rotators ↔ biceps"><b>D</b>arms · side delts ↔ biceps ↔ triceps<span>bonus</span></div>
 
 <div class="excard" data-id="d5-clat" data-ss="D" data-x="1" data-alt-name="Cable External Rotation — Elbow at Side" data-alt-where="Pulley at elbow height, single D-handle. Side-on, far hand holds it, elbow bent 90° and tucked against a folded towel." data-alt-cue="Elbow glued to your side; only the forearm swings out." data-alt-how="1. Stand tall, elbow pinned, forearm across the belly. 2. Rotate the forearm outward until it points straight ahead or a little past, no further. 3. Pause 1, return for 3. 4. The set ends when the elbow leaves your side or the shoulder hikes." data-alt-caveat="Lightest pin you can feel. Elbow stays on the towel — if it lifts, the weight is too heavy." data-alt-prog="Now: Lightest useful pin — S1: 12 each · S2: AMRAP, 3s return | 15 clean: One pin up — smallest jump only">
 <div class="extop">
@@ -1940,7 +1943,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--r)">// Wednesday · Lower A — takes turns with Lower B</div>
  <div class="day-title">LOWER A — BRAKES</div>
- <div class="day-focus" data-express-min="35">Skill: pistol · Full ≈ 55 min · Express ≈ 35 min</div>
+ <div class="day-focus">Skill: pistol · Full ≈ 55 min</div>
  </div>
 </div>
 
@@ -2121,7 +2124,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves<span>one set in Express</span></div>
+<div class="ssh" data-x="1"><b>D</b>anti-twist ↔ calves<span>bonus</span></div>
 
 <div class="excard" data-id="d2e6" data-ss="D" data-x="1">
 <div class="extop">
@@ -2198,7 +2201,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--gld)">// Thursday · Upper B</div>
  <div class="day-title">UPPER B — PRESS + HANDSTAND</div>
- <div class="day-focus" data-express-min="40">Skill: handstand · Full ≈ 60 min · Express ≈ 40 min</div>
+ <div class="day-focus">Skill: handstand · Full ≈ 60 min</div>
  </div>
 </div>
 
@@ -2352,7 +2355,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 </div></div>
 </div>
 
-<div class="ssh" data-x="1"><b>D</b>shoulders ↔ upper back ↔ biceps<span>one set in Express</span></div>
+<div class="ssh" data-x="1"><b>D</b>shoulders ↔ upper back ↔ biceps<span>bonus</span></div>
 
 <div class="excard" data-id="d2e2" data-ss="D" data-x="1" data-alt-name="Cable Lateral Raise — Behind the Back" data-alt-where="Bottom pulley, single D-handle, lightest useful pin. Side-on, working arm furthest from the stack, cable running behind your body." data-alt-cue="Hand starts just behind the hip, no further; the trap stays quiet." data-alt-how="1. Handle just behind the far hip — a small reach, never a stretch on the front of the shoulder. 2. Lead with the elbow, raise to shoulder height, no higher; hold 2. 3. Lower 3 counts. 4. Swing, shrug or torso lean: stop the set." data-alt-caveat="Hand starts just behind the hip, no further — never a stretch on the front of the shoulder." data-alt-prog="Now: Lightest useful pin, 2 × 12 each with 2s hold | Next: Up one pin only when both sets are shrug-free | Form check: Front of the shoulder pulls? Go back to the front version">
 <div class="extop">
@@ -2430,7 +2433,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="day-info">
  <div class="day-eye" style="color:var(--b)">// Wednesday · Lower B — takes turns with Lower A</div>
  <div class="day-title">LOWER B — GLUTES + BACKWARD DRAG</div>
- <div class="day-focus" data-express-min="40">Skill: balance · Full ≈ 60 min · Express ≈ 40 min</div>
+ <div class="day-focus">Skill: balance · Full ≈ 60 min</div>
  </div>
 </div>
 
@@ -3115,7 +3118,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Hinge — 5 lb and climbing</div><div class="leg-desc">One-dumbbell RDL, 2 × 10, flat back. A clean week or two + a quiet next morning → smallest dumbbell jump. Aim 35 lb for 2 × 8, then two dumbbells. Barbell off the floor: not yet.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Pull-ups — about +5 lb</div><div class="leg-desc">Dip belt (or the 8 lb vest to start), set 1 only: 5 reps, 2 in the tank. 5 clean → +2.5 lb, at most weekly, shoulders quiet 48 h. Aim +25 lb × 3.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#5dff9f"></div><div><div class="leg-name">Vest — 8 lb</div><div class="leg-desc">Push-up plus and pull-ups only — face-down or hanging. Never worn standing.</div></div></div>
- <div class="leg-item"><div class="leg-dot" style="background:#ff2e88"></div><div><div class="leg-name">Week 4 of every block</div><div class="leg-desc">Easy week: Express sessions, set 2 stops at set-1 reps. Swap blocks the week after.</div></div></div>
+ <div class="leg-item"><div class="leg-dot" style="background:#ff2e88"></div><div><div class="leg-name">Week 4 of every block</div><div class="leg-desc">Easy week: 45-minute days, set 2 stops at set-1 reps. Swap blocks the week after.</div></div></div>
  </div>
 </div>
 
@@ -3143,7 +3146,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-03.1';
+var APP_V = '2026-10-03.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3931,31 +3934,23 @@ function buildDayChips(){
  ['d5','d1','d3','d2'].forEach(function(id){
  var info = document.querySelector('#' + id + ' .day-info'); if (!info || info.querySelector('.xchip')) return;
  var row = document.createElement('div'); row.className = 'xrow';
- var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'xchip plan'; pb.onclick = function(){ var p = readPlan(); if (p && p.day === id && !p.full && !p.long){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _paintPlanChips(); _toast('Full day'); } else { buildDay(id, true); _paintPlanChips(); } }; row.appendChild(pb);
- var lg = document.createElement('button'); lg.type = 'button'; lg.className = 'xchip long'; lg.textContent = '⏳ Long 80';
- lg.onclick = function(){ var p = readPlan(); if (_lowState()) setLow(_lowState()); if (document.body.classList.contains('express')) toggleExpress();   // a long day means energy: the short modes go off
-  if (p && p.day === id && p.long){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _paintPlanChips(); _toast('Full day'); } else buildDay(id, true, 80); }; row.appendChild(lg);
- var b = document.createElement('button'); b.type = 'button'; b.className = 'xchip'; b.textContent = '⏱ Express ≈35'; b.onclick = toggleExpress; row.appendChild(b);
- var l = document.createElement('button'); l.type = 'button'; l.className = 'xchip low'; l.dataset.m = 'low'; l.onclick = function(){ setLow('low'); }; row.appendChild(l);
- var mc = document.createElement('button'); mc.type = 'button'; mc.className = 'xchip low'; mc.dataset.m = 'micro'; mc.onclick = function(){ setLow('micro'); }; row.appendChild(mc);
- var k = document.createElement('button'); k.type = 'button'; k.className = 'xchip skip'; k.textContent = 'Skip today'; k.onclick = function(){ skipDay(id); }; row.appendChild(k);
- info.appendChild(row);
+ row.className = 'xrow tseg'; row.setAttribute('role', 'group'); row.setAttribute('aria-label', 'How long today');
+ [['20', 'Tired'], ['45', 'Built'], ['full', 'Full'], ['80', 'Long']].forEach(function(o){
+  var x = document.createElement('button'); x.type = 'button'; x.className = 'xchip tm'; x.dataset.m = o[0];
+  x.innerHTML = '<b>' + (o[0] === 'full' ? '60' : o[0]) + '</b><small>' + o[1] + '</small>'; x.onclick = function(){ setMode(id, o[0]); }; row.appendChild(x); });
+ var k = document.createElement('button'); k.type = 'button'; k.className = 'xchip skip'; k.textContent = 'Skip today'; k.onclick = function(){ skipDay(id); };
+ info.appendChild(row); var kr = document.createElement('div'); kr.className = 'tskip'; kr.appendChild(k); info.appendChild(kr);
  var bar = document.createElement('div'); bar.className = 'lowbar'; bar.textContent = LOWTXT;
  var hdr = document.querySelector('#' + id + ' .day-hdr'); if (hdr) hdr.insertAdjacentElement('afterend', bar);
  });
  _paintLow();
 }
-function _hidden(c){ var b = document.body.classList;
- if (c.dataset && c.dataset.off) return true;
- // a day can name its own Micro pair — Lower B keeps the supported hip thrust, not the loaded hinge
- if (b.contains('micro') && c.dataset.micro) return c.dataset.micro === 'drop';
- return ((c.dataset.x || c.dataset.opt) && b.contains('lowbat')) || (c.dataset.ss === 'B' && b.contains('micro')); }
-var LOWTXT = 'Low battery: skill + two pairs. Fixed-rep lifts: round 1 only. Everything else stops 3 short. Wiped? Skip the upside-down work. Not eaten in 3 h? Snack first.';
-function _lowState(){ var b = document.body.classList; return b.contains('micro') ? 'micro' : b.contains('lowbat') ? 'low' : ''; }
+function _hidden(c){ return !!(c.dataset && c.dataset.off); }
+var LOWTXT = 'Easy dose today: every set stops 3 short, fixed-rep lifts do round 1 only. Wiped? Skip the upside-down work. Not eaten in 3 h? Snack first.';
+function _lowState(){ return document.body.classList.contains('lowbat') ? 'low' : ''; }
 function _paintLow(){
  var st = _lowState();
- document.querySelectorAll('.xchip.low').forEach(function(x){ var m = x.dataset.m, on = st === m; x.classList.toggle('on', on); x.textContent = m === 'micro' ? (on ? '⚡ Micro on' : '⚡ Micro 15') : (on ? '🔋 Low on' : '🔋 Low 25'); });
- document.querySelectorAll('.lowbar').forEach(function(x){ x.textContent = st === 'micro' ? 'Micro: warm-up, first drill, pair A. Ramp sets stay. It still counts.' : LOWTXT; });
+ document.querySelectorAll('.lowbar').forEach(function(x){ x.textContent = LOWTXT; });
  _paintDose();
 }
 // Low battery rewrites the dose chips (a sibling chip, so Block swaps and the log never see it) and the time line
@@ -3966,7 +3961,7 @@ function _lowDose(t){
  return '';
 }
 function _paintDose(){
- var st = _lowState(), ex = document.body.classList.contains('express');
+ var st = _lowState();
  ['d5','d1','d3','d2'].forEach(function(id){
  document.querySelectorAll('#' + id + ' .excard .exmeta > .sets:not(.lowdose):not(.longdose)').forEach(function(c){
  var card = c.closest('.excard'), t3 = c.textContent.trim(), lp = typeof readPlan === 'function' ? readPlan() : null, ls = c.parentNode.querySelector('.sets.longdose');
@@ -3979,28 +3974,32 @@ function _paintDose(){
  var f = document.querySelector('#' + id + ' .day-focus'); if (!f) return;
  if (f.dataset.full === undefined) f.dataset.full = f.textContent;
  var skill = (f.dataset.full.split(' · ')[0] || '');
- f.textContent = st === 'micro' ? skill + ' · Micro ≈ 15 min' : st ? skill + ' · Low battery ≈ 25 min' : ex ? skill + ' · Express ≈ ' + (f.dataset.expressMin || '35') + ' min' : f.dataset.full;
+ f.textContent = f.dataset.full;
   // once there is real data, your own median beats my estimate
   var sec2 = f.closest('.section'), tp = sec2 && typeof sessTypical === 'function' ? sessTypical(sec2.id) : null;
   if (tp && tp.n >= 2) f.textContent += ' · you: ' + tp.med + ' min';
   var pl = typeof readPlan === 'function' ? readPlan() : null;
-  if (!st && pl && pl.day === id && !pl.full) f.textContent = skill + ' · Built ≈ ' + pl.min + ' min · ' + pl.lifts + ' lift' + (pl.lifts === 1 ? '' : 's');
+  if (pl && pl.day === id && !pl.full) f.textContent = skill + ' · ' + (pl.long ? 'Long' : (pl.budget || PLAN_MIN) < 30 ? 'Tired' : 'Built') + ' ≈ ' + pl.min + ' min · ' + pl.lifts + ' lift' + (pl.lifts === 1 ? '' : 's');
  });
 }
-// Long 80 and a short mode can't both be true: picking short drops the long plan back to the full day
-function _dropLong(){ var p = readPlan(); if (!p || !p.long) return;
- try { store.set('bp-plan', JSON.stringify({ d:_today(), day:p.day, full:1, keep:[] })); } catch(e){}
- clearPlan(); _afterPlan(); }
-function setLow(m){
- var b = document.body.classList, next = _lowState() === m ? '' : m;
- if (next) _dropLong();
- b.toggle('lowbat', next !== ''); b.toggle('micro', next === 'micro');
- try { store.set('bp-lowbat', next ? _today() + '|' + next : ''); } catch(e){}
+function setLow(m){   // the tired dose: every set stops 3 short
+ var b = document.body.classList, next = m ? 'low' : '';
+ b.toggle('lowbat', !!next); b.remove('micro');
+ try { store.set('bp-lowbat', next ? _today() + '|low' : ''); } catch(e){}
  _paintLow(); updateDayComplete(); updateFabCount();
- _toast(next === 'micro' ? 'Micro — first drill + pair A' : next ? 'Low battery — short version' : 'Full power');
 }
-function toggleLowbat(){ setLow(_lowState() ? _lowState() : 'low'); }
-window.toggleLowbat = toggleLowbat; window.setLow = setLow;
+// one length a day, picked from four — 20, 45 and 80 are built from your logs; 60 is the whole page
+function _mode(id){ var p = readPlan(); if (!p || p.day !== id || p.full) return 'full'; return p.long ? '80' : (p.budget || PLAN_MIN) < 30 ? '20' : '45'; }
+function setMode(id, m){
+ if (_mode(id) === m) return;
+ var p0 = readPlan(), back = p0 && p0.day === id && p0.back;
+ setLow(m === '20' || (m === '45' && back));
+ if (m === 'full'){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day — everything on the page'); }
+ else buildDay(id, true, m === '20' ? 20 : m === '80' ? 80 : 45);
+ _paintPlanChips();
+}
+window.setMode = setMode;
+window.setLow = setLow;
 function skipDay(id){
  var w0 = readCompletedWeek()[id];
  if (w0 && String(w0).indexOf('skip') === 0){ try { var wu = readCompletedWeek(); delete wu[id]; store.set('bp-week', JSON.stringify(wu)); } catch(e){} paintWeek(); _toast('Skip undone'); return; }
@@ -4157,28 +4156,7 @@ function toggleGym(){
 }
 window.toggleGym = toggleGym;
 
-// ── Express — one hard set a lift instead of two (persisted). Nothing is dropped: the old
-// behaviour deleted the D pair, the week's only biceps, side-delt and calf work. ──
-function _paintExpress(){
- var on = document.body.classList.contains('express');
- document.querySelectorAll('.xchip:not(.low):not(.skip):not(.plan):not(.long)').forEach(function(x){ x.classList.toggle('on', on); var sec = x.closest('.section'), f = sec && sec.querySelector('.day-focus'), mn = (f && f.dataset.expressMin) || '35'; x.textContent = on ? '⏱ Express on' : '⏱ Express ' + mn; });
- if (typeof _paintDose === 'function') _paintDose();
-}
-function toggleExpress(){
- const on = document.body.classList.toggle('express');
- if (on) _dropLong();
- _paintExpress();
- try { store.set('bp-express', on ? '1' : '0'); } catch(e){}
- updateDayComplete(); updateFabCount();
- _toast(on ? 'Express — one hard set a lift' : 'Full session — two sets a lift');
-}
-window.toggleExpress = toggleExpress;
-(function(){
- try { if (store.get('bp-express') === '1') {
- document.body.classList.add('express');
- updateDayComplete();
- } } catch(e){}
-})();
+try { store.set('bp-express', ''); } catch(e){}   // Express retired: the 20/45/60/80 picker replaces it
 (function(){
  try { if (store.get('bp-gym') === '1') {
  document.body.classList.add('gym');
@@ -4998,10 +4976,6 @@ function streamlineCards(){
     if (slbl) slbl.remove();            // "Setup & Execution" label — the fold summary says it
     if (cue && anchor) anchor.insertAdjacentElement('afterend', cue);   // cue to the front
     var meta = card.querySelector('.exmeta'); if (warm && meta) meta.appendChild(warm);   // ramp chip rides with the dose chips
-    // Express badge: shown only in Express, says the dose is one set today
-    if (meta && !/~\d+ min/.test((card.querySelector('.sets')||{}).textContent||'')){
-      var xs = document.createElement('span'); xs.className = 'xset'; xs.textContent = '1 set'; meta.appendChild(xs);
-    }
     if (setup){
       var det = document.createElement('details'); det.className = 'howfold';
       det.innerHTML = '<summary><span class="hf-ic">▸</span> How to do it</summary>';
@@ -5171,11 +5145,11 @@ function _isSkill(c){ return !!c.querySelector(':scope > .drills'); }
 function planDay(dayId, budget){
  var sec = document.getElementById(dayId); if (!sec || !DAY_HALF[dayId]) return null;
  budget = budget || PLAN_MIN;
- var long = budget >= 80, cap = long ? 4 : 2;
- var pace = _pace(), skill = sec.querySelector('.excard[data-id] > .drills') ? (long ? 10 : 5) : 0;
- var room = long ? 99 : Math.max(4, Math.floor((budget - 3 - skill) / pace));
+ var long = budget >= 80, tired = budget < 30, cap = long ? 4 : tired ? 0 : 2;
+ var pace = _pace(), skill = sec.querySelector('.excard[data-id] > .drills') ? (long ? 10 : tired ? 3 : 5) : 0;
+ var room = long ? 99 : Math.max(tired ? 2 : 4, Math.floor((budget - 3 - skill) / pace));
  var wk0 = readCompletedWeek(), lowDone = Object.keys(wk0).some(function(d){ return d !== dayId && DAY_HALF[d] === 'L' && !/^skip/.test(String(wk0[d])); });
- var cards = [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_isSkill(c) && !c.dataset.rescued && !(lowDone && /-tib$/.test(c.dataset.id)); });   // tibialis: first lower day of the week only
+ var cards = [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_isSkill(c) && !c.dataset.rescued && !(lowDone && /-tib$/.test(c.dataset.id)) && !(tired && c.dataset.micro === 'drop'); });   // tibialis: first lower day of the week only
  // pairs stay together; core first, bonus next, the wildcard last
  var groups = [];
  cards.forEach(function(c){ var g = groups[groups.length - 1];
@@ -5215,7 +5189,7 @@ function planDay(dayId, budget){
  if (long){ var eng = document.querySelector('#d6 .excard[data-id="d6-spin"]'); if (eng && !eng.classList.contains('done') && !got['d6-spin']) extra.push('d6-spin'); }
  groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
- return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, lifts: keep.length + rescue.length + extra.length };
+ return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, budget: budget, lifts: keep.length + rescue.length + extra.length };
 }
 // How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
 // A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
@@ -5259,14 +5233,15 @@ function clearPlan(){
   var tg = c.querySelector('.rtag'); if (tg) tg.remove();
   if (home && home.parentNode){ home.parentNode.insertBefore(c, home); home.remove(); } c._home = null; });
  document.querySelectorAll('.exmeta > .sets[data-porig]').forEach(function(st){ st.textContent = st.dataset.porig; delete st.dataset.porig; });
- document.querySelectorAll('.section.planned').forEach(function(x){ x.classList.remove('planned'); x.classList.remove('long'); var b = x.querySelector('.planbar'); if (b) b.hidden = true; });
+ document.querySelectorAll('.section.planned').forEach(function(x){ x.classList.remove('planned'); x.classList.remove('long'); x.classList.remove('short'); var b = x.querySelector('.planbar'); if (b) b.hidden = true; });
 }
 function applyPlan(p){
  clearPlan();
  if (!p) return;
  var sec = document.getElementById(p.day); if (!sec) return;
- sec.classList.add('planned'); sec.classList.toggle('long', !!p.long);
- if (!p.long) sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = '~5 min · 2 drills'; } });
+ var short = (p.budget || PLAN_MIN) < 30;
+ sec.classList.add('planned'); sec.classList.toggle('long', !!p.long); sec.classList.toggle('short', short);
+ if (!p.long) sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = short ? '~3 min · 1 drill' : '~5 min · 2 drills'; } });
  sec.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_isSkill(c) && p.keep.indexOf(c.dataset.id) < 0) c.dataset.off = '1'; });
  // rescued lifts move into today for the day, then go home
  var list = sec.querySelector('.exlist'), anchor = list && list.querySelector('.excard.wild');
@@ -5287,11 +5262,10 @@ function applyPlan(p){
  if (bar){ var nm = function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; };
   var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>' + (p.long ? '⏳ Long day · ≈80 min · ' : '✦ Built for today · ≈' + p.min + ' min · ') + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Missed last week, added: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
+  bar.innerHTML = '<b>' + (p.long ? 'Long day · ≈80 min · ' : short ? 'Tired day · ≈' + p.min + ' min · ' : 'Built from your logs · ≈' + p.min + ' min · ') + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (names.length ? '<span>Missed earlier this week, added: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Missed last week, added: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
   bar.hidden = !p.long && !names.length && !lateN.length && !leftN.length && !upN.length; }
 }
-function _paintPlanChips(){ var p = readPlan(); document.querySelectorAll('.xchip.plan').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && !p.full && !p.long; x.classList.toggle('on', !!on); x.textContent = on ? '✦ 45 · built' : '✦ Build 45'; });
- document.querySelectorAll('.xchip.long').forEach(function(x){ var id = x.closest('.section').id, on = p && p.day === id && p.long; x.classList.toggle('on', !!on); x.textContent = on ? '⏳ 80 · on' : '⏳ Long 80'; }); }
+function _paintPlanChips(){ document.querySelectorAll('.xchip.tm').forEach(function(x){ var sec = x.closest('.section'), on = sec && _mode(sec.id) === x.dataset.m; x.classList.toggle('on', !!on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
 function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
 // build (or restore) today's plan for a day you are about to train
 function buildDay(dayId, force, budget){
@@ -5300,7 +5274,7 @@ function buildDay(dayId, force, budget){
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
  p = planDay(dayId, budget); if (!p) return;
  var gap = daysSinceTrained();
- if (first && gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow('low'); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
+ if (first && gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow(1); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
  applyPlan(p); _afterPlan();
  var nc = Object.keys(p.carry || {}).length, nm = p.rescue.length - nc;
@@ -5449,10 +5423,9 @@ function paintBests(){
  el.textContent = n ? '★ ' + n + ' best' + (n > 1 ? 's' : '') + ' this week' : '';
 }
 paintBests();
-(function(){ try { var v = (store.get('bp-lowbat') || '').split('|'); if (v[0] === _today()){ document.body.classList.add('lowbat'); if (v[1] === 'micro') document.body.classList.add('micro'); _paintLow(); updateDayComplete(); } } catch(e){} })();
+(function(){ try { var v = (store.get('bp-lowbat') || '').split('|'); if (v[0] === _today()){ document.body.classList.add('lowbat'); _paintLow(); updateDayComplete(); } } catch(e){} })();
 document.querySelectorAll('.ssh').forEach(function(h){ var l = h.querySelector('b'); if (l && l.textContent.trim() === 'B') h.dataset.b = '1'; });
 paintTabs(); _paintSess(); if (typeof _paintPlanChips === 'function') _paintPlanChips(); if (typeof paintSkipTags === 'function') paintSkipTags();
-_paintExpress();
 // the tab can sit open for days: repaint everything that depends on "today" when she comes back to it
 function refreshDay(){ _paintStart(); markToday(); paintWeek(); paintBests(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
  if (!document.body.classList.contains('focus')) autoStart(); }
