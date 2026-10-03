@@ -1598,6 +1598,21 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  footer,body.focus .section.cur{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 }
 
+/* session ux pass */
+.day-complete.shown .rc,.day-complete.shown .rc:first-of-type{color:#060611}
+.dc-home{display:block;width:100%;margin-top:14px;min-height:48px;border-radius:12px;border:1px solid rgba(6,6,17,.35);background:rgba(6,6,17,.1);color:#060611;font:700 12px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.focus .section.cur .ssh span{display:none}
+.day-jump small{margin-left:6px}
+.excard:not(.done) .exlog .exlast{order:-1}
+.exmeta .laterbtn{order:9}
+@media(max-width:759px){
+ body.focus .day-title{display:none}
+ body.focus .day-hdr{padding-top:12px}
+ #sbRest,#sbPlus{min-height:44px}
+ body.focus .section.cur .rest-lbl.running{display:none}
+ .tskip .xchip.skip{min-width:44px;min-height:44px}
+ .exlog.two .stb{width:44px}.exlog.two .stv{width:34px}
+}
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -3146,7 +3161,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-03.2';
+var APP_V = '2026-10-03.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3328,6 +3343,7 @@ updateResetCountdown();
 setInterval(updateResetCountdown, 30 * 1000);
 
 // ── Day completion sentinels ──
+var _DC_HOME = '<button type="button" class="dc-home" onclick="setFocus(null)">‹ Home</button>';
 function updateDayComplete() {
  document.querySelectorAll('.day-complete').forEach(el => {
  const dayId = el.dataset.day;
@@ -3351,10 +3367,10 @@ function updateDayComplete() {
  const elapsed = ss && ss.e > ss.s ? _mins(ss.e - ss.s) : 0;
  const paused = elapsed - mins >= 5 ? ` · ${elapsed} min door to door` : '';
  el.innerHTML = _esc(`✓ Session done · ${done}/${done}` + (mins ? ` · ${mins} min` : '') + paused
-   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '')) + (typeof _recap === 'function' ? _recap(dayId) : '');
+   + (saved ? ` · ${saved} number${saved === 1 ? '' : 's'} saved` : '')) + (typeof _recap === 'function' ? _recap(dayId) : '') + _DC_HOME;
  if (!el.dataset.fired){ el.dataset.fired = '1'; document.querySelectorAll('.rest-lbl.running').forEach(r => { if (r._restReset) r._restReset(); }); }
  markDayComplete(dayId);
- } else {
+ } else if (!el.classList.contains('early')) {
  el.classList.remove('shown'); delete el.dataset.fired;
  el.textContent = '';
  }
@@ -3408,7 +3424,8 @@ window.toggleDone = function(btn){
  if (navigator.vibrate) navigator.vibrate(20);
  if (_r0 && _r0._restStart){ _r0._restReset(); _r0._restStart(); }
  _armAudio();
- requestWakeLock(); return;   // no glide on the half-tick: you are still on this lift
+ var _pt = _partner(card); if (_pt && !_pt.classList.contains('done')) setTimeout(function(){ _setNow(_pt); paintJump(); }, 0);   // pair order: 1 → 2 → 1, the highlight follows; nothing scrolls
+ requestWakeLock(); return;
  }
  if (card){ delete card.dataset.r1; _saveR1(); btn.classList.remove('half'); }
  var _top0 = card && !wasDone ? card.getBoundingClientRect().top : 0;
@@ -3761,11 +3778,13 @@ document.addEventListener('click', function(ev){
  var day = f.dataset.day, sec = document.getElementById(day);
  var cards = sec ? [].slice.call(sec.querySelectorAll('.excard, .wu')).filter(function(c){ return !_hidden(c); }) : [];
  var done = cards.filter(function(c){ return c.classList.contains('done'); }).length;
- if (!confirm('Finish ' + (DAY_NAME[day] || day) + ' with ' + done + ' of ' + cards.length + ' done?\n\nIt counts for the week.')) return;
+ cards.forEach(function(c){ if (c._commitLog) try { c._commitLog(); } catch(e){} });
  markDayComplete(day);
  f.hidden = true;
  if (typeof paintResume === 'function') paintResume();
- _toast((DAY_NAME[day] || day) + ' done \u00b7 ' + done + ' logged');
+ document.querySelectorAll('.rest-lbl.running').forEach(function(r){ if (r._restReset) r._restReset(); });
+ var dc = document.querySelector('.day-complete[data-day="' + day + '"]');
+ if (dc){ dc.classList.add('shown', 'early'); dc.innerHTML = _esc('✓ Session done · ' + done + ' of ' + cards.length) + (typeof _recap === 'function' ? _recap(day) : '') + _DC_HOME; setTimeout(function(){ dc.scrollIntoView({ block: 'center' }); }, 60); }
 });
 (function wireResume(){
  var g = document.getElementById('rsGo'); if (!g) return;
@@ -4051,10 +4070,10 @@ function _paintSess(){
 var _sheetKind = null, _logHome = null;
 function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
- var done = Object.keys(wk).filter(function(d){ return String(wk[d]).indexOf('skip') !== 0; }).length, goal = 4, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
- var dow = _dow(), restLeft = dow === 0 ? 1 : dow === 6 ? 2 : 2, sub2 = done >= 3 ? 'Enough for the week — the rest is bonus.' : 'Three to four a week, plus rest. Rest counts.';
- var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>sessions</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? restLeft + ' rest days still planned' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
- return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home<small>today, this week, what’s next</small></span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
+ var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
+ var dow = _dow(), restLeft = dow === 0 ? 1 : dow === 6 ? 2 : 2, sub2 = (done >= 3 ? 'All three lift days done.' : 'Three lift days a week. Rest counts.') + (extra ? ' +' + extra + ' extra' : '');
+ var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? restLeft + ' rest days still planned' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
+ return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
  var sec = document.getElementById(x[0]); if (!sec) return '';
  var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
  var tag = sk ? '<em>skipped</em>' : st ? '<em class="ok">✓ done</em>' : sg && sg.id === x[0] ? '<em class="td">up next</em>' : '';
@@ -4989,7 +5008,6 @@ applyWildcards(); applyBlock();
 // warm-up move rotates weekly with the wildcard, so the first minutes aren't the same every time
 document.querySelectorAll('.wu [data-rot]').forEach(function(x){ try { var o = JSON.parse(x.dataset.rot); x.textContent = o[_weekNo() % o.length]; } catch(e){} });
 streamlineCards(); addFormLinks();
-document.querySelectorAll('.excard > .drills').forEach(function(d){ var c = d.parentNode; if (c.querySelector('.chk2')) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'chk2'; b.textContent = '✓ Block done'; b.onclick = function(){ var k = c.querySelector('.chk'); if (k && !c.classList.contains('done')) k.click(); }; d.insertAdjacentElement('afterend', b); });
 buildJots();
 // solo two-set lifts get the same ½ → ✓ taps as the pairs
 document.querySelectorAll('.excard[data-solo]:not(.wild)').forEach(function(c){ if (!c.querySelector('.drills') && /^(S1:|2 )/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1'; });
