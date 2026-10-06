@@ -1639,6 +1639,11 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 .chk.half.s2{font-size:14px;font-weight:800;letter-spacing:.02em}
 .excard[data-r1]:not(.done) .sets .sq1{opacity:.45;text-decoration:line-through}
 .excard[data-r1]:not(.done) .sets .sq2{color:var(--gld)}
+.excard[data-sn="2"]:not(.done) .sets .sq2{opacity:.45;text-decoration:line-through;color:inherit}
+.exlog .setdone{flex-basis:100%;grid-column:1 / -1;font-size:13px;font-weight:700;color:var(--g);letter-spacing:.01em}
+.exlog .setdone[hidden]{display:none}
+.excard.done .exlog.multi .stp{display:none}
+.excard.done .exlog.multi .setdone{flex-basis:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .excard[data-r1]:not(.done) .warmset{display:none}
 </style>
 </head>
@@ -1711,7 +1716,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="callout howruns" id="howruns">
  <div class="callout-t">// How it runs</div>
- <p><strong>Supersets.</strong> Do 1 → rest → 2 → rest, twice through. Tap ○ after set 1 (it turns to S2 and starts rest), again after set 2 (✓). Single lifts: one ✓ after both sets. Ramp sets (⚡ on the card) are not logged — only the working weight and reps.</p>
+ <p><strong>Supersets.</strong> Do 1 → rest → 2 → rest, twice through. Tap ○ after every set: it logs that set (fix the numbers first if they changed), starts rest and shows the next set — S2, S3 — then ✓ after the last. Ramp sets (⚡ on the card) are not logged.</p>
  <p><strong>New lift?</strong> Ramp up, then pick the weight where set 1 hits the low end of its range with about 2 left. 4 or more left: up a pin, rest, redo it. None left: down a pin. Log what you ended on — that is your start. Fixed lifts start light and stay at the number on the card.</p>
  <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 stops 1 short on the big lifts — never the last grind rep. On cable and machine isolation it is every clean rep unless the card says stop short. Log it on the big lifts. Same as last time is a good day. Cards marked fixed stay fixed. A card with a rep range: set 1 tops the range clean with 2 left → one pin or the next dumbbell next time. Other lifts: set 2 hits 15 clean → one pin up. Set 1 leaving 4 or more in the tank two sessions running → one pin up too. Reps drop a few after a jump, rebuild from there. Clean = tempo held, no swing.</p>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
@@ -3185,7 +3190,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-03.5';
+var APP_V = '2026-10-06.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3268,7 +3273,7 @@ function toggleDone(btn) {
 function _readR1(){ try { return _asObj(JSON.parse(sessionStorage.getItem('bp-r1') || '{}')); } catch(e){ return {}; } }
 function _saveR1(){
  const o = {};
- document.querySelectorAll('.excard[data-r1]').forEach(c => { o[c.dataset.id] = +c.dataset.r1 || Date.now(); });
+ document.querySelectorAll('.excard[data-r1]').forEach(c => { o[c.dataset.id] = { t: +c.dataset.r1 || Date.now(), k: +c.dataset.sn || 1 }; });
  try { sessionStorage.setItem('bp-r1', JSON.stringify(o)); } catch(e){}
 }
 
@@ -3307,10 +3312,9 @@ function applyState() {
  const id = card.dataset.id;
  const isDone = !!saved[id];
  card.classList.toggle('done', isDone);
- if (!card.dataset.r1 && r1[id] && !isDone) card.dataset.r1 = String(r1[id]);
- if (card.dataset.r1 && (isDone || isExpired(+card.dataset.r1))) { delete card.dataset.r1; r1Changed = true; }
- const btn = card.querySelector('.chk');
- if (btn) { btn.textContent = isDone ? '✓' : (card.dataset.r1 ? 'S2' : '○'); btn.classList.toggle('half', !isDone && !!card.dataset.r1); btn.classList.toggle('s2', !isDone && !!card.dataset.r1); }
+ if (!card.dataset.r1 && r1[id] && !isDone){ const x = r1[id]; card.dataset.r1 = String(x.t || x); card.dataset.sn = String(x.k || 1); }
+ if (card.dataset.r1 && (isDone || isExpired(+card.dataset.r1))) { delete card.dataset.r1; delete card.dataset.sn; r1Changed = true; if (!isDone && card._resetSets) card._resetSets(); }
+ if (card.querySelector(':scope > .extop .chk')) _paintChk(card);
  });
  if (r1Changed) _saveR1();
  if (typeof paintDrills === 'function') document.querySelectorAll('.excard > .drills').forEach(function(d){ paintDrills(d.parentNode); });
@@ -3319,7 +3323,7 @@ function applyState() {
 function clearAllChecks() {
  try { store.del('bp-drills'); } catch(e){}
  try { store.del('bp-done'); store.del('bp-complete'); var wk0 = readCompletedWeek(), t0 = _tday(Date.now()); Object.keys(wk0).forEach(function(d){ var ts = parseInt(String(wk0[d]).replace('skip:', '')) || 0; if (_tday(ts) === t0) delete wk0[d]; }); store.set('bp-week', JSON.stringify(wk0)); paintWeek(); } catch(e){}
- document.querySelectorAll('.excard').forEach(card => { card.classList.remove('done'); delete card.dataset.r1; });
+ document.querySelectorAll('.excard').forEach(card => { card.classList.remove('done'); delete card.dataset.r1; delete card.dataset.sn; if (card._resetSets) card._resetSets(); });
  _saveR1();
  document.querySelectorAll('.chk').forEach(b => { b.textContent = '○'; b.classList.remove('half', 's2'); });
  document.querySelectorAll('.rest-lbl.running, .rest-lbl.done').forEach(r => { if (r._restReset) r._restReset(); });
@@ -3430,6 +3434,17 @@ function _recap(dayId){
 }
 function _reduced(){ try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
 function _shown(c){ return c && c.offsetParent !== null; }
+// how many sets the card asks for right now (the tired dose, a long day's S3 and Block B all change it); skill blocks tick per drill
+function _nSets(card){
+ if (!card || card.querySelector(':scope > .drills')) return 1;
+ var t = [].slice.call(card.querySelectorAll('.exmeta > .sets')).filter(function(x){ return getComputedStyle(x).display !== 'none'; }).map(function(x){ return x.textContent; }).join(' '), m = t.match(/^\s*(\d+)\s*×/);
+ return Math.min(6, Math.max(1, /\bS3\b/.test(t) ? 3 : /S2:/.test(t) ? 2 : m ? +m[1] : 1));
+}
+function _paintChk(card){ var b = card.querySelector(':scope > .extop .chk'); if (!b) return;
+ var done = card.classList.contains('done'), k = done ? 0 : +card.dataset.sn || 0;
+ if (card.querySelector(':scope > .drills')){ if (done){ b.textContent = '✓'; b.classList.remove('half', 's2'); } return; }   // blocks: paintDrills shows the ½
+ b.textContent = done ? '✓' : k ? 'S' + (k + 1) : '○'; b.classList.toggle('half', !!k); b.classList.toggle('s2', !!k);
+ b.setAttribute('aria-label', done ? 'Done. Tap to undo' : k ? 'Set ' + k + ' logged. Tap when set ' + (k + 1) + ' is done' : _nSets(card) > 1 ? 'Tap when set 1 is done' : 'Mark complete'); }
 function _partner(card){ var sec = card.closest('.section'); if (!sec || !card.dataset.ss) return null; var p = [].slice.call(sec.querySelectorAll('.excard[data-ss="' + card.dataset.ss + '"]')).filter(function(x){ return x !== card; })[0]; return _shown(p) ? p : null; }
 function _nextOpen(card){ var sec = card.closest('.section'); if (!sec) return null; var all = [].slice.call(sec.querySelectorAll('.excard')), i = all.indexOf(card); for (var k = i + 1; k < all.length; k++){ if (_shown(all[k]) && !all[k].classList.contains('done')) return all[k]; } return null; }
 function _glide(el){ if (!el) return; var _h = el.previousElementSibling; if (_h && _h.classList.contains('ssh') && _shown(_h)) el = _h; setTimeout(function(){ try { el.scrollIntoView({ behavior: _reduced() ? 'auto' : 'smooth', block: 'start' }); } catch(e){ el.scrollIntoView(); } }, 220); }
@@ -3443,19 +3458,25 @@ window.toggleDone = function(btn){
  const card = btn.closest('.excard');
  const wasDone = card && card.classList.contains('done');
  const _r0 = card && card.querySelector('.rest-lbl');
- if (card && card.dataset.ss && !wasDone && !card.dataset.r1 && _partner(card)){   // half-tick only where a partner lift fills the rest; solo lifts are one tap
- card.dataset.r1 = String(Date.now()); _saveR1(); btn.textContent = 'S2'; btn.classList.add('half', 's2'); btn.setAttribute('aria-label', 'Set 1 done, now set 2. Tap when set 2 is done');
+ var _k = card ? +card.dataset.sn || 0 : 0;
+ if (card && !wasDone && _k + 1 < _nSets(card)){   // one tap per set: logs that set's numbers, rest starts, the circle shows the next set
+ card.dataset.sn = String(_k + 1); if (card._logSet) card._logSet();
+ card.dataset.r1 = card.dataset.r1 || String(Date.now()); _saveR1(); _paintChk(card);
+ var _sec0 = card.closest('.section'); if (_sec0) sessTick(_sec0.id);
  if (navigator.vibrate) navigator.vibrate(20);
  if (_r0 && _r0._restStart){ _r0._restReset(); _r0._restStart(); }
  _armAudio();
  var _pt = _partner(card); if (_pt && !_pt.classList.contains('done')) setTimeout(function(){ _setNow(_pt); paintJump(); }, 0);   // pair order: 1 → 2 → 1, the highlight follows; nothing scrolls
  requestWakeLock(); return;
  }
- if (card){ delete card.dataset.r1; _saveR1(); btn.classList.remove('half', 's2'); btn.setAttribute('aria-label', 'Mark complete'); }
+ if (card){ delete card.dataset.r1; delete card.dataset.sn; _saveR1(); }
  var _top0 = card && !wasDone ? card.getBoundingClientRect().top : 0;
  _origToggleDone(btn);
  if (_top0 < 0 && card.classList.contains('done')) card.scrollIntoView({ block: 'start' });
  if (card && !wasDone && card.classList.contains('done') && card._commitLog) card._commitLog(); // before the banner counts saved numbers
+ if (card && wasDone && card._resetSets) card._resetSets();   // undone: back to set 1, today's numbers preloaded
+ else if (card && card._paintRow) card._paintRow();
+ if (card) _paintChk(card);
  if (card && card.classList.contains('done')){ var _sec = card.closest('.section'); if (_sec) sessTick(_sec.id);
   // the highlight moves on to the next open lift — no scrolling under your thumb
   if (card.classList.contains('now') && _sec){ var _all = _dayCards(_sec), _lt = readLater(), _i = _all.indexOf(card);
@@ -4312,8 +4333,9 @@ function _conv(w, from, to){ return from === to || !(w > 0) ? w : _rnd(to === 'k
 function _wstep(w, u, dir){ return u === 'kg' ? (w < 15 || (w === 15 && dir < 0) ? 1.25 : 2.5) : (w < 30 || (w === 30 && dir < 0) ? 2.5 : 5); }
 // best-ever compares across units — everything normalises to lb before scoring
 function _score(e){ return e.w > 0 ? _toLb(e.w, e.u) * (1 + e.r/30) : e.r; }
-function _fmt(e){ var u = ' ' + (e.u || 'lb');
- var reps = ((e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r) + (e.t === 's' ? 's' : e.t === 'm' ? ' min' : '');   // set 1 / set 2
+function _fmt(e){ var u = ' ' + (e.u || 'lb'), tu = e.t === 's' ? 's' : e.t === 'm' ? ' min' : '';
+ if (Array.isArray(e.s) && e.s.length > 1 && e.s.some(function(x){ return x[0] !== e.s[0][0]; })) return e.s.map(function(x){ return (x[0] > 0 ? x[0] + ' × ' : '') + x[1] + tu; }).join(' · ') + (e.s.some(function(x){ return x[0] > 0; }) ? u : '');   // weight changed between sets
+ var reps = (Array.isArray(e.s) && e.s.length > 1 ? e.s.map(function(x){ return x[1]; }).join('/') : (e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r) + tu;   // set 1 / set 2 / …
  return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + reps : e.w + u; }
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
 function _prev(arr){ var t = _today(); return (arr || []).filter(function(e){ return e.d !== t; }); }
@@ -4370,8 +4392,8 @@ function buildJots(){
  var st0 = (card.querySelector('.sets') || {}).textContent || '', m0 = st0.match(/S1:\s*(\d+)/) || st0.match(/×\s*(\d+)/) || ((wild || mins) ? st0.match(/(\d+)/) : null);
  var src = mine || p[p.length-1] || { w: _firstW(card) || 0, r: m0 ? +m0[1] : (timed ? 20 : 8) };
  var twoSets = !timed && !wOnly && /S1/.test(st0) && /S2/.test(st0);
- var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, r1: (src.r1 != null ? src.r1 : (m0 ? +m0[1] : src.r)) };
- if (!(v.r > 0)){ v.r = m0 ? +m0[1] : (timed ? 20 : 8); if (!(v.r1 > 0)) v.r1 = v.r; }   // old weight-only entries carry r:0, which would make the tick save nothing
+ var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, s: [] };
+ if (!(v.r > 0)) v.r = m0 ? +m0[1] : (timed ? 20 : 8);   // old weight-only entries carry r:0, which would make the tick save nothing
  var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
  // bodyweight lifts get a "+lb" box for added load (belt, dumbbell); skill blocks stay reps-only
  var bw = wild || mins || /^d6-/.test(card.dataset.id) || !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
@@ -4379,7 +4401,6 @@ function buildJots(){
  var firstW = !bw && _firstW(card) > 0 && !all.some(function(e){ return e.w > 0; });
  if (firstW) v.w = 0;
  function sv(k){ return k === 'w' && firstW && !(v.w > 0) ? '' : v[k]; }
- var amrap = twoSets && /S2:[^·]*AMRAP/i.test(st0);
  var ladder = card.dataset.blk === 'b' ? (card.dataset.altProg || '') : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .pn'), function(x){ return x.textContent; }).join(' | ');
  var full = card.dataset.blk === 'b' ? ladder : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .prog-step'), function(x){ return x.textContent; }).join(' | ');
  var sg = (!mine && !wOnly && !firstW) ? _sugg(p, { tgt:tgt, ladder:ladder, full:full, two:twoSets, unit:wUnit, fixed:/fixed/i.test(st0) || NO_UP[card.dataset.id], timed:timed || mins, mins:mins, hi:/lateral|rear-delt|face pull/i.test(name) }) : null;
@@ -4390,13 +4411,31 @@ function buildJots(){
  '<button type="button" class="stb" data-d="1" aria-label="' + lbl + ': more ' + unit + '">+</button></div>'; }
  var row = document.createElement('div'); row.className = 'exlog' + (mine ? ' has-val' : '');
  var rUnit = timed ? 'sec' : mins ? 'min' : 'reps';
- // set 1 is the prescribed count on most lifts: only ask for it where the ladder reads S1 (same test as _sugg); otherwise it is saved as prescribed
- var showS1 = twoSets && (/S1 reaches/i.test(ladder) || /when (\d+) is clean/i.test(full)), autoR1 = twoSets && !showS1 && m0 ? +m0[1] : 0;
- row.innerHTML = (bw ? '' : stp('w', plus + wUnit, 1))
-  + (wOnly ? '' : (twoSets ? (showS1 ? stp('r1', 'S1') + stp('r', 'S2') : stp('r', 'S2 reps')) : stp('r', rUnit)))
+ // one set at a time: the boxes hold the set you are on; each tap on the circle logs it and preloads the next
+ var s1Read = twoSets && (/S1 reaches/i.test(ladder) || /when (\d+) is clean/i.test(full));
+ var tdS = function(){ var e = readHist()[exId]; e = _asArr(e).filter(function(x){ return x.d === _today(); })[0]; if (e && !Array.isArray(e.s)) e.s = e.r > 0 ? [[e.w, e.r]] : []; return e || null; };
+ // what set k preloads: today's number if you are redoing it, else set 1 = the card's count (or last set 1 where set 1 is what moves), later sets = last time's
+ function pre(k){ var td = tdS(), ls = lastP && Array.isArray(lastP.s) ? lastP.s : null;
+  if (td && td.s[k]) return { w: _conv(td.s[k][0], td.u || 'lb', wUnit), r: td.s[k][1] };
+  var r = ls && ls[k] ? ls[k][1] : k === 0 && twoSets ? (s1Read ? (lastP && lastP.r1) || tgt : tgt || (lastP && lastP.r1)) : (lastP && lastP.r > 0 ? lastP.r : tgt);
+  return { w: null, r: r > 0 ? r : v.r }; }
+ function setLab(){ var n = _nSets(card), k = card.classList.contains('done') ? n - 1 : Math.min(+card.dataset.sn || 0, n - 1); return n > 1 ? 'S' + (k + 1) + ' ' + rUnit : rUnit; }
+ row.innerHTML = '<span class="setdone" hidden></span>' + (bw ? '' : stp('w', plus + wUnit, 1))
+  + (wOnly ? '' : stp('r', setLab()))
   + '<span class="exlast">' + _lastBest(all) + '</span>';
- if (twoSets) row.classList.add('two');
- if (twoSets && !showS1) row.classList.add('s2only');
+ if (!bw) row.classList.add('two', 's2only');
+ var _u = function(x){ return timed ? 's' : mins ? ' min' : ''; };
+ function paintRow(){
+  var wi = row.querySelector('.stp[data-k="w"] .stv'); if (wi) wi.value = sv('w');
+  var ri = row.querySelector('.stp[data-k="r"]'); if (ri){ ri.querySelector('.stv').value = v.r; ri.querySelector('.stu').textContent = setLab(); }
+  var sd = row.querySelector('.setdone'), fin = card.classList.contains('done') && v.s.length > 0; sd.hidden = !v.s.length; row.classList.toggle('multi', fin);
+  if (fin){ var all = v.s.concat([[v.w, v.r]]); sd.textContent = '✓ ' + _fmt({ w: v.w, r: v.r, s: all, u: wUnit === 'kg' ? 'kg' : '', t: timed ? 's' : mins ? 'm' : '' }); paintFirst(); return; }   // finished: every set in one line
+  sd.textContent = v.s.map(function(x, i){ return 'S' + (i + 1) + ' ' + (x[0] > 0 ? x[0] + ' × ' : '') + x[1] + _u(); }).join(' · ') + (v.s.length ? ' ✓' : '');
+  paintFirst(); }
+ // rebuild where the card stands: sets already logged today come back, the boxes hold the next one
+ function restore(){ var td = tdS(), done = card.classList.contains('done'), k = done ? (td ? Math.max(td.s.length - 1, 0) : 0) : (+card.dataset.sn || 0);
+  v.s = td ? td.s.slice(0, k).map(function(x){ return [_conv(x[0], td.u || 'lb', wUnit), x[1]]; }) : [];
+  var x = pre(k); if (x.w != null) v.w = x.w; v.r = x.r; }
  // first time on a weighted lift: no number to chase, so say how to find one — gone as soon as a weight is in the box
  var fb = null;
  if (firstW){ fb = document.createElement('b'); fb.className = 'aim first';
@@ -4421,13 +4460,16 @@ function buildJots(){
   } else sb.textContent = sg.t + ' · ';
   var ex0 = row.querySelector('.exlast'); ex0.insertBefore(document.createTextNode(' '), ex0.firstChild); ex0.insertBefore(sb, ex0.firstChild);
  }
- function commit(){
+ function commit(partial){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
  var t = _today(); // not the page-load date — the tab can stay open for days
  var h = readHist(), arr = _asArr(h[exId]).filter(function(e){ return e.d !== t; });
- var pool = _same(arr, v.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
- var e = { d:t, w:v.w, r:v.r }; if (wUnit === 'kg' && v.w > 0) e.u = 'kg'; if (v.n) e.n = v.n;
-  if (twoSets){ var r1v = showS1 ? v.r1 : autoR1; if (r1v > 0) e.r1 = r1v; }   // set 1 rides along (typed, or the prescribed count); older entries simply lack it
+ // every set is kept; w/r are set 2 (what the ladder reads — a long day's set 3 is extra), r1 is set 1 when it was at the same weight
+ var sets = partial === true ? v.s.slice() : v.s.concat([[v.w, v.r]]), key = sets[Math.min(1, sets.length - 1)];
+ var e = { d:t, w:key[0], r:key[1] }; if (wUnit === 'kg' && key[0] > 0) e.u = 'kg'; if (v.n) e.n = v.n;
+ if (sets.length > 1 || _nSets(card) > 1) e.s = sets;
+ if (twoSets && sets[0][0] === key[0] && sets[0][1] > 0) e.r1 = sets[0][1];
+ var pool = _same(arr, e.w), prevBest = pool.length ? Math.max.apply(null, pool.map(_score)) : 0; // _score normalises kg→lb
   if (timed) e.t = 's'; else if (mins) e.t = 'm';
  var pr = !wOnly && !!prevBest && _score(e) > prevBest;
  arr.push(e); h[exId] = arr.slice(-12); writeHist(h);
@@ -4440,7 +4482,7 @@ function buildJots(){
  row.addEventListener('click', function(ev){
  var u = ev.target.closest('.stu-b');
  if (u){ var nu = wUnit === 'kg' ? 'lb' : 'kg';
-  v.w = _conv(v.w, wUnit, nu); wUnit = nu; _setUnit(exId, nu);
+  v.w = _conv(v.w, wUnit, nu); v.s = v.s.map(function(x){ return [_conv(x[0], wUnit, nu), x[1]]; }); wUnit = nu; _setUnit(exId, nu); paintRow();
   u.textContent = plus + nu; u.setAttribute('aria-label', lbl + ': unit, now ' + nu + ' — tap to switch');
   row.querySelector('.stp[data-k="w"] .stv').value = sv('w');
   if (navigator.vibrate) navigator.vibrate(10);
@@ -4469,6 +4511,9 @@ function buildJots(){
   v.n = t2.trim().slice(0, 80); paintNote(); if (row.classList.contains('has-val')) commit(); });
  row.appendChild(nb2);
  card._commitLog = commit; // the ✓ tap saves "same as last time" with zero extra taps
+ card._logSet = function(){ if (!(v.r > 0)) return; v.s.push([v.w, v.r]); commit(true); var x = pre(v.s.length); if (x.w != null) v.w = x.w; v.r = x.r; paintRow(); };
+ card._resetSets = function(){ restore(); paintRow(); }; card._paintRow = paintRow;
+ restore(); paintRow();
  var top = card.querySelector(':scope > .extop'); // numbers live right under the title, next to the check button
  if (top) top.insertAdjacentElement('afterend', row); else card.appendChild(row);
  });
