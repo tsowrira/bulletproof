@@ -1761,7 +1761,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d5e-archer" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Muscle-Up Block</div></div>
- <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">60s rest</div><div class="tempo">CRISP</div></div>
+ <div class="exmeta"><div class="sets">~10 min</div><div class="rest-lbl">60s rest</div><div class="tempo">CRISP</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Shoulders Decide the Pace</div><p><strong>No kipping.</strong> Legs do the lifting for now. Step down, never drop. Next rung: 4 clean sessions + shoulders quiet 48 h.</p></div>
@@ -1772,11 +1772,12 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
   <div class="drill"><div class="dr-h"><b>1</b>Wrist Turnover<span>2 × 8 · no rest needed</span></div><div class="dr-w">Where: chest-height fixed bar, standing on the floor, overhand grip.</div><div class="dr-d">Hands only, no body weight. Turn the wrists from an overhand hang grip to a press-down grip on top of the bar, and back. Slow, knuckles lead, elbows soft.</div></div>
  <div class="drill"><div class="dr-h"><b>2</b>High Pulls — Bar to the Lower Ribs<span>3 × 3 · 60s between</span></div><div class="dr-w">Where: pull-up bar, overhand grip, shoulders set before you pull.</div><div class="dr-d">Each rep starts from a still, active hang — count 1, no bounce. Lean back from the shoulders, not the low back, and pull the bar toward your belly with the elbows staying in front. Pull fast until the bar reaches the lower ribs — ribs down, legs still, no swing. Lower over 3s to an active hang. Bar stalls short of the lower ribs: that rep doesn't count.<br><strong>Not there yet?</strong> Same 3 × 3, same speed, as explosive chest-to-bar pulls — the bar touching the collarbone or upper chest counts. Or push off a low box with both feet for the first inch, hands finish the pull. <strong>Move up when</strong> all 3 reps of a set touch the chest with the bar still moving fast, two sessions running.</div></div>
  <div class="drill"><div class="dr-h"><b>3</b>Bar Support Hold<span>3 × 15s · 45s between</span></div><div class="dr-w">Where: fixed bar at chest height, box close enough that the toes rest on it.</div><div class="dr-d">Hop up to straight arms on top of the bar, elbows soft, shoulders pressed down, hips touching the bar — chest stays behind it. Hold still, toes light. Step down.</div></div>
+ <div class="drill"><div class="dr-h"><b>4</b>Top Pull Hold — Bar at the Chest<span>3 × 5s · 60s between</span></div><div class="dr-w">Where: pull-up bar, overhand grip, box underneath.</div><div class="dr-d">From a still, active hang, pull until the bar touches the upper chest. Hold still there: shoulders down and back, elbows tucked, ribs down, legs still. Lower over 3s to an active hang, then step down onto the box. Shoulders creeping toward the ears or rolling forward ends the hold.<br><strong>Move up when</strong> all 3 holds are steady two sessions running → 8s, then 10s. Never weighted.</div></div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Done</span><span>10 strict pull-ups</span></div>
- <div class="prog-step"><span class="pn">Now</span><span>Wrist turnovers + high pulls 3 × 3 (not there yet: fast chest-to-bar pulls) + bar support hold 3 × 15s</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Wrist turnovers + high pulls 3 × 3 (not there yet: fast chest-to-bar pulls) + bar support hold 3 × 15s + top pull hold 3 × 5s</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Support hold with toes hovering; every high pull reaches the lower ribs — from chest-to-bar once 3 fast reps touch the chest, two sessions running</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Transitions: two feet → one foot → heels only — locked until you've been given the OK for transitions</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Toes-on-box muscle-up, 3s lowering — legs help less only after 4 clean sessions</span></div>
@@ -3201,7 +3202,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-06.3';
+var APP_V = '2026-10-07.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
