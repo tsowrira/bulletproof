@@ -964,7 +964,6 @@ body.lowbat .lowbar{display:block}
 .wc.hit .wd::after{content:' ✓';color:var(--g);font-weight:800}
 .dl-dot{min-width:44px;min-height:44px}
 .howfold>summary,.introfold>summary{min-height:44px}
-.tempo{cursor:default}
 .bp-toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(10px);background:rgba(12,12,28,.96);border:1px solid var(--g);color:var(--g);padding:10px 18px;border-radius:100px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.06em;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .bp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -1189,7 +1188,7 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .sets{flex-basis:100%;text-align:left;font-size:16px;text-wrap:pretty}
 .rest-lbl{min-height:40px;min-width:0;padding:0 12px;border-radius:100px;font-size:12.5px}
 .rest-lbl.running{animation:none;font-size:14px}
-.tempo{font-size:11.5px;font-weight:600;padding:0 10px;min-height:28px;display:inline-flex;align-items:center;cursor:default}
+.tempo{font-size:11.5px;font-weight:600;padding:0 10px;min-height:28px;display:inline-flex;align-items:center}
 .exname{font-size:19px;margin-bottom:4px}
 .caveat{background:none;border:0;border-left:2px solid var(--gld);padding:1px 0 1px 11px;margin:6px 0 10px;border-radius:0}
 .caveat-t{font-size:10.5px;margin-bottom:3px}
@@ -1629,6 +1628,13 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  .tskip .xchip.skip{min-width:44px;min-height:44px}
  .exlog.two .stb{width:44px}.exlog.two .stv{width:34px}
 }
+/* tap-target expansion: invisible hit area to 44px without moving layout */
+.stu-b,.upnudge,.tempo{position:relative}
+.stu-b::after{content:"";position:absolute;inset:0 -6px}
+.upnudge::after{content:"";position:absolute;inset:-4px 0}
+.tempo::after{content:"";position:absolute;inset:-8px 0}
+.notebtn{min-height:44px}
+.rungtxt{padding:15px 0;margin-top:-10px;margin-bottom:-17px}
 /* ── MOTION SAFETY (covers every animated upgrade above) ── */
 @media (prefers-reduced-motion: reduce){
  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -1644,6 +1650,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 .exlog .setdone[hidden]{display:none}
 .excard.done .exlog.multi .stp{display:none}
 .excard.done .exlog.multi .setdone{flex-basis:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.excard.done .exlog.two.multi{flex-basis:auto;order:2;margin-top:0}   /* no steppers left: the one line sits beside the name like a one-set lift */
 .excard[data-r1]:not(.done) .warmset{display:none}
 </style>
 </head>
@@ -1718,7 +1725,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="callout-t">// How it runs</div>
  <p><strong>Supersets.</strong> Do 1 → rest → 2 → rest, twice through. Tap ○ after every set: it logs that set (fix the numbers first if they changed), starts rest and shows the next set — S2, S3 — then ✓ after the last. Ramp sets (⚡ on the card) are not logged.</p>
  <p><strong>New lift?</strong> Ramp up, then pick the weight where set 1 hits the low end of its range with about 2 left. 4 or more left: up a pin, rest, redo it. None left: down a pin. Log what you ended on — that is your start. Fixed lifts start light and stay at the number on the card.</p>
- <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 stops 1 short on the big lifts — never the last grind rep. On cable and machine isolation it is every clean rep unless the card says stop short. Log it on the big lifts. Same as last time is a good day. Cards marked fixed stay fixed. A card with a rep range: set 1 tops the range clean with 2 left → one pin or the next dumbbell next time. Other lifts: set 2 hits 15 clean → one pin up. Set 1 leaving 4 or more in the tank two sessions running → one pin up too. Reps drop a few after a jump, rebuild from there. Clean = tempo held, no swing.</p>
+ <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 stops 1 short on the big lifts — never the last grind rep. On cable and machine isolation it is every clean rep unless the card says stop short. Log it on the big lifts. Same as last time is a good day. A card with a rep range: set 1 tops the range clean with 2 left → one pin or the next dumbbell next time. Other lifts: set 2 hits 15 clean → one pin up. Set 1 leaving 4 or more in the tank two sessions running → one pin up too. Reps drop a few after a jump, rebuild from there. Clean = tempo held, no swing.</p>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
  <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 Full</b>: everything on the page. <b>80 Long</b>: every drill, a third set on the key lifts. Skip freely: never make up, never double up.</p>
@@ -2317,6 +2324,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="caveat"><div class="caveat-t">⚠ Step Down, Never Drop</div><p><strong>Every rep starts and ends in an active hang — shoulders set, elbows soft, never limp.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, palms facing you or neutral handles, shoulder-width, box underneath.</span></div>
+<div class="warmset">⚡ Ramp: 1 easy set</div>
 <div class="cue">Fast up, three full seconds down — every single rep.</div>
 <div class="setup"><strong>1.</strong> Active hang, shoulders set, elbows soft. <strong>2.</strong> Pull fast, chin over the bar, chest proud. <strong>3.</strong> Lower for 3s to the active hang; pause 1 there, no swing. <strong>4.</strong> Set 2 stops 1 short. Step down onto the box — never drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2343,7 +2351,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Knees bent, feet on the floor — it counts</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Legs straight on the floor, then toes up on the knee-high bench</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>Feet-up 2 × 10 clean + 3 × 30s wall hold → 5s lowering to a 4″ pad</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Feet-up S1: 10 clean + 3 × 30s wall hold → 5s lowering to a 4″ pad</span></div>
 </div></div>
 </div>
 
@@ -2355,6 +2363,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Top pulley, single D-handle, your working weight. Stand facing the stack an arm's length back, feet staggered, working-side foot forward.</span></div>
+<div class="warmset">⚡ Ramp: 1 easy set</div>
 <div class="cue">Let the shoulder blade rise with the reach, set it down, then elbow to the back pocket.</div>
 <div class="setup"><strong>1.</strong> Stand tall, soft knees; reach up the cable, elbow soft. <strong>2.</strong> Drive the elbow to the back pocket in 2 counts, ribs down; squeeze 1. <strong>3.</strong> Return 3 counts to the long reach. <strong>4.</strong> Set 2 ends when you lean back.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2402,7 +2411,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="ssh" data-x="1"><b>D</b>shoulders ↔ upper back ↔ biceps<span>bonus</span></div>
 
-<div class="excard" data-id="d2e2" data-ss="D" data-x="1" data-alt-name="Cable Lateral Raise — Behind the Back" data-alt-where="Bottom pulley, single D-handle, lightest useful pin. Side-on, working arm furthest from the stack, cable running behind your body." data-alt-cue="Elbow leads; the trap stays quiet." data-alt-how="1. Handle just behind the far hip — a small reach, never a stretch on the front of the shoulder. 2. Lead with the elbow, raise to shoulder height, no higher; hold 2. 3. Lower 3 counts. 4. Swing, shrug or torso lean: stop the set." data-alt-caveat="Hand starts just behind the hip, no further — never a stretch on the front of the shoulder." data-alt-prog="Now: Lightest useful pin, 2 × 12 each with 2s hold | 15 clean: Up one pin only when both sets are shrug-free | Form check: Front of the shoulder pulls? Go back to the front version">
+<div class="excard" data-id="d2e2" data-ss="D" data-x="1" data-alt-name="Cable Lateral Raise — Behind the Back" data-alt-where="Bottom pulley, single D-handle, lightest useful pin. Side-on, working arm furthest from the stack, cable running behind your body." data-alt-cue="Elbow leads; the trap stays quiet." data-alt-how="1. Handle just behind the far hip — a small reach, never a stretch on the front of the shoulder. 2. Lead with the elbow, raise to shoulder height, no higher; hold 2. 3. Lower 3 counts. 4. Swing, shrug or torso lean: stop the set." data-alt-caveat="Hand starts just behind the hip, no further — never a stretch on the front of the shoulder." data-alt-prog="Now: Lightest useful pin — S1: 12 each · S2: stop 1 short, 2s hold | 15 clean: Up one pin only when both sets are clean and shrug-free | Form check: Front of the shoulder pulls? Go back to the front version">
 <div class="extop">
  <div class="ex-left"><div class="ssn">D1</div><div class="exname">Cable Single-Arm Lateral Raise</div>
  <div class="start-l"><span>← Right side first · left matches its reps</span></div></div>
@@ -2420,7 +2429,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard" data-id="d3-wrow" data-x="1" data-ss="D" data-alt-name="Chest-Supported Dumbbell Row — Incline Bench" data-alt-where="Incline bench at about 30°, chest on the pad, feet on the floor, a dumbbell in each hand hanging straight down." data-alt-cue="Chest stays on the pad; elbows drive wide and back to the ribs." data-alt-sets="S1: 12 · S2: AMRAP" data-alt-how="1. Chest on the pad, arms long, shoulders down. 2. Row both elbows out and back until the upper arms are level with the torso; squeeze 1. 3. Lower for 3 counts to long arms. 4. Set 2 ends when the chest lifts off the pad." data-alt-caveat="" data-alt-prog="Now: Your working dumbbells — S1: 12 · S2: AMRAP, 3-count lowering | 15 clean: Next dumbbells up">
+<div class="excard" data-id="d3-wrow" data-x="1" data-ss="D" data-alt-name="Chest-Supported Dumbbell Row — Incline Bench" data-alt-where="Incline bench at about 30°, chest on the pad, feet on the floor, a dumbbell in each hand hanging straight down." data-alt-cue="Chest stays on the pad; elbows drive wide and back to the ribs." data-alt-sets="S1: 12 · S2: stop 2 short" data-alt-how="1. Chest on the pad, arms long, shoulders down. 2. Row both elbows out and back until the upper arms are level with the torso; squeeze 1. 3. Lower for 3 counts to long arms. 4. Set 2 ends when the chest lifts off the pad." data-alt-caveat="" data-alt-prog="Now: Your working dumbbells — S1: 12 · S2: stop 2 short, 3-count lowering | 15 clean: Next dumbbells up">
 <div class="extop">
  <div class="ex-left"><div class="ssn">D2</div><div class="exname">Seated Wide-Grip Cable Row</div></div>
  <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
@@ -2535,7 +2544,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 10</span></div>
  <div class="prog-step"><span class="pn">Earn it</span><span>A clean week or two + a quiet next morning → smallest dumbbell jump</span></div>
- <div class="prog-step"><span class="pn">Aim</span><span>(no edit — owner decision: Now is 2 × 10 fixed, Aim says 2 × 8)</span></div>
+ <div class="prog-step"><span class="pn">Aim</span><span>35 lb for 2 × 8, then two dumbbells</span></div>
 </div></div>
 </div>
 
@@ -2574,7 +2583,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Your working weight — S1: 8–10 · S2: stop 1 short, 2s squeeze every rep</span></div>
  <div class="prog-step"><span class="pn">10 clean</span><span>Set 1, when 10 is clean → one pin up next time</span></div>
- <div class="prog-step"><span class="pn">Bonus</span><span>Monthly check shows right 10%+ behind? One extra right-only set at quarter weight</span></div>\n <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: same weight, stop 2 short</span></div>
+ <div class="prog-step"><span class="pn">Bonus</span><span>Monthly check shows right 10%+ behind? One extra right-only set at quarter weight</span></div>
+ <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: same weight, stop 2 short</span></div>
 </div></div>
 </div>
 
@@ -2623,7 +2633,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>S1: 12 both legs · S2: one leg at a time at about a third of the weight</span></div>
  <div class="prog-step"><span class="pn">15+</span><span>One pin up next time</span></div>
- <div class="prog-step"><span class="pn">Seated only?</span><span>Recline the seat fully, small pad behind the low back, keep it light</span></div>\n <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: both legs, same weight as S1, stop 2 short</span></div>
+ <div class="prog-step"><span class="pn">Seated only?</span><span>Recline the seat fully, small pad behind the low back, keep it light</span></div>
+ <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: both legs, same weight as S1, stop 2 short</span></div>
 </div></div>
 </div>
 
@@ -3158,7 +3169,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="legend" id="bands">
  <div class="t-mono" style="color:var(--dim)">// Loads · the card remembers your last weight — these are just the rules</div>
  <div class="leg-grid">
- <div class="leg-item"><div class="leg-dot" style="background:#b06bff"></div><div><div class="leg-name">Machines &amp; cables</div><div class="leg-desc">Set 2 hits 15 clean → one pin up next time. Jump too big? Stay, slow the lowering to 4s first.</div></div></div>
+ <div class="leg-item"><div class="leg-dot" style="background:#b06bff"></div><div><div class="leg-name">Machines &amp; cables</div><div class="leg-desc">Rep-range cards: set 1 tops the range clean → one pin up. Other lifts: set 2 hits 15 clean → one pin up. Jump too big? Stay, slow the lowering to 4s first.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#ffd23a"></div><div><div class="leg-name">Squat &amp; split squat — ~25 lb</div><div class="leg-desc">One dumbbell. Fixed reps, never to failure. Two clean weeks + a quiet next morning → smallest jump.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Hinge — 5 lb and climbing</div><div class="leg-desc">One-dumbbell RDL, 2 × 10, flat back. A clean week or two + a quiet next morning → smallest dumbbell jump. Aim 35 lb for 2 × 8, then two dumbbells. Barbell off the floor: not yet.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Pull-ups — about +5 lb</div><div class="leg-desc">Dip belt, set 1 only: 5 reps, 2 in the tank. 5 clean → +2.5 lb, at most weekly, shoulders quiet 48 h. Aim +25 lb × 3.</div></div></div>
@@ -3180,7 +3191,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <button data-tab="more" type="button"><b>≡</b>More</button>
 </div>
 <div id="scrim" hidden></div>
-<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><button type="button" class="sh-x" onclick="closeSheet()" aria-label="Close">Done</button><div id="sheetBody"></div></div>
+<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><button type="button" class="sh-x" onclick="closeSheet()">Done</button><div id="sheetBody"></div></div>
 <button class="day-jump" id="dayJump" aria-label="Jump to top of current day">↑ Day</button>
 
 <script>
@@ -3190,7 +3201,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-06.1';
+var APP_V = '2026-10-06.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3910,12 +3921,11 @@ function _paintStart(){
  var gap = (typeof daysSinceTrained === 'function') ? daysSinceTrained() : null, note = document.getElementById('startWhy'), msg = '';
  var m;
  if (dt) m = [dt, '✓ ' + DAY_NAME[dt] + ' done', col[dt], 1];
- else if (sg) m = [sg.id, sg.optional ? '▶ Optional · ' + sg.name + ' · ≈' + sg.min + ' min' : '▶ Start ' + sg.name, col[sg.id]];
+ else if (sg) m = [sg.id, '▶ Start ' + sg.name, col[sg.id]];
  else if (run >= 4) m = ['daily', 'Rest day · ' + run + ' in a row', col.daily];
  else m = dow === 0 ? ['d4', 'Hike day', col.d4] : dow === 6 ? ['recover', 'Rest day', col.daily] : ['recover', 'Rest or play', col.d4];
  if (gap !== null && gap >= 10) msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
- else if (sg && sg.optional) msg = 'Optional — rest is a fine answer too.';
- if (note){ note.textContent = msg; note.hidden = !msg; }
+  if (note){ note.textContent = msg; note.hidden = !msg; }
  b.href = '#' + m[0];
  b.onclick = /^d[1-6]$/.test(m[0]) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
  b.textContent = m[1]; b.style.color = m[3] ? m[2] : '';
@@ -4058,7 +4068,7 @@ function setMode(id, m){
  if (_mode(id) === m) return;
  var p0 = readPlan(), back = p0 && p0.day === id && p0.back;
  setLow(m === '20' || (m === '45' && back));
- if (m === 'full'){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day — everything on the page'); }
+ if (m === 'full'){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [], back: back })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day — everything on the page'); }
  else buildDay(id, true, m === '20' ? 20 : m === '80' ? 80 : 45);
  _paintPlanChips();
 }
@@ -4068,7 +4078,6 @@ function skipDay(id){
  var w0 = readCompletedWeek()[id];
  if (w0 && String(w0).indexOf('skip') === 0){ try { var wu = readCompletedWeek(); delete wu[id]; store.set('bp-week', JSON.stringify(wu)); } catch(e){} paintWeek(); _toast('Skip undone'); return; }
  if (w0){ _toast('Already done this week'); return; }
- if (!confirm('Skip this session? No make-up.')) return;
  try { var w = readCompletedWeek(); w[id] = 'skip:' + Date.now(); store.set('bp-week', JSON.stringify(w)); } catch(e){}
  paintWeek(); _toast('Skipped. Rest counts.'); if (document.body.classList.contains('focus')) setFocus(null);
 }
@@ -4116,8 +4125,8 @@ var _sheetKind = null, _logHome = null;
 function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
- var dow = _dow(), restLeft = dow === 0 ? 1 : dow === 6 ? 2 : 2, sub2 = (done >= 3 ? 'All three lift days done.' : 'Three lift days a week. Rest counts.') + (extra ? ' +' + extra + ' extra' : '');
- var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? restLeft + ' rest days still planned' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
+ var dow = _dow(), sub2 = (done >= 3 ? 'All three lift days done.' : 'Three lift days a week. Rest counts.') + (extra ? ' +' + extra + ' extra' : '');
+ var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? 'Sat rest · Sun hike' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
  return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
  var sec = document.getElementById(x[0]); if (!sec) return '';
  var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
@@ -4268,12 +4277,16 @@ function applyBlock(){
  if (typeof _paintDose === 'function') _paintDose();
  if (chip){ chip.textContent = 'Block ' + st.b + (wk === 4 ? ' · wk 4 · easy week' : wk > 4 ? ' · swap me' : ' · wk ' + wk + '/4'); chip.classList.toggle('due', wk > 4); }
 }
+// a swapped toy or block changes the set count: drop the half-done set progress so the circle and rows start clean
+function _freshSets(cards){ var ch = false; cards.forEach(function(c){ if (c.dataset.sn || c.dataset.r1){ delete c.dataset.sn; delete c.dataset.r1; ch = true; } }); if (ch) _saveR1(); }
+function _repaintSets(cards){ cards.forEach(function(c){ if (c._paintRow) c._paintRow(); _paintChk(c); }); }
 function toggleBlock(){
  var st = readBlock(), next = st.b === 'A' ? 'B' : 'A';
  if (!confirm('Swap the accessory lifts to Block ' + next + '? Your numbers for both blocks are kept.')) return;
  var back = st.pb === next && st.pt && (Date.now() - st.t) < 864e5;
  try { store.set('bp-block', JSON.stringify({ b: next, t: back ? st.pt : Date.now(), pb: st.b, pt: st.t })); } catch(e){}
- applyBlock(); document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); }); buildJots(); document.querySelectorAll('.seatjot').forEach(function(i){ if (i._paint) i._paint(); }); renderNumbers(); _toast('Block ' + next + ' — fresh toys');
+ var _bc = [].slice.call(document.querySelectorAll('.excard[data-alt-name]:not(.done)')); _freshSets(_bc);
+ applyBlock(); document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); }); buildJots(); _repaintSets(_bc); document.querySelectorAll('.seatjot').forEach(function(i){ if (i._paint) i._paint(); }); renderNumbers(); _toast('Block ' + next + ' — fresh toys');
 }
 window.toggleBlock = toggleBlock;
 // weekly wildcard: one rotating play move per session
@@ -4305,8 +4318,9 @@ function jarWild(id){
  if (!all.length) return;
  st.jar[id] = all[Math.floor(Math.random() * all.length)];
  try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
+ var _wc = [].slice.call(document.querySelectorAll('.excard.wild[data-id="' + id + '"]')); _freshSets(_wc);
  applyWildcards();
- document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); if (typeof paintJump === 'function') paintJump();
+ document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); _repaintSets(_wc); if (typeof paintJump === 'function') paintJump();
  if (navigator.vibrate) navigator.vibrate(15);
 }
 window.jarWild = jarWild;
@@ -4314,8 +4328,9 @@ function rerollWild(id){
  var st = _wildState();
  delete st.jar[id]; st.off[id] = (st.off[id] || 0) + 1;
  try { store.set('bp-wild', JSON.stringify(st)); } catch(e){}
+ var _wc = [].slice.call(document.querySelectorAll('.excard.wild[data-id="' + id + '"]')); _freshSets(_wc);
  applyWildcards();
- document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); if (typeof paintJump === 'function') paintJump();
+ document.querySelectorAll('.excard.wild[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); _repaintSets(_wc); if (typeof paintJump === 'function') paintJump();
 }
 
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
@@ -4372,7 +4387,7 @@ function _sugg(p, o){
  if (o.fixed) return { t:'Today: ' + (wt ? wt + ', ' : '') + 'same reps — this one stays fixed' };
  if (w > 0 && thr && rr(L) >= thr){ var st = _wstep(w, un, 1); return { up:1, from:w, w:w + st, t:'Up to ' + (w + st) + ' ' + un + '? You hit ' + rr(L) + ' — tap if you want it' }; }
  if (w > 0 && P && Q && rr(L) <= Math.max(rr(P), rr(Q)) - 3){ var sd = _wstep(w, un, -1), w3 = Math.max(w - sd, 0); return { w:w3, down:1, t:'Reps slid ' + Math.max(rr(P), rr(Q)) + ' → ' + rr(L) + ': ' + w3 + ' ' + un + ' today, rebuild' }; }
- var nx = o.timed ? rr(L) + 5 : (thr ? Math.min(rr(L) + 1, thr) : rr(L) + 1);
+ var nx = o.timed ? rr(L) + 5 : (thr && rr(L) < thr ? Math.min(rr(L) + 1, thr) : rr(L) + 1);
  if (P && Q && rr(P) === rr(L) && rr(Q) === rr(L)) return { t:'Same ' + rr(L) + unitR + ' three times — chase ' + nx + ', or hold and own it' };
  return { t:'Today: ' + (wt ? wt + ', ' : '') + 'chase ' + nx + unitR + (o.two && !useS1 ? ' on set 2' : '') };
 }
@@ -4482,6 +4497,9 @@ function buildJots(){
  row.addEventListener('click', function(ev){
  var u = ev.target.closest('.stu-b');
  if (u){ var nu = wUnit === 'kg' ? 'lb' : 'kg';
+  if (sg){ var cv = function(n){ return n != null ? _conv(n, wUnit, nu) : n; };   // the nudge and today's line are in the old unit: convert, or its tap would save lb as kg
+   sg.w = cv(sg.w); sg.from = cv(sg.from); sg.t = sg.t.replace(/(\d+(?:\.\d+)?) (lb|kg)\b/g, function(m, n){ return _conv(+n, wUnit, nu) + ' ' + nu; });
+   if (sg.up) paintSb(); else sb.textContent = sg.t + ' · '; }
   v.w = _conv(v.w, wUnit, nu); v.s = v.s.map(function(x){ return [_conv(x[0], wUnit, nu), x[1]]; }); wUnit = nu; _setUnit(exId, nu); paintRow();
   u.textContent = plus + nu; u.setAttribute('aria-label', lbl + ': unit, now ' + nu + ' — tap to switch');
   row.querySelector('.stp[data-k="w"] .stv').value = sv('w');
@@ -4566,6 +4584,8 @@ document.addEventListener('click', function(ev){
  arr.pop();
  if (arr.length) h[key] = arr; else delete h[key];
  writeHist(h);
+ // today's entry gone: that lift starts again from set 1
+ if (lastE.d === _today()){ var dc = document.querySelector('.excard[data-id="' + key.replace(/~b$/, '') + '"]'); if (dc && !dc.classList.contains('done')){ delete dc.dataset.sn; delete dc.dataset.r1; _saveR1(); _paintChk(dc); } }
  document.querySelectorAll('.exlog').forEach(function(r){ r.remove(); });
  buildJots(); renderNumbers(); paintBests(); _repaintDrills();
  if (typeof ghTouch === 'function') ghTouch();
@@ -4662,7 +4682,10 @@ function restoreNumbers(){
    if (!keys.length){ _toast('Nothing restorable in that file'); return; }
    var when = o.saved ? new Date(o.saved).toLocaleDateString() : 'an unknown date';
    if (!confirm('Restore ' + keys.length + ' saved item' + (keys.length === 1 ? '' : 's') + ' from ' + when + '?\n\nThis replaces what is on this device now.')) return;
+   var rs0 = _resetDate();
    keys.forEach(function(k){ store.set(k, d[k]); });
+   // an older backup cannot bring back numbers from before a fresh start
+   var rs = [rs0, _resetDate()].sort().pop(); if (rs){ store.set('bp-reset', rs); var hh = readHist(); Object.keys(hh).forEach(function(k){ hh[k] = _asArr(hh[k]).filter(function(e){ return e && e.d >= rs; }); if (!hh[k].length) delete hh[k]; }); writeHist(hh); }
    document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
    applyBlock(); buildJots(); renderNumbers(); paintBests(); paintBackupNote();
    _toast('Restored — ' + keys.length + ' item' + (keys.length === 1 ? '' : 's'));
@@ -4769,6 +4792,8 @@ function _ghRepaint(){
  buildJots(); renderNumbers(); paintBests(); paintBackupNote(); _repaintDrills();
 }
 
+// a dropped signal is not a bad key: don't flag the sync as stopped, just try again later
+function _ghOffline(e){ return !!e && e.name === 'TypeError'; }
 function ghPull(quiet){
  var c = readGH(); if (!c) return Promise.resolve(false);
  return fetch(_ghUrl(c), { headers:_ghHead(c), cache:'no-store' }).then(function(r){
@@ -4788,7 +4813,7 @@ function ghPull(quiet){
   paintGH();
   if (!quiet) _toast(added ? 'Pulled — ' + added + ' new entr' + (added === 1 ? 'y' : 'ies') : 'Up to date');
   return true;
- }).catch(function(e){ var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
+ }).catch(function(e){ if (_ghOffline(e)){ if (!quiet) _toast('No connection — will sync later'); return false; } var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
 }
 
 function ghPush(quiet, retried){
@@ -4813,7 +4838,7 @@ function ghPush(quiet, retried){
    if (!quiet) _toast('Synced');
    return true;
   });
- }).catch(function(e){ var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
+ }).catch(function(e){ if (_ghOffline(e)){ ghTouch(); if (!quiet) _toast('No connection — will sync later'); return false; } var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
 }
 
 // numbers change often; a commit per tap would be noise, so settle first
@@ -5241,7 +5266,7 @@ foldDayIntros();
 
 var _toastEl = null, _toastT = null;
 function _toast(msg){
- if (!_toastEl){ _toastEl = document.createElement('div'); _toastEl.className = 'bp-toast'; document.body.appendChild(_toastEl); }
+ if (!_toastEl){ _toastEl = document.createElement('div'); _toastEl.className = 'bp-toast'; _toastEl.setAttribute('role', 'status'); _toastEl.setAttribute('aria-live', 'polite'); document.body.appendChild(_toastEl); }
  _toastEl.textContent = msg; _toastEl.classList.add('show');
  clearTimeout(_toastT); _toastT = setTimeout(function(){ _toastEl.classList.remove('show'); }, 1800);
 }
@@ -5412,7 +5437,9 @@ function buildDay(dayId, force, budget){
  var p = readPlan(), first = !p || p.day !== dayId;
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
+ var back0 = p && p.day === dayId && p.back;
  p = planDay(dayId, budget); if (!p) return;
+ if (back0) p.back = back0;   // switching length keeps the welcome-back easing
  var gap = daysSinceTrained();
  if (first && gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow(1); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
  try { store.set('bp-plan', JSON.stringify(p)); } catch(e){}
