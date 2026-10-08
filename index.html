@@ -3202,7 +3202,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-07.1';
+var APP_V = '2026-10-07.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -5329,6 +5329,7 @@ function planDay(dayId, budget){
   else if (st.some(function(x){ return x.slip && !x.tailOnly; }) || g.c.some(function(c, i){ return st[i].slip && key(c); })){ g.r = -1; g.c.forEach(function(c, i){ if (st[i].slip) up.push(c.dataset.id); }); }
   else if (g.r <= 1.5 && st.every(function(x){ return x.tailOnly; }) && !g.c.some(key)) g.r = 2.5; });
  groups.sort(function(a, b){ return (a.r < 0 ? -1 : 0) - (b.r < 0 ? -1 : 0) || a.r - b.r; });
+ var rOf = {}; groups.forEach(function(g){ g.c.forEach(function(c){ rOf[c.dataset.id] = g.r; }); });
  var keep = [], take = function(g, part){ g.c.slice(0, part ? room - keep.length : g.c.length).forEach(function(c){ keep.push(c); }); };
  groups.filter(function(g){ return g.r <= 1; }).forEach(function(g){ if (keep.length + g.c.length <= room) take(g); });
  // rescue, in this order: lifts left undone in a session you started this week, then the key lifts of a
@@ -5337,8 +5338,9 @@ function planDay(dayId, budget){
  var got = _loggedSince(mon), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
  keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
  var isKey = function(o, id){ return PRIORITY_SLOT[SLOT[id]] || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; }); };
+ var bumpable = function(){ return keep.filter(function(c){ return rOf[c.dataset.id] >= 1 && !(KEY_LIFTS[dayId] || []).some(function(k){ return k[0] === c.dataset.id; }); }); };
  var tryAdd = function(id, o, left){ var c = document.querySelector('#' + o + ' .excard[data-id="' + id + '"]'), sl = SLOT[id];
-  if (!ever || !c || NO_RESCUE[id] || rescue.length >= cap || keep.length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
+  if (!ever || !c || NO_RESCUE[id] || rescue.length >= cap || keep.length - bumpable().length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
   rescue.push(id); src[id] = o; if (left) carry[id] = 1; else if (!(dow > SCHED[o])) late[id] = 1; have[sl] = 1; };
  var SCHED = { d5:2, d1:3, d2:3, d3:4 };   // Tue upper A · Wed lower · Thu upper B
  var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
@@ -5349,13 +5351,14 @@ function planDay(dayId, budget){
   if (DAY_HALF[o] !== DAY_HALF[dayId] && !(dow > SCHED[o] && !(wk[o] && String(wk[o]).indexOf('skip') !== 0))) return;   // other half: only a day that already went missing this week
   if (DAY_HALF[o] === 'L' && (wk.d1 || wk.d2) && !String(wk[o] || '').match(/^skip/)) return;   // the lower day already done this week isn't the missed one
   byPri([].map.call(document.querySelectorAll('#' + o + ' .excard[data-id]'), function(c){ return c.dataset.id; })).forEach(function(id){ tryAdd(id, o, false); }); });
+ while (keep.length + rescue.length > room){ var bp = bumpable(); if (!bp.length) break; keep.splice(keep.lastIndexOf(bp[bp.length - 1]), 1); }
  var other = rescue.length ? src[rescue[0]] : '';
  // extra time: the engine finisher comes over from Monday, logged in minutes like it is there
  var extra = [];
  if (long){ var eng = document.querySelector('#d6 .excard[data-id="d6-spin"]'); if (eng && !eng.classList.contains('done') && !got['d6-spin']) extra.push('d6-spin'); }
  groups.filter(function(g){ return g.r === 1.5; }).forEach(function(g){ if (keep.length + rescue.length + g.c.length <= room) g.c.forEach(function(c){ keep.push(c); }); });
  groups.filter(function(g){ return g.r >= 2; }).forEach(function(g){ if (keep.length + rescue.length < room){ var r0 = room; room -= rescue.length; take(g, true); room = r0; } });
- return { d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, budget: budget, lifts: keep.length + rescue.length + extra.length };
+ return { v: APP_V, d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: budget, budget: budget, lifts: keep.length + rescue.length + extra.length };
 }
 // How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
 // A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
@@ -5436,6 +5439,7 @@ function _afterPlan(){ _paintPlanChips(); updateDayComplete(); updateFabCount();
 // build (or restore) today's plan for a day you are about to train
 function buildDay(dayId, force, budget){
  var p = readPlan(), first = !p || p.day !== dayId;
+ if (p && p.day === dayId && !force && !p.full && p.v !== APP_V && !readSess().some(function(x){ return x && x.d === _today() && x.day === dayId && x.n >= 1; })){ force = true; budget = budget || p.budget; }
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
  var back0 = p && p.day === dayId && p.back;
