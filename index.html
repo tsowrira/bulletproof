@@ -1512,6 +1512,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .dr-h .dnum.has{border-color:rgba(93,255,159,.6)}
 .dr-h .dnum+.dchk{margin-left:8px}
 .drill.ticked{opacity:.6}
+.dr-h .dchk.part{border-color:var(--gld);color:var(--gld);font-size:13px;font-weight:800;box-shadow:0 0 12px -3px var(--gld)}
 .drill.ticked .dchk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g)}
 .drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
 @media(max-width:759px){.dr-h{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:8px;align-items:center}.dr-h span{grid-column:1/-1;grid-row:2}.dr-h .dnum{grid-column:2;grid-row:1;margin-left:0}.dr-h .dchk{grid-column:3;grid-row:1;margin-left:0}}
@@ -3202,7 +3203,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-07.2';
+var APP_V = '2026-10-07.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -5163,17 +5164,20 @@ document.querySelectorAll('.excard > .drills').forEach(function(list){ var card 
 // ── Skill blocks come apart: every drill has its own tick, and the block is done when the drills you can see are ──
 function readDrills(){ try { return _asObj(JSON.parse(store.get('bp-drills') || '{}')); } catch(e){ return {}; } }
 function writeDrills(o){ try { store.set('bp-drills', JSON.stringify(o)); } catch(e){} }
+function _dProg(card, i){ var st = readDrills()[card.dataset.id]; return st && !isExpired(st.t) && st.p && Array.isArray(st.p[i]) ? st.p[i] : []; }
+function _dSetProg(card, i, arr){ var o = readDrills(), st = o[card.dataset.id]; if (!st || isExpired(st.t)) st = { k: {} };
+ st.p = st.p || {}; if (arr && arr.length) st.p[i] = arr; else delete st.p[i]; st.t = Date.now(); o[card.dataset.id] = st; writeDrills(o); }
 function _drillsShown(card){ return [].slice.call(card.querySelectorAll(':scope > .drills > .drill')).filter(function(d){ return getComputedStyle(d).display !== 'none'; }); }
 function paintDrills(card){
  var st = readDrills()[card.dataset.id], k = st && !isExpired(st.t) ? st.k || {} : {}, done = card.classList.contains('done');
  var all = [].slice.call(card.querySelectorAll(':scope > .drills > .drill')), n = 0;
- all.forEach(function(d, i){ var on = done || !!k[i]; d.classList.toggle('ticked', on); var b = d.querySelector('.dchk'); if (b){ b.textContent = on ? '✓' : '○'; b.setAttribute('aria-pressed', on ? 'true' : 'false'); } if (on) n++; });
+ all.forEach(function(d, i){ var on = done || !!k[i], pg = on ? 0 : _dProg(card, i).length; d.classList.toggle('ticked', on); var b = d.querySelector('.dchk'); if (b){ b.textContent = on ? '✓' : pg ? 'S' + (pg + 1) : '○'; b.classList.toggle('part', !!pg); b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.setAttribute('aria-label', 'Drill ' + (i + 1) + (pg ? ': log set ' + (pg + 1) : ' done')); } if (on || pg) n++; if (d._paintS) d._paintS(); });
  var chk = card.querySelector(':scope > .extop .chk');
  if (chk && !done){ chk.textContent = n ? '½' : '○'; chk.classList.toggle('half', n > 0); }
 }
 function tickDrill(card, i){
  var o = readDrills(), st = o[card.dataset.id]; if (!st || isExpired(st.t)) st = { k: {} };
- st.k[i] = st.k[i] ? 0 : 1; st.t = Date.now(); o[card.dataset.id] = st; writeDrills(o);
+ st.k[i] = st.k[i] ? 0 : 1; st.t = Date.now(); if (!st.k[i] && st.p) delete st.p[i]; o[card.dataset.id] = st; writeDrills(o);
  if (navigator.vibrate) navigator.vibrate(15);
  var shown = _drillsShown(card), all = [].slice.call(card.querySelectorAll(':scope > .drills > .drill'));
  var left = shown.filter(function(d){ return !st.k[all.indexOf(d)]; }).length;
@@ -5191,18 +5195,37 @@ document.querySelectorAll('.excard > .drills').forEach(function(list){
   var key = card.dataset.id + '#' + i, dose = ((h.querySelector('span') || {}).textContent || '').split('·')[0], dm = dose.match(/×\s*(\d+)/) || dose.match(/(\d+)/), sec = /\d\s?s\b|\bmin\b/.test(dose);
   var n = document.createElement('input'); n.type = 'text'; n.className = 'dnum'; n.inputMode = 'decimal';
   n.setAttribute('aria-label', 'Drill ' + (i + 1) + ': ' + (sec ? 'seconds' : 'reps') + ' done');
+  // "3 × 3": each ○ tap logs one set (S2, S3 …) and the last one ticks the drill
+  var nS = Math.min(6, +((dose.match(/^\s*(\d+)\s*×/) || [])[1] || 1)), sp = h.querySelector('span'), dose0 = sp ? sp.textContent : '';
   function hist(){ return _asArr(readHist()[key]); }
-  function paintN(){ var all = hist(), t = _today(), mine = all.filter(function(e){ return e.d === t; })[0], last = _prev(all).pop();
+  function mineT(){ var t = _today(); return hist().filter(function(e){ return e.d === t; })[0]; }
+  function tgt(k){ var last = _prev(hist()).pop(); return last && Array.isArray(last.s) && last.s[k] ? last.s[k][1] : last ? last.r : dm ? +dm[1] : ''; }
+  function cur(){ var typed = parseFloat(String(n.value).replace(',', '.')); return typed > 0 ? typed : parseFloat(n.placeholder); }
+  function paintN(){ var mine = mineT();
+   if (nS > 1){ var pg = _dProg(card, i); n.hidden = !!mine && d.classList.contains('ticked'); n.placeholder = tgt(pg.length) + (sec ? 's' : '');
+    n.setAttribute('aria-label', 'Drill ' + (i + 1) + ', set ' + (pg.length + 1) + ': ' + (sec ? 'seconds' : 'reps')); return; }
+   var last = _prev(hist()).pop();
    n.value = mine ? mine.r : ''; n.placeholder = (last ? last.r : (dm ? dm[1] : '')) + (sec ? 's' : ''); n.classList.toggle('has', !!mine); }
-  function save(r){ if (!(r > 0)) return; var t = _today(), o = readHist(), arr = _asArr(o[key]).filter(function(e){ return e.d !== t; });
-   var de = { d: t, w: 0, r: r }; if (sec) de.t = /\bmin\b/.test(dose) ? 'm' : 's'; arr.push(de); o[key] = arr.slice(-12); writeHist(o); paintN(); paintBests(); renderNumbers(); if (typeof ghTouch === 'function') ghTouch(); }
-  n.addEventListener('change', function(){ var r = parseFloat(String(n.value).replace(',', '.')); if (isFinite(r) && r > 0) save(r); else paintN(); });
+  function paintS(){ if (nS < 2 || !sp) return; var mine = mineT(), pg = _dProg(card, i), got = pg.length ? pg : mine && Array.isArray(mine.s) ? mine.s.map(function(x){ return x[1]; }) : [];
+   sp.textContent = dose0 + (got.length ? ' · logged ' + got.join(' / ') + (sec ? 's' : '') : ''); paintN(); }
+  function save(r, sets){ if (!(r > 0)) return; var t = _today(), o = readHist(), arr = _asArr(o[key]).filter(function(e){ return e.d !== t; });
+   var de = { d: t, w: 0, r: r }; if (sets && sets.length > 1) de.s = sets.map(function(v){ return [0, v]; }); if (sec) de.t = /\bmin\b/.test(dose) ? 'm' : 's'; arr.push(de); o[key] = arr.slice(-12); writeHist(o); paintN(); paintS(); paintBests(); renderNumbers(); if (typeof ghTouch === 'function') ghTouch(); }
+  function saveSets(pg){ _dSetProg(card, i, null); if (pg.length) save(Math.max.apply(null, pg), pg); }
+  n.addEventListener('change', function(){ var r = parseFloat(String(n.value).replace(',', '.')); if (nS > 1){ if (!(isFinite(r) && r > 0)) n.value = ''; return; } if (isFinite(r) && r > 0) save(r); else paintN(); });
   n.addEventListener('click', function(ev){ ev.stopPropagation(); });
-  d._logDrill = function(){ var t = _today(); if (hist().some(function(e){ return e.d === t; })) return; var typed = parseFloat(String(n.value).replace(',', '.')); save(typed > 0 ? typed : parseFloat(n.placeholder)); };
-  d._paintN = paintN; paintN(); h.appendChild(n);
+  d._logDrill = function(){ if (mineT()) return;
+   if (nS > 1){ var pg = _dProg(card, i).slice(), v = cur(); if (v > 0) pg.push(v); while (pg.length < nS && parseFloat(tgt(pg.length)) > 0) pg.push(parseFloat(tgt(pg.length))); n.value = ''; saveSets(pg); return; }
+   save(cur()); };
+  d._paintS = paintS; paintN(); h.appendChild(n);
   var b = document.createElement('button'); b.type = 'button'; b.className = 'dchk'; b.textContent = '○';
   b.setAttribute('aria-label', 'Drill ' + (i + 1) + ' done');
-  b.addEventListener('click', function(ev){ ev.stopPropagation(); tickDrill(card, i); });
+  b.addEventListener('click', function(ev){ ev.stopPropagation();
+   if (nS > 1 && !d.classList.contains('ticked')){ var v = cur(); if (!(v > 0)){ n.focus(); return; }
+    var pg = _dProg(card, i).concat([v]); n.value = '';
+    if (pg.length < nS){ _dSetProg(card, i, pg); if (navigator.vibrate) navigator.vibrate(15);
+     var rl = card.querySelector('.rest-lbl'); if (rl && rl._restStart){ rl._restReset(); rl._restStart(); } paintDrills(card); return; }
+    saveSets(pg); }
+   tickDrill(card, i); });
   h.appendChild(b);
  });
  // ticking the whole block by its circle ticks every drill; opening it again clears them
