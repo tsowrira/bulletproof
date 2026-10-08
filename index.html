@@ -1385,12 +1385,6 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .tempo .tph{opacity:.45;transition:opacity .15s,color .15s}
 .tempo .tgo{font-size:9px;margin-left:3px;opacity:.7}
 .tempo.pace .tph.on{opacity:1;color:var(--g);text-shadow:0 0 8px rgba(93,255,159,.5)}
-.tbar{height:4px;margin:9px 0 0;border-radius:100px;background:rgba(255,255,255,.07);overflow:hidden}
-.tbar>i{display:block;height:100%;width:0;border-radius:100px;background:var(--g);box-shadow:0 0 8px rgba(93,255,159,.55)}
-.tbar.hold>i{background:var(--gld);box-shadow:0 0 8px rgba(255,210,58,.55)}
-.tword{margin-top:6px;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
-.tword b{color:var(--g);font-weight:700}
-.tbar.hold+.tword b{color:var(--gld)}
 /* form link sits with the fold, not above it */
 .formlink{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:0 4px;min-height:44px;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-decoration:none;-webkit-tap-highlight-color:transparent}
 .formlink:active{color:var(--g)}
@@ -1610,6 +1604,37 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  .sh-tg button{flex:1;min-height:48px;border-radius:12px;border:1px solid var(--bdr);background:none;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
  .sh-tg button.on{border-color:var(--g);color:var(--g)}
  .day-jump{bottom:calc(72px + env(safe-area-inset-bottom))}
+ body:not(.focus):not(.browse) .hm-rw:not([hidden]){display:block;margin:12px auto 0;min-height:44px;padding:0 14px;background:none;border:0;color:var(--dim);font:600 13px 'Inter',sans-serif;cursor:pointer}
+ .rw-sum{font-size:14px;line-height:1.5;color:var(--fade);margin:0 0 6px}
+ .rw-q{padding:10px 0;border-bottom:1px solid var(--bdr)}
+ .rw-q>span{display:block;font:700 10.5px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+ .rw-c{display:flex;flex-wrap:wrap;gap:6px}
+ .rw-c button{flex:1 0 auto;min-width:48px;min-height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--bdr);background:none;color:var(--fade);font:600 13px 'Inter',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+ .rw-c button small{display:block;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+ .rw-c button.on{border-color:var(--g);color:var(--g);background:rgba(93,255,159,.08)}
+ .rw-o{margin-top:12px;padding:12px;border:1px solid var(--bdr);border-radius:14px}
+ .rw-o.rec{border-color:var(--g)}
+ .rw-oh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+ .rw-oh b{font:700 15px 'Inter',sans-serif;color:var(--txt)}
+ .rw-oh em{font:700 10px 'Inter',sans-serif;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--g)}
+ .rw-oh span{margin-left:auto;font:600 12px 'Inter',sans-serif;color:var(--dim)}
+ .rw-o p{margin:4px 0 6px;font-size:13px;line-height:1.45;color:var(--fade)}
+ .rw-o ul{list-style:none;margin:0;padding:0}
+ .rw-o li{padding:6px 0;border-top:1px solid rgba(234,240,255,.06);font-size:14px;color:var(--txt)}
+ .rw-o li b{display:inline-block;width:40px;font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+ .rw-o li small{color:var(--dim)}
+ .rw-o li i{display:block;margin-left:40px;font-style:normal;font-size:12.5px;color:var(--gld)}
+ .rw-o .rw-let{font-size:12.5px;color:var(--dim)}
+ .rw-use{width:100%;min-height:46px;margin-top:8px;border-radius:100px;border:1px solid var(--g);background:rgba(93,255,159,.12);color:var(--g);font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+ .rw-o:not(.rec) .rw-use{border-color:var(--bdr);background:none;color:var(--fade)}
+ .rw-clear{display:block;margin:14px auto 0;min-height:44px;background:none;border:0;color:var(--dim);font:600 13px 'Inter',sans-serif;text-decoration:underline;cursor:pointer}
+ .rw-pill{position:fixed;left:12px;right:12px;bottom:calc(66px + env(safe-area-inset-bottom));z-index:110;display:flex;align-items:center;gap:10px;padding:8px 6px 8px 16px;border-radius:100px;border:1px solid var(--g);background:#0c0c1e;box-shadow:0 -8px 24px rgba(6,6,17,.9);cursor:pointer;font-family:'Inter',sans-serif}
+ .rw-pill[hidden]{display:none}
+ .rw-pill span{flex:1;min-width:0;font:600 14px 'Inter',sans-serif;color:var(--txt)}
+ .rw-pill span small{display:block;font-size:11px;font-weight:500;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .rw-pill>b{font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--g)}
+ .rw-x{min-width:40px;min-height:40px;border:0;border-radius:50%;background:none;color:var(--dim);font-size:20px;cursor:pointer}
+ body:has(#sheet.open) .rw-pill,body:not(.focus):has(.day-jump.show) .rw-pill,body.browse .rw-pill{display:none}
  body:has(.day-jump.show)::after{display:none}
  .bp-toast{bottom:calc(80px + env(safe-area-inset-bottom))}
  footer,body.focus .section.cur{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
@@ -1684,6 +1709,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="home" id="homeCard"><div class="hm-day" id="hmDay"></div><div class="hm-t" id="hmT"></div><div class="hm-s" id="hmS"></div></div>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <button type="button" class="hm-any" id="hmAny" hidden onclick="openSheet('week')">Train anyway — pick a day ›</button>
+ <button type="button" class="hm-rw" id="hmRw" hidden onclick="openSheet('rework')">Rework my week ›</button>
  <div class="startwhy" id="startWhy" hidden></div>
  <div class="squeeze" id="sqCard" hidden></div>
  <div class="resume" id="resumeCard" hidden>
@@ -1731,7 +1757,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
  <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 More</b>: the same, with room for more. <b>80 Long</b>: every drill, a third set on the key lifts. Times come from your own logged sessions, door to door. <b>Full day</b> on the plan bar shows everything. Skip freely: never make up, never double up.</p>
- <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · C2B = chest to bar · fixed = no extra reps · ISO = hold · ↓3s hold 1 ↑2s = seconds down · pause · up — tap it ▶ and it counts each rep for you</p>
+ <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · C2B = chest to bar · fixed = no extra reps · ISO = hold · ↓3s hold 1 ↑2s = seconds down · pause · up — tap it ▶ and it beeps the tempo: ticks down, chirp up</p>
 </div>
 
 
@@ -1831,19 +1857,20 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="excard" data-id="d1e3" data-ss="B" data-alt-name="Staggered-Stance Single-Arm Cable Row" data-alt-where="Pulley at hip height, single handle. Face the stack, feet staggered, working side back." data-alt-cue="Elbow to the back pocket, hips square." data-alt-sets="S1: 8–10 each · S2: stop 1 short" data-alt-start="← Right side first · left matches its reps" data-alt-how="1. Stand tall, ribs down, reach long. 2. Row the elbow to the back pocket, squeeze 1. 3. Return in 3. Torso twists: set over." data-alt-caveat="" data-alt-prog="Now: Your working weight — S1: 8–10 each · S2: stop 1 short, right side first | 10 clean: Set 1, when 10 is clean on both sides → one pin up next time">
 <div class="extop">
- <div class="ex-left"><div class="ssn">B1</div><div class="exname">Seated Row — Machine, Chest-Supported</div>
+ <div class="ex-left"><div class="ssn">B1</div><div class="exname">Chest-Supported Low Row — Machine</div>
  <div class="start-l" hidden><span></span></div></div>
  <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Taken: seated cable row.</span></div>
 <div class="warmset">⚡ Ramp: 1 easy set</div>
-<div class="cue">Chest on the pad, elbows drive back.</div>
-<div class="setup"><strong>1.</strong> Chest on the pad, arms long, shoulders down. <strong>2.</strong> Row elbows past the ribs, squeeze 1. <strong>3.</strong> Return in 3. Chest lifts or reps jerk: set over.</div>
+<div class="cue">Both arms. Elbows stop at your sides.</div>
+<div class="setup"><strong>1.</strong> Chest on the pad, palms in, arms long — blades reach, chest stays put. <strong>2.</strong> Elbows back to your sides, squeeze 1. <strong>3.</strong> Return in 3. Chest lifts, torso twists or elbows pass your back: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>S1: 8–10 with 2 in the tank · S2: stop 1 short — log it</span></div>
  <div class="prog-step"><span class="pn">10 clean</span><span>Set 1, when 10 is clean → one pin up next time</span></div>
+ <div class="prog-step"><span class="pn">One side lags</span><span>Set 2 one arm at a time, weak side first — the other matches its reps</span></div>
 </div></div>
 </div>
 
@@ -3204,7 +3231,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-08.1';
+var APP_V = '2026-10-08.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3906,7 +3933,9 @@ function _daysRunning(){ var w = {}; try { w = _asObj(JSON.parse(store.get('bp-w
 function _snackToday(){ var w = readCompletedWeek(); return w.d6 && _tday(+w.d6) === _tday(Date.now()); }
 function suggestDay(){
  var w = readCompletedWeek(), dow = _dow();
- if (_doneToday() || _snackToday() || _daysRunning() >= 4) return null;
+ if (_doneToday() || _snackToday()) return null;
+ var rw = _rwToday(); if (rw && rw.rest) return null; if (rw && !w[rw.day]) return { id: rw.day, name: DAY_NAME[rw.day], optional: false, min: rw.min || rw.budget };
+ if (_daysRunning() >= 4) return null;
  var yh = _yesterdayHalf(), ok = function(d){ return d && !w[d] && DAY_HALF[d] !== yh; }, lowDone = w.d1 || w.d2;
  var mk = function(id, opt, min){ return { id: id, name: DAY_NAME[id], optional: !!opt, min: min || PLAN_MIN }; };
  if (dow === 1) return mk('d6', true, 45);                          // Monday: skill snack — no legs after the hike, nothing heavy before Tuesday
@@ -3943,7 +3972,10 @@ function _paintHome(dt, sg, run, m, col){
  var dow = _dow(), w = readCompletedWeek(), b = document.getElementById('startBtn'), any = document.getElementById('hmAny'), t, s, rest = 0;
  var lowId = w.d1 && !w.d2 ? 'd1' : w.d2 && !w.d1 ? 'd2' : _nextLower(), sched = { 2:'d5', 3:lowId, 4:'d3' }[dow];
  var done = function(d){ return w[d] && String(w[d]).indexOf('skip') !== 0; };
+ var rw = _rwToday(), rwo = _rwRead();
  if (dt){ t = '✓ ' + DAY_NAME[dt] + ' done'; s = 'That’s today. Eat, sleep, nothing owed.'; }
+ else if (sg && rw && rw.day === sg.id){ t = DAY_NAME[sg.id]; s = '<b>' + _esc(_sub(sg.id) || '') + '</b>' + (_sub(sg.id) ? ' · ' : '') + '≈' + sg.min + ' min. Your reworked week.'; }
+ else if (rw && rw.rest){ t = 'Rest day'; s = 'Your reworked week rests today.'; rest = 1; }
  else if (sg){ t = (sg.optional ? 'Optional · ' : '') + DAY_NAME[sg.id]; s = '<b>' + _esc(_sub(sg.id) || '') + '</b>' + (_sub(sg.id) ? ' · ' : '') + '≈' + sg.min + ' min' +
   (sched && sg.id !== sched ? (DAY_HALF[sched] === _yesterdayHalf() && !done(sched) ? '. ' + (DAY_HALF[sched] === 'U' ? 'Upper' : 'Lower') + ' was yesterday, so ' + (DAY_HALF[sg.id] === 'U' ? 'upper' : 'legs') + ' today — ' + DAY_NAME[sched] + ' moves to ' + (dow < 5 ? DOW_N[dow + 1] : 'next week') + '.' : '. It waited longest, so it goes first.') : sg.optional ? (dow === 5 && DAY_HALF[sg.id] === 'U' ? '. Missed this week — catch it now, or rest.' : '. Rest is a fine answer too.') : ''); }
  else if (run >= 4){ t = 'Rest day'; s = run + ' days in a row — today is off.'; rest = 1; }
@@ -3964,8 +3996,12 @@ function _paintHome(dt, sg, run, m, col){
  for (var k = 1; k <= 7 && !nx; k++){ var d = (dow + k) % 7, id = { 2:'d5', 3:(newWk(k) ? _nextLower() : lowId), 4:'d3' }[d];
   if (id && (newWk(k) || (!done(id) && !(d === 3 && (w.d1 || w.d2))))) nx = [k, d, id]; }
  var tmTxt = plan[tm] === 'Lower' ? DAY_NAME[(newWk(1) ? _nextLower() : lowId)] : plan[tm];
+ if (rwo.plan){ var tmd = _ymd(Date.now() + 864e5), pe = rwo.plan[tmd]; if (pe) tmTxt = pe.day ? _esc(DAY_NAME[pe.day]) + ' <small>· reworked</small>' : 'Rest <small>· reworked</small>';
+  var later = Object.keys(rwo.plan).sort().filter(function(d){ return d > tmd && rwo.plan[d].day && !done(rwo.plan[d].day); })[0]; nx = pe && pe.day ? null : later ? [2, _dowOf(later), rwo.plan[later].day] : nx; }
  var rows = [['This week', wkTxt], ['Tomorrow', tmTxt]];
  if (nx && nx[0] > 1) rows.push(['Next lift', DOW_N[nx[1]].slice(0, 3) + ' · ' + _esc(DAY_NAME[nx[2]])]);
+ var hr = document.getElementById('hmRw'); if (hr){ hr.hidden = !(dow >= 1 && dow <= 5 && owedDays().length); hr.textContent = rwo.plan ? 'Reworked · change ›' : 'Rework my week ›'; }
+ _rwNudge();
  document.getElementById('hmNext').innerHTML = rows.map(function(r){ return '<div><span>' + r[0] + '</span><p style="margin:0">' + r[1] + '</p></div>'; }).join('');
 }
 _paintStart();
@@ -4131,7 +4167,8 @@ function _weekSheet(){
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
  var dow = _dow(), sub2 = (done >= 3 ? 'All three lift days done.' : 'Three lift days a week. Rest counts.') + (extra ? ' +' + extra + ' extra' : '');
  var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? 'Sat rest · Sun hike' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
- return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
+ var rwo = _rwRead(), rwb = dow >= 1 && dow <= 5 && owedDays().length ? '<button type="button" class="sh-row" onclick="openSheet(\'rework\',1)"><span class="sh-n">' + (rwo.plan ? 'Reworked week' : 'Rework the rest of the week') + '<small>' + (rwo.plan ? Object.keys(rwo.plan).sort().filter(function(d){ return d >= _today(); }).map(function(d){ var e = rwo.plan[d]; return _dShort(d) + ' ' + (e.day ? DAY_NAME[e.day] : 'rest'); }).join(' · ') : 'Pick days, time and energy — get a plan') + '</small></span><em>›</em></button>' : '';
+ return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + rwb + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
  var sec = document.getElementById(x[0]); if (!sec) return '';
  var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
  var tag = sk ? '<em>skipped</em>' : st ? '<em class="ok">✓ done</em>' : sg && sg.id === x[0] ? '<em class="td">up next</em>' : '';
@@ -4158,7 +4195,7 @@ function openSheet(kind, stay){
  if (kind === 'numbers'){   // the real My Numbers panel moves in, so backup, sync and delete all work from here
  var lg = document.getElementById('log'); body.innerHTML = '';
  if (lg){ _logHome = document.createComment('log'); lg.parentNode.insertBefore(_logHome, lg); body.appendChild(lg); renderNumbers(); _ghOpenIfNeeded(); }
- } else body.innerHTML = kind === 'week' ? _weekSheet() : _moreSheet();
+ } else body.innerHTML = kind === 'week' ? _weekSheet() : kind === 'rework' ? _rwSheet() : _moreSheet();
  sh.classList.add('open'); sh.setAttribute('aria-hidden', 'false'); document.getElementById('scrim').hidden = false;
  if (!stay) sh.scrollTop = 0;
  paintTabs();
@@ -4966,45 +5003,39 @@ var _pacer = null;
 function stopPacer(){
  if (!_pacer) return;
  cancelAnimationFrame(_pacer.raf);
+ try { _pacer.g.gain.setValueAtTime(0, _ac.currentTime); _pacer.g.disconnect(); } catch(e){}
  _pacer.t.el.classList.remove('pace');
  _pacer.t.el.innerHTML = _tempoHTML(_pacer.t.raw);
- if (_pacer.bar) _pacer.bar.remove();
- if (_pacer.word) _pacer.word.remove();
  _pacer = null;
 }
+// eyes off the phone: a soft tick each second down, one tone for the pause, a rising chirp to lift
 function startPacer(card){
  var t = _tempoParts(card); if (!t) return;
  var same = _pacer && _pacer.card === card;
  stopPacer(); if (same) return;                        // second tap stops it
- t.el.dataset.raw = t.raw;
- t.el.innerHTML = _tempoHTML(t.raw, 1);
- t.el.classList.add('pace');
- var bar = document.createElement('div'); bar.className = 'tbar'; bar.innerHTML = '<i></i>';
- var word = document.createElement('div'); word.className = 'tword';
- var top = card.querySelector(':scope > .extop');
- (top || card).insertAdjacentElement('afterend', word);
- (top || card).insertAdjacentElement('afterend', bar);
- var fill = bar.querySelector('i'), phs = t.el.querySelectorAll('.tph');
- var cycle = t.ecc + t.hold + t.con + 0.35, start = performance.now(), reps = 0;
- var LB = ['Lower', 'Hold', 'Up', ''];
- _pacer = { card:card, t:t, bar:bar, word:word, raf:0 };
- (function frame(now){
-  var e = (now - start) / 1000;
-  if (e >= cycle){ start = now; e = 0; if (++reps >= 15){ stopPacer(); return; } }   // a set's worth, then it stops itself
-  var u, phase;
-  if (e < t.ecc){ phase = 0; u = e / t.ecc; }
-  else if (e < t.ecc + t.hold){ phase = 1; u = 1; }
-  else if (e < t.ecc + t.hold + t.con){ phase = 2; u = 1 - (e - t.ecc - t.hold) / t.con; }
-  else { phase = 3; u = 0; }
-  fill.style.width = (u * 100).toFixed(1) + '%';
-  bar.classList.toggle('hold', phase === 1);
-  phs.forEach(function(s){ s.classList.toggle('on', +s.dataset.i === phase); });
-  var lbl = LB[phase];
-  var want = lbl ? '<b>' + lbl + '</b> · rep ' + (reps + 1) : 'rep ' + (reps + 1);
-  if (word.innerHTML !== want) word.innerHTML = want;
+ _armAudio(); if (!_ac){ _toast('No sound on this phone'); return; }
+ try { if (_ac.state === 'suspended') _ac.resume(); } catch(e){}
+ t.el.dataset.raw = t.raw; t.el.innerHTML = _tempoHTML(t.raw, 1); t.el.classList.add('pace');
+ var g = _ac.createGain(); g.gain.value = 1; g.connect(_ac.destination);
+ var tone = function(at, f0, f1, dur, vol){ var o = _ac.createOscillator(), v = _ac.createGain(); o.type = 'sine';
+  o.frequency.setValueAtTime(f0, at); if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, at + dur);
+  v.gain.setValueAtTime(0.0001, at); v.gain.exponentialRampToValueAtTime(vol, at + .015); v.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+  o.connect(v); v.connect(g); o.start(at); o.stop(at + dur + .02); };
+ var cycle = t.ecc + t.hold + t.con + 0.6, REPS = 15, t0 = _ac.currentTime + 0.4;
+ for (var r = 0; r < REPS; r++){ var a = t0 + r * cycle;
+  for (var k = 0; k < t.ecc; k++) tone(a + k, k ? 520 : 440, k ? 520 : 440, .07, k ? .12 : .2);   // down: first tick a touch lower and louder
+  if (t.hold) tone(a + t.ecc, 660, 660, .12, .14);
+  tone(a + t.ecc + t.hold, 660, 1180, .16, .22); }                                     // up
+ var phs = t.el.querySelectorAll('.tph');
+ _pacer = { card:card, t:t, g:g, raf:0 };
+ (function frame(){
+  if (!_pacer) return;
+  var e = _ac.currentTime - t0; if (e > REPS * cycle){ stopPacer(); return; }
+  var u = ((e % cycle) + cycle) % cycle, ph = e < 0 ? -1 : u < t.ecc ? 0 : u < t.ecc + t.hold ? 1 : u < t.ecc + t.hold + t.con ? 2 : -1;
+  phs.forEach(function(sp){ sp.classList.toggle('on', +sp.dataset.i === ph); });
   _pacer.raf = requestAnimationFrame(frame);
- })(start);
- if (navigator.vibrate) navigator.vibrate(12);
+ })();
+ try { if (!store.get('bp-pace-tip')){ store.set('bp-pace-tip', '1'); _toast('Ticks = lower · chirp = up. Tap again to stop.'); } } catch(e){}
 }
 (function wirePacer(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
@@ -5335,7 +5366,7 @@ function _slotsOn(ymd){
  return out;
 }
 function _isSkill(c){ return !!c.querySelector(':scope > .drills'); }
-function planDay(dayId, budget){
+function planDay(dayId, budget, bring){
  var sec = document.getElementById(dayId); if (!sec || !DAY_HALF[dayId]) return null;
  budget = budget || PLAN_MIN;
  var long = budget >= 80, tired = budget < 30, cap = long ? 4 : tired ? 0 : 2;
@@ -5370,6 +5401,10 @@ function planDay(dayId, budget){
   if (!ever || !c || NO_RESCUE[id] || rescue.length >= cap || keep.length - bumpable().length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
   rescue.push(id); src[id] = o; if (left) carry[id] = 1; else if (!(dow > SCHED[o])) late[id] = 1; have[sl] = 1; };
  var SCHED = { d5:2, d1:3, d2:3, d3:4 };   // Tue upper A · Wed lower · Thu upper B
+ // a reworked week names lifts to bring over: they go first, before anything the day finds on its own
+ (bring || []).forEach(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'), hm = c && (c._home && c._home.parentNode ? c._home.parentNode : c), o = hm && hm.closest('.section'), sl = SLOT[id];
+  if (!c || !o || o.id === dayId || NO_RESCUE[id] || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && (have[sl] || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
+  rescue.push(id); src[id] = o.id; if (sl) have[sl] = 1; });
  var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
  readSess().filter(function(x){ return x && x.day !== dayId && DAY_HALF[x.day] && x.d !== t0 && x.e >= mon && x.n >= 1 && Array.isArray(x.off); }).slice(-2).reverse().forEach(function(x){
   byPri(x.off.filter(function(id){ return _ids(x).indexOf(id) < 0; })).forEach(function(id){ tryAdd(id, x.day, true); }); });
@@ -5470,8 +5505,10 @@ function buildDay(dayId, force, budget){
  if (p && p.day === dayId && !force && !p.full && p.v !== APP_V && !readSess().some(function(x){ return x && x.d === _today() && x.day === dayId && x.n >= 1; })){ force = true; budget = budget || p.budget; }
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
- var back0 = p && p.day === dayId && p.back;
- p = planDay(dayId, budget); if (!p) return;
+ var back0 = p && p.day === dayId && p.back, rw = _rwToday();
+ if (rw && rw.day === dayId && !budget) budget = rw.budget;
+ clearPlan();
+ p = planDay(dayId, budget, rw && rw.day === dayId ? rw.bring : null); if (!p) return;
  if (back0) p.back = back0;   // switching length keeps the welcome-back easing
  var gap = daysSinceTrained();
  if (first && gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow(1); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
@@ -5482,6 +5519,155 @@ function buildDay(dayId, force, budget){
  if (force || p.back || p.rescue.length) setTimeout(function(){ _toast(_bm); }, 700);
 }
 window.buildDay = buildDay;
+
+// ── Smart rework: when the week goes off script, plan what's left of it from your logs ──
+// You say which days you can still train, how long and how you feel; it offers a few ways to
+// finish the week (honest minutes from your own pace), and the days you pick build themselves.
+function _rwRead(){ try { var o = _asObj(JSON.parse(store.get('bp-rw') || '{}')); return o.wk === _weekNo() ? o : {}; } catch(e){ return {}; } }
+function _rwWrite(o){ o.wk = _weekNo(); try { store.set('bp-rw', JSON.stringify(o)); } catch(e){} }
+function _rwToday(){ var o = _rwRead(); return (o.plan && o.plan[_today()]) || null; }
+function _dowOf(ymd){ return new Date(ymd + 'T12:00').getDay(); }
+function _dShort(ymd){ return DOW_N[_dowOf(ymd)].slice(0, 3); }
+function _halfOn(ymd){
+ var h = null, w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}
+ Object.keys(w).forEach(function(d){ var t = +w[d]; if (t && DAY_HALF[d] && _ymd(t) === ymd) h = DAY_HALF[d]; });
+ readSess().forEach(function(x){ if (x && x.d === ymd && x.n >= 3 && DAY_HALF[x.day]) h = DAY_HALF[x.day]; });
+ return h;
+}
+function _dayBefore(ymd){ return _ymd(new Date(ymd + 'T12:00').getTime() + DAY_SHIFT_MS - 864e5); }
+// what went off script this week, in a few words; '' when the week is on track
+function _rwWhy(){
+ var dow = _dow(); if (dow < 1 || dow > 4 || !owedDays().length) return '';   // Friday's home card already says what to catch
+ var w = readCompletedWeek(), o = _rwRead(), t = _today();
+ if (o.plan) return Object.keys(o.plan).some(function(d){ var e = o.plan[d]; return d < t && e.day && !w[e.day]; }) ? 'The reworked plan slipped' : '';
+ var why = [];
+ [['d5', 2], ['L', 3], ['d3', 4]].forEach(function(x){
+  var id = x[0] === 'L' ? (w.d1 ? 'd1' : w.d2 ? 'd2' : null) : x[0], st = id && w[id], on = st && new Date(+st - DAY_SHIFT_MS).getDay();
+  if (!st && dow > x[1]) why.push((x[0] === 'L' ? 'Lower' : DAY_NAME[x[0]]) + ' missed');
+  else if (st && String(st).indexOf('skip') !== 0 && on !== x[1]) why.push(DAY_NAME[id] + ' moved to ' + DOW_N[on].slice(0, 3)); });
+ return why.join(' · ');
+}
+function _rwDays(){   // today (unless trained already) through Sunday
+ var out = [], n = (7 - _dow()) % 7;
+ for (var i = 0; i <= n; i++){ if (!i && (_doneToday() || _snackToday())) continue; out.push(_ymd(Date.now() + i * 864e5)); }
+ return out;
+}
+function _rwDefault(){ return { days: _rwDays().filter(function(d){ var k = _dowOf(d); return k >= 1 && k <= 5; }), min: 45, energy: 'good', hike: true }; }
+// key lifts of a session not trained yet this week, the ones you keep skipping first
+function _rwKeyLifts(o, got){
+ var key = (KEY_LIFTS[o] || []).map(function(k){ return k[0]; });
+ return [].slice.call(document.querySelectorAll('.excard[data-id]')).filter(function(c){ var h = c._home && c._home.parentNode ? c._home.parentNode : c, sec = h.closest('.section'); return sec && sec.id === o; })
+  .map(function(c){ return c.dataset.id; }).filter(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]');
+   return !got[id] && !NO_RESCUE[id] && !_isSkill(c) && !c.classList.contains('wild') && (key.indexOf(id) >= 0 || PRIORITY_SLOT[SLOT[id]]); })
+  .sort(function(a, b){ var ka = key.indexOf(a), kb = key.indexOf(b); return (_skipStats(a).slip ? 0 : 1) - (_skipStats(b).slip ? 0 : 1) || (ka < 0 ? 9 : ka) - (kb < 0 ? 9 : kb); });
+}
+// sessions onto days: upper and lower never back to back, no legs the day before a hike,
+// a fourth day running stays short; whatever doesn't get a day sends its key lifts along
+function _rwBuild(dates, budgetFor, sessions, ans, capFor){
+ var t0 = _today(), got = _loggedSince(_weekStart()), best = null;
+ var pastHalf = function(d){ return d < t0 || (d === t0 && _doneToday()) ? _halfOn(d) : null; };
+ // every way to lay the sessions on the days (≤4 sessions, ≤7 days — small); most sessions placed wins, then the usual order earliest
+ (function walk(i, left, seq){
+  if (i === dates.length){ var n = seq.filter(function(x){ return x; }).length, key = seq.map(function(x){ return x ? sessions.indexOf(x) : 9; });
+   if (!best || n > best.n || (n === best.n && key.join() < best.key.join())) best = { n: n, key: key, seq: seq.slice() }; return; }
+  var d = dates[i], prev = i && dates[i - 1] === _dayBefore(d) ? seq[i - 1] : null, hb = prev ? DAY_HALF[prev] : pastHalf(_dayBefore(d)), preHike = ans.hike && _dowOf(d) === 6;
+  left.forEach(function(o, j){ if (DAY_HALF[o] === hb || (preHike && DAY_HALF[o] === 'L')) return; seq.push(o); walk(i + 1, left.slice(0, j).concat(left.slice(j + 1)), seq); seq.pop(); });
+  seq.push(null); walk(i + 1, left, seq); seq.pop();
+ })(0, sessions.slice(), []);
+ var plan = {}, left = sessions.filter(function(o){ return best.seq.indexOf(o) < 0; });
+ dates.forEach(function(d, i){ var o = best.seq[i];
+  if (!o){ var pv = i && dates[i - 1] === _dayBefore(d) ? best.seq[i - 1] : null, hb = pv ? DAY_HALF[pv] : pastHalf(_dayBefore(d));
+   plan[d] = { rest: 1, why: !left.length ? '' : ans.hike && _dowOf(d) === 6 ? 'legs fresh for the hike' : hb ? (hb === 'U' ? 'upper' : 'legs') + ' the day before' : '' }; return; }
+  var run = 0, x = _dayBefore(d);
+  while (dates.indexOf(x) >= 0 ? best.seq[dates.indexOf(x)] : pastHalf(x)){ run++; x = _dayBefore(x); }
+  var b = budgetFor(d); if (run >= 3) b = Math.min(b, 20);
+  plan[d] = { day: o, budget: b, bring: [] }; });
+ // a session that didn't get a day sends its key lifts to the days that have room for them
+ var tdays = Object.keys(plan).filter(function(d){ return plan[d].day; });
+ var halfAt = function(d){ return plan[d] ? (plan[d].day ? DAY_HALF[plan[d].day] : null) : pastHalf(d); };
+ left.forEach(function(o){ var H = DAY_HALF[o]; _rwKeyLifts(o, got).forEach(function(id){
+  tdays.slice().sort(function(a, b){ return plan[a].bring.length - plan[b].bring.length; }).some(function(d){ var e = plan[d]; if (e.bring.length >= capFor(e.budget)) return false;
+   if (DAY_HALF[e.day] !== H && (halfAt(_dayBefore(d)) === H || halfAt(_ymd(new Date(d + 'T12:00').getTime() + DAY_SHIFT_MS + 864e5)) === H)) return false;   // no upper work the day after (or before) an upper day
+   var p = planDay(e.day, e.budget, e.bring.concat(id)); if (p && p.rescue.indexOf(id) >= 0){ e.bring.push(id); return true; } return false; }); }); });
+ return { plan: plan, left: left };
+}
+var _rwAns = null, _rwLast = [];
+function _rwOptions(ans){
+ var low = owedDays().filter(function(d){ return DAY_HALF[d] === 'L'; }), ord = ['d5', low[0], 'd3', low[1]];   // the usual week order: Upper A, Lower, Upper B
+ var owed = owedDays().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
+ var base = ans.energy === 'wiped' ? 20 : ans.energy === 'meh' ? Math.min(ans.min, 45) : ans.min;
+ var cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
+ var mk = function(key, title, why, ds, bud, ses, cf){ var r = _rwBuild(ds, bud, ses, ans, cf), tot = 0, n = 0, br = 0;
+  Object.keys(r.plan).forEach(function(d){ var e = r.plan[d]; if (!e.day) return; var p = planDay(e.day, e.budget, e.bring); e.min = p ? p.min : e.budget; e.lifts = p ? p.lifts : 0; e.got = p ? p.rescue : []; tot += e.min; n++; br += e.got.length; });
+  var nm = r.left.map(function(o){ return DAY_NAME[o]; }).join(' and ');
+  var one = r.left.length === 1;
+  if (r.left.length) why = nm + (one ? ' doesn’t get its own day' : ' don’t get their own days') + (br ? ' — ' + (one ? 'its' : 'their') + ' key lifts join the others.' : '. The days you keep already cover ' + (one ? 'its' : 'their') + ' kinds of lifts.');
+  return { key: key, title: title, why: why, plan: r.plan, left: r.left.concat(owed.filter(function(o){ return ses.indexOf(o) < 0; })), min: tot, n: n }; };
+ var fits = dates.length >= owed.length;
+ out.push(mk('all', fits ? 'Everything, spread out' : 'Everything, longer days', 'Each session gets its own day.', dates, function(){ return fits ? base : Math.min(80, base + 15); }, owed, cap));
+ if (dates.length >= 2 && owed.length >= 2 && ans.energy !== 'wiped'){ var k = Math.min(dates.length, owed.length) - 1, ds = [];
+  if (k === 1) ds.push(dates.filter(function(d){ return !_halfOn(_dayBefore(d)); })[0] || dates[dates.length - 1]);   // the merged day goes after a rest day
+  else for (var i = 0; i < k; i++) ds.push(dates[Math.round(i * (dates.length - 1) / (k - 1))]);
+  out.push(mk('lean', 'Fewer days, more rest', '', ds, function(){ return Math.min(80, Math.max(base, 60)); }, owed, cap)); }
+ out.push(mk('easy', 'Easy week', 'Just ' + DAY_NAME[owed[0]] + '. The rest let go — nothing is owed.', dates, function(){ return ans.energy === 'wiped' ? 20 : 45; }, [owed[0]], none));
+ var seen = {}; out = out.filter(function(o){ var k = JSON.stringify(o.plan); if (seen[k] || !o.n) return false; seen[k] = 1; return true; });
+ var rec = ans.energy === 'wiped' ? 'easy' : ans.energy === 'meh' ? 'lean' : 'all'; if (!out.some(function(o){ return o.key === rec; })) rec = out.length ? out[0].key : '';
+ out.forEach(function(o){ o.rec = o.key === rec; });
+ return out;
+}
+function _rwSheet(){
+ var all = _rwDays(), o = _rwRead(), w = readCompletedWeek(), owed = owedDays();
+ _rwAns = _rwAns || o.ans || _rwDefault(); _rwAns.days = _rwAns.days.filter(function(d){ return all.indexOf(d) >= 0; });
+ var done = ['d5', 'd1', 'd3', 'd2'].filter(function(d){ return w[d] && String(w[d]).indexOf('skip') !== 0; }).map(function(d){ return DAY_NAME[d] + ' (' + DOW_N[new Date(+w[d] - DAY_SHIFT_MS).getDay()].slice(0, 3) + ')'; });
+ var h = '<div class="sh-t">Rework this week</div><p class="rw-sum">' + (done.length ? 'Done: ' + _esc(done.join(', ')) + '. ' : '') + (owed.length ? 'Left: ' + _esc(owed.map(function(d){ return DAY_NAME[d]; }).join(', ')) + '.' : 'Nothing left — rest counts.') + '</p>';
+ if (!owed.length) return h;
+ var seg = function(label, k, opts){ return '<div class="rw-q"><span>' + label + '</span><div class="rw-c">' + opts.map(function(x){ var on = k === 'day' ? _rwAns.days.indexOf(x[0]) >= 0 : String(_rwAns[k]) === String(x[0]);
+  return '<button type="button" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '" onclick="_rwSet(\'' + k + '\',\'' + x[0] + '\')">' + x[1] + '</button>'; }).join('') + '</div></div>'; };
+ h += seg('Days you can train', 'day', all.map(function(d){ return [d, _dShort(d) + (d === _today() ? ' <small>today</small>' : '')]; }));
+ h += seg('Time per day', 'min', [[20, '20'], [45, '45'], [60, '60'], [80, '80']]);
+ h += seg('Energy', 'energy', [['good', 'Good'], ['meh', 'Meh'], ['wiped', 'Wiped']]);
+ if (all.some(function(d){ var k = _dowOf(d); return k === 6 || k === 0; })) h += seg('Weekend hike?', 'hike', [['true', 'Yes'], ['false', 'No']]);
+ var os = _rwOptions(_rwAns); _rwLast = os;
+ if (!os.length) h += '<p class="rw-sum">Pick at least one day.</p>';
+ os.forEach(function(op){
+  var lines = Object.keys(op.plan).sort().map(function(d){ var e = op.plan[d];
+   if (!e.day) return '<li><b>' + _dShort(d) + '</b> rest <small>' + _esc(e.why || '') + '</small></li>';
+   var nm = (e.got || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
+   return '<li><b>' + _dShort(d) + '</b> ' + _esc(DAY_NAME[e.day]) + ' <small>' + e.lifts + ' lifts · ≈' + e.min + ' min' + (e.budget < 30 ? ' · easy' : '') + '</small>' + (nm.length ? '<i>+ ' + _esc(nm.join(', ')) + '</i>' : '') + '</li>'; }).join('');
+  var lg = op.left.filter(function(x, i, a){ return a.indexOf(x) === i; }).map(function(d){ return DAY_NAME[d]; });
+  h += '<div class="rw-o' + (op.rec ? ' rec' : '') + '"><div class="rw-oh"><b>' + op.title + '</b>' + (op.rec ? '<em>best fit</em>' : '') + '<span>' + op.n + ' day' + (op.n === 1 ? '' : 's') + ' · ≈' + op.min + ' min</span></div><p>' + op.why + '</p><ul>' + lines + '</ul>' +
+   (lg.length && op.key !== 'all' ? '<p class="rw-let">Let go: ' + _esc(lg.join(', ')) + '</p>' : '') + '<button type="button" class="rw-use" onclick="_rwUse(\'' + op.key + '\')">Use this</button></div>'; });
+ if (o.plan) h += '<button type="button" class="rw-clear" onclick="_rwClear()">Back to the normal week</button>';
+ return h;
+}
+function _rwSet(k, v){
+ if (k === 'day'){ var i = _rwAns.days.indexOf(v); if (i >= 0) _rwAns.days.splice(i, 1); else _rwAns.days.push(v); }
+ else _rwAns[k] = k === 'min' ? +v : k === 'hike' ? v === 'true' : v;
+ openSheet('rework', 1);
+}
+function _rwUse(key){
+ var op = _rwLast.filter(function(x){ return x.key === key; })[0]; if (!op) return;
+ var plan = {}; Object.keys(op.plan).forEach(function(d){ var e = op.plan[d]; plan[d] = e.day ? { day: e.day, budget: e.budget, bring: e.bring, min: e.min } : { rest: 1 }; });
+ _rwWrite({ plan: plan, opt: key, ans: _rwAns, at: Date.now() });
+ closeSheet(); _rwNudge();
+ var t = _rwToday(), t0 = _today();
+ if (t && t.day && !readSess().some(function(x){ return x && x.d === t0 && x.day === t.day && x.n >= 1; })){ setFocus(t.day); buildDay(t.day, true, t.budget); }
+ else if (t && t.rest && !_doneToday()){ clearPlan(); setFocus(null); }
+ paintWeek(); _toast('Week reworked');
+}
+function _rwClear(){ _rwWrite({ no: _today() }); closeSheet(); paintWeek(); _rwNudge(); _toast('Back to the normal week'); }
+// the nudge: a small pill above the tabs while the week is off script and nothing is logged yet today
+function _rwNudge(){
+ var el = document.getElementById('rwPill'), why = _rwWhy(), o = _rwRead(), t0 = _today();
+ var busy = readSess().some(function(x){ return x && x.d === t0 && x.n >= 1; });
+ var show = why && o.no !== t0 && !busy;
+ if (!show){ if (el) el.hidden = true; return; }
+ if (!el){ el = document.createElement('div'); el.id = 'rwPill'; el.className = 'rw-pill'; el.setAttribute('role', 'status'); document.body.appendChild(el);
+  el.addEventListener('click', function(ev){ if (ev.target.closest('.rw-x')){ var r = _rwRead(); r.no = _today(); _rwWrite(r); el.hidden = true; return; } openSheet('rework'); }); }
+ el.innerHTML = '<span><small>' + _esc(why) + '</small>Want a smart rework?</span><b>Rework</b><button type="button" class="rw-x" aria-label="Not now">×</button>';
+ el.hidden = false;
+}
+window._rwSet = _rwSet; window._rwUse = _rwUse; window._rwClear = _rwClear;
 
 renderNumbers();
 buildDayChips(); paintWeek();
