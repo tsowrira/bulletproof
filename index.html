@@ -294,6 +294,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 #wc-3.core::after{background:var(--r);box-shadow:0 0 10px rgba(255,46,136,.6)}#wc-3.core.lb::after{background:var(--b);box-shadow:0 0 10px rgba(31,224,255,.55)}
 #wc-4.core::after{background:var(--gld);box-shadow:0 0 10px rgba(255,210,58,.55)}
 .wc.swim::after{background:var(--g);opacity:.45}
+.week .wc.core[style*="--wcc"]::after{background:var(--wcc)!important;box-shadow:0 0 8px var(--wcc)!important}
 .wc.flex-day .wt,.wc.rest-day .wt{opacity:.72}
 
 /* ── BAND LEGEND ── */
@@ -1705,7 +1706,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="hero" id="top">
  <div class="hero-eye">// Bulletproof · Joint-Smart Training</div>
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
- <p>Tue upper · Wed lower · Thu upper — Lower A and B take turns. Monday skill + engine and a Friday lower if you feel like it. Skill first, two sets a lift — a third only on a Long day.</p>
+ <p>Usual week: Tue upper · Wed lower · Thu upper — Lower A and B take turns. Miss one and the app moves the rest. Monday skill + engine and a Friday lower if you feel like it. Skill first, two sets a lift — a third only on a Long day.</p>
  <div class="home" id="homeCard"><div class="hm-day" id="hmDay"></div><div class="hm-t" id="hmT"></div><div class="hm-s" id="hmS"></div></div>
  <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
  <button type="button" class="hm-any" id="hmAny" hidden onclick="openSheet('week')">Train anyway — pick a day ›</button>
@@ -1744,7 +1745,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <a class="wc core" id="wc-3" href="#d1"><div class="wd">Wed</div><div class="wt" style="color:var(--r)">Lower<br>A</div></a>
  <a class="wc core" id="wc-4" href="#d3"><div class="wd">Thu</div><div class="wt" style="color:var(--gld)">Upper B<br>Press</div></a>
  <a class="wc flex-day" id="wc-5" href="#d2"><div class="wd">Fri</div><div class="wt" style="color:var(--b)">Lower<br>optional</div></a>
- <div class="wc rest-day" id="wc-6"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Rest</div></div>
+ <a class="wc rest-day" id="wc-6" href="#d4"><div class="wd">Sat</div><div class="wt" style="color:var(--dim)">Rest</div></a>
  <a class="wc flex-day" id="wc-0" href="#d4"><div class="wd">Sun</div><div class="wt" style="color:var(--p)">Hike</div></a></div>
 </div>
 <div class="hm-next" id="hmNext"></div>
@@ -1766,7 +1767,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--g)">01</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--g)">// Tuesday · Upper A</div>
+ <div class="day-eye" style="color:var(--g)">// Usually Tue · Upper A</div>
  <div class="day-title">UPPER A — PULL + THE BAR</div>
  <div class="day-focus">Skill: muscle-up · Full ≈ 60 min</div>
  </div>
@@ -2023,7 +2024,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--r)">02</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--r)">// Wednesday · Lower A — takes turns with Lower B</div>
+ <div class="day-eye" style="color:var(--r)">// Wed or Fri · Lower A — takes turns with Lower B</div>
  <div class="day-title">LOWER A — BRAKES</div>
  <div class="day-focus">Skill: pistol · Full ≈ 55 min</div>
  </div>
@@ -2281,7 +2282,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--gld)">03</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--gld)">// Thursday · Upper B</div>
+ <div class="day-eye" style="color:var(--gld)">// Usually Thu · Upper B</div>
  <div class="day-title">UPPER B — PRESS + HANDSTAND</div>
  <div class="day-focus">Skill: handstand · Full ≈ 60 min</div>
  </div>
@@ -2360,7 +2361,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Bodyweight — S1: 6 · S2: stop 1 short, every lowering a full 3s</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Set 1 easy two sessions running → +1 rep, up to 8. Past 8, load goes on Tuesday's belt</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Set 1 easy two sessions running → +1 rep, up to 8. Past 8, load goes on the belt (Upper A)</span></div>
  <div class="prog-step"><span class="pn">Stay</span><span><strong>Bodyweight only here</strong> — the lowering stays 3s, never slower</span></div>
 </div></div>
 </div>
@@ -2515,7 +2516,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--b)">04</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--b)">// Wednesday · Lower B — takes turns with Lower A</div>
+ <div class="day-eye" style="color:var(--b)">// Wed or Fri · Lower B — takes turns with Lower A</div>
  <div class="day-title">LOWER B — GLUTES + BACKWARD DRAG</div>
  <div class="day-focus">Skill: balance · Full ≈ 60 min</div>
  </div>
@@ -2614,7 +2615,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="prog-step"><span class="pn">Now</span><span>Your working weight — S1: 8–10 · S2: stop 1 short, 2s squeeze every rep</span></div>
  <div class="prog-step"><span class="pn">10 clean</span><span>Set 1, when 10 is clean → one pin up next time</span></div>
  <div class="prog-step"><span class="pn">Bonus</span><span>Monthly check shows right 10%+ behind? One extra right-only set at quarter weight</span></div>
- <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: same weight, stop 2 short</span></div>
+ <div class="prog-step"><span class="pn">Extra</span><span>Only one lower this week? Add S3: same weight, stop 2 short</span></div>
 </div></div>
 </div>
 
@@ -2664,7 +2665,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="prog-step"><span class="pn">Now</span><span>S1: 12 both legs · S2: one leg at a time at about a third of the weight</span></div>
  <div class="prog-step"><span class="pn">15+</span><span>One pin up next time</span></div>
  <div class="prog-step"><span class="pn">Seated only?</span><span>Recline the seat fully, small pad behind the low back, keep it light</span></div>
- <div class="prog-step"><span class="pn">Extra</span><span>No Friday lower this week? Add S3: both legs, same weight as S1, stop 2 short</span></div>
+ <div class="prog-step"><span class="pn">Extra</span><span>Only one lower this week? Add S3: both legs, same weight as S1, stop 2 short</span></div>
 </div></div>
 </div>
 
@@ -2794,9 +2795,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--o)">✦</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--o)">// Monday · Skill + engine — optional</div>
+ <div class="day-eye" style="color:var(--o)">// Usually Mon · Skill + engine — optional</div>
  <div class="day-title">SKILL + ENGINE</div>
- <div class="day-focus">≈ 45 min · no legs after the hike, light on the shoulders before Tuesday</div>
+ <div class="day-focus">≈ 45 min · no legs after the hike, light on the shoulders before Upper A</div>
  </div>
 </div>
 <div class="exlist">
@@ -2859,7 +2860,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="day-hdr">
  <div class="day-num" style="color:var(--p)">✚</div>
  <div class="day-info">
- <div class="day-eye" style="color:var(--p)">// Sat · Sun — rest, play, hike</div>
+ <div class="day-eye" style="color:var(--p)">// Weekend · rest, play, hike</div>
  <div class="day-title">PLAY DAYS</div>
  <div class="day-focus">Play · hike · walk · dance. Skip any of it.</div>
  </div>
@@ -2926,12 +2927,12 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div style="background:rgba(255,46,136,.06);border:1.5px solid rgba(255,46,136,.28);border-radius:6px;padding:18px">
  <div class="t-mono" style="color:var(--r);margin-bottom:10px;font-size:11px">Skill ladders</div>
  <div style="font-size:13px;line-height:1.7">
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin:2px 0 7px">Pull · Tuesday</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin:2px 0 7px">Pull · Upper A</div>
 <p style="margin:0 0 8px"><strong>Muscle-up:</strong> 10 strict pull-ups (done) → 12–15 + chest-to-bar × 5 → high pulls to the lower ribs (fast chest-to-bar pulls until they reach) → feet-assisted low-bar transitions (two feet → one → heels) → toes-on-box muscle-up, 3s lowering → strict muscle-up. <em>Shoulders quiet for 48 h before each new rung; no kipping.</em></p>
 <p style="margin:0 0 8px"><strong>One-arm pull-up:</strong> strict → weighted (+10–25 lb) → archer practice (2 × 2 each, first thing while fresh, 3 counts down) → typewriter → one-arm lowering (5s, spare hand light on the wrist) → finger-assisted → one-arm pull-up. <em>Soft elbow at the bottom. Right side first, left matches its reps. Measured in years.</em></p>
 <p style="margin:0 0 8px"><strong>Front lever:</strong> shoulder-blade pulls, shoulders packed (you're here). <em><strong>Tuck hold: not yet</strong> — the low back has to own a long hang first.</em></p>
 <p style="margin:0 0 8px"><strong>Pull variations:</strong> chin-up → wide-grip → close/commando → mixed-grip → around-the-worlds. <em><strong>L-sit pull-up: not yet</strong> — it squeezes the low back.</em></p>
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gld);margin:16px 0 7px">Push &amp; balance · Thursday + Monday</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gld);margin:16px 0 7px">Push &amp; balance · Upper B + skill day</div>
 <p style="margin:0 0 8px"><strong>Handstand:</strong> back-to-wall hold → chest-to-wall hold 3 × 30s → toe-pull floats (toes drift off the wall, 5 × 3–5s) → chest-to-wall shoulder taps → pike hold at the wall → kick-ups to free balance → 10s → 20s → shapes (tuck, straddle, stag). <em>Cartwheel out sideways to come down; active shoulders, never locked joints.</em></p>
 <p style="margin:0 0 8px"><strong>Handstand push-up:</strong> pike push-up → feet-elevated pike → 30s chest-to-wall hold → wall lowering (5s down) → partial → full wall handstand push-up. <em>Wall only. Cap the depth — never sink into the shoulder.</em></p>
 <p style="margin:0 0 8px"><strong>Press to handstand:</strong> seated pike-compression lifts → wall tuck-ups → straddle-press lowering from the wall handstand → straddle press. <em>Straight arms, ribs in.</em></p>
@@ -2940,7 +2941,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--b);margin:16px 0 7px">Core &amp; levers</div>
 <p style="margin:0 0 8px"><strong>Human flag:</strong> flagpole grip + support press → grip press, feet down, 3 × 5s each → vertical hold → tuck flag → single-leg → straddle → full. <em>Grip press now; tuck and beyond not yet. Right side first, left matches its reps.</em></p>
 <p style="margin:0 0 8px"><strong>L-sit / compression:</strong> seated pike lifts → support hold, legs down. <em><strong>Tuck support, one leg out, full L-sit: not yet</strong> — they squeeze the low back.</em></p>
-<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:16px 0 7px">Legs · Wednesday + Friday</div>
+<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:16px 0 7px">Legs · lower days</div>
 <p style="margin:0 0 8px"><em>Every single-leg rung: right side first, left matches its reps.</em></p>
 <p style="margin:0 0 8px"><strong>Pistol:</strong> tall box sit → lower box → step-platform heel-tap 2 × 4 (fingertips for balance only) → 2 × 6 → no-contact off the step. <strong>Sideways:</strong> every third session, swap the forward step-down for a lateral one off a 6″ box — same depth cap, same knee rule. <em>Off a step, never a wall; cap at parallel.</em></p>
 <p style="margin:0 0 8px"><strong>Cossack squat:</strong> wide stance → sink to one side, other leg straight, heel down → flow side to side (light plate at the chest to counterbalance). <em>Control the descent — never a passive drop into the hip.</em></p>
@@ -3142,7 +3143,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
  <div class="macros">
  <div class="mc"><div class="mcn">90–110g</div><div class="mcl">Protein Daily</div><div class="mcnote">Four feedings of 25–30 g, one of them liquid. Dairy or a dairy-soy blend hits the mark.</div></div>
- <div class="mc"><div class="mcn">1900–2300</div><div class="mcl">Kcal Range</div><div class="mcnote">Floor ~1550 kcal; training days sit at the top. +~200 on Friday and hike day. Gaining slowly is the goal.</div></div>
+ <div class="mc"><div class="mcn">1900–2300</div><div class="mcl">Kcal Range</div><div class="mcnote">Floor ~1550 kcal; training days sit at the top. +~200 on a second lower day and hike day. Gaining slowly is the goal.</div></div>
  <div class="mc"><div class="mcn">5g</div><div class="mcl">Creatine Daily</div><div class="mcnote">Daily, in water or a shake. <strong>+16–24 oz water/day</strong> on top of normal.</div></div>
  <div class="mc"><div class="mcn">20–40g carbs</div><div class="mcl">Before You Lift</div><div class="mcnote"><strong>Carbs 20–40 g + protein 15–25 g</strong>, 60–90 min before, plus 500 mL water with a pinch of salt. Never train fasted.</div></div>
  </div>
@@ -3231,7 +3232,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-08.2';
+var APP_V = '2026-10-08.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3905,6 +3906,31 @@ function _lastDone(id){
 }
 function _nextLower(){ return _lastDone('d1') <= _lastDone('d2') ? 'd1' : 'd2'; }
 function _wedLower(){ var w = readCompletedWeek(); return w.d1 && !w.d2 ? 'd1' : w.d2 && !w.d1 ? 'd2' : _nextLower(); }
+function _ordOwed(xs){ var low = xs.filter(function(d){ return DAY_HALF[d] === 'L'; }), ord = ['d5', low[0], 'd3', low[1]];   // the usual week order: Upper A, Lower, Upper B
+ return xs.slice().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }); }
+// one picture of this week, Mon→Sun: what you did, today, your rework, and where the rest will land — every label reads this
+function _weekPlan(){
+ var out = {}, w = readCompletedWeek(), t0 = _today(), ws = _weekStart(), ds = [];
+ for (var k = 0; k < 7; k++){ ds.push(_ymd(ws + k * 864e5 + 72e5)); out[ds[k]] = null; }
+ Object.keys(w).forEach(function(d){ var ts = parseInt(String(w[d]).replace('skip:', '')) || 0, y = ts && _ymd(ts); if (y && y in out && String(w[d]).indexOf('skip') !== 0 && (!out[y] || DAY_HALF[d])) out[y] = { id: d, done: 1 }; });
+ var sg = typeof suggestDay === 'function' ? suggestDay() : null; if (sg && !out[t0]) out[t0] = { id: sg.id, today: 1, opt: sg.optional };
+ var rp = typeof _rwRead === 'function' ? _rwRead().plan : null;
+ if (rp) Object.keys(rp).forEach(function(d){ if (d > t0 && d in out) out[d] = rp[d].day && !w[rp[d].day] ? { id: rp[d].day, rw: 1 } : rp[d].rest ? { rest: 1, rw: 1 } : out[d]; });
+ else { var left = _ordOwed(owedDays().filter(function(o){ return !sg || o !== sg.id; })), fut = ds.filter(function(d){ var k = _dowOf(d); return d > t0 && k >= 1 && k <= 5; }), fx = {};
+  if (sg && !_doneToday()) fx[t0] = sg.id;
+  if (left.length && fut.length){ var r = _rwBuild(fut, function(){ return 45; }, left, { hike: true }, function(){ return 0; }, fx); Object.keys(r.plan).forEach(function(d){ if (r.plan[d].day) out[d] = { id: r.plan[d].day }; }); } }
+ // the optional extras where nothing else landed: a second lower on Friday after an upper Thursday
+ var lows = ['d1', 'd2'].filter(function(l){ return w[l] || Object.keys(out).some(function(d){ return out[d] && out[d].id === l; }); }), fri = ds[4], thu = out[ds[3]], l2 = lows.length === 1 ? (lows[0] === 'd1' ? 'd2' : 'd1') : null;
+ if (fri > t0 && !out[fri] && l2 && !w[l2] && !(thu && DAY_HALF[thu.id] === 'L') && !Object.keys(out).some(function(d){ return out[d] && out[d].id === l2; })) out[fri] = { id: l2, opt: 1 };
+ return out;
+}
+function _when(id){
+ var wp = _weekPlan(), t0 = _today(), w = readCompletedWeek(), y = Object.keys(wp).filter(function(d){ return wp[d] && wp[d].id === id; })[0];
+ if (id === 'd4') return { ymd: Object.keys(wp)[5], lab: 'Sat–Sun' };
+ if (y) return { ymd: y, lab: y === t0 ? 'Today' : DOW_N[_dowOf(y)].slice(0, 3), done: wp[y].done, opt: wp[y].opt };
+ if (String(w[id] || '').indexOf('skip') === 0) return { ymd: '8', lab: '—', skip: 1 };
+ return { ymd: '9', lab: '—', miss: 1 };
+}
 function owedDays(){
  var w = readCompletedWeek(), core = ['d5', 'd3'].concat(w.d1 || w.d2 ? [] : [_nextLower()]);
  return core.filter(function(d){ return !w[d]; }).sort(function(a, b){ return _lastDone(a) - _lastDone(b); });
@@ -3991,15 +4017,12 @@ function _paintHome(dt, sg, run, m, col){
  var core = [['d5', 'Upper A'], [w.d2 && !w.d1 ? 'd2' : w.d1 ? 'd1' : lowId, 'Lower'], ['d3', 'Upper B']];
  var n = core.filter(function(c){ return done(c[0]); }).length, left = core.filter(function(c){ return !done(c[0]); }).map(function(c){ return DAY_NAME[c[0]]; });
  var wkTxt = n + ' of 3 lift days' + (n ? ' ✓' : '') + (left.length && (dow === 6 || dow === 0) ? ' <small>' + _esc(left.join(', ')) + ' skipped — nothing owed, new week Monday</small>' : '');
- var plan = { 0:'Hike', 1:'Skill + engine <small>· optional</small>', 2:'Upper A', 3:'Lower', 4:'Upper B', 5:'Lower <small>· optional</small>', 6:'Rest' };
- var toMon = (8 - dow) % 7 || 7, newWk = function(k){ return k >= toMon; }, tm = (dow + 1) % 7, nx = '';   // the week resets on Monday
- for (var k = 1; k <= 7 && !nx; k++){ var d = (dow + k) % 7, id = { 2:'d5', 3:(newWk(k) ? _nextLower() : lowId), 4:'d3' }[d];
-  if (id && (newWk(k) || (!done(id) && !(d === 3 && (w.d1 || w.d2))))) nx = [k, d, id]; }
- var tmTxt = plan[tm] === 'Lower' ? DAY_NAME[(newWk(1) ? _nextLower() : lowId)] : plan[tm];
- if (rwo.plan){ var tmd = _ymd(Date.now() + 864e5), pe = rwo.plan[tmd]; if (pe) tmTxt = pe.day ? _esc(DAY_NAME[pe.day]) + ' <small>· reworked</small>' : 'Rest <small>· reworked</small>';
-  var later = Object.keys(rwo.plan).sort().filter(function(d){ return d > tmd && rwo.plan[d].day && !done(rwo.plan[d].day); })[0]; nx = pe && pe.day ? null : later ? [2, _dowOf(later), rwo.plan[later].day] : nx; }
+ var wp = _weekPlan(), tm = (dow + 1) % 7, tmd = _ymd(Date.now() + 864e5), rwt = rwo.plan ? ' <small>· reworked</small>' : '';
+ var lab = function(e, d){ return e && e.id ? _esc(DAY_NAME[e.id]) + (e.opt ? ' <small>· optional</small>' : rwt) : d === 0 ? 'Hike' : 'Rest' + (e && e.rest ? rwt : ''); };
+ var tmTxt = tm === 1 ? 'Skill + engine <small>· optional, new week</small>' : lab(wp[tmd], tm);
+ var later = Object.keys(wp).filter(function(d){ return d > tmd && wp[d] && wp[d].id && !wp[d].opt && !wp[d].done; })[0];
  var rows = [['This week', wkTxt], ['Tomorrow', tmTxt]];
- if (nx && nx[0] > 1) rows.push(['Next lift', DOW_N[nx[1]].slice(0, 3) + ' · ' + _esc(DAY_NAME[nx[2]])]);
+ if (!(wp[tmd] && wp[tmd].id && !wp[tmd].opt)) rows.push(['Next lift', later ? DOW_N[_dowOf(later)].slice(0, 3) + ' · ' + _esc(DAY_NAME[wp[later].id]) : 'Tue · Upper A <small>· next week</small>']);
  var hr = document.getElementById('hmRw'); if (hr){ hr.hidden = !(dow >= 1 && dow <= 5 && owedDays().length); hr.textContent = rwo.plan ? 'Reworked · change ›' : 'Rework my week ›'; }
  _rwNudge();
  document.getElementById('hmNext').innerHTML = rows.map(function(r){ return '<div><span>' + r[0] + '</span><p style="margin:0">' + r[1] + '</p></div>'; }).join('');
@@ -4018,7 +4041,7 @@ function setFocus(id, keep){
  if (id){ var sec = document.getElementById(id); if (sec) sec.classList.add('cur'); }
  var bar = document.getElementById('focusBar'); if (bar) bar.hidden = !id;
  if (id){ b.style.setProperty('--day', dayColors[id] || 'var(--g)'); var dl = document.getElementById('sbDay'), e0 = document.querySelector('#' + id + ' .day-eye');
- if (dl && e0) dl.textContent = e0.textContent.replace(/^\/\/\s*/, '').split(' — ')[0] + ' ▾'; }
+ if (dl){ var wn = _when(id), nm = DAY_NAME[id] || ((document.querySelector('#' + id + ' .day-title') || {}).textContent || '').split(' — ')[0]; dl.textContent = (wn.lab === 'Today' ? 'Today · ' : wn.done ? wn.lab + ' ✓ · ' : '') + nm + ' ▾'; } }
  _setNavH();
  try { sessionStorage.setItem('bp-focus', id ? id + '|' + _today() : ''); } catch(e){}
  if (id){ var t = document.getElementById(id);
@@ -4124,16 +4147,18 @@ function skipDay(id){
 function paintWeek(){
  var c = readCompletedWeek(), cell = {d5:'wc-1', d1:'wc-2', d3:'wc-3', d2:'wc-4'};
  Object.keys(cell).forEach(function(d){ var k = document.querySelector('#' + d + ' .xchip.skip'); if (k){ var sk0 = String(c[d] || '').indexOf('skip') === 0; var _td = (suggestDay() || {}).id; k.textContent = sk0 ? 'Skipped · undo' : 'Skip'; k.setAttribute('aria-label', sk0 ? 'Undo skip' : (d === _td ? 'Skip today' : 'Skip this day')); k.classList.toggle('on', sk0); } });
+ ['d6', 'd5', 'd1', 'd3', 'd2'].forEach(function(id){ var e = document.querySelector('#' + id + ' .day-eye'); if (!e) return; var wn = _when(id);
+  e.textContent = '// ' + (wn.done ? wn.lab + ' ✓' : wn.lab === '—' ? 'Not this week' : wn.lab + (wn.opt && id !== 'd6' ? ' (optional)' : '')) + ' · ' + DAY_NAME[id] + (DAY_HALF[id] === 'L' ? ' — takes turns with ' + DAY_NAME[id === 'd1' ? 'd2' : 'd1'] : id === 'd6' ? ' — optional' : ''); });
  if (typeof _paintStart === 'function') _paintStart();
  if (typeof paintResume === 'function') paintResume();
  if (typeof paintSqueeze === 'function') paintSqueeze();
- document.querySelectorAll('.wc').forEach(function(el){ el.classList.remove('hit', 'skipped'); });
- Object.keys(c).forEach(function(d){ var ts = parseInt(String(c[d]).replace('skip:', '')) || 0; if (!ts) return;
-  var el = document.getElementById('wc-' + new Date(ts - DAY_SHIFT_MS).getDay()); if (!el) return; var sk = String(c[d]).indexOf('skip') === 0;
-  el.classList.toggle('hit', !sk || el.classList.contains('hit')); el.classList.toggle('skipped', sk && !el.classList.contains('hit')); });
- var wl = _wedLower(), fl = wl === 'd1' ? 'd2' : 'd1', w3 = document.getElementById('wc-3'), w5 = document.getElementById('wc-5');
- if (w3){ w3.setAttribute('href', '#' + wl); var t3 = w3.querySelector('.wt'); t3.innerHTML = 'Lower<br>' + (wl === 'd1' ? 'A' : 'B'); t3.style.color = wl === 'd1' ? 'var(--r)' : 'var(--b)'; w3.classList.toggle('lb', wl === 'd2'); }
- if (w5){ w5.setAttribute('href', '#' + fl); w5.querySelector('.wt').style.color = fl === 'd1' ? 'var(--r)' : 'var(--b)'; }
+ var wp = _weekPlan(), wpd = Object.keys(wp), SUB = { d5: 'Pull', d3: 'Press', d1: 'Brakes', d2: 'Glutes', d6: 'optional' };
+ wpd.forEach(function(d, k){ var el = document.getElementById('wc-' + ((k + 1) % 7)), e = wp[d], dw = (k + 1) % 7; if (!el) return;
+  var id = e && e.id, wt = el.querySelector('.wt');
+  el.classList.remove('hit', 'skipped', 'core', 'flex-day', 'rest-day', 'lb');
+  if (id){ el.setAttribute('href', '#' + id); el.classList.add(e.opt || id === 'd6' ? 'flex-day' : 'core'); if (e.done) el.classList.add('hit');
+   el.style.setProperty('--wcc', dayColors[id]); wt.style.color = dayColors[id]; wt.innerHTML = _esc(DAY_NAME[id]).replace(' ', '<br>').replace('Skill<br>+ engine', 'Skill +<br>engine') + (e.opt && id !== 'd6' ? ' <small>opt.</small>' : ''); }
+  else { el.setAttribute('href', '#d4'); el.classList.add(dw === 0 ? 'flex-day' : 'rest-day'); el.style.removeProperty('--wcc'); wt.style.color = dw === 0 ? 'var(--p)' : 'var(--dim)'; wt.textContent = dw === 0 ? 'Hike' : d < _today() && dw <= 5 ? '—' : 'Rest'; } });
 }
 function _weekStart(){ var m = new Date(Date.now() - DAY_SHIFT_MS); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime() + DAY_SHIFT_MS; } // Monday 04:00, the training-day boundary
 function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every local Monday (Monday 00:00 sits mid-bucket, so DST can't double-step it)
@@ -4165,13 +4190,13 @@ var _sheetKind = null, _logHome = null;
 function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
- var dow = _dow(), sub2 = (done >= 3 ? 'All three lift days done.' : 'Three lift days a week. Rest counts.') + (extra ? ' +' + extra + ' extra' : '');
+ var dow = _dow(), sub2 = done >= 3 ? 'All three lift days done.' + (extra ? ' Plus ' + extra + ' extra.' : '') : (3 - done) + ' lift day' + (3 - done === 1 ? '' : 's') + ' left. Rest counts.';
  var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? 'Sat rest · Sun hike' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
  var rwo = _rwRead(), rwb = dow >= 1 && dow <= 5 && owedDays().length ? '<button type="button" class="sh-row" onclick="openSheet(\'rework\',1)"><span class="sh-n">' + (rwo.plan ? 'Reworked week' : 'Rework the rest of the week') + '<small>' + (rwo.plan ? Object.keys(rwo.plan).sort().filter(function(d){ return d >= _today(); }).map(function(d){ var e = rwo.plan[d]; return _dShort(d) + ' ' + (e.day ? DAY_NAME[e.day] : 'rest'); }).join(' · ') : 'Pick days, time and energy — get a plan') + '</small></span><em>›</em></button>' : '';
- return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + rwb + [['d6','Mon'],['d5','Tue'],['d1', _wedLower() === 'd1' ? 'Wed' : 'Fri'],['d3','Thu'],['d2', _wedLower() === 'd2' ? 'Wed' : 'Fri'],['d4','Sat–Sun']].map(function(x){
- var sec = document.getElementById(x[0]); if (!sec) return '';
- var st = wk[x[0]], sk = String(st || '').indexOf('skip') === 0, ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
- var tag = sk ? '<em>skipped</em>' : st ? '<em class="ok">✓ done</em>' : sg && sg.id === x[0] ? '<em class="td">up next</em>' : '';
+ return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + rwb + ['d6', 'd5', 'd1', 'd3', 'd2', 'd4'].map(function(id){ return [id, _when(id)]; }).sort(function(a, b){ return a[1].ymd < b[1].ymd ? -1 : a[1].ymd > b[1].ymd ? 1 : 0; }).map(function(x){
+ var sec = document.getElementById(x[0]), wn = x[1]; if (!sec) return ''; x[1] = wn.lab;
+ var ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
+ var tag = wn.skip ? '<em>skipped</em>' : wn.done ? '<em class="ok">✓ done</em>' : wn.miss ? '' : wn.opt ? '<em>optional</em>' : '';
  return '<button type="button" class="sh-row" style="--c:' + dayColors[x[0]] + '" onclick="closeSheet();setFocus(\'' + x[0] + '\')"><span class="sh-d">' + x[1] + '</span><span class="sh-n">' + _esc(ttl[0]) + '<small>' + _esc(ttl[1] || '') + '</small></span>' + tag + '</button>';
  }).join('');
 }
@@ -5563,9 +5588,9 @@ function _rwKeyLifts(o, got){
 }
 // sessions onto days: upper and lower never back to back, no legs the day before a hike,
 // a fourth day running stays short; whatever doesn't get a day sends its key lifts along
-function _rwBuild(dates, budgetFor, sessions, ans, capFor){
+function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
  var t0 = _today(), got = _loggedSince(_weekStart()), best = null;
- var pastHalf = function(d){ return d < t0 || (d === t0 && _doneToday()) ? _halfOn(d) : null; };
+ var pastHalf = function(d){ return fixed && fixed[d] ? DAY_HALF[fixed[d]] : d < t0 || (d === t0 && _doneToday()) ? _halfOn(d) : null; };
  // every way to lay the sessions on the days (≤4 sessions, ≤7 days — small); most sessions placed wins, then the usual order earliest
  (function walk(i, left, seq){
   if (i === dates.length){ var n = seq.filter(function(x){ return x; }).length, key = seq.map(function(x){ return x ? sessions.indexOf(x) : 9; });
@@ -5593,8 +5618,7 @@ function _rwBuild(dates, budgetFor, sessions, ans, capFor){
 }
 var _rwAns = null, _rwLast = [];
 function _rwOptions(ans){
- var low = owedDays().filter(function(d){ return DAY_HALF[d] === 'L'; }), ord = ['d5', low[0], 'd3', low[1]];   // the usual week order: Upper A, Lower, Upper B
- var owed = owedDays().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
+ var owed = _ordOwed(owedDays()), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
  var base = ans.energy === 'wiped' ? 20 : ans.energy === 'meh' ? Math.min(ans.min, 45) : ans.min;
  var cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
  var mk = function(key, title, why, ds, bud, ses, cf){ var r = _rwBuild(ds, bud, ses, ans, cf), tot = 0, n = 0, br = 0;
