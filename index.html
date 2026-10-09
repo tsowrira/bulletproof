@@ -1626,6 +1626,8 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  .rw-o li small{color:var(--dim)}
  .rw-o li i{display:block;margin-left:40px;font-style:normal;font-size:12.5px;color:var(--gld)}
  .rw-o .rw-let{font-size:12.5px;color:var(--dim)}
+ .rw-oh em.same{color:var(--dim)}
+ .rw-ok{padding:10px 12px;border:1px solid var(--bdr);border-radius:12px;margin:10px 0 4px}.rw-ok b{color:var(--g)}
  .rw-use{width:100%;min-height:46px;margin-top:8px;border-radius:100px;border:1px solid var(--g);background:rgba(93,255,159,.12);color:var(--g);font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
  .rw-o:not(.rec) .rw-use{border-color:var(--bdr);background:none;color:var(--fade)}
  .rw-clear{display:block;margin:14px auto 0;min-height:44px;background:none;border:0;color:var(--dim);font:600 13px 'Inter',sans-serif;text-decoration:underline;cursor:pointer}
@@ -3232,7 +3234,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-08.4';
+var APP_V = '2026-10-08.6';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3904,7 +3906,9 @@ function _lastDone(id){
  readSess().forEach(function(x){ if (x && x.day === id && x.n >= 3 && x.e > t) t = x.e; });
  return t;
 }
-function _nextLower(){ return _lastDone('d1') <= _lastDone('d2') ? 'd1' : 'd2'; }
+function _nextLower(){   // a lower already under way today is this week's lower, not "done, so the other one next"
+ var t = _today(), on = readSess().filter(function(x){ return x && x.d === t && DAY_HALF[x.day] === 'L' && x.n >= 1; })[0];
+ return on ? on.day : _lastDone('d1') <= _lastDone('d2') ? 'd1' : 'd2'; }
 function _wedLower(){ var w = readCompletedWeek(); return w.d1 && !w.d2 ? 'd1' : w.d2 && !w.d1 ? 'd2' : _nextLower(); }
 function _ordOwed(xs){ var low = xs.filter(function(d){ return DAY_HALF[d] === 'L'; }), ord = ['d5', low[0], 'd3', low[1]];   // the usual week order: Upper A, Lower, Upper B
  return xs.slice().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }); }
@@ -5572,6 +5576,7 @@ function _rwWhy(){
  var dow = _dow(); if (dow < 1 || dow > 4 || !owedDays().length) return '';   // Friday's home card already says what to catch
  var w = readCompletedWeek(), o = _rwRead(), t = _today();
  if (o.plan) return Object.keys(o.plan).some(function(d){ var e = o.plan[d]; return d < t && e.day && !w[e.day]; }) ? 'The reworked plan slipped' : '';
+ var wp = _weekPlan(); if (owedDays().every(function(x){ return Object.keys(wp).some(function(d){ return wp[d] && wp[d].id === x; }); })) return '';   // everything left still has a day — nothing to rework
  var why = [];
  [['d5', 2], ['L', 3], ['d3', 4]].forEach(function(x){
   var id = x[0] === 'L' ? (w.d1 ? 'd1' : w.d2 ? 'd2' : null) : x[0], st = id && w[id], on = st && new Date(+st - DAY_SHIFT_MS).getDay();
@@ -5579,9 +5584,12 @@ function _rwWhy(){
   else if (st && String(st).indexOf('skip') !== 0 && on !== x[1]) why.push(DAY_NAME[id] + ' moved to ' + DOW_N[on].slice(0, 3)); });
  return why.join(' · ');
 }
+function _rwOwed(){ var t = _today(), on = readSess().filter(function(x){ return x && x.d === t && DAY_HALF[x.day] && x.n >= 1; }).map(function(x){ return x.day; });   // what's left after the session you're in
+ return _ordOwed(owedDays().filter(function(d){ return on.indexOf(d) < 0; })); }
 function _rwDays(){   // today (unless trained already) through Sunday
  var out = [], n = (7 - _dow()) % 7;
- for (var i = 0; i <= n; i++){ if (!i && (_doneToday() || _snackToday())) continue; out.push(_ymd(Date.now() + i * 864e5)); }
+ var busy = readSess().some(function(x){ return x && x.d === _today() && DAY_HALF[x.day] && x.n >= 1; });   // a session under way stays put
+ for (var i = 0; i <= n; i++){ if (!i && (_doneToday() || _snackToday() || busy)) continue; out.push(_ymd(Date.now() + i * 864e5)); }
  return out;
 }
 function _rwDefault(){ return { days: _rwDays().filter(function(d){ var k = _dowOf(d); return k >= 1 && k <= 5; }), min: 45, energy: 'good', hike: true }; }
@@ -5597,7 +5605,8 @@ function _rwKeyLifts(o, got){
 // a fourth day running stays short; whatever doesn't get a day sends its key lifts along
 function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
  var t0 = _today(), got = _loggedSince(_weekStart()), best = null;
- var pastHalf = function(d){ return fixed && fixed[d] ? DAY_HALF[fixed[d]] : d < t0 || (d === t0 && _doneToday()) ? _halfOn(d) : null; };
+ var on = readSess().filter(function(x){ return x && x.d === t0 && DAY_HALF[x.day] && x.n >= 1; })[0];
+ var pastHalf = function(d){ return fixed && fixed[d] ? DAY_HALF[fixed[d]] : on && d === t0 ? DAY_HALF[on.day] : d < t0 || (d === t0 && _doneToday()) ? _halfOn(d) : null; };
  // every way to lay the sessions on the days (≤4 sessions, ≤7 days — small); most sessions placed wins, then the usual order earliest
  (function walk(i, left, seq){
   if (i === dates.length){ var n = seq.filter(function(x){ return x; }).length, key = seq.map(function(x){ return x ? sessions.indexOf(x) : 9; });
@@ -5617,7 +5626,9 @@ function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
  // a session that didn't get a day sends its key lifts to the days that have room for them
  var tdays = Object.keys(plan).filter(function(d){ return plan[d].day; });
  var halfAt = function(d){ return plan[d] ? (plan[d].day ? DAY_HALF[plan[d].day] : null) : pastHalf(d); };
- left.forEach(function(o){ var H = DAY_HALF[o]; _rwKeyLifts(o, got).forEach(function(id){
+ var wk = readCompletedWeek(), lowIn = ['d1', 'd2'].filter(function(l){ return wk[l] || tdays.some(function(d){ return plan[d].day === l; }); });
+ var pool = left.concat(lowIn.length === 1 && left.indexOf(lowIn[0] === 'd1' ? 'd2' : 'd1') < 0 ? [lowIn[0] === 'd1' ? 'd2' : 'd1'] : []);   // the Friday lower you lost room for, too
+ pool.forEach(function(o){ var H = DAY_HALF[o]; _rwKeyLifts(o, got).forEach(function(id){
   tdays.slice().sort(function(a, b){ return plan[a].bring.length - plan[b].bring.length; }).some(function(d){ var e = plan[d]; if (e.bring.length >= capFor(e.budget)) return false;
    if (DAY_HALF[e.day] !== H && (halfAt(_dayBefore(d)) === H || halfAt(_ymd(new Date(d + 'T12:00').getTime() + DAY_SHIFT_MS + 864e5)) === H)) return false;   // no upper work the day after (or before) an upper day
    var p = planDay(e.day, e.budget, e.bring.concat(id)); if (p && p.rescue.indexOf(id) >= 0){ e.bring.push(id); return true; } return false; }); }); });
@@ -5625,7 +5636,7 @@ function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
 }
 var _rwAns = null, _rwLast = [];
 function _rwOptions(ans){
- var owed = _ordOwed(owedDays()), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
+ var owed = _rwOwed(), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
  var base = ans.energy === 'wiped' ? 20 : ans.energy === 'meh' ? Math.min(ans.min, 45) : ans.min;
  var cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
  var mk = function(key, title, why, ds, bud, ses, cf){ var r = _rwBuild(ds, bud, ses, ans, cf), tot = 0, n = 0, br = 0;
@@ -5643,11 +5654,12 @@ function _rwOptions(ans){
  out.push(mk('easy', 'Easy week', 'Just ' + DAY_NAME[owed[0]] + '. The rest let go — nothing is owed.', dates, function(){ return ans.energy === 'wiped' ? 20 : 45; }, [owed[0]], none));
  var seen = {}; out = out.filter(function(o){ var k = JSON.stringify(o.plan); if (seen[k] || !o.n) return false; seen[k] = 1; return true; });
  var rec = ans.energy === 'wiped' ? 'easy' : ans.energy === 'meh' ? 'lean' : 'all'; if (!out.some(function(o){ return o.key === rec; })) rec = out.length ? out[0].key : '';
- out.forEach(function(o){ o.rec = o.key === rec; });
+ var wp = _weekPlan();
+ out.forEach(function(o){ o.rec = o.key === rec; o.same = Object.keys(o.plan).every(function(d){ var e = o.plan[d], x = wp[d]; return (e.day || null) === (x && x.id && !x.opt && !x.done ? x.id : null) && !(e.got || []).length; }); });
  return out;
 }
 function _rwSheet(){
- var all = _rwDays(), o = _rwRead(), w = readCompletedWeek(), owed = owedDays();
+ var all = _rwDays(), o = _rwRead(), w = readCompletedWeek(), owed = _rwOwed();
  _rwAns = _rwAns || o.ans || _rwDefault(); _rwAns.days = _rwAns.days.filter(function(d){ return all.indexOf(d) >= 0; });
  var done = ['d5', 'd1', 'd3', 'd2'].filter(function(d){ return w[d] && String(w[d]).indexOf('skip') !== 0; }).map(function(d){ return DAY_NAME[d] + ' (' + DOW_N[new Date(+w[d] - DAY_SHIFT_MS).getDay()].slice(0, 3) + ')'; });
  var h = '<div class="sh-t">Rework this week</div><p class="rw-sum">' + (done.length ? 'Done: ' + _esc(done.join(', ')) + '. ' : '') + (owed.length ? 'Left: ' + _esc(owed.map(function(d){ return DAY_NAME[d]; }).join(', ')) + '.' : 'Nothing left — rest counts.') + '</p>';
@@ -5660,14 +5672,15 @@ function _rwSheet(){
  if (all.some(function(d){ var k = _dowOf(d); return k === 6 || k === 0; })) h += seg('Weekend hike?', 'hike', [['true', 'Yes'], ['false', 'No']]);
  var os = _rwOptions(_rwAns); _rwLast = os;
  if (!os.length) h += '<p class="rw-sum">Pick at least one day.</p>';
+ else if (os.some(function(x){ return x.key === 'all' && x.same; })) h += '<p class="rw-sum rw-ok"><b>Nothing is lost.</b> What’s left still fits your days, and those days already cover every kind of lift — so “Everything” is just your normal plan. Want more today? Tap 60 or 80 at the top of the workout.</p>';
  os.forEach(function(op){
   var lines = Object.keys(op.plan).sort().map(function(d){ var e = op.plan[d];
    if (!e.day) return '<li><b>' + _dShort(d) + '</b> rest <small>' + _esc(e.why || '') + '</small></li>';
    var nm = (e.got || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
    return '<li><b>' + _dShort(d) + '</b> ' + _esc(DAY_NAME[e.day]) + ' <small>' + e.lifts + ' lifts · ≈' + e.min + ' min' + (e.budget < 30 ? ' · easy' : '') + '</small>' + (nm.length ? '<i>+ ' + _esc(nm.join(', ')) + '</i>' : '') + '</li>'; }).join('');
   var lg = op.left.filter(function(x, i, a){ return a.indexOf(x) === i; }).map(function(d){ return DAY_NAME[d]; });
-  h += '<div class="rw-o' + (op.rec ? ' rec' : '') + '"><div class="rw-oh"><b>' + op.title + '</b>' + (op.rec ? '<em>best fit</em>' : '') + '<span>' + op.n + ' day' + (op.n === 1 ? '' : 's') + ' · ≈' + op.min + ' min</span></div><p>' + op.why + '</p><ul>' + lines + '</ul>' +
-   (lg.length && op.key !== 'all' ? '<p class="rw-let">Let go: ' + _esc(lg.join(', ')) + '</p>' : '') + '<button type="button" class="rw-use" onclick="_rwUse(\'' + op.key + '\')">Use this</button></div>'; });
+  h += '<div class="rw-o' + (op.rec ? ' rec' : '') + '"><div class="rw-oh"><b>' + op.title + '</b>' + (op.same ? '<em class="same">same as now</em>' : op.rec ? '<em>best fit</em>' : '') + '<span>' + op.n + ' day' + (op.n === 1 ? '' : 's') + ' · ≈' + op.min + ' min</span></div><p>' + op.why + '</p><ul>' + lines + '</ul>' +
+   (lg.length && op.key !== 'all' ? '<p class="rw-let">Let go: ' + _esc(lg.join(', ')) + '</p>' : '') + (op.same ? '<button type="button" class="rw-use" onclick="closeSheet()">Keep my plan</button>' : '<button type="button" class="rw-use" onclick="_rwUse(\'' + op.key + '\')">Use this</button>') + '</div>'; });
  if (o.plan) h += '<button type="button" class="rw-clear" onclick="_rwClear()">Back to the normal week</button>';
  return h;
 }
