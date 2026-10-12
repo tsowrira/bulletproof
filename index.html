@@ -1884,15 +1884,15 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">2 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Floor or mat, hands under the shoulders. Bodyweight or your vest — face-down, so no spine load.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Floor or mat, hands under the shoulders. Bodyweight, vest, or a plate high between the shoulder blades — face-down, so no spine load.</span></div>
 <div class="cue">At the top, push one more inch away.</div>
 <div class="setup"><strong>1.</strong> Plank in one line, ribs down. <strong>2.</strong> Lower in 2, elbows angled back, chest near the floor. <strong>3.</strong> Press up, push the floor away, pause 1. Hips sag: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Bodyweight, a deliberate plus every rep — AMRAP ends when hips sag</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Bodyweight or your plate, a deliberate plus every rep — AMRAP ends when hips sag</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Reps first: set 2 hits 15 clean → feet on a low step</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Tempo: 4s lowering, 2s pause in the plus</span></div>
- <div class="prog-step"><span class="pn">Load</span><span>Vest is fine. Add to it only after feet-up set 2 hits 15 clean, +2.5 lb at a time. Never a plate on the low back</span></div>
+ <div class="prog-step"><span class="pn">Load</span><span>Plate high between the shoulder blades, or the vest. Set 2 hits 12 clean → +2.5 lb. The plus rounds your upper back, so a plate creeps down: if it slides, swap to a band across the upper back. Never weight on the low back</span></div>
 </div></div>
 </div>
 
@@ -3237,7 +3237,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-09.2';
+var APP_V = '2026-10-11.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -5320,6 +5320,7 @@ document.addEventListener('click', function(ev){ var t = ev.target.closest && ev
  _toast(m ? f(m[1], 'lower') + ' · ' + (m[2] === '0' ? 'no pause' : m[2] + 's hold') + ' · ' + f(m[3], 'lift') : t.textContent.trim() === 'ISO' ? 'Hold still — no movement' : 'Smooth and controlled'); });
 // machine settings memory: one short note per card that has a seat, pad or roller to set
 (function(){ var notes = {}; try { notes = _asObj(JSON.parse(store.get('bp-seat') || '{}')); } catch(e){}
+ if (/low row/i.test(notes['d2e-press'] || '') && !notes.d1e3){ notes.d1e3 = 'Seat 3 · Iso-Lateral Low Row'; delete notes['d2e-press']; try { store.set('bp-seat', JSON.stringify(notes)); } catch(e){} }   // a row note typed on the press card
  document.querySelectorAll('.excard[data-id] > .band-badge').forEach(function(bd){ var c = bd.parentNode; if (c.classList.contains('wild') || !/machine|seat|thigh pad/i.test(bd.textContent)) return;
  var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.maxLength = 40; i.placeholder = 'Seat / pad settings — tap to note'; i.setAttribute('aria-label', 'Machine settings note');
  function key(){ return _logKey(c); } function paint(){ i.value = notes[key()] || ''; i.classList.toggle('has', !!i.value); }
