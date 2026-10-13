@@ -17,16 +17,20 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Network first so a freshly pushed program wins, cache second so no signal still works.
+// Network first so a freshly pushed program wins, but a weak gym signal gets 1.5s before the saved copy opens instead.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        const copy = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
-        return res;
-      })
-      .catch(() => caches.match(e.request).then(hit => hit || caches.match('./index.html')))
-  );
+  const net = fetch(e.request).then(res => {
+    if (res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {}); }
+    return res;
+  });
+  e.waitUntil(net.catch(() => {}));
+  const saved = () => caches.match(e.request, { ignoreSearch: true }).then(hit => hit || caches.match('./index.html'));
+  e.respondWith(new Promise(done => {
+    let settled = false;
+    const give = r => { if (!settled && r){ settled = true; done(r); } };
+    const t = setTimeout(() => saved().then(hit => { if (hit) give(hit); }), 1500);
+    net.then(r => { clearTimeout(t); give(r); })
+       .catch(() => { clearTimeout(t); saved().then(hit => give(hit || Response.error())); });
+  }));
 });

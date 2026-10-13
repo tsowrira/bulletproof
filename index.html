@@ -1530,7 +1530,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .rtag{font:700 10.5px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--p);margin-bottom:4px}
 .excard[data-rescued] .ssn{display:none}
 /* phone home: today, this week, what's next — the program lives behind Today / Week / More */
-.home,.hm-next,.hm-any{display:none}
+.home,.hm-next,.hm-any,.hm-rw{display:none}
 @media(max-width:759px){
  body:not(.focus):not(.browse) :is(.check-status,.callout.howruns,.section,.hmwrap,.dailywrap:not(#log),.nutwrap,.legend,footer,.day-jump){display:none!important}
  body:not(.focus):not(.browse) .hero-eye{display:none}
@@ -1637,7 +1637,8 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  .rw-pill span small{display:block;font-size:11px;font-weight:500;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .rw-pill>b{font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--g)}
  .rw-x{min-width:40px;min-height:40px;border:0;border-radius:50%;background:none;color:var(--dim);font-size:20px;cursor:pointer}
- body:has(#sheet.open) .rw-pill,body:not(.focus):has(.day-jump.show) .rw-pill,body.browse .rw-pill{display:none}
+ body:has(#sheet.open) .rw-pill,body:not(.focus):has(.day-jump.show) .rw-pill,body.browse .rw-pill,body.focus:has(.section.cur .excard.done) .rw-pill,body.focus:has(.section.cur .excard[data-sn]) .rw-pill{display:none}   /* mid-session it only gets in the way */
+ body:has(#rwPill:not([hidden])) :is(footer,body.focus .section.cur){padding-bottom:calc(150px + env(safe-area-inset-bottom))}
  body:has(.day-jump.show)::after{display:none}
  .bp-toast{bottom:calc(80px + env(safe-area-inset-bottom))}
  footer,body.focus .section.cur{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
@@ -3237,15 +3238,15 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-11.3';
+var APP_V = '2026-10-13.4';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
  setTimeout(function(){ try { if (typeof applyWildcards === 'function') applyWildcards(); } catch(e){} try { if (typeof applyBlock === 'function') applyBlock(); } catch(e){} try { if (typeof buildJots === 'function') buildJots(); } catch(e){} try { if (typeof renderNumbers === 'function') renderNumbers(); } catch(e){} try { if (typeof _toast === 'function') _toast('Something broke — see Numbers'); } catch(e){} }, 0); });
-var _mem = {}, store = {
+var _mem = {}, _wpMemo = null, store = {
  get: function(k){ try { var v = localStorage.getItem(k); if (v !== null) return v; } catch(e){} return k in _mem ? _mem[k] : null; },
- set: function(k, v){ _mem[k] = String(v); try { localStorage.setItem(k, v); } catch(e){} },
- del: function(k){ delete _mem[k]; try { localStorage.removeItem(k); } catch(e){} }
+ set: function(k, v){ _wpMemo = null; _mem[k] = String(v); try { localStorage.setItem(k, v); } catch(e){} },
+ del: function(k){ _wpMemo = null; delete _mem[k]; try { localStorage.removeItem(k); } catch(e){} }
 };
 
 // sticky offsets follow the real nav height (it wraps on desktop, grows with the notch inset and once the webfont lands)
@@ -3916,7 +3917,10 @@ function _wedLower(){ var w = readCompletedWeek(); return w.d1 && !w.d2 ? 'd1' :
 function _ordOwed(xs){ var low = xs.filter(function(d){ return DAY_HALF[d] === 'L'; }), ord = ['d5', low[0], 'd3', low[1]];   // the usual week order: Upper A, Lower, Upper B
  return xs.slice().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }); }
 // one picture of this week, Mon→Sun: what you did, today, your rework, and where the rest will land — every label reads this
-function _weekPlan(){
+// one paint asks for the week dozens of times: build it once per task, rebuild after any write
+function _weekPlan(){ if (_wpMemo) return _wpMemo; var r = _weekPlan0(); _wpMemo = r; Promise.resolve().then(function(){ _wpMemo = null; }); return r; }
+window.addEventListener('storage', function(){ _wpMemo = null; });
+function _weekPlan0(){
  var out = {}, w = readCompletedWeek(), t0 = _today(), ws = _weekStart(), ds = [];
  for (var k = 0; k < 7; k++){ ds.push(_ymd(ws + k * 864e5 + 72e5)); out[ds[k]] = null; }
  Object.keys(w).forEach(function(d){ var ts = parseInt(String(w[d]).replace('skip:', '')) || 0, y = ts && _ymd(ts); if (y && y in out && String(w[d]).indexOf('skip') !== 0 && (!out[y] || DAY_HALF[d])) out[y] = { id: d, done: 1 }; });
@@ -5595,7 +5599,8 @@ function _rwWhy(){
   var id = x[0] === 'L' ? (w.d1 ? 'd1' : w.d2 ? 'd2' : null) : x[0], st = id && w[id], on = st && new Date(+st - DAY_SHIFT_MS).getDay();
   if (!st && dow > x[1]) why.push((x[0] === 'L' ? 'Lower' : DAY_NAME[x[0]]) + ' missed');
   else if (st && String(st).indexOf('skip') !== 0 && on !== x[1]) why.push(DAY_NAME[id] + ' moved to ' + DOW_N[on].slice(0, 3)); });
- return why.join(' · ');
+ var gone = owedDays().filter(function(x){ return !Object.keys(wp).some(function(d){ return wp[d] && wp[d].id === x; }); }).map(function(x){ return DAY_NAME[x]; });   // say what's actually lost, then why
+ return [gone.join(' and ') + (gone.length === 1 ? ' has no day left' : ' have no days left')].concat(why.slice(0, 1)).join(' · ');
 }
 function _rwOwed(){ var t = _today(), on = readSess().filter(function(x){ return x && x.d === t && DAY_HALF[x.day] && x.n >= 1; }).map(function(x){ return x.day; });   // what's left after the session you're in
  return _ordOwed(owedDays().filter(function(d){ return on.indexOf(d) < 0; })); }
@@ -5651,13 +5656,17 @@ var _rwAns = null, _rwLast = [];
 function _rwOptions(ans){
  var owed = _rwOwed(), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
  var base = ans.energy === 'wiped' ? 20 : ans.energy === 'meh' ? Math.min(ans.min, 45) : ans.min;
- var cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
+ var wkGot = _loggedSince(_weekStart()), cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
  var mk = function(key, title, why, ds, bud, ses, cf){ var r = _rwBuild(ds, bud, ses, ans, cf), tot = 0, n = 0, br = 0;
-  Object.keys(r.plan).forEach(function(d){ var e = r.plan[d]; if (!e.day) return; var p = planDay(e.day, e.budget, e.bring); e.min = p ? p.min : e.budget; e.lifts = p ? p.lifts : 0; e.got = p ? p.rescue : []; tot += e.min; n++; br += e.got.length; });
+  Object.keys(r.plan).forEach(function(d){ var e = r.plan[d]; if (!e.day) return; var p = planDay(e.day, e.budget, e.bring); e.min = p ? p.min : e.budget; e.lifts = p ? p.lifts : 0; e.got = p ? p.rescue : []; e.keep = p ? p.keep : []; tot += e.min; n++; br += e.got.length; });
   var nm = r.left.map(function(o){ return DAY_NAME[o]; }).join(' and ');
-  var one = r.left.length === 1;
-  if (r.left.length) why = nm + (one ? ' doesn’t get its own day' : ' don’t get their own days') + (br ? ' — ' + (one ? 'its' : 'their') + ' key lifts join the others.' : '. The days you keep already cover ' + (one ? 'its' : 'their') + ' kinds of lifts.');
-  return { key: key, title: title, why: why, plan: r.plan, left: r.left.concat(owed.filter(function(o){ return ses.indexOf(o) < 0; })), min: tot, n: n }; };
+  var one = r.left.length === 1, its = one ? 'its' : 'their', brought = [], lost = [];
+  var have = {}; Object.keys(wkGot).forEach(function(id){ if (SLOT[id]) have[SLOT[id]] = 1; });
+  Object.keys(r.plan).forEach(function(d){ brought = brought.concat(r.plan[d].got || []); (r.plan[d].got || []).concat(r.plan[d].keep || []).forEach(function(id){ if (SLOT[id]) have[SLOT[id]] = 1; }); });
+  r.left.forEach(function(o){ _rwKeyLifts(o, wkGot).forEach(function(id){ if (brought.indexOf(id) < 0 && !(SLOT[id] && have[SLOT[id]]) && lost.indexOf(id) < 0) lost.push(id); }); });   // a pull already on another day isn't lost
+  var lostN = lost.map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
+  if (r.left.length) why = nm + (one ? ' doesn’t get its own day' : ' don’t get their own days') + (lost.length ? (br ? ' — some key lifts join the others; no room for ' : ' — no room for ') + lostN.join(', ') + ' at this length.' : br ? ' — ' + its + ' key lifts join the others.' : '. The days you keep already cover ' + its + ' kinds of lifts.');
+  return { key: key, title: title, why: why, plan: r.plan, left: r.left.concat(owed.filter(function(o){ return ses.indexOf(o) < 0; })), lost: lost, min: tot, n: n }; };
  var fits = dates.length >= owed.length;
  out.push(mk('all', fits ? 'Everything, spread out' : 'Everything, longer days', 'Each session gets its own day.', dates, function(){ return fits ? base : base < 45 ? 45 : base < 60 ? 60 : 80; }, owed, cap));
  if (dates.length >= 2 && owed.length >= 2 && ans.energy !== 'wiped'){ var k = Math.min(dates.length, owed.length) - 1, ds = [];
@@ -5685,7 +5694,7 @@ function _rwSheet(){
  if (all.some(function(d){ var k = _dowOf(d); return k === 6 || k === 0; })) h += seg('Weekend hike?', 'hike', [['true', 'Yes'], ['false', 'No']]);
  var os = _rwOptions(_rwAns); _rwLast = os;
  if (!os.length) h += '<p class="rw-sum">' + (_rwAns.days.length ? 'Those days can’t take what’s left without doubling up upper or lower, or legs right before the hike. Add a day.' : 'Pick at least one day.') + '</p>';
- else if (os.some(function(x){ return x.key === 'all' && x.same; })) h += '<p class="rw-sum rw-ok"><b>Nothing is lost.</b> What’s left still fits your days, and those days already cover every kind of lift — so “Everything” is just your normal plan. Want more today? Tap 60 or 80 at the top of the workout.</p>';
+ else if (os.some(function(x){ return x.key === 'all' && x.same && !x.lost.length; })) h += '<p class="rw-sum rw-ok"><b>Nothing is lost.</b> What’s left still fits your days, and those days already cover every kind of lift — so “Everything” is just your normal plan. Want more today? Tap 60 or 80 at the top of the workout.</p>';
  os.forEach(function(op){
   var lines = Object.keys(op.plan).sort().map(function(d){ var e = op.plan[d];
    if (!e.day) return '<li><b>' + _dShort(d) + '</b> rest <small>' + _esc(e.why || '') + '</small></li>';
