@@ -1405,8 +1405,8 @@ body.gym .seatjot:not(.has),.excard.done .seatjot{display:none}
 #numList .srow span{font-size:15px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
 #numList .srow{display:flex;align-items:center;gap:9px}
 #numList .srow span{margin-left:auto}
-.srow-x{flex-shrink:0;width:44px;height:44px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.srow-x:active{border-color:var(--r);color:var(--r)}
+.srow-x{flex-shrink:0;width:44px;height:44px;border:1px solid transparent;opacity:.55;border-radius:100px;background:transparent;color:var(--dim);font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.srow-x:active{border-color:var(--r);color:var(--r);opacity:1}
 /* bodyweight — the one number that says whether "gaining slowly" is actually happening */
 .bk{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 .bk .logbtn{margin:0!important;flex:1 1 auto;min-width:118px}
@@ -3238,7 +3238,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-13.4';
+var APP_V = '2026-10-13.5';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4436,7 +4436,7 @@ function _wstep(w, u, dir){ return u === 'kg' ? (w < 15 || (w === 15 && dir < 0)
 // best-ever compares across units — everything normalises to lb before scoring
 function _score(e){ return e.w > 0 ? _toLb(e.w, e.u) * (1 + e.r/30) : e.r; }
 function _fmt(e){ var u = ' ' + (e.u || 'lb'), tu = e.t === 's' ? 's' : e.t === 'm' ? ' min' : '';
- if (Array.isArray(e.s) && e.s.length > 1 && e.s.some(function(x){ return x[0] !== e.s[0][0]; })) return e.s.map(function(x){ return (x[0] > 0 ? x[0] + ' × ' : '') + x[1] + tu; }).join(' · ') + (e.s.some(function(x){ return x[0] > 0; }) ? u : '');   // weight changed between sets
+ if (Array.isArray(e.s) && e.s.length > 1 && e.s.some(function(x){ return x[0] !== e.s[0][0]; })) return e.s.map(function(x){ return (x[0] > 0 ? x[0] + u + ' × ' : '') + x[1] + tu; }).join(' · ');   // weight changed between sets
  var reps = (Array.isArray(e.s) && e.s.length > 1 ? e.s.map(function(x){ return x[1]; }).join('/') : (e.r1 > 0 && e.r1 !== e.r) ? e.r1 + '/' + e.r : e.r) + tu;   // set 1 / set 2 / …
  return e.r > 0 ? (e.w > 0 ? e.w + u + ' × ' : '') + reps : e.w + u; }
 function _same(arr, w){ return arr.filter(function(e){ return (e.w > 0) === (w > 0); }); }
