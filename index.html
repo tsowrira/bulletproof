@@ -1833,7 +1833,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>S1: 5 weighted, 2 in the tank · S2: chest-to-bar, stop 1 short</span></div>
- <div class="prog-step"><span class="pn">Under 5</span><span>Set 1 can’t reach 5 → belt off. Bodyweight until 5 is clean with 2 in the tank twice, then +2.5 lb</span></div>
+ <div class="prog-step"><span class="pn">Under 5</span><span>Set 1 still climbing (3 → 4) → keep the belt. Stuck under 5 two times running → belt off, bodyweight until 5 is clean twice, then +2.5 lb</span></div>
  <div class="prog-step"><span class="pn">Add</span><span>+2.5 lb when 5 is clean with 2 still in the tank — at most weekly, shoulders quiet 48 h</span></div>
  <div class="prog-step"><span class="pn">Aim</span><span>+25 lb × 3</span></div>
 </div></div>
@@ -3238,7 +3238,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-13.5';
+var APP_V = '2026-10-14.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4187,6 +4187,10 @@ function readCompletedWeek(){
  var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}   // 'null' parses fine and then kills Object.keys
  var mon = _weekStart();
  Object.keys(w).forEach(function(d){ var t = parseInt(String(w[d]).replace('skip:', '')) || 0; if (t < mon) delete w[d]; });
+ // an earlier day's session you mostly did counts even if Finish never got tapped
+ var t0 = _today(); readSess().forEach(function(x){ if (!x || !x.d || x.d >= t0 || !DAY_HALF[x.day] || w[x.day] || !((x.e || x.s) >= mon)) return;
+  var did = _ids(x).filter(function(id){ return id !== 'wu'; }).length, off = Array.isArray(x.off) ? x.off.filter(function(id){ return id !== 'wu'; }).length : (x.of || 0);
+  if (did >= 3 && did * 2 >= off) w[x.day] = x.e || x.s; });
  return w;
 }
 function updateFabCount(){
