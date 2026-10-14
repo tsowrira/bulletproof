@@ -1866,7 +1866,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">3 · 1 · 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Taken: seated cable row.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Log one side’s plates + 8 lb for the machine. Taken: seated cable row.</span></div>
 <div class="warmset">⚡ Ramp: 1 easy set</div>
 <div class="cue">Both arms. Elbows stop at your sides.</div>
 <div class="setup"><strong>1.</strong> Chest on the pad, palms in, arms long — blades reach, chest stays put. <strong>2.</strong> Elbows back to your sides, squeeze 1. <strong>3.</strong> Return in 3. Chest lifts, torso twists or elbows pass your back: set over.</div>
@@ -3237,7 +3237,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-14.4';
+var APP_V = '2026-10-14.5';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4431,6 +4431,11 @@ function rerollWild(id){
 // per-exercise history — survives across weeks so "last time" and "best" show up when you need them
 function readHist(){ try { return _asObj(JSON.parse(store.get('bp-hist') || '{}')); } catch(e){ return {}; } }
 function writeHist(o){ try { store.set('bp-hist', JSON.stringify(o)); } catch(e){} }
+// the first row day was logged as plates only; later days count the machine's 8 lb
+function _fixRow(){ var h = readHist(), a = _asArr(h.d1e3), hit = 0;
+ a.forEach(function(e){ if (e && e.d === '2026-10-07' && Array.isArray(e.s) && e.s.length === 2 && e.s[0][0] === 25 && e.s[1][0] === 30){ e.s = [[33, e.s[0][1]], [38, e.s[1][1]]]; e.w = 38; hit = 1; } });
+ if (hit){ h.d1e3 = a; writeHist(h); try { store.set('bp-gh-dirty', String(Date.now())); } catch(e){} } return hit; }
+_fixRow();
 function _daysAgo(d){ var n = Math.round((Date.parse(_today()) - Date.parse(d)) / 864e5); return isFinite(n) ? n : 0; }
 function _today(){ var d = new Date(Date.now() - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 // units: some machines here are pinned in kg, some in lb — remembered per lift, tap the unit to switch
@@ -4868,7 +4873,7 @@ function _ghMerge(d){
    a.sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; });
    if (a.length) loc[k] = a.slice(-12); else delete loc[k];
   });
-  writeHist(loc);
+  writeHist(loc); added += _fixRow();
  }
  if (d['bp-sess']){
   var rs = []; try { rs = _asArr(JSON.parse(d['bp-sess'])); } catch(e){ rs = []; }
@@ -4911,14 +4916,19 @@ function ghPull(quiet){
  }).catch(function(e){ if (_ghOffline(e)){ if (!quiet) _toast('No connection — will sync later'); return false; } var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
 }
 
+var _ghBusy = null;
 function ghPush(quiet, retried){
  var c = readGH(); if (!c) return Promise.resolve(false);
+ if (_ghBusy && !retried) return _ghBusy;
+ var d0 = store.get('bp-gh-dirty');
  var hist = readHist(), t = _today(), today = 0;
  Object.keys(hist).forEach(function(k){ _asArr(hist[k]).forEach(function(e){ if (e.d === t) today++; }); });
  var msg = 'log: ' + t + (today ? ' · ' + today + ' lift' + (today === 1 ? '' : 's') : '');
  var body = { message: msg, content: _b64enc(JSON.stringify(_bkPayload(), null, 1)) };
  if (c.sha) body.sha = c.sha;
- return fetch(_ghUrl(c), { method:'PUT', headers:_ghHead(c), body:JSON.stringify(body) }).then(function(r){
+ var bs = JSON.stringify(body);
+ // keepalive lets the upload finish after the app is backgrounded (browsers cap it at 64 KB)
+ var pr = fetch(_ghUrl(c), { method:'PUT', headers:_ghHead(c), body:bs, keepalive:bs.length < 60000 }).then(function(r){
   if ((r.status === 409 || r.status === 422) && !retried)      // something wrote first: take it, then rewrite
    return ghPull(1).then(function(){ return ghPush(quiet, 1); });
   if (r.status === 404) throw new Error(_ghNo404(c));
@@ -4928,19 +4938,22 @@ function ghPush(quiet, retried){
   return r.json().then(function(j){
    var cc = readGH(); if (!cc) return false;
    cc.sha = (j.content || {}).sha; cc.at = Date.now(); delete cc.err; writeGH(cc);
-   try { store.set('bp-bk', t); } catch(e){}
+   try { store.set('bp-bk', t); if (store.get('bp-gh-dirty') === d0) store.del('bp-gh-dirty'); } catch(e){}
    paintGH(); paintBackupNote();
    if (!quiet) _toast('Synced');
    return true;
   });
  }).catch(function(e){ if (_ghOffline(e)){ ghTouch(); if (!quiet) _toast('No connection — will sync later'); return false; } var cc = readGH(); if (cc) _ghErr(cc, e.message); if (!quiet) _toast(e.message); return false; });
+ if (retried) return pr;
+ _ghBusy = pr; return pr.then(function(x){ _ghBusy = null; return x; });
 }
 
 // numbers change often; a commit per tap would be noise, so settle first
 var _ghT = null;
-function ghTouch(){ if (!readGH()){ paintSyncDot(null); return; } clearTimeout(_ghT); _ghT = setTimeout(function(){ _ghT = null; ghPush(1); }, 120000); paintSyncDot(); }
-function ghFlush(){ if (!readGH() || !_ghT) return; clearTimeout(_ghT); _ghT = null; ghPush(1); }
-document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') ghFlush(); });
+function ghTouch(){ try { store.set('bp-gh-dirty', String(Date.now())); } catch(e){} if (!readGH()){ paintSyncDot(null); return; } clearTimeout(_ghT); _ghT = setTimeout(function(){ _ghT = null; ghPush(1); }, 120000); paintSyncDot(); }
+// a push the phone cut off stays marked, so the next hide or open sends it
+function ghFlush(){ var c = readGH(); if (!c || !(_ghT || (store.get('bp-gh-dirty') && !c.err))) return; clearTimeout(_ghT); _ghT = null; ghPush(1); }
+document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden' || !_ghT) ghFlush(); });
 window.addEventListener('pagehide', ghFlush);   // iOS fires this when the browser really lets go
 
 (function wireGH(){
@@ -4970,7 +4983,7 @@ window.addEventListener('pagehide', ghFlush);   // iOS fires this when the brows
   writeGH(null); document.getElementById('ghTok').value = ''; paintGH(); _toast('Disconnected');
  });
  paintGH();
- if (readGH()) ghPull(1).then(function(){ var c = readGH(); if (c && c.err) _toast('Log sync stopped — open Numbers'); });
+ if (readGH()) ghPull(1).then(function(){ var c = readGH(); if (c && c.err) _toast('Log sync stopped — open Numbers'); else ghFlush(); });
 })();
 window.ghPull = ghPull; window.ghPush = ghPush;
 // ── Jumping to a day ──────────────────────────────────────────────────
