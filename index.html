@@ -1801,8 +1801,10 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 .caveat.cmp.open .caveat-t::after{content:'';transform:rotate(90deg)}
 .introfold>summary::after,.foldnote>summary::after,.swim-fold summary::after{content:'';width:14px;height:14px;padding:0;background:currentColor;font-size:0;-webkit-mask:var(--m-caret) center/contain no-repeat;mask:var(--m-caret) center/contain no-repeat}
 .introfold>summary>.wu-lbl{flex:1;min-width:0}
-.wu-chk{font-size:0;margin:-14px 0 -14px auto;position:relative}
-.wu.done .wu-chk::after{content:'';position:absolute;inset:11px;background:var(--g);-webkit-mask:var(--m-check) center/contain no-repeat;mask:var(--m-check) center/contain no-repeat}
+.wu-chk{font-size:0;margin:-12px -6px -12px auto;position:relative;border:0!important}
+.wu-chk::before{content:'';position:absolute;inset:8px;border:1.5px solid var(--bdr);border-radius:50%}
+.wu.done .wu-chk::before{border-color:var(--g)}
+.wu.done .wu-chk::after{content:'';position:absolute;inset:14px;background:var(--g);-webkit-mask:var(--m-check) center/contain no-repeat;mask:var(--m-check) center/contain no-repeat}
 :root{--m-chev:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>");--m-caret:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");--m-check:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>")}
 .ic-sm{width:1em;height:1em;vertical-align:-.15em}
 @media(max-width:759px){
@@ -3084,7 +3086,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="day-info">
  <div class="day-eye" style="color:var(--p)">// Weekend · rest, play, hike</div>
  <div class="day-title">PLAY DAYS</div>
- <div class="day-focus">Play · hike · walk · dance. Skip any of it.</div>
+ <div class="day-focus">Play · hike · walk. Skip any of it.</div>
  </div>
 </div>
 
@@ -3101,7 +3103,6 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Play 30</span><span>Handstand floats (kneel 10s after), low rope, ring rows, monkey bars. Skills only.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Weekend · Hike</span><span>Two poles, 2–4″ longer downhill. Short steps, soft-knee landings, zig-zag the steep bits.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Walk</span><span>20 brisk minutes, most days.</span></div>
- <div class="wu-item"><span class="wu-t" style="min-width:104px">Dance</span><span>Soft knees on spins, build jumps gradually.</span></div>
  <div class="wu-item"><span class="wu-t" style="min-width:104px">Stair climber</span><span>Hard on the knees — keep it short.</span></div>
 </div>
 
@@ -3453,7 +3454,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-14.13';
+var APP_V = '2026-10-15.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4222,6 +4223,8 @@ function _rates(){
 function _reliable(k){ return k >= 2 && k <= 4 ? true : k === 5 ? _rates().fri >= 0.5 : k === 1 ? _rates().mon >= 0.5 : false; }
 function _prio(xs){ var ord = ['d5', 'd3', 'd1', 'd2']; return xs.slice().sort(function(a, b){ return ord.indexOf(a) - ord.indexOf(b); }); }   // what a squeezed week saves first: Upper A, Upper B, then the lower
 var NO_BRING_X = {};
+// the other lower's lifts that add volume rather than repeat it: glutes onto Lower A, quads + side glutes onto Lower B (the spine lifts stay home)
+var LOWER_FOLD = { d1: ['d4b1', 'd2-kick'], d2: ['d4b-legext', 'd3e-abd'] };
 function _noBring(id){ return !!(NO_RESCUE[id] || NO_UP[id] || NO_BRING_X[id]); }
 // how many of a session's key lifts already went in elsewhere this week
 function _covered(o){ var got = _loggedSince(_weekStart()); return _rwKeyLifts(o, {}).filter(function(id){ return got[id]; }).length >= 2; }
@@ -4251,7 +4254,7 @@ function _planNow0(){
  if (DAY_HALF[e.day] === 'L' && !_reliable(5) && !_easyWk() && e.budget >= 30 && !(gap !== null && gap >= 8)){
   var other = e.day === 'd1' ? 'd2' : 'd1', last = _lastDone(other), add = 0;
   if (!last || (Date.parse(t0) - Date.parse(_ymd(last))) / 864e5 >= 7)
-   _rwKeyLifts(other, _loggedSince(_weekStart())).forEach(function(id){ if (add >= 2 || bring.length >= 4 || bring.indexOf(id) >= 0) return;
+   LOWER_FOLD[e.day].filter(function(id){ return !_loggedSince(_weekStart())[id]; }).forEach(function(id){ if (add >= 2 || bring.length >= 4 || bring.indexOf(id) >= 0) return;
     var p = planDay(e.day, 80, bring.concat(id)); if (p && p.rescue.indexOf(id) >= 0){ bring.push(id); add++; } });
  }
  var bud = e.budget < 30 ? e.budget : !bring.length ? PLAN_MIN : bring.length <= 3 ? 60 : 80;
@@ -4577,7 +4580,8 @@ function _paintDose(){
  f.textContent = f.dataset.full;
   // once there is real data, your own median beats my estimate
   var sec2 = f.closest('.section'), tp = sec2 && typeof sessTypical === 'function' ? sessTypical(sec2.id) : null;
-  if (tp && tp.n >= 2) f.textContent = skill + ' · ' + tp.med + ' min';
+  var fm = tp && tp.n >= 2 ? tp.med : (/^(\d+) min$/.exec(f.dataset.full.split(' · ')[1] || '') || [])[1];
+  if (fm) f.textContent = skill + ' · full ≈' + fm + ' min';
   var pl = typeof readPlan === 'function' ? readPlan() : null;
   if (pl && pl.day === id && !pl.full) f.textContent = skill + ' · ' + pl.min + ' min · ' + pl.lifts + ' lift' + (pl.lifts === 1 ? '' : 's');
  });
@@ -4641,12 +4645,12 @@ var WU_FLOWS = {
  bar:{ n:'Bar Tour', m:['Active hang, 2 × 10s. Shoulders down, ribs in.','8 scap pulls. Pull your shoulders down, away from your ears.','8 slow shoulder rolls each way.','Shake the arms out.'] },
  cab:{ n:'Cable Alphabet', m:['Lightest pin. Y: 8 low-to-high raises, thumbs up.','W: 8 turns out each side, elbow pinned.','T: 8 open-arm squeezes, no cable, blades together.'] },
  wall:{ n:'Wall Tour', m:['10 wall slides, forearms on the wall. Slide up like a snow angel.','10 wall push-up plus. One more inch away at the top.','6 chest turns each side, hand on the wall. Hips still, ribs down.'] },
- dance:{ n:'Dance Floor', m:['60s of step-touch, grapevine and cha-cha. Hips loose, no jumps.','5 slow box squats. 3s down, knees over the second toe.','10 calf raises.'] },
+ swing:{ n:'Swing Set', m:['10 leg swings front-to-back each leg, hand on a rail.','10 side-to-side swings each leg.','5 slow box squats to a bench. 3s down, knees over the second toe.','10 calf raises.'] },
  step:{ n:'Step Game', m:['5 slow step-downs each leg off a low step. 3-count, tap the heel, fingertips on a rail or ladder rung.','6 side step-overs each way on a low hurdle.','15s single-leg stand each side, soft knee.'] },
  hips:{ n:'Cable Hips', m:['8 light cable kickbacks each leg.','5 hip circles each way.','8 bodyweight hinges, hands on hips. Close a car door.','10 side shuffle steps each way.'] }
 };
 // per day: the three flows in re-roll order, the flow it prefers to avoid, and what stands in for it
-var WU_DAY = { d5:{ i:0, o:['bar','cab','wall'], no:'wall', alt:'cab' }, d1:{ i:1, o:['step','dance','hips'], no:'hips', alt:'dance' }, d3:{ i:2, o:['wall','cab','bar'], no:'bar', alt:'cab' }, d2:{ i:3, o:['hips','dance','step'], no:'step', alt:'dance' } };
+var WU_DAY = { d5:{ i:0, o:['bar','cab','wall'], no:'wall', alt:'cab' }, d1:{ i:1, o:['step','swing','hips'], no:'hips', alt:'swing' }, d3:{ i:2, o:['wall','cab','bar'], no:'bar', alt:'cab' }, d2:{ i:3, o:['hips','swing','step'], no:'step', alt:'swing' } };
 var _wuRoll = {};
 function _wuPick(dayId){
  var D = WU_DAY[dayId]; if (!D) return null;
@@ -4658,7 +4662,7 @@ function paintWarmups(){
   var sec = wu.closest('.section'), id = sec && sec.id, D = WU_DAY[id]; if (!D) return;
   var base = _wuPick(id), idx = ((base % 3) + 3) % 3, f = WU_FLOWS[D.o[idx]];
   var box = wu.querySelector('.wu-body'); if (!box){ box = document.createElement('div'); box.className = 'wu-body'; wu.appendChild(box); }
-  box.innerHTML = '<div class="wu-item"><span class="wu-t">Raise</span><span>First 90s: stairs, easy rower or bike. Or step-touch to the beat. No jumps.</span></div>' +
+  box.innerHTML = '<div class="wu-item"><span class="wu-t">Raise</span><span>First 90s: stairs, easy rower or bike.</span></div>' +
    '<div class="wu-item"><span class="wu-t">Flow</span><span class="wu-fn"></span><button type="button" class="wu-re" aria-label="Another flow"><i class="ic ic-shuffle" aria-hidden="true"></i></button></div>' +
    f.m.map(function(t){ return '<div class="wu-item wu-mv"><span></span></div>'; }).join('');
   box.querySelector('.wu-fn').textContent = f.n;
@@ -6058,7 +6062,7 @@ function planDay(dayId, budget, bring){
  var SCHED = { d5:2, d1:3, d2:3, d3:4 };   // Tue upper A · Wed lower · Thu upper B
  // a reworked week names lifts to bring over: they go first, before anything the day finds on its own
  (bring || []).forEach(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'), hm = c && (c._home && c._home.parentNode ? c._home.parentNode : c), o = hm && hm.closest('.section'), sl = SLOT[id];
-  if (!c || !o || o.id === dayId || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && (have[sl] || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
+  if (!c || !o || o.id === dayId || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && ((have[sl] && !(LOWER_FOLD[dayId] || []).some(function(x){ return x === id; })) || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
   rescue.push(id); src[id] = o.id; if (sl) have[sl] = 1; });
  var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
  readSess().filter(function(x){ return x && x.day !== dayId && DAY_HALF[x.day] && x.d !== t0 && x.e >= mon && x.n >= 1 && Array.isArray(x.off); }).slice(-2).reverse().forEach(function(x){
