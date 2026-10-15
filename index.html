@@ -2151,7 +2151,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  data-alt-name="Hip Abductor Machine — Heavy" data-alt-tempo="open 2 · return 3"
  data-alt-where="Abductor machine, heavier pin. Hips back, pads on the outer thigh."
  data-alt-cue="Heavy and smooth — pelvis still, no bounce."
- data-alt-how="1. Sit tall, hips back. Press out in 2, short of your widest. 2. Return in 3; the stack never rests. 3. Set 2: half the pin, one leg at a time, right first."
+ data-alt-how="1. Sit tall, hips back. Press out in 2, short of your widest. 2. Return in 3; the stack never rests. 3. Set 2: drop to half the pin, one leg at a time, right first. 4. One leg, how: lift the left leg out of its pad and rest that foot on the frame or floor, out of the way. The right leg pushes out alone, all clean reps, then switch. If the empty pad swings into you, leave that leg in its pad but completely relaxed."
  data-alt-sets="S1: 8 heavy · S2: single-leg AMRAP"
  data-alt-caveat="Stop just short of your widest — never force it."
  data-alt-prog="Now: Heavier pin — S1: 8 with 2 in the tank · S2: single-leg AMRAP | Next: S1 reaches 10 clean → one pin up next time">
@@ -2164,10 +2164,10 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine. Hips back, pads on the outer thigh — not the knee.</span></div>
 <div class="cue">Push out from the side of the hips. Pelvis still.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
-<div class="setup"><strong>1.</strong> Sit tall, hips back. Press out in 2, short of your widest; pause 1. <strong>2.</strong> Return in 2; the stack never rests. <strong>3.</strong> Set 2: half the pin, one leg at a time, right first.</div>
+<div class="setup"><strong>1.</strong> Sit tall, hips back. Press out in 2, short of your widest; pause 1. <strong>2.</strong> Return in 2; the stack never rests. <strong>3.</strong> Set 2: drop to half the pin, one leg at a time, right first. <strong>4.</strong> One leg, how: lift the left leg out of its pad and rest that foot on the frame or floor, out of the way. The right leg pushes out alone, all clean reps, then switch. If the empty pad swings into you, leave that leg in its pad but completely relaxed.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>S1: 12 · S2: half the pin, single-leg AMRAP, right leg first</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>S1: 12 · S2: half the pin, one leg at a time (other leg out of its pad), all clean reps, right leg first</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Set 2 reaches 15 clean on each leg → one pin up next time</span></div>
 </div></div>
 </div>
@@ -2681,7 +2681,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="ssh" data-opt="1"><b>C</b>hamstrings ↔ lateral chain<span>both sets of 1, then both of 2</span></div>
 
-<div class="excard" data-id="d4b-legcurl" data-ss="C" data-opt="1" data-alt-name="Single-Leg Lying Curl" data-alt-sets="2 × 10 each · stop 2 short" data-alt-start="← Right side first · left matches its reps" data-alt-where="Lying curl, about ⅓ of your two-leg weight. Roller just above the heel." data-alt-cue="Hips flat — no twisting to help." data-alt-how="1. Lie face down, hips flat. 2. Curl one heel to the glute, squeeze 1. 3. Lower in 3, stop just short of straight. Hips lift or twist: set over." data-alt-caveat="Stop ~15° short of straight; the knee never snaps." data-alt-prog="Now: About a third of your two-leg weight, 2 × 10 each | Next: Both sets easy on both legs → one pin up | Seated only: Recline the seat fully, small pad behind the low back, keep it light">
+<div class="excard" data-id="d4b-legcurl" data-s2r="0.33" data-ss="C" data-opt="1" data-alt-name="Single-Leg Lying Curl" data-alt-sets="2 × 10 each · stop 2 short" data-alt-start="← Right side first · left matches its reps" data-alt-where="Lying curl, about ⅓ of your two-leg weight. Roller just above the heel." data-alt-cue="Hips flat — no twisting to help." data-alt-how="1. Lie face down, hips flat. 2. Curl one heel to the glute, squeeze 1. 3. Lower in 3, stop just short of straight. Hips lift or twist: set over." data-alt-caveat="Stop ~15° short of straight; the knee never snaps." data-alt-prog="Now: About a third of your two-leg weight, 2 × 10 each | Next: Both sets easy on both legs → one pin up | Seated only: Recline the seat fully, small pad behind the low back, keep it light">
 <div class="extop">
  <div class="ex-left"><div class="ssn">C1</div><div class="exname">Lying Leg Curl</div>
  <div class="start-l" hidden><span></span></div></div>
@@ -3272,7 +3272,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-14.7';
+var APP_V = '2026-10-14.9';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4545,7 +4545,10 @@ function buildJots(){
  var src = mine || p[p.length-1] || { w: _firstW(card) || 0, r: m0 ? +m0[1] : (timed ? 20 : 8) };
  var twoSets = !timed && !wOnly && /S1/.test(st0) && /S2/.test(st0);
  var v = { w: _conv(src.w, src.u || 'lb', wUnit), r: src.r, s: [] };
- if (!(v.r > 0)) v.r = m0 ? +m0[1] : (timed ? 20 : 8);   // old weight-only entries carry r:0, which would make the tick save nothing
+ if (!(v.r > 0)) v.r = m0 ? +m0[1] : (timed ? 20 : 8);
+ // set 2 on one leg is its own weight: each set preloads its own last weight (first time: a share of set 1's)
+ var own = /S2:[^·]*(single-leg|one leg)/i.test(st0), own0 = own && !mine && p.length && Array.isArray(p[p.length-1].s) && p[p.length-1].s[0];
+ if (own0) v.w = _conv(own0[0], p[p.length-1].u || 'lb', wUnit);   // old weight-only entries carry r:0, which would make the tick save nothing
  var lastP = p[p.length-1], tgt = m0 ? +m0[1] : 0;
  // bodyweight lifts get a "+lb" box for added load (belt, dumbbell); skill blocks stay reps-only
  var bw = wild || mins || /^d6-/.test(card.dataset.id) || !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
@@ -4556,7 +4559,7 @@ function buildJots(){
  var ladder = card.dataset.blk === 'b' ? (card.dataset.altProg || '') : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .pn'), function(x){ return x.textContent; }).join(' | ');
  var full = card.dataset.blk === 'b' ? ladder : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .prog-step'), function(x){ return x.textContent; }).join(' | ');
  var sg = (!mine && !wOnly && !firstW) ? _sugg(p, { tgt:tgt, ladder:ladder, full:full, two:twoSets, unit:wUnit, fixed:/fixed/i.test(st0) || NO_UP[card.dataset.id], timed:timed || mins, mins:mins, hi:/lateral|rear-delt|face pull/i.test(name) }) : null;
- if (sg && sg.down) v.w = sg.w;   // only ever lowers what's preloaded; going up is her tap
+ if (sg && sg.down && !own) v.w = sg.w;   // only ever lowers what's preloaded; going up is her tap
  function stp(k, unit, tap){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
  '<input class="stv" type="text" inputmode="decimal" value="' + sv(k) + '"' + (k === 'w' && firstW ? ' placeholder="?"' : '') + ' aria-label="' + lbl + ': ' + unit + '">' +
  (tap ? '<button type="button" class="stu stu-b" aria-label="' + lbl + ': unit, now ' + unit + ' — tap to switch">' + unit + '</button>' : '<span class="stu">' + unit + '</span>') +
@@ -4569,8 +4572,9 @@ function buildJots(){
  // what set k preloads: today's number if you are redoing it, else set 1 = the card's count (or last set 1 where set 1 is what moves), later sets = last time's
  function pre(k){ var td = tdS(), ls = lastP && Array.isArray(lastP.s) ? lastP.s : null;
   if (td && td.s[k]) return { w: _conv(td.s[k][0], td.u || 'lb', wUnit), r: td.s[k][1] };
+  var ow = null; if (own && k > 0){ var st = wUnit === 'kg' ? 2.5 : 5; ow = ls && ls[k] && ls[k][0] !== ls[0][0] ? _conv(ls[k][0], lastP.u || 'lb', wUnit) : v.w > 0 ? Math.max(st, Math.round(v.w * (+card.dataset.s2r || 0.5) / st) * st) : null; }
   var r = ls && ls[k] ? ls[k][1] : k === 0 && twoSets ? (s1Read ? (lastP && lastP.r1) || tgt : tgt || (lastP && lastP.r1)) : (lastP && lastP.r > 0 ? lastP.r : tgt);
-  return { w: null, r: r > 0 ? r : v.r }; }
+  return { w: ow, r: r > 0 ? r : v.r }; }
  function setLab(){ var n = _nSets(card), k = card.classList.contains('done') ? n - 1 : Math.min(+card.dataset.sn || 0, n - 1); return n > 1 ? 'S' + (k + 1) + ' ' + rUnit : rUnit; }
  row.innerHTML = '<span class="setdone" hidden></span>' + (bw ? '' : stp('w', plus + wUnit, 1))
   + (wOnly ? '' : stp('r', setLab()))
