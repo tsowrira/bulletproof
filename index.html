@@ -1812,6 +1812,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  .sh-x{position:absolute;top:6px;right:-8px;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);display:grid;place-items:center}
  .sh-x .ic{width:18px;height:18px;vertical-align:0}
  .sh-t{display:flex;align-items:center;min-height:56px;margin:0;padding-right:44px}
+ .sh-t .ic{margin-right:8px}
  #sheetBody>.sh-t:first-child{margin-top:0}
  .sh-row{min-height:56px}
  .sh-tg button{min-height:44px;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:.06em;white-space:nowrap}
@@ -4245,9 +4246,9 @@ function _planNow0(){
  var r = _rwBuild(dates, function(){ return 80; }, owed, { hike: true }, cap), e = r.plan[t0], out = { plan: r.plan };
  if (!e) return out;
  if (!e.day) { out.rest = 1; return out; }
- var per = {}, bring = _easyWk() ? [] : e.bring.filter(function(id){ var o = _homeOf(id); per[o] = (per[o] || 0) + 1; return per[o] <= (DAY_HALF[o] === 'L' ? 2 : 3); }).slice(0, r.left.length >= 2 ? 4 : 3);   // 2-3 key lifts per squeezed session; two squeezed sessions make one long day
+ var gap = daysSinceTrained(), per = {}, bring = _easyWk() || (gap !== null && gap >= 8) ? [] : e.bring.filter(function(id){ var o = _homeOf(id); per[o] = (per[o] || 0) + 1; return per[o] <= (DAY_HALF[o] === 'L' ? 2 : 3); }).slice(0, r.left.length >= 2 ? 4 : 3);   // 2-3 key lifts per squeezed session; two squeezed sessions make one long day
  // no Friday means each lower pattern only comes round every other week: the lower day carries two lifts of the other one
- if (DAY_HALF[e.day] === 'L' && !_reliable(5) && !_easyWk() && e.budget >= 30){
+ if (DAY_HALF[e.day] === 'L' && !_reliable(5) && !_easyWk() && e.budget >= 30 && !(gap !== null && gap >= 8)){
   var other = e.day === 'd1' ? 'd2' : 'd1', last = _lastDone(other), add = 0;
   if (!last || (Date.parse(t0) - Date.parse(_ymd(last))) / 864e5 >= 7)
    _rwKeyLifts(other, _loggedSince(_weekStart())).forEach(function(id){ if (add >= 2 || bring.length >= 4 || bring.indexOf(id) >= 0) return;
@@ -5427,8 +5428,8 @@ function _ghMerge(d){
  }
  if (d['bp-trip-log']){
   var tr = []; try { tr = _asArr(JSON.parse(d['bp-trip-log'])); } catch(e){ tr = []; }
-  var tl = _tripLogRead(), ti = {}; tl.forEach(function(x){ ti[x.id] = 1; });
-  tr.forEach(function(x){ if (x && x.id && x.d && !ti[x.id]){ tl.push(x); ti[x.id] = 1; added++; } });
+  var tl = _tripLogRead(), ti = {}; tl.forEach(function(x, i){ ti[x.id] = i + 1; });
+  tr.forEach(function(x){ if (!x || !x.id || !x.d) return; if (!ti[x.id]){ tl.push(x); ti[x.id] = tl.length; added++; } else if (x.fin && !tl[ti[x.id] - 1].fin){ tl[ti[x.id] - 1] = x; added++; } });   // a session finished on the other device wins over the unfinished copy
   tl.sort(function(x, y){ return (x.s || 0) - (y.s || 0); }); _tripLogWrite(tl);
  }
  ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
@@ -6318,6 +6319,7 @@ function _anchorsGone(){
 }
 function _rwBad(){
  if (_tripOn()) return false;
+ var gp = daysSinceTrained(); if (gp !== null && gp >= 8) return false;   // time away is not a messy week
  var dow = _dow(); if (dow < 3 || dow > 5 || !owedDays().length) return false;
  var o = _rwRead(); if (o.plan) return !_rwLive();
  return _anchorsGone() >= 2;
