@@ -1655,17 +1655,18 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
  #tabbar button:active{background:rgba(234,240,255,.05)}
  #scrim{position:fixed;inset:0;z-index:112;background:rgba(0,0,0,.6)}
  #scrim:not([hidden]){display:block}
- #sheet{display:block;position:fixed;left:0;right:0;bottom:0;z-index:115;max-height:80vh;max-height:80dvh;overflow-y:auto;overscroll-behavior:contain;background:#0c0c1e;border-radius:16px 16px 0 0;border-top:1px solid var(--bdr);padding:14px 16px calc(76px + env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .22s cubic-bezier(.2,.8,.3,1),visibility 0s .22s}
+ #sheet{display:block;position:fixed;left:0;right:0;bottom:calc(59px + env(safe-area-inset-bottom));z-index:115;max-height:calc(80vh - 59px);max-height:calc(80dvh - 59px);overflow-y:auto;overscroll-behavior:contain;background:#0c0c1e;border-radius:16px 16px 0 0;border-top:1px solid var(--bdr);padding:14px 16px 18px;transform:translateY(calc(105% + 80px));visibility:hidden;transition:transform .22s cubic-bezier(.2,.8,.3,1),visibility 0s .22s}
  #sheet.open{transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.8,.3,1)}
  #sheet #log{display:block!important;margin:0 -16px;border:0}
- .sh-x{position:sticky;top:0;float:right;z-index:2;min-height:44px;min-width:64px;margin:-6px -4px 0 8px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+ .sh-bar{position:sticky;top:-14px;z-index:2;display:flex;justify-content:flex-end;margin:-14px -16px 2px;padding:8px 12px 6px;background:#0c0c1e;border-radius:16px 16px 0 0}
+ .sh-x{min-height:44px;min-width:64px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
  .sh-t{font:700 11px 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:2px 0 10px}
  .wring{display:flex;align-items:center;gap:14px;padding:4px 4px 14px;border-bottom:1px solid var(--bdr);margin-bottom:6px}
- .wring svg{width:64px;height:64px;flex:none;transform:rotate(-90deg)}
+ .wring svg{width:72px;height:72px;flex:none;transform:rotate(-90deg)}
  .wring circle{fill:none;stroke:rgba(234,240,255,.1);stroke-width:5}
  .wring circle.on{stroke:var(--g);stroke-linecap:round;transition:stroke-dashoffset .6s ease}
- .wr-t{position:absolute;width:64px;text-align:center;line-height:1;pointer-events:none}
- .wr-t b{display:block;font:800 20px 'Inter',sans-serif;color:var(--txt)}.wr-t small{font-size:11px;color:var(--fade)}.wr-t span{font:600 8.5px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--fade)}
+ .wr-t{position:absolute;left:4px;top:4px;width:72px;height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;line-height:1;pointer-events:none}
+ .wr-t b{display:block;font:800 20px 'Inter',sans-serif;color:var(--txt)}.wr-t small{font-size:11px;color:var(--fade)}.wr-t span{font:600 9px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--fade)}
  .wr-s b{display:block;font:600 13.5px 'Inter',sans-serif;color:var(--txt)}.wr-s span{font:500 12px 'Inter',sans-serif;color:var(--fade)}
  .wring{position:relative}
  .sh-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 4px;background:none;border:0;border-bottom:1px solid var(--bdr);color:var(--txt);text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -3155,7 +3156,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
- <p class="numkey">Each dot is a session, placed by date. y = estimated 1-rep max for weighted lifts, weight × (1 + reps ÷ 30) (on bodyweight lifts, the added weight only); otherwise reps or seconds. Dashed line = least-squares fit: slope per week, and R² from 0 to 1 for how well a straight line fits.</p>
+ <p class="numkey">Each dot is a session, placed by date. y = estimated 1-rep max for weighted lifts, weight × (1 + reps ÷ 30) (on bodyweight lifts, the added weight only); otherwise reps or seconds. Dashed line = least-squares fit: slope per week, and R² from 0 to 1 for how well a straight line fits. <i class="ic ic-undo" aria-hidden="true"></i> on a row deletes that lift's last entry, if you logged it wrong.</p>
  <div id="numList" style="max-width:620px"></div>
  <div class="wkview" id="wkView"></div>
  <div class="bk-note" id="bkNote"></div>
@@ -3329,7 +3330,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <button data-tab="more" type="button"><b><i class="ic ic-menu" aria-hidden="true"></i></b>More</button>
 </div>
 <div id="scrim" hidden></div>
-<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><button type="button" class="sh-x" onclick="closeSheet()">Done</button><div id="sheetBody"></div></div>
+<div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><div class="sh-bar"><button type="button" class="sh-x" onclick="closeSheet()">Done</button></div><div id="sheetBody"></div></div>
 <button class="day-jump" id="dayJump" aria-label="Jump to top of current day">↑ Day</button>
 
 <script>
@@ -3339,7 +3340,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-14.12';
+var APP_V = '2026-10-14.13';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4322,7 +4323,7 @@ function _weekSheet(){
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
  var dow = _dow(), sub2 = done >= 3 ? 'All three lift days done.' + (extra ? ' Plus ' + extra + ' extra.' : '') : (3 - done) + ' lift day' + (3 - done === 1 ? '' : 's') + ' left. Rest counts.';
- var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>lift days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? 'Sat rest · Sun hike' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
+ var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>days</span></div><div class="wr-s"><b>' + sub2 + '</b><span>' + (dow >= 1 && dow <= 5 ? 'Sat rest · Sun hike' : dow === 6 ? 'Rest day · hike tomorrow' : 'Hike day · back Monday') + '</span></div></div>';
  var rwo = { plan: _rwLive() }, rwb = dow >= 1 && dow <= 5 && owedDays().length ? '<button type="button" class="sh-row" onclick="openSheet(\'rework\',1)"><span class="sh-n">' + (rwo.plan ? 'Reworked week' : 'Rework the rest of the week') + '<small>' + (rwo.plan ? Object.keys(rwo.plan).sort().filter(function(d){ return d >= _today(); }).map(function(d){ var e = rwo.plan[d]; return _dShort(d) + ' ' + (e.day ? DAY_NAME[e.day] : 'rest'); }).join(' · ') : 'Pick days, time and energy — get a plan') + '</small></span><em>›</em></button>' : '';
  return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">This week</div>' + ring + rwb + ['d6', 'd5', 'd1', 'd3', 'd2', 'd4'].map(function(id){ return [id, _when(id)]; }).sort(function(a, b){ return a[1].ymd < b[1].ymd ? -1 : a[1].ymd > b[1].ymd ? 1 : 0; }).map(function(x){
  var sec = document.getElementById(x[0]), st = _status(x[0]); if (!sec) return '';
@@ -4811,14 +4812,14 @@ function renderNumbers(){
  var arr = _asArr(h[card.dataset.id + v[0]]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], pool = _same(arr, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
- rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _numIc(card.dataset.id + v[0]) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
+ rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _numIc(card.dataset.id + v[0]) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Undo the last entry for ' + _esc(nm) + '"><i class="ic ic-undo" aria-hidden="true"></i></button></div>';
  });
  });
  Object.keys(h).filter(function(k){ return /^wild:|#\d+$/.test(k) || (/^x-/.test(k) && !document.querySelector('.excard[data-id="' + k + '"]')); }).sort().forEach(function(k){
  var arr = _asArr(h[k]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], best = arr.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, arr[0]);
  var nm = k.slice(0, 5) === 'wild:' ? k.slice(5) : /^x-/.test(k) ? _customName(k) : _drillName(k); if (!nm) return;
- rows += '<div class="srow" data-k="' + _esc(k) + '">' + _numIc(k) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
+ rows += '<div class="srow" data-k="' + _esc(k) + '">' + _numIc(k) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Undo the last entry for ' + _esc(nm) + '"><i class="ic ic-undo" aria-hidden="true"></i></button></div>';
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
  if (typeof paintBackupNote === 'function') paintBackupNote();
