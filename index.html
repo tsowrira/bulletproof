@@ -814,7 +814,6 @@ body.gym .howfold{display:none}
  transition:all .15s;
  -webkit-user-select:none;-webkit-touch-callout:none;user-select:none;
 }
-.rest-lbl:not(.running):not(.done)::before{content:'⏱ ';opacity:.75;font-size:.9em}
 .rest-lbl:active{transform:scale(.96)}
 .rest-lbl.running{background:rgba(255,46,136,.18);border-color:var(--r);color:#ffd0e6;box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 18px rgba(255,46,136,.3);animation:restpulse 1s ease-in-out infinite;font-size:15px}
 .rest-lbl.done{background:rgba(93,255,159,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
@@ -1475,10 +1474,21 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 }
 .exmeta .laterbtn{float:none!important;margin:0!important;min-height:44px!important}
 .bp-toast{background:#0c0c1c;box-shadow:0 8px 28px rgba(0,0,0,.6);white-space:normal;width:max-content;max-width:calc(100vw - 32px);text-align:center;line-height:1.4;border-radius:14px;font-size:13.5px;letter-spacing:.02em;padding:11px 16px}
-#numList .srow{display:grid;grid-template-columns:minmax(0,1fr) auto 44px;grid-template-areas:"n s x" "v v x";align-items:center;column-gap:10px;row-gap:2px;padding:9px 0}
+#numList .srow{display:grid;grid-template-columns:22px minmax(0,1fr) 44px;grid-template-areas:"i n x" ". v x" ". s s" ". t t";align-items:center;column-gap:10px;row-gap:3px;padding:12px 0}
 #numList .sr-n{grid-area:n;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #numList .srow>span{grid-area:v;margin:0;text-align:left;font-size:14px}
-#numList .srow>.spk{grid-area:s;margin:0}
+.numkey{margin:0 0 6px;max-width:620px;font:500 12px/1.5 'Inter',sans-serif;color:var(--dim)}
+#numList .srow>.spk{grid-area:s;margin:4px 0 0;width:100%;height:auto;max-width:420px;stroke:none;fill:none;vertical-align:top}
+#numList .srow>.sr-i{grid-area:i;width:20px;height:20px;color:var(--b);opacity:.9}
+#numList .srow>.trd{grid-area:t;font:500 11.5px/1.35 'Inter',sans-serif;font-style:normal;color:var(--dim);font-variant-numeric:tabular-nums}
+#numList .trd b{font-weight:700;color:var(--fade)}#numList .trd b.up{color:var(--g)}#numList .trd b.dn{color:var(--o)}
+.spk .gl{stroke:rgba(154,163,199,.16);stroke-width:1;stroke-dasharray:2 3}
+.spk .ax{stroke:rgba(154,163,199,.4);stroke-width:1}
+.spk .yl,.spk .xl{fill:var(--dim);font:500 9px 'Inter',sans-serif;font-variant-numeric:tabular-nums}.spk .yl{text-anchor:end}
+.spk .ar{fill:rgba(93,255,159,.07);stroke:none}
+.spk .dl{fill:none;stroke:var(--g);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.spk .fit{stroke:var(--p);stroke-width:1.4;stroke-dasharray:5 4;stroke-linecap:round}
+.spk .dt{fill:var(--bg);stroke:var(--g);stroke-width:1.4}.spk .dt.last{fill:var(--g)}
 #numList .srow>.srow-x{grid-area:x}
 .exlog.pr .stp,.excard.done .exlog.pr .stp{border-color:rgba(93,255,159,.6)!important;box-shadow:none!important}.exlog.pr .exlast{color:var(--dim)!important}
 /* notes · weeks · ladders · +15 */
@@ -1537,6 +1547,45 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .planbar .pl-full{margin-left:auto;min-height:36px;padding:0 12px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--dim);font:600 11px 'Inter',sans-serif;letter-spacing:.06em;cursor:pointer}
 .rtag{font:700 10.5px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--p);margin-bottom:4px}
 .excard[data-rescued] .ssn{display:none}
+/* line icons: one stroke set, coloured by the text around them (iOS draws the old symbols as emoji) */
+.ic{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background-color:currentColor;flex:none;-webkit-mask-size:contain;mask-size:contain}
+.ic-warn{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat}
+.ic-bolt{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat}
+.ic-play{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat}
+.ic-stop{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat}
+.ic-clock{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat}
+.ic-cloud{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 18.5h10.5a4 4 0 0 0 .3-8A6 6 0 0 0 6.3 11.7 3.5 3.5 0 0 0 7 18.5z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 18.5h10.5a4 4 0 0 0 .3-8A6 6 0 0 0 6.3 11.7 3.5 3.5 0 0 0 7 18.5z'/></svg>") center/contain no-repeat}
+.ic-wave{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M2.5 15.5c2.4 0 2.4-1.6 4.8-1.6s2.4 1.6 4.7 1.6 2.4-1.6 4.7-1.6 2.4 1.6 4.8 1.6'/><path d='M2.5 19.5c2.4 0 2.4-1.6 4.8-1.6s2.4 1.6 4.7 1.6 2.4-1.6 4.7-1.6 2.4 1.6 4.8 1.6'/><circle cx='16' cy='6' r='2'/><path d='M5.5 11.5 10.5 8l3 3'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M2.5 15.5c2.4 0 2.4-1.6 4.8-1.6s2.4 1.6 4.7 1.6 2.4-1.6 4.7-1.6 2.4 1.6 4.8 1.6'/><path d='M2.5 19.5c2.4 0 2.4-1.6 4.8-1.6s2.4 1.6 4.7 1.6 2.4-1.6 4.7-1.6 2.4 1.6 4.8 1.6'/><circle cx='16' cy='6' r='2'/><path d='M5.5 11.5 10.5 8l3 3'/></svg>") center/contain no-repeat}
+.ic-dice{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='16' height='16' rx='3.5'/><path d='M8.6 8.6h.01M15.4 8.6h.01M12 12h.01M8.6 15.4h.01M15.4 15.4h.01' stroke-width='3'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='16' height='16' rx='3.5'/><path d='M8.6 8.6h.01M15.4 8.6h.01M12 12h.01M8.6 15.4h.01M15.4 15.4h.01' stroke-width='3'/></svg>") center/contain no-repeat}
+.ic-grid{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='6.5' height='6.5' rx='1.6'/><rect x='13.5' y='4' width='6.5' height='6.5' rx='1.6'/><rect x='4' y='13.5' width='6.5' height='6.5' rx='1.6'/><rect x='13.5' y='13.5' width='6.5' height='6.5' rx='1.6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='6.5' height='6.5' rx='1.6'/><rect x='13.5' y='4' width='6.5' height='6.5' rx='1.6'/><rect x='4' y='13.5' width='6.5' height='6.5' rx='1.6'/><rect x='13.5' y='13.5' width='6.5' height='6.5' rx='1.6'/></svg>") center/contain no-repeat}
+.ic-hourglass{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 3h12M6 21h12'/><path d='M7.5 3v2.6c0 2.3 4.5 4 4.5 6.4 0-2.4 4.5-4.1 4.5-6.4V3'/><path d='M7.5 21v-2.6c0-2.3 4.5-4 4.5-6.4 0 2.4 4.5 4.1 4.5 6.4V21'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 3h12M6 21h12'/><path d='M7.5 3v2.6c0 2.3 4.5 4 4.5 6.4 0-2.4 4.5-4.1 4.5-6.4V3'/><path d='M7.5 21v-2.6c0-2.3 4.5-4 4.5-6.4 0 2.4 4.5 4.1 4.5 6.4V21'/></svg>") center/contain no-repeat}
+.ic-undo{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 14 4 9l5-5'/><path d='M4 9h10.5a5.5 5.5 0 0 1 0 11H11'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 14 4 9l5-5'/><path d='M4 9h10.5a5.5 5.5 0 0 1 0 11H11'/></svg>") center/contain no-repeat}
+.ic-plus{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M5 12h14'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M5 12h14'/></svg>") center/contain no-repeat}
+.ic-calendar{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3.5' y='5' width='17' height='15.5' rx='2.5'/><path d='M3.5 10h17M8 3v4M16 3v4'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3.5' y='5' width='17' height='15.5' rx='2.5'/><path d='M3.5 10h17M8 3v4M16 3v4'/></svg>") center/contain no-repeat}
+.ic-chart{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4v16h16'/><path d='M7.5 15.5 11.5 11l3 2.5 5-6.5'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 4v16h16'/><path d='M7.5 15.5 11.5 11l3 2.5 5-6.5'/></svg>") center/contain no-repeat}
+.ic-menu{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 7h16M4 12h16M4 17h16'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 7h16M4 12h16M4 17h16'/></svg>") center/contain no-repeat}
+.ic-dumbbell{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11'/></svg>") center/contain no-repeat}
+.ic-gear{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2.8v2.9M12 18.3v2.9M2.8 12h2.9M18.3 12h2.9M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2.8v2.9M12 18.3v2.9M2.8 12h2.9M18.3 12h2.9M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2'/></svg>") center/contain no-repeat}
+.ic-pull{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 4.5h18'/><path d='M12 20.5V8.5'/><path d='M7.5 13 12 8.5l4.5 4.5'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 4.5h18'/><path d='M12 20.5V8.5'/><path d='M7.5 13 12 8.5l4.5 4.5'/></svg>") center/contain no-repeat}
+.ic-push{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 4v16'/><path d='M3.5 12H16'/><path d='M11.5 7.5 16 12l-4.5 4.5'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 4v16'/><path d='M3.5 12H16'/><path d='M11.5 7.5 16 12l-4.5 4.5'/></svg>") center/contain no-repeat}
+.ic-shoulder{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 19.5A13 13 0 0 1 17 7'/><path d='M13 4.6 17.3 7l-2.2 4.4'/><circle cx='5' cy='19.5' r='1.6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 19.5A13 13 0 0 1 17 7'/><path d='M13 4.6 17.3 7l-2.2 4.4'/><circle cx='5' cy='19.5' r='1.6'/></svg>") center/contain no-repeat}
+.ic-arm{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 20.5V13a6 6 0 0 1 6-6h3.5'/><path d='M11.5 3.5 15 7l-3.5 3.5'/><circle cx='18.5' cy='7' r='2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 20.5V13a6 6 0 0 1 6-6h3.5'/><path d='M11.5 3.5 15 7l-3.5 3.5'/><circle cx='18.5' cy='7' r='2'/></svg>") center/contain no-repeat}
+.ic-knee{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8.5 3 15 12l-6.5 9'/><path d='M8.5 21h6.5'/><circle cx='15' cy='12' r='1.6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8.5 3 15 12l-6.5 9'/><path d='M8.5 21h6.5'/><circle cx='15' cy='12' r='1.6'/></svg>") center/contain no-repeat}
+.ic-hinge{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20.5h16'/><path d='M8 20.5V12'/><path d='M8 12l9.5-6'/><circle cx='8' cy='12' r='1.6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20.5h16'/><path d='M8 20.5V12'/><path d='M8 12l9.5-6'/><circle cx='8' cy='12' r='1.6'/></svg>") center/contain no-repeat}
+.ic-side{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 4v16'/><path d='M3 12h6M15 12h6'/><path d='M6 9l-3 3 3 3M18 9l3 3-3 3'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 4v16'/><path d='M3 12h6M15 12h6'/><path d='M6 9l-3 3 3 3M18 9l3 3-3 3'/></svg>") center/contain no-repeat}
+.ic-calf{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 20.5h17'/><path d='M7 20.5l2.5-3.5h7'/><path d='M12.5 13V3.5'/><path d='M9 7l3.5-3.5L16 7'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 20.5h17'/><path d='M7 20.5l2.5-3.5h7'/><path d='M12.5 13V3.5'/><path d='M9 7l3.5-3.5L16 7'/></svg>") center/contain no-repeat}
+.ic-core{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='8.5'/><circle cx='12' cy='12' r='4'/><path d='M12 12h.01' stroke-width='3'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='8.5'/><circle cx='12' cy='12' r='4'/><path d='M12 12h.01' stroke-width='3'/></svg>") center/contain no-repeat}
+.ic-skill{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4z'/></svg>") center/contain no-repeat}
+.ic-cardio{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12h4l2.5-6 5 12 2.5-6h4'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12h4l2.5-6 5 12 2.5-6h4'/></svg>") center/contain no-repeat}
+.ic-custom{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='8.5'/><path d='M12 8v8M8 12h8'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='8.5'/><path d='M12 8v8M8 12h8'/></svg>") center/contain no-repeat}
+.caveat-t::before{content:'';display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background-color:currentColor;flex:none;margin-right:.45em;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat}
+.caveat.cmp .caveat-t{justify-content:flex-start}.caveat.cmp .caveat-t::after{margin-left:auto;padding-left:10px}
+.warmset::before{content:'';display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background-color:currentColor;flex:none;margin-right:.45em;margin-right:.35em;width:1.05em;height:1.05em;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat}
+.rest-lbl:not(.running):not(.done)::before{content:'';display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background-color:currentColor;flex:none;margin-right:.45em;width:1em;height:1em;margin-right:.3em;vertical-align:-.15em;opacity:.75;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat}
+.tempo .tgo{display:inline-block;width:.95em;height:.95em;font-size:inherit;vertical-align:-.12em;background-color:currentColor;margin-left:4px;opacity:.8;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat}
+.tempo .tgo.stop{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat}
+#tabbar b .ic{width:22px;height:22px;vertical-align:0}
+.seatjot{padding-left:32px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa3c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2.8v2.9M12 18.3v2.9M2.8 12h2.9M18.3 12h2.9M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2'/></svg>") 9px 50%/16px 16px no-repeat}
 .newv{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 10px);z-index:9999;min-height:44px;padding:0 18px;border-radius:100px;border:1px solid rgba(93,255,159,.5);background:#0c0c1c;color:var(--g);font:700 13px 'Inter',sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:calc(100vw - 32px)}
 .addex{margin:16px 0 4px;border:1px dashed var(--bdr);border-radius:13px;padding:12px}
 .addex .ax-more{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;font:500 13px/1.35 'Inter',sans-serif;color:var(--fade)}
@@ -1736,7 +1785,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
  <p>Usual week: Tue upper · Wed lower · Thu upper — Lower A and B take turns. Miss one and the app moves the rest. Monday skill + engine and a Friday lower if you feel like it. Skill first, two sets a lift — a third only on a Long day.</p>
  <div class="home" id="homeCard"><div class="hm-day" id="hmDay"></div><div class="hm-t" id="hmT"></div><div class="hm-s" id="hmS"></div></div>
- <a class="startbtn" id="startBtn" href="#d1">▶ Start today</a>
+ <a class="startbtn" id="startBtn" href="#d1"><i class="ic ic-play" aria-hidden="true"></i> Start today</a>
  <button type="button" class="hm-any" id="hmAny" hidden onclick="openSheet('week')">Train anyway — pick a day ›</button>
  <button type="button" class="hm-rw" id="hmRw" hidden onclick="openSheet('rework')">Rework my week ›</button>
  <div class="startwhy" id="startWhy" hidden></div>
@@ -1762,7 +1811,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <span>✓ Tap circle to check off · <span class="reset-info" id="resetCountdown">no progress saved</span></span>
  <span class="cs-btns">
  <button onclick="toggleBlock()" id="blockBtn">Block A</button>
- <button onclick="toggleGym()" id="gymBtn">⚡ Gym mode</button>
+ <button onclick="toggleGym()" id="gymBtn"><i class="ic ic-bolt" aria-hidden="true"></i> Gym mode</button>
  </span>
 </div>
 
@@ -1780,13 +1829,13 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="callout howruns" id="howruns">
  <div class="callout-t">// How it runs</div>
- <p><strong>Pairs.</strong> Finish every set of 1, then move to 2. Tap ○ after every set: it logs that set (fix the numbers first if they changed), starts rest and shows the next set — S2, S3 — then ✓ after the last. Ramp sets (⚡ on the card) are not logged.</p>
+ <p><strong>Pairs.</strong> Finish every set of 1, then move to 2. Tap ○ after every set: it logs that set (fix the numbers first if they changed), starts rest and shows the next set — S2, S3 — then ✓ after the last. Ramp sets (<i class="ic ic-bolt" aria-hidden="true"></i> on the card) are not logged.</p>
  <p><strong>New lift?</strong> Ramp up, then pick the weight where set 1 hits the low end of its range with about 2 left. 4 or more left: up a pin, rest, redo it. None left: down a pin. Log what you ended on — that is your start. Fixed lifts start light and stay at the number on the card.</p>
  <p><strong>Two sets.</strong> Set 1 leaves 2 in the tank. Set 2 stops 1 short on the big lifts — never the last grind rep. On cable and machine isolation it is every clean rep unless the card says stop short. Log it on the big lifts. Same as last time is a good day. A card with a rep range: set 1 tops the range clean with 2 left → one pin or the next dumbbell next time. Other lifts: set 2 hits 15 clean → one pin up. Set 1 leaving 4 or more in the tank two sessions running → one pin up too. Reps drop a few after a jump, rebuild from there. Clean = tempo held, no swing.</p>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
  <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 More</b>: the same, with room for more. <b>80 Long</b>: every drill, a third set on the key lifts. Times come from your own logged sessions, door to door. <b>Full day</b> on the plan bar shows everything. Skip freely: never make up, never double up.</p>
- <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · 2 left / 2 in the tank = stop when you could still do 2 more clean reps · 2 × 25s = two holds of 25 seconds, rest between · each side = right first, then left for the same reps or time · C2B = chest to bar · fixed = no extra reps · tempo = each part of the rep in the order you do it, in seconds (out 2s → hold 1s → lower 3s) — tap it ▶ and it beeps along: chirp = move, tone = hold, ticks = lowering</p>
+ <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · 2 left / 2 in the tank = stop when you could still do 2 more clean reps · 2 × 25s = two holds of 25 seconds, rest between · each side = right first, then left for the same reps or time · C2B = chest to bar · fixed = no extra reps · tempo = each part of the rep in the order you do it, in seconds (out 2s → hold 1s → lower 3s) — tap it <i class="ic ic-play" aria-hidden="true"></i> and it beeps along: chirp = move, tone = hold, ticks = lowering</p>
 </div>
 
 
@@ -1821,7 +1870,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">60s rest</div><div class="tempo">CONTROL</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Shoulders Decide the Pace</div><p><strong>No kipping.</strong> Step down, never drop. Next rung: 4 clean sessions, shoulders quiet 48 h.</p></div>
+<div class="caveat"><div class="caveat-t">Shoulders Decide the Pace</div><p><strong>No kipping.</strong> Step down, never drop. Next rung: 4 clean sessions, shoulders quiet 48 h.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, a fixed bar at chest height (Smith or low bar), a box.</span></div>
 <div class="cue">Low effort: this primes the wrists and the top position. The pulling is A1.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
@@ -1849,9 +1898,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 5 weighted · S2: fast to the chest, stop 1 short</div><div class="rest-lbl">75s rest</div><div class="tempo">pull fast · lower 3 · hang 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Step Down, Never Drop</div><p><strong>Every rep starts from an active hang — shoulders set, elbows soft.</strong></p></div>
+<div class="caveat"><div class="caveat-t">Step Down, Never Drop</div><p><strong>Every rep starts from an active hang — shoulders set, elbows soft.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, grip just outside the shoulders. Dip belt, 5 lb. Box below.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Chest to the bar, elbows to the back pockets.</div>
 <div class="feet">Legs straight and together, toes lightly pointed, legs a touch in front of you. Still for the whole set: no kicking.</div>
 <div class="setup"><strong>1.</strong> Hang active: shoulders set, elbows soft, ribs down. <strong>2.</strong> Pull fast, chest to bar. Lower in 3, pause 1. <strong>3.</strong> Set 2 is about speed: a rep that only reaches the chin ends it. Arching ends the set too. Step down, never drop.</div>
@@ -1870,9 +1919,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: stop 3 short · S2: stop 2 short</div><div class="rest-lbl">75s rest</div><div class="tempo">lower 3 · pause 1 · press 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ 90° Cap · Shoulders Down</div><p><strong>Stop at elbows 90°.</strong> Shoulders stay down — sinking ends the set. Step down, never drop.</p></div>
+<div class="caveat"><div class="caveat-t">90° Cap · Shoulders Down</div><p><strong>Stop at elbows 90°.</strong> Shoulders stay down — sinking ends the set. Step down, never drop.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Parallel dip bars, palms in. Step up from the footplate.</span></div>
-<div class="warmset">⚡ Ramp: 3 easy reps</div>
+<div class="warmset">Ramp: 3 easy reps</div>
 <div class="cue">Push the bars down, chest tips forward.</div>
 <div class="feet">Legs straight under you, or knees bent with ankles crossed, whichever keeps you still. No swinging.</div>
 <div class="setup"><strong>1.</strong> Start on top, arms straight but soft, legs still. <strong>2.</strong> Lower in 3, elbows back, to 90°. Pause 1. <strong>3.</strong> Press up in 2, no snapping straight. Never grind.</div>
@@ -1894,7 +1943,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Log one side’s plates + 8 lb for the machine. Taken: seated cable row.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Both arms. Elbows stop at your sides.</div>
 <div class="setup"><strong>1.</strong> Chest on the pad, palms in, arms long — blades reach, chest stays put. <strong>2.</strong> Elbows back to your sides, squeeze 1. <strong>3.</strong> Return in 3. Chest lifts, torso twists or elbows pass your back: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -1933,7 +1982,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">pull 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Straight Arms, Not a Pushdown</div><p><strong>Elbows keep the same slight bend the whole rep</strong> — never locked, never bending to push.</p></div>
+<div class="caveat"><div class="caveat-t">Straight Arms, Not a Pushdown</div><p><strong>Elbows keep the same slight bend the whole rep</strong> — never locked, never bending to push.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, rope. Step back until your arms point up at the pulley, hinge forward a little, knees soft.</span></div>
 <div class="cue">Arms stay straight: sweep the rope in an arc from overhead down to your thighs.</div>
 <div class="setup"><strong>1.</strong> Arms up toward the pulley, elbows slightly bent and frozen there, ribs down. <strong>2.</strong> Sweep the hands down to your thighs, squeeze under the armpits 1. <strong>3.</strong> Let the arms rise back in 3, only to about head height. Elbows bending more, shoulders shrugging or back arching: set over.</div>
@@ -1966,7 +2015,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">raise 2 · hold 1 · lower 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Shoulder Height Is the Ceiling</div><p><strong>Hands stop at shoulder height, never above.</strong> Light forever.</p></div>
+<div class="caveat"><div class="caveat-t">Shoulder Height Is the Ceiling</div><p><strong>Hands stop at shoulder height, never above.</strong> Light forever.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Light dumbbell in each hand, standing, palms in.</span></div>
 <div class="cue">Lead with the elbows, thumbs level.</div>
 <div class="setup"><strong>1.</strong> Stand tall, ribs down, elbows soft. <strong>2.</strong> Raise out and a bit forward to shoulder height, no higher. Hold 1. <strong>3.</strong> Lower in 3. Swing or shrug: set over.</div>
@@ -2020,7 +2069,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">push 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Short of Locked</div><p><strong>Elbow finishes soft, never snapped straight.</strong> Arm drifts forward: too heavy.</p></div>
+<div class="caveat"><div class="caveat-t">Short of Locked</div><p><strong>Elbow finishes soft, never snapped straight.</strong> Arm drifts forward: too heavy.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, single handle, palm in. Face the stack a step back.</span></div>
 <div class="cue">Elbow welded to the rib.</div>
 <div class="setup"><strong>1.</strong> Elbow pinned to your side, ribs down. <strong>2.</strong> Press down in 2, short of locked. Squeeze 1. <strong>3.</strong> Return in 3. Elbow drifts or shoulder hikes: set over.</div>
@@ -2082,7 +2131,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">2 × 4 each</div><div class="rest-lbl">60s rest</div><div class="tempo">lower 5 · tap 1 · stand 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Step, Fingertips, Parallel</div><p>Off a step, never a wall. Fingertips on a rung for balance only. <strong>Stop at parallel.</strong> Knee caves in: set over, go 2″ shallower.</p></div>
+<div class="caveat"><div class="caveat-t">Step, Fingertips, Parallel</div><p>Off a step, never a wall. Fingertips on a rung for balance only. <strong>Stop at parallel.</strong> Knee caves in: set over, go 2″ shallower.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Drill 1: knee-high step by ladder rungs. Drill 2: 6″ step by a rail.</span></div>
 <div class="cue">Five slow counts down — your downhill brakes.</div>
 <div class="feet">Standing foot flat on the step, weight mid-foot, heel stays down. Free foot flexed: it's the heel that taps.</div>
@@ -2110,9 +2159,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">60s rest</div><div class="tempo">out 2 · hold 1 · lower 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ One Rule — Stop at Straight</div><p>Full arc. <strong>Stop at straight — never snap or lock past it.</strong></p></div>
+<div class="caveat"><div class="caveat-t">One Rule — Stop at Straight</div><p>Full arc. <strong>Stop at straight — never snap or lock past it.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Leg-extension machine. Knee in line with the pivot, roller above the ankle.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Smooth up, squeeze, slow down — no kicking.</div>
 <div class="feet">Flexed, toes to the ceiling and straight ahead. Not pointed, not turned out.</div>
 <div class="setup"><strong>1.</strong> Sit back, grip the handles, hips down. <strong>2.</strong> Straighten in 2 counts, squeeze 1, lower in 3. <strong>3.</strong> Hips lift or you kick: set over. Knee aches: last set.</div>
@@ -2129,9 +2178,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">2 × 5 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">lower 5 · hold 3 · up 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ No Freefall</div><p>Bend only at the knees — <strong>hips straight, glutes on, low back never arches.</strong> Fixed reps.</p></div>
+<div class="caveat"><div class="caveat-t">No Freefall</div><p>Bend only at the knees — <strong>hips straight, glutes on, low back never arches.</strong> Fixed reps.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Nordic machine, assist 10 lb. Kneecaps off the pad edge, heels under the rollers.</span></div>
-<div class="warmset">⚡ Ramp: 2 short-range reps</div>
+<div class="warmset">Ramp: 2 short-range reps</div>
 <div class="cue">Straight plank, knees to head — own 5s down.</div>
 <div class="feet">Toes tucked and pulled toward your shins (flexed), not pointed. Flexed lets the calves help and keeps the knee steadier. Heels press up into the rollers the whole way.</div>
 <div class="setup"><strong>1.</strong> Kneel tall, glutes on, hands at the chest. <strong>2.</strong> Tip forward for 5 counts, hips straight; hold 3 at your lowest. <strong>3.</strong> Push back up with your hands.</div>
@@ -2151,7 +2200,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 10s × 3 holds · S2: 10s × 3 holds</div><div class="rest-lbl">45s rest</div><div class="tempo">rise 2 · hold 10 · lower 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Straight Line, Never Arched</div><p>Straight line, never arched past. Never to failure. <strong>Stand 10s before the next lift.</strong></p></div>
+<div class="caveat"><div class="caveat-t">Straight Line, Never Arched</div><p>Straight line, never arched past. Never to failure. <strong>Stand 10s before the next lift.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">45° back-extension bench. Pad just below the hip crease, heels on the plate.</span></div>
 <div class="cue">Long and level. Glutes hold, low back quiet.</div>
 <div class="feet">Flat on the foot plate, heels pushing back into the pad. Toes relaxed.</div>
@@ -2177,7 +2226,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: single-leg AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">open 2 · hold 1 · return 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Short of Widest</div><p><strong>Stop just short of your widest</strong> — never force it.</p></div>
+<div class="caveat"><div class="caveat-t">Short of Widest</div><p><strong>Stop just short of your widest</strong> — never force it.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine. Hips back, pads on the outer thigh — not the knee.</span></div>
 <div class="cue">Push out from the side of the hips. Pelvis still.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
@@ -2194,7 +2243,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">close 2 · hold 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Start Narrow</div><p><strong>Start only as wide as feels easy</strong> — no stretch. Close short of touching.</p></div>
+<div class="caveat"><div class="caveat-t">Start Narrow</div><p><strong>Start only as wide as feels easy</strong> — no stretch. Close short of touching.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Adductor machine. Hips back, pads on the inner thigh above the knee.</span></div>
 <div class="cue">Squeeze in from the inner thigh. No rocking.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
@@ -2331,7 +2380,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 
 <div class="callout warn">
- <div class="callout-t">⚠ Wall Only</div>
+ <div class="callout-t"><i class="ic ic-warn" aria-hidden="true"></i> Wall Only</div>
  <p>The wall is the catch for every hold. Free kick-ups: clear floor, exit by cartwheeling down sideways. Step down one foot at a time, no backbend exits.</p>
 </div>
 
@@ -2350,7 +2399,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">60s rest</div><div class="tempo">CONTROLLED</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Kneel First, Then Stand</div><p><strong>Kneel 10s before you stand.</strong> Tipping over: turn a hand out, step down sideways. Elbows straight, never jammed.</p></div>
+<div class="caveat"><div class="caveat-t">Kneel First, Then Stand</div><p><strong>Kneel 10s before you stand.</strong> Tipping over: turn a hand out, step down sideways. Elbows straight, never jammed.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Bare wall, six feet of open floor. Shoes off, hands on firm floor — no soft mat.</span></div>
 <div class="cue">Push the floor away — ribs in, no sagging.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
@@ -2370,15 +2419,15 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="ssh" data-alt-pair="press ↔ the bar"><b>A</b>press ↔ the bar · chin-ups while fresh<span>both sets of 1, then both of 2</span></div>
 
-<div class="excard" data-id="d2e-press" data-ss="A" data-alt-caveat-t="⚠ Elbows Stop at the Bench" data-alt-name="Dumbbell Bench Press — Flat, Neutral Grip" data-alt-tempo="lower 3 · pause 1 · press 2" data-alt-where="Flat bench, two dumbbells, palms facing in, elbows ~45° out." data-alt-sets="S1: 6–8 · S2: stop 1 short" data-alt-cue="Shoulder blades pinned back and down." data-alt-how="1. Lie back with the dumbbells on your thighs, ribs down. 2. Lower 3 counts to elbows level with the bench; pause 1. 3. Press up, short of locked. Dumbbells drift or you shrug: set over." data-alt-caveat="Elbows stop level with the bench, never below. Never lock out." data-alt-prog="Now: Your working dumbbells — S1: 6–8 · S2: stop 1 short | 8 clean: Set 1, when 8 is clean → next dumbbells up">
+<div class="excard" data-id="d2e-press" data-ss="A" data-alt-caveat-t="Elbows Stop at the Bench" data-alt-name="Dumbbell Bench Press — Flat, Neutral Grip" data-alt-tempo="lower 3 · pause 1 · press 2" data-alt-where="Flat bench, two dumbbells, palms facing in, elbows ~45° out." data-alt-sets="S1: 6–8 · S2: stop 1 short" data-alt-cue="Shoulder blades pinned back and down." data-alt-how="1. Lie back with the dumbbells on your thighs, ribs down. 2. Lower 3 counts to elbows level with the bench; pause 1. 3. Press up, short of locked. Dumbbells drift or you shrug: set over." data-alt-caveat="Elbows stop level with the bench, never below. Never lock out." data-alt-prog="Now: Your working dumbbells — S1: 6–8 · S2: stop 1 short | 8 clean: Set 1, when 8 is clean → next dumbbells up">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A1</div><div class="exname">Chest Press — Machine</div></div>
  <div class="exmeta"><div class="sets">S1: 6–8 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">press 2 · return 3 · pause 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Set the Range Stop</div><p><strong>Hands never go behind the chest line.</strong> Set the range stop: no deep stretch. Never lock out.</p></div>
+<div class="caveat"><div class="caveat-t">Set the Range Stop</div><p><strong>Hands never go behind the chest line.</strong> Set the range stop: no deep stretch. Never lock out.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest press machine, handles at mid-chest, range stop set. <strong>No machine? Smith bench, safeties a fist above the chest.</strong></span></div>
-<div class="warmset">⚡ Ramp: half weight × 8, then ¾ × 3</div>
+<div class="warmset">Ramp: half weight × 8, then ¾ × 3</div>
 <div class="cue">Shoulder blades pinned back and down.</div>
 <div class="setup"><strong>1.</strong> Back and head on the pad, elbows ~45° out. <strong>2.</strong> Press up, stop just short of locked. <strong>3.</strong> Return 3 counts, pause 1, no bounce. Shoulders roll forward: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2395,9 +2444,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 6 · S2: stop 1 short</div><div class="rest-lbl">75s rest</div><div class="tempo">pull fast · lower 3 · hang 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Step Down, Never Drop</div><p><strong>Start and end every rep in an active hang — never limp.</strong></p></div>
+<div class="caveat"><div class="caveat-t">Step Down, Never Drop</div><p><strong>Start and end every rep in an active hang — never limp.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, palms facing you, shoulder-width. Box underneath.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Fast up, 3 full seconds down.</div>
 <div class="feet">Legs straight and together, toes lightly pointed, legs a touch in front of you. Still for the whole set: no kicking.</div>
 <div class="setup"><strong>1.</strong> Hang active: shoulders set, elbows soft. <strong>2.</strong> Pull fast, chin over the bar. <strong>3.</strong> Lower 3s, pause 1, no swing. Step down onto the box — never drop.</div>
@@ -2417,7 +2466,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 8 · S2: stop 2 short</div><div class="rest-lbl">60s rest</div><div class="tempo">lower 3 · pause 1 · press 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Head-Down Work</div><p><strong>Kneel 10s before you stand.</strong> Low back arches: set over.</p></div>
+<div class="caveat"><div class="caveat-t">Head-Down Work</div><p><strong>Kneel 10s before you stand.</strong> Low back arches: set over.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Open floor, hands shoulder-width, hips high, knees bent.</span></div>
 <div class="cue">Head lands just ahead of the hands.</div>
 <div class="feet">On your toes, hip-width, heels up. Walk the feet closer to the hands to get steeper.</div>
@@ -2438,7 +2487,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Top pulley, one handle. Face the stack an arm's length back, working-side foot forward.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Reach long, set the shoulder, elbow to back pocket.</div>
 <div class="setup"><strong>1.</strong> Stand tall, reach up the cable, elbow soft. <strong>2.</strong> Pull the elbow to the back pocket, ribs down; squeeze 1. <strong>3.</strong> Return 3 counts to a long reach. Leaning back: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2526,7 +2575,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">curl 2 · lower 3 · stretch 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Soft Elbow at the Stretch</div><p><strong>Never a dead-straight arm at the bottom.</strong> Bench no flatter than 45°.</p></div>
+<div class="caveat"><div class="caveat-t">Soft Elbow at the Stretch</div><p><strong>Never a dead-straight arm at the bottom.</strong> Bench no flatter than 45°.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Incline bench at 45°, light dumbbells, back on the pad, palms forward.</span></div>
 <div class="cue">Elbows stay under the shoulders.</div>
 <div class="setup"><strong>1.</strong> Back on the pad, ribs down, arms long, elbows soft. <strong>2.</strong> Curl 2 counts, elbows still; squeeze 1. <strong>3.</strong> Lower 3 counts, a touch short of straight. Shoulders roll or elbows swing: set over.</div>
@@ -2610,9 +2659,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">2 × 10 · fixed</div><div class="rest-lbl">60s rest</div><div class="tempo">lower 3 · pause 1 · stand 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Flat Back, Hips Do the Work</div><p><strong>Back about to round? Rep over.</strong> Stop just below the knee. Fixed reps, never to failure.</p></div>
+<div class="caveat"><div class="caveat-t">Flat Back, Hips Do the Work</div><p><strong>Back about to round? Rep over.</strong> Stop just below the knee. Fixed reps, never to failure.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">One dumbbell held by both ends. Feet hip-width, knees soft.</span></div>
-<div class="warmset">⚡ Ramp: 3 easy reps</div>
+<div class="warmset">Ramp: 3 easy reps</div>
 <div class="cue">Hips back, like closing a car door.</div>
 <div class="feet">Hip-width and flat, weight from mid-foot to heel. Toes stay down; never rock onto the balls of the feet.</div>
 <div class="setup"><strong>1.</strong> Stand tall, dumbbell on the thighs, knees soft. <strong>2.</strong> Push hips back 3 counts, back flat, to just below the knee. <strong>3.</strong> Pause 1, drive hips forward to stand tall — no leaning back.</div>
@@ -2631,7 +2680,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">2 × 12 each · fixed</div><div class="rest-lbl">45s rest</div><div class="tempo">out 2 · hold 1 · return 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ New Here — Start Lightest</div><p>Lightest pin only. <strong>Stop short of your widest</strong>, every rep.</p></div>
+<div class="caveat"><div class="caveat-t">New Here — Start Lightest</div><p>Lightest pin only. <strong>Stop short of your widest</strong>, every rep.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Lowest pulley, strap on the outside ankle. Stand side-on, hand on the frame.</span></div>
 <div class="cue">Heel leads, hips level — small and clean.</div>
 <div class="feet">Working foot flexed, toes pointing straight ahead, not up. Toes up turns it into a hip-flexor move. Standing foot flat.</div>
@@ -2646,14 +2695,14 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="ssh" data-b="1" data-micro="keep"><b>B</b>glutes ↔ single-leg quads<span>both sets of 1, then both of 2</span></div>
 
-<div class="excard" data-micro="keep" data-id="d4b1" data-ss="B" data-alt-warm="⚡ Ramp: 2 sets, half then three-quarter weight" data-alt-name="Hip Thrust — Heavy" data-alt-tempo="drive 1 · hold 2 · lower 3" data-alt-sets="S1: 8 heavy · S2: stop 2 short" data-alt-where="Same machine, heavier pin. Pad below the shoulder blades, belt on the hip crease." data-alt-cue="The glutes finish the rep, not the low back." data-alt-how="1. Same setup, chin tucked, ribs down. 2. Drive up in 1 to a straight line — stop there; squeeze 2. 3. Lower in 3 without resting on the stack." data-alt-caveat="Stop at a straight body line — the low back never arches to finish a heavy rep." data-alt-prog="Now: Heavier pin — S1: 8 with 2 in the tank · S2: stop 2 short | Next: S1 reaches 10 clean → one pin up next time | Bonus: Monthly check shows right 10%+ behind? One extra right-only set at quarter weight">
+<div class="excard" data-micro="keep" data-id="d4b1" data-ss="B" data-alt-warm="Ramp: 2 sets, half then three-quarter weight" data-alt-name="Hip Thrust — Heavy" data-alt-tempo="drive 1 · hold 2 · lower 3" data-alt-sets="S1: 8 heavy · S2: stop 2 short" data-alt-where="Same machine, heavier pin. Pad below the shoulder blades, belt on the hip crease." data-alt-cue="The glutes finish the rep, not the low back." data-alt-how="1. Same setup, chin tucked, ribs down. 2. Drive up in 1 to a straight line — stop there; squeeze 2. 3. Lower in 3 without resting on the stack." data-alt-caveat="Stop at a straight body line — the low back never arches to finish a heavy rep." data-alt-prog="Now: Heavier pin — S1: 8 with 2 in the tank · S2: stop 2 short | Next: S1 reaches 10 clean → one pin up next time | Bonus: Monthly check shows right 10%+ behind? One extra right-only set at quarter weight">
 <div class="extop">
  <div class="ex-left"><div class="ssn">B1</div><div class="exname">Hip Thrust — Machine</div></div>
  <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">drive 2 · hold 2 · lower 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Pad below the shoulder blades, belt on the hip crease, feet flat hip-width.</span></div>
-<div class="warmset">⚡ Ramp: 1 × 6 at half weight</div>
+<div class="warmset">Ramp: 1 × 6 at half weight</div>
 <div class="cue">Ribs down — glutes finish the rep, not the back.</div>
 <div class="feet">Flat, hip-width, under your knees at the top (shins straight up and down). Drive through the heels; the toes can lift a little.</div>
 <div class="setup"><strong>1.</strong> Belt tight, chin tucked, shins vertical at the top. <strong>2.</strong> Drive through the heels to a straight line — no arching. <strong>3.</strong> Squeeze 2, lower in 2. Low back helps: set over.</div>
@@ -2681,9 +2730,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">2 × 8 each · fixed</div><div class="rest-lbl">90s rest</div><div class="tempo">lower 3 · pause 1 · stand 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Fixed Reps — No AMRAP</div><p>Two sets only. <strong>Stop at parallel or when the pelvis tucks.</strong> Loud knee: go shallower.</p></div>
+<div class="caveat"><div class="caveat-t">Fixed Reps — No AMRAP</div><p>Two sets only. <strong>Stop at parallel or when the pelvis tucks.</strong> Loud knee: go shallower.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Rear laces down on a 10–12″ step, long stance, dumbbell on the back-leg side.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Drop straight down — knee over the second toe.</div>
 <div class="feet">Front foot flat, weight over its middle, heel never lifts. Back foot on the bench: laces down or toes tucked, whichever your ankle likes.</div>
 <div class="setup"><strong>1.</strong> Stand tall, back flat, weight on the front foot. <strong>2.</strong> Lower 3 counts to front thigh parallel; pause 1, no bounce. <strong>3.</strong> Drive up through the whole front foot; knee never locks.</div>
@@ -2705,7 +2754,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 12 · S2: one leg at a time, stop 2 short</div><div class="rest-lbl">60s rest</div><div class="tempo">curl 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Lying, Not Seated</div><p>Hips flat. <strong>Stop ~15° short of straight</strong>; the knee never snaps.</p></div>
+<div class="caveat"><div class="caveat-t">Lying, Not Seated</div><p>Hips flat. <strong>Stop ~15° short of straight</strong>; the knee never snaps.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Lying curl: pad under the hips, knees off the edge, roller above the heels.</span></div>
 <div class="cue">Hips glued down — heels to glutes, slow down.</div>
 <div class="feet">Flexed: toes pulled toward your shins, every rep, every session. Pointed toes make it harder and your numbers stop matching, so pick flexed and keep it.</div>
@@ -2766,7 +2815,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Any treadmill with a safety key.</span></div>
 <div class="cue">Brisk, smooth, quiet feet.</div>
 <div class="feet">Short steps on the balls of the feet, heels kissing the belt. Toes straight ahead.</div>
-<div class="rule">⚠ <strong>Clip the safety key to your shirt before you turn around.</strong> Start the backward walk at 1 mph with both hands on the rails and only speed up once it is boring. Never step on or off a moving belt.</div>
+<div class="rule"><i class="ic ic-warn" aria-hidden="true"></i> <strong>Clip the safety key to your shirt before you turn around.</strong> Start the backward walk at 1 mph with both hands on the rails and only speed up once it is boring. Never step on or off a moving belt.</div>
 <div class="setup"><strong>1.</strong> Belt off, key clipped, hands on rails: push 30s, back flat. Four rounds. <strong>2.</strong> Belt on, 10% incline, 1–1.5 mph: walk backward 6 min, short steps. <strong>3.</strong> Knee complains on the push: cut the time.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2783,9 +2832,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">60s rest</div><div class="tempo">lower 3 · stretch 2 · press 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Straight, Not Pushed Back</div><p><strong>Knee straight — never pushed back.</strong> Slow out of the bottom, no bouncing.</p></div>
+<div class="caveat"><div class="caveat-t">Straight, Not Pushed Back</div><p><strong>Knee straight — never pushed back.</strong> Slow out of the bottom, no bouncing.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Leg press, safeties in, balls of the feet low on the platform. Nothing on your shoulders.</span></div>
-<div class="warmset">⚡ Ramp: 1 easy set</div>
+<div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Balls of the feet push — knees never bend.</div>
 <div class="feet">Balls of the feet on the edge, toes straight ahead, heels free. Push through the big toe; don't roll out to the pinky side.</div>
 <div class="setup"><strong>1.</strong> Safeties set, feet low, knees straight but soft. <strong>2.</strong> Heels down 3 counts to a full stretch; pause 2. <strong>3.</strong> Press all the way up, squeeze. Knees bend to help: set over.</div>
@@ -2865,7 +2914,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">~12 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">⚠ Fresh Only</div><p><strong>Stop while it still looks good.</strong> Back arches or wrists complain: done for today.</p></div>
+<div class="caveat"><div class="caveat-t">Fresh Only</div><p><strong>Stop while it still looks good.</strong> Back arches or wrists complain: done for today.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor with a clear body-length all round, and a bare wall.</span></div>
 <div class="cue">Short and crisp — practice, not a workout.</div>
 <div class="drills">
@@ -2941,7 +2990,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 
 <details id="swim" class="swim-fold">
- <summary>🏊 Swim Session<span class="swim-hint"> — tap to open the full session</span></summary>
+ <summary><i class="ic ic-wave" aria-hidden="true"></i> Swim Session<span class="swim-hint"> — tap to open the full session</span></summary>
  <p class="swim-intro">Easy on the back. A lazy 30-min easy swim counts too.</p>
  <div class="sgrid">
  <div class="scard">
@@ -3106,12 +3155,13 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
+ <p class="numkey">Each dot is a session, placed by date. y = estimated 1-rep max for weighted lifts, weight × (1 + reps ÷ 30) (on bodyweight lifts, the added weight only); otherwise reps or seconds. Dashed line = least-squares fit: slope per week, and R² from 0 to 1 for how well a straight line fits.</p>
  <div id="numList" style="max-width:620px"></div>
  <div class="wkview" id="wkView"></div>
  <div class="bk-note" id="bkNote"></div>
  <input type="file" id="bkFile" accept="application/json,.json" hidden>
  <details class="ghbox" id="ghBox">
-  <summary><span class="gh-ic">☁</span> Backup &amp; sync <span class="gh-state" id="ghState"></span></summary>
+  <summary><span class="gh-ic"><i class="ic ic-cloud" aria-hidden="true"></i></span> Backup &amp; sync <span class="gh-state" id="ghState"></span></summary>
   <div class="gh-body">
    <div class="bk" style="margin-top:0">
     <button class="logbtn ghost" type="button" onclick="backupNumbers()">↓ Save a backup file</button>
@@ -3273,10 +3323,10 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <!-- DAY-JUMP FAB -->
 <div id="tabbar" role="navigation" aria-label="Main">
- <button data-tab="today" type="button"><b>▶</b>Today</button>
- <button data-tab="week" type="button"><b>▦</b>Week</button>
- <button data-tab="numbers" type="button"><b>#</b>Numbers<i class="syncdot" id="syncDot" aria-hidden="true"></i></button>
- <button data-tab="more" type="button"><b>≡</b>More</button>
+ <button data-tab="today" type="button"><b><i class="ic ic-dumbbell" aria-hidden="true"></i></b>Today</button>
+ <button data-tab="week" type="button"><b><i class="ic ic-calendar" aria-hidden="true"></i></b>Week</button>
+ <button data-tab="numbers" type="button"><b><i class="ic ic-chart" aria-hidden="true"></i></b>Numbers<i class="syncdot" id="syncDot" aria-hidden="true"></i></button>
+ <button data-tab="more" type="button"><b><i class="ic ic-menu" aria-hidden="true"></i></b>More</button>
 </div>
 <div id="scrim" hidden></div>
 <div id="sheet" role="dialog" aria-modal="true" aria-hidden="true"><button type="button" class="sh-x" onclick="closeSheet()">Done</button><div id="sheetBody"></div></div>
@@ -3289,7 +3339,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-14.11';
+var APP_V = '2026-10-14.12';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4063,7 +4113,7 @@ function _paintStart(){
   if (note){ note.textContent = msg; note.hidden = !msg; }
  b.href = '#' + m[0];
  b.onclick = /^d[1-6]$/.test(m[0]) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
- b.textContent = m[1]; b.style.color = m[3] ? m[2] : '';
+ b.innerHTML = m[1].indexOf('▶ ') === 0 ? '<i class="ic ic-play" aria-hidden="true"></i> ' + _esc(m[1].slice(2)) : _esc(m[1]); b.style.color = m[3] ? m[2] : '';
  b.style.background = m[3] ? 'transparent' : m[2]; b.style.boxShadow = m[3] ? 'inset 0 0 0 1px ' + m[2] : '0 0 22px -4px ' + m[2];
  try { _paintHome(dt, sg, run, m, col); } catch(e){}
 }
@@ -4088,7 +4138,7 @@ function _paintHome(dt, sg, run, m, col){
  document.getElementById('hmDay').textContent = DOW_N[dow];
  var ht = document.getElementById('hmT'); ht.textContent = t; ht.style.setProperty('--hc', dt || sg ? col[(dt || sg.id)] : 'var(--txt)');
  document.getElementById('hmS').innerHTML = s;
- if (sg && !dt) b.textContent = '▶ Start ' + DAY_NAME[sg.id];
+ if (sg && !dt) b.innerHTML = '<i class="ic ic-play" aria-hidden="true"></i> Start ' + _esc(DAY_NAME[sg.id]);
  b.classList.toggle('rest', !!rest); if (any) any.hidden = !rest;
  // this week, then what comes next
  var core = [['d5', 'Upper A'], [w.d2 && !w.d1 ? 'd2' : w.d1 ? 'd1' : lowId, 'Lower'], ['d3', 'Upper B']];
@@ -4286,7 +4336,7 @@ function _moreSheet(){
  return '<div class="sh-t">More</div>' + [['variety','Skills & ladders'],['daily','Daily 9 min'],['recover','Recovery toys'],['safety','Game plan'],['fuel','Fuel'],['howruns','How it runs']].filter(function(x){ return document.getElementById(x[0]); }).map(function(x){
  return '<button type="button" class="sh-row" onclick="_goSection(\'' + x[0] + '\')"><span class="sh-n">' + x[1] + '</span><em>›</em></button>'; }).join('') +
   '<div class="sh-tg">' + (blk ? '<button type="button" onclick="toggleBlock();openSheet(\'more\',1)">' + _esc(blk.textContent) + '</button>' : '') +
- '<button type="button" class="' + (gym ? 'on' : '') + '" onclick="toggleGym();openSheet(\'more\',1)">⚡ Gym mode ' + (gym ? 'on' : 'off') + '</button></div>';
+ '<button type="button" class="' + (gym ? 'on' : '') + '" onclick="toggleGym();openSheet(\'more\',1)"><i class="ic ic-bolt" aria-hidden="true"></i> Gym mode ' + (gym ? 'on' : 'off') + '</button></div>';
 }
 function _goSection(id){
  closeSheet(); setFocus(null, true); document.body.classList.add('browse');
@@ -4405,7 +4455,7 @@ function applyBlock(){
  var txt = isB ? c.dataset.altStart : sl.dataset.orig; sp.textContent = txt; sl.hidden = isB ? !txt : !!sl.dataset.hid; }
  // warning
  if (c.dataset.altCaveat !== undefined){ var cv = c.querySelector(':scope > .caveat');
- if (!cv && c.dataset.altCaveat){ cv = document.createElement('div'); cv.className = 'caveat'; cv.hidden = true; cv.dataset.made = '1'; cv.innerHTML = '<div class="caveat-t">⚠ Heads up</div><p></p>'; c.querySelector(':scope > .extop').insertAdjacentElement('afterend', cv); }
+ if (!cv && c.dataset.altCaveat){ cv = document.createElement('div'); cv.className = 'caveat'; cv.hidden = true; cv.dataset.made = '1'; cv.innerHTML = '<div class="caveat-t">Heads up</div><p></p>'; c.querySelector(':scope > .extop').insertAdjacentElement('afterend', cv); }
  if (cv){ var cp = cv.querySelector('p'); if (cv.dataset.orig === undefined) cv.dataset.orig = cp.innerHTML;
  if (isB){ cp.textContent = c.dataset.altCaveat; cv.hidden = !c.dataset.altCaveat; } else { cp.innerHTML = cv.dataset.orig; cv.hidden = !!cv.dataset.made; }
  var ct = cv.querySelector('.caveat-t'); if (ct && c.dataset.altCaveatT){ if (ct.dataset.orig === undefined) ct.dataset.orig = ct.textContent; ct.textContent = isB ? c.dataset.altCaveatT : ct.dataset.orig; } } }
@@ -4453,8 +4503,8 @@ function applyWildcards(){
  var how = (p.length > 2 ? p[2] : p[1]).replace(/^How:\s*/i, ''), cut = how.indexOf('. ');
  if (cut > 0 && cut < 24 && /\d/.test(how.slice(0, cut))){ c.querySelector('.sets').textContent = how.slice(0, cut); how = how.slice(cut + 2); }
  c.querySelector('.setup').textContent = how;
- if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.textContent = '🎲 Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b);
-  var jb = document.createElement('button'); jb.type = 'button'; jb.className = 'reroll jar'; jb.textContent = '🫙 Any day\u2019s toy'; jb.onclick = function(){ jarWild(c.dataset.id); }; c.appendChild(jb); }
+ if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.innerHTML = '<i class="ic ic-dice" aria-hidden="true"></i> Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b);
+  var jb = document.createElement('button'); jb.type = 'button'; jb.className = 'reroll jar'; jb.innerHTML = '<i class="ic ic-grid" aria-hidden="true"></i> Any day\u2019s toy'; jb.onclick = function(){ jarWild(c.dataset.id); }; c.appendChild(jb); }
  } catch(e){} });
 }
 function _wildState(){ var wk = _weekNo(), st = { wk: wk, off: {} };
@@ -4712,9 +4762,41 @@ function buildJots(){
 // "My numbers": last + best for every tracked lift, straight from the saved history
 // a tiny trend line per lift: is it going up?
 function _spark(arr){
- var pts = arr.slice(-8).map(_score); if (pts.length < 2) return '';
- var mn = Math.min.apply(0, pts), mx = Math.max.apply(0, pts), sp = mx - mn || 1;
- return '<svg class="spk" viewBox="0 0 60 16" aria-hidden="true"><polyline points="' + pts.map(function(v, i){ return (i / (pts.length - 1) * 58 + 1).toFixed(1) + ',' + (15 - (v - mn) / sp * 13).toFixed(1); }).join(' ') + '"/></svg>';
+ // each dot is a session on a real date axis; dashed = least-squares fit (slope per week, R²)
+ var wt = arr.some(function(e){ return e.w > 0; }), pts = arr.filter(function(e){ return !wt || e.w > 0; }).slice(-12);
+ if (pts.length < 2) return '';
+ var day = function(e){ var m = String(e.d).match(/^(\d{4})-(\d\d)-(\d\d)$/); return m ? Date.UTC(+m[1], m[2] - 1, +m[3]) / 864e5 : 0; };
+ var X = pts.map(day), Y = pts.map(_score), n = X.length, x0 = X[0], span = X[n - 1] - x0;
+ if (!(span > 0)) X = X.map(function(_, i){ return x0 + i; }), span = n - 1;
+ var mx = X.reduce(function(a, b){ return a + b; }, 0) / n, my = Y.reduce(function(a, b){ return a + b; }, 0) / n, sxx = 0, sxy = 0, syy = 0;
+ for (var i = 0; i < n; i++){ sxx += (X[i] - mx) * (X[i] - mx); sxy += (X[i] - mx) * (Y[i] - my); syy += (Y[i] - my) * (Y[i] - my); }
+ var fit = n >= 3 && sxx > 0, b = fit ? sxy / sxx : 0, a = my - b * mx, r2 = fit && syy > 0 ? sxy * sxy / (sxx * syy) : fit ? 1 : 0;
+ var ys = Y.concat(fit ? [a + b * X[0], a + b * X[n - 1]] : []), lo = Math.min.apply(0, ys), hi = Math.max.apply(0, ys), pad = (hi - lo) * 0.12 || Math.max(1, hi * 0.05);
+ lo -= pad; hi += pad;
+ var W = 300, H = 66, L = 32, R = 8, T = 6, B = 18, pw = W - L - R, ph = H - T - B;
+ var px = function(x){ return (L + (x - X[0]) / span * pw).toFixed(1); }, py = function(y){ return (T + (hi - y) / (hi - lo) * ph).toFixed(1); };
+ var f0 = function(v){ return Math.abs(v) >= 100 ? Math.round(v) : Math.round(v * 10) / 10; };
+ var md = function(e){ var m = String(e.d).match(/^\d{4}-(\d\d)-(\d\d)$/); return m ? +m[1] + '/' + +m[2] : ''; };
+ var g = '';
+ (Math.max.apply(0, Y) > Math.min.apply(0, Y) ? [hi - pad, (hi + lo) / 2, lo + pad] : [(hi + lo) / 2]).forEach(function(v){ g += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + py(v) + '" y2="' + py(v) + '"/><text class="yl" x="' + (L - 5) + '" y="' + (+py(v) + 3) + '">' + f0(v) + '</text>'; });
+ g += '<line class="ax" x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + (H - B) + '"/><line class="ax" x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '"/>';
+ g += '<text class="xl" x="' + L + '" y="' + (H - 4) + '">' + md(pts[0]) + '</text><text class="xl" x="' + (W - R) + '" y="' + (H - 4) + '" text-anchor="end">' + md(pts[n - 1]) + '</text>';
+ var line = X.map(function(x, i){ return px(x) + ',' + py(Y[i]); }).join(' ');
+ g += '<polygon class="ar" points="' + px(X[0]) + ',' + (H - B) + ' ' + line + ' ' + px(X[n - 1]) + ',' + (H - B) + '"/>';
+ if (fit) g += '<line class="fit" x1="' + px(X[0]) + '" y1="' + py(a + b * X[0]) + '" x2="' + px(X[n - 1]) + '" y2="' + py(a + b * X[n - 1]) + '"/>';
+ g += '<polyline class="dl" points="' + line + '"/>' + X.map(function(x, i){ return '<circle class="' + (i === n - 1 ? 'dt last' : 'dt') + '" cx="' + px(x) + '" cy="' + py(Y[i]) + '" r="' + (i === n - 1 ? 3.2 : 2.3) + '"/>'; }).join('');
+ var u = wt ? 'lb' : pts[n - 1].t === 's' ? 's' : pts[n - 1].t === 'm' ? 'min' : 'reps', wk = b * 7;
+ var tr = fit && span >= 7 ? '<em class="trd"><b class="' + (wk > 0.05 ? 'up' : wk < -0.05 ? 'dn' : '') + '">' + (wk > 0 ? '+' : wk < 0 ? '−' : '±') + f0(Math.abs(wk)) + ' ' + u + '/wk</b> · R² ' + r2.toFixed(2) + ' · n = ' + n + '</em>'
+  : '<em class="trd">n = ' + n + ' · the fit line starts at 3 sessions across a week</em>';
+ return '<svg class="spk" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Trend chart">' + g + '</svg>' + tr;
+}
+// one small line icon per lift in Numbers: what kind of move it is
+var NUM_CAT = { vpull:'pull', hpull:'pull', latiso:'pull', latuni:'pull', dip:'push', chest:'push', ohp:'push', serratus:'push', tri:'arm', bi:'arm', rdelt:'shoulder', sdelt:'shoulder',
+ quad:'knee', hamknee:'hinge', hamhip:'hinge', backext:'hinge', glute:'hinge', gmed:'side', calf:'calf', corelat:'core', corerot:'core', cond:'cardio' };
+var NUM_CAT_ID = { 'd5e-archer':'skill', 'd5e1':'skill', 'd5e-pistol':'knee', 'd2-balance':'skill', 'd1-tib':'calf', 'd2-tib':'calf', 'd6-crow':'skill', 'd6-plank':'core', 'd6-spin':'cardio', 'd1-adduct':'side' };
+function _numIc(k){
+ var id = String(k).replace(/~b$/, ''), c = /^wild:/.test(id) ? 'dice' : /^x-/.test(id) ? 'custom' : /#\d+$/.test(id) ? 'skill' : NUM_CAT_ID[id] || NUM_CAT[SLOT[id]] || 'dumbbell';
+ return '<i class="ic ic-' + c + ' sr-i" aria-hidden="true"></i>';
 }
 function _drillName(k){ var m = k.match(/^(.+)#(\d+)$/); if (!m) return '';
  var card = document.querySelector('.excard[data-id="' + m[1] + '"]'), d = card && [].filter.call(card.querySelectorAll(':scope > .drills > .drill'), function(x, i){ return (x.dataset.k || String(i)) === m[2]; })[0]; if (!d) return '';
@@ -4729,14 +4811,14 @@ function renderNumbers(){
  var arr = _asArr(h[card.dataset.id + v[0]]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], pool = _same(arr, last.w), best = pool.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, pool[0]);
  var nm = String(v[1]).replace(/<[^>]+>/g, '').split(' — ')[0];
- rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '"><b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
+ rows += '<div class="srow" data-k="' + _esc(card.dataset.id + v[0]) + '">' + _numIc(card.dataset.id + v[0]) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
  });
  Object.keys(h).filter(function(k){ return /^wild:|#\d+$/.test(k) || (/^x-/.test(k) && !document.querySelector('.excard[data-id="' + k + '"]')); }).sort().forEach(function(k){
  var arr = _asArr(h[k]).filter(function(e){ return e.r > 0; }); if (!arr.length) return;
  var last = arr[arr.length-1], best = arr.reduce(function(m,e){ return _score(e) > _score(m) ? e : m; }, arr[0]);
  var nm = k.slice(0, 5) === 'wild:' ? k.slice(5) : /^x-/.test(k) ? _customName(k) : _drillName(k); if (!nm) return;
- rows += '<div class="srow" data-k="' + _esc(k) + '"><b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
+ rows += '<div class="srow" data-k="' + _esc(k) + '">' + _numIc(k) + '<b class="sr-n">' + _esc(nm) + '</b>' + _spark(arr) + '<span>' + _fmt(last) + (best !== last && _score(best) > _score(last) ? ' · best ' + _fmt(best) : '') + '</span>' + '<button type="button" class="srow-x" aria-label="Delete the last entry for ' + _esc(nm) + '">×</button></div>';
  });
  host.innerHTML = rows || '<p style="font-size:13px;color:var(--dim)">Nothing yet — tick a tracked lift and it shows up here.</p>';
  if (typeof paintBackupNote === 'function') paintBackupNote();
@@ -5133,7 +5215,7 @@ function _tempoHTML(raw, ph){
  var q = _tempoSeq(raw); if (!q) return _esc(raw);
  var k = ph ? 'tph' : 'tk';
  return q.map(function(x, i){ return '<span class="' + k + '" data-i="' + i + '">' + _esc(x.w) + ' ' + (x.fast ? 'fast' : x.s + 's') + '</span>'; }).join('<i class="tar" aria-hidden="true">→</i>') +
-  '<span class="tgo" aria-hidden="true">' + (ph ? '■' : '▶') + '</span>';
+  '<span class="tgo' + (ph ? ' stop' : '') + '" aria-hidden="true"></span>';
 }
 function _tempoRaw(el){ return String((el.querySelector('.tk,.tph') ? el.dataset.raw : el.textContent) || '').trim(); }
 function _fmtTempo(el){
@@ -5447,7 +5529,7 @@ document.addEventListener('click', function(ev){ var t = ev.target.closest && ev
 (function(){ var notes = {}; try { notes = _asObj(JSON.parse(store.get('bp-seat') || '{}')); } catch(e){}
  if (/low row/i.test(notes['d2e-press'] || '') && !notes.d1e3){ notes.d1e3 = 'Seat 3 · Iso-Lateral Low Row'; delete notes['d2e-press']; try { store.set('bp-seat', JSON.stringify(notes)); } catch(e){} }   // a row note typed on the press card
  document.querySelectorAll('.excard[data-id] > .band-badge').forEach(function(bd){ var c = bd.parentNode; if (c.classList.contains('wild') || !/machine|seat|thigh pad/i.test(bd.textContent)) return;
- var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.placeholder = '⚙ Machine settings (seat, pad) — kept every time'; i.setAttribute('aria-label', 'Machine settings note');
+ var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.placeholder = 'Machine settings (seat, pad) — kept every time'; i.setAttribute('aria-label', 'Machine settings note');
  function key(){ return _logKey(c); } function paint(){ i.value = notes[key()] || ''; i.classList.toggle('has', !!i.value); }
  i.addEventListener('change', function(){ var v = i.value.trim(); if (v) notes[key()] = v; else delete notes[key()]; try { store.set('bp-seat', JSON.stringify(notes)); } catch(e){} paint(); });
  i._paint = paint; paint(); bd.insertAdjacentElement('afterend', i); }); })();
@@ -5650,7 +5732,7 @@ function applyPlan(p){
   var home = document.createComment('home'); c.parentNode.insertBefore(home, c); c._home = home;
   c.dataset.ss0 = c.dataset.ss || ''; delete c.dataset.ss; c.dataset.rescued = DAY_NAME[(p.src || {})[id] || p.from] || '';
   if (/S1/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1';
-  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.textContent = xtra ? '⏳ Extra time · to finish' : ((p.carry || {})[id] ? '↩ Left from ' : (p.late || {})[id] ? '↩ Missed last week · ' : '↩ Missed from ') + c.dataset.rescued; left.insertBefore(t, left.firstChild); }
+  var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.innerHTML = xtra ? '<i class="ic ic-hourglass" aria-hidden="true"></i> Extra time · to finish' : '<i class="ic ic-undo" aria-hidden="true"></i> ' + _esc(((p.carry || {})[id] ? 'Left from ' : (p.late || {})[id] ? 'Missed last week · ' : 'Missed from ') + c.dataset.rescued); left.insertBefore(t, left.firstChild); }
   if (xtra) list.appendChild(c); else if (anchor) list.insertBefore(c, anchor); else list.appendChild(c);
  });
  sec.querySelectorAll('.ssh').forEach(function(h){ var x = h.nextElementSibling, n = 0, off = 0;
@@ -5689,7 +5771,7 @@ function _unAdd(c){
 }
 function _addTag(c, txt){
  var left = c.querySelector('.ex-left'); if (!left || left.querySelector('.rtag.addtag')) return;
- var t = document.createElement('div'); t.className = 'rtag addtag'; t.textContent = txt;
+ var t = document.createElement('div'); t.className = 'rtag addtag'; t.innerHTML = '<i class="ic ic-plus" aria-hidden="true"></i> ' + _esc(txt.replace(/^\+ /, ''));
  var x = document.createElement('button'); x.type = 'button'; x.className = 'rt-x'; x.textContent = 'Remove'; x.setAttribute('aria-label', 'Take this lift off today');
  x.addEventListener('click', function(ev){ ev.stopPropagation(); writeAdds(readAdds().filter(function(a){ return a[0] !== c.dataset.id; })); _unAdd(c); updateDayComplete(); updateFabCount(); paintJump(); _toast('Off today · anything you logged stays in Numbers'); });
  t.appendChild(x); left.insertBefore(t, left.firstChild);
