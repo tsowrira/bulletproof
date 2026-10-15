@@ -1552,6 +1552,35 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .ic{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background-color:currentColor;flex:none;-webkit-mask-size:contain;mask-size:contain}
 .ic-warn{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5 2.8 19.5h18.4z'/><path d='M12 10v4.2'/><path d='M12 17.1v.1'/></svg>") center/contain no-repeat}
 .ic-bolt{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z'/></svg>") center/contain no-repeat}
+.ic-travel{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3.5' y='7.5' width='17' height='12.5' rx='2.5'/><path d='M9 7.5v-2a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5.5v2M3.5 13h17'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3.5' y='7.5' width='17' height='12.5' rx='2.5'/><path d='M9 7.5v-2a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5.5v2M3.5 13h17'/></svg>") center/contain no-repeat}
+.ic-check{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>") center/contain no-repeat}
+/* travel mode */
+.tripcard{display:none}
+body.travelling:not(.focus):not(.browse) .tripcard:not([hidden]){display:block;margin-top:18px}
+body.travelling :is(.week,.home,.startbtn,.hm-any,.hm-rw,#rwPill,#sqCard,.startwhy,#blockBtn,.pills,.tseg,.tskip){display:none!important}
+.tr-top{display:flex;align-items:center;justify-content:space-between}
+.tr-top>span{font:700 11px 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.tr-end{min-height:44px;padding:0 4px;background:none;border:0;color:var(--dim);font:600 12px 'Inter',sans-serif;cursor:pointer}
+.tr-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0 14px}
+.tr-tier{min-height:44px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--dim);font:700 11px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.tr-tier.on{border-color:var(--g);color:var(--g)}
+.tr-sess{font:700 22px/1.2 'Playfair Display',serif;color:var(--txt);margin-bottom:6px}
+.tr-l{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.tr-n{flex:1;min-width:0}
+.tr-n b{display:block;font-size:15px;font-weight:600;color:var(--txt)}
+.tr-n small{display:block;margin-top:2px;font-size:12.5px;line-height:1.35;color:var(--fade2)}
+.tr-l.done .tr-n b{color:var(--g)}
+.tr-w{width:54px;min-height:44px;border-radius:10px;border:1px solid var(--bdr);background:none;color:var(--txt);text-align:center;font:600 14px 'Inter',sans-serif}
+.tr-sets{display:flex;gap:6px;flex:none}
+.tr-s{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--bdr);background:none;color:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.tr-s.on{background:var(--g);border-color:var(--g);color:#060611}
+.tr-sk .tr-n b{color:var(--dim)}
+.tr-fin{display:block;width:100%;min-height:50px;margin-top:16px;border-radius:100px;border:1px solid var(--g);background:none;color:var(--g);font:700 13px 'Inter',sans-serif;cursor:pointer}
+.tr-fin[hidden]{display:none}
+.tr-rest{padding:18px 0}
+.tr-rest b{display:block;font:700 28px 'Playfair Display',serif;color:var(--txt)}
+.tr-rest span{display:block;margin:6px 0 14px;font-size:15px;color:var(--fade)}
+.tr-rest button{min-height:48px;padding:0 22px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--fade);font:700 12px 'Inter',sans-serif;cursor:pointer}
 .ic-play{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 4.8v14.4L19 12z'/></svg>") center/contain no-repeat}
 .ic-stop{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat}
 .ic-clock{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='13.5' r='7.5'/><path d='M12 10v3.5l2.3 1.8'/><path d='M9.5 2.8h5'/><path d='M12 2.8V6'/></svg>") center/contain no-repeat}
@@ -1787,6 +1816,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <h1 class="t-display"><em>BULLET</em><br>PROOF</h1>
  <p>Usual week: Tue upper · Wed lower · Thu upper — Lower A and B take turns. Miss one and the app moves the rest. Monday skill + engine and a Friday lower if you feel like it. Skill first, two sets a lift — a third only on a Long day.</p>
  <div class="home" id="homeCard"><div class="hm-day" id="hmDay"></div><div class="hm-t" id="hmT"></div><div class="hm-s" id="hmS"></div></div>
+ <div class="tripcard" id="tripCard" hidden></div>
  <a class="startbtn" id="startBtn" href="#d1"><i class="ic ic-play" aria-hidden="true"></i> Start today</a>
  <button type="button" class="hm-any" id="hmAny" hidden onclick="openSheet('week')">Train anyway — pick a day ›</button>
  <button type="button" class="hm-rw" id="hmRw" hidden onclick="openSheet('rework')">Rework my week ›</button>
@@ -4090,7 +4120,7 @@ function _snackToday(){ var w = readCompletedWeek(); return w.d6 && _tday(+w.d6)
 var _enMemo = {};
 function _once(k, fn){ if (!(k in _enMemo)){ _enMemo[k] = fn(); Promise.resolve().then(function(){ delete _enMemo[k]; }); } return _enMemo[k]; }
 window.addEventListener('storage', function(){ _enMemo = {}; });
-function _tripOn(){ try { var t = JSON.parse(store.get('bp-trip') || 'null'); return t && t.on ? t : null; } catch(e){ return null; } }   // travel mode owns the plan while this is on
+function _tripOn(){ try { var t = JSON.parse(store.get('bp-trip') || 'null'); if (!t || !t.on) return null; if (_tripDays(t) >= 14){ _tripEnd(); return null; } return t; } catch(e){ return null; } }   // travel mode owns the plan while this is on
 function _retRead(){ try { var r = JSON.parse(store.get('bp-return') || 'null'); return r && r.until ? r : null; } catch(e){ return null; } }
 function _retOn(){   // the first sessions back from a trip: last weights, no step-ups, set 2 stops short
  var r = _retRead(); if (!r || r.until < _today()) return false;
@@ -4210,8 +4240,110 @@ function suggestDay(){
  var open = owedDays().filter(ok);
  return open.length ? mk(open[0]) : null;
 }
+// ── Travel mode: one card, three tiers, A/B, own log ──────────────────
+var TRIP = {
+ room: { A: [['r-a1','Split squat, hand on a chair','2 × 8 / side','Slow down, thigh to parallel, knee over toes'], ['r-a2','Single-leg hinge, fingertips on a chair','2 × 8 / side','Flat back, 3 down, stop mid-shin'], ['r-a3','Hands-up push-up plus','2 × 10','Hands on a desk or bed edge, push tall at the top'], ['r-a4','Backpack row, hand on a chair','2 × 12 / side','Light pack, flat back, 3 down'], ['r-a5','Calf raise, one leg','2 × 12 / side','Hand on a wall, 3 up, 3 down']],
+  B: [['r-b1','One-leg bridge on the bed','2 × 10 / side','Hips level, 2-count at the top'], ['r-b2','Step-up, low stair','2 × 8 / side','Hand on the rail, lower for 3'], ['r-b3','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°'], ['r-b4','Y-T-W on the bed, face down','2 × 8 each','Chest stays on the bed, lift the arms only'], ['r-b5','Incline side plank, forearm on the bed','2 × 20s / side','Long line, hips up']] },
+ db: { A: [['d-a1','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w'], ['d-a2','Dumbbell bench press','2 × 10','Your usual or lighter, elbows tucked','w'], ['d-a3','Chest-supported row, incline bench','2 × 10','Chest on the pad, pull to the ribs','w'], ['d-a4','Lateral raise','2 × 12','Stop at shoulder height','w'], ['d-a5','Dumbbell RDL','2 × 10','5 lb, 3 down, 1 pause, 1 up','w']],
+  B: [['d-b1','One-leg bridge, bench or bed','2 × 10 / side','Bodyweight, 2-count at the top'], ['d-b2','Step-up, low bench','2 × 8 / side','Bodyweight, lower for 3'], ['d-b3','One-arm row, hand on the bench','2 × 10 / side','Flat back, pull to the hip','w'], ['d-b4','Incline curl','2 × 10','Arms hang back, no swing','w'], ['d-b5','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°']] },
+ cable: { A: [['c-a1','One-arm cable pulldown','2 × 10 / side','Staggered stance, ribs down','w'], ['c-a2','Cable face pull','2 × 15','Elbows high, pull to the eyes','w'], ['c-a3','Incline dumbbell press','2 × 10','Your usual or lighter','w'], ['c-a4','Cable Pallof press','2 × 10 / side','Do not let it turn you','w'], ['c-a5','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w']],
+  B: [['c-b1','Seated wide cable row','2 × 10','Chest tall, squeeze and 3 back','w'], ['c-b2','Cable glute kickback','2 × 12 / side','Ribs down, move from the hip','w'], ['c-b3','Rope pushdown','2 × 12','Elbows pinned','w'], ['c-b4','Dumbbell RDL','2 × 10','5 lb, 3 down, 1 pause, 1 up','w'], ['c-b5','Cable anti-lean hold','2 × 20s / side','Stand tall, resist the pull','w']] }
+};
+var TRIP_SKILL = 'Chest-to-wall handstand, 3 × 15s, shoulders pushed tall. Bar around? Active hang 2 × 10s, never passive.';
+var TRIP_TIERS = [['room', 'Room'], ['db', 'Dumbbells'], ['cable', 'Cable']];
+var _tripArm = 0, _tripGo = 0;
+function _tripDays(t){ return Math.round((new Date(_today() + 'T12:00') - new Date(t.start + 'T12:00')) / 864e5); }
+function _tripLogRead(){ try { return _asArr(JSON.parse(store.get('bp-trip-log') || '[]')); } catch(e){ return []; } }
+function _tripLogWrite(a){ try { store.set('bp-trip-log', JSON.stringify(a.slice(-40))); } catch(e){} }
+function _tripEnd(){
+ var t = null; try { t = JSON.parse(store.get('bp-trip') || 'null'); } catch(e){}
+ if (!t || !t.on) return;
+ var len = Math.max(0, _tripDays(t));
+ try { store.set('bp-trip', JSON.stringify({ on: 0, tier: t.tier, start: t.start, n: t.n || 0 })); } catch(e){}
+ var st = readBlock(); try { store.set('bp-block', JSON.stringify(Object.assign({}, st, { t: Math.min(Date.now(), st.t + len * 864e5) }))); } catch(e){}
+ var r = _retRead() || {}; r.until = _ymd(Date.now() + 7 * 864e5); r.n = 2; r.end = _today();
+ try { store.set('bp-return', JSON.stringify(r)); } catch(e){}
+}
+function _retFirst(){
+ var r = _retRead(); if (!r || !_retOn()) return false;
+ var from = _ymd(new Date(r.until + 'T12:00').getTime() - 7 * 864e5);
+ return !readSess().some(function(x){ return x && x.n >= 3 && DAY_HALF[x.day] && x.d >= from; });
+}
+function toggleTrip(){
+ var t = _tripOn();
+ if (t) return tripOver();
+ var old = null; try { old = JSON.parse(store.get('bp-trip') || 'null'); } catch(e){}
+ try { store.set('bp-trip', JSON.stringify({ on: 1, tier: old && TRIP[old.tier] ? old.tier : 'db', start: _today(), n: 0 })); } catch(e){}
+ _tripGo = 0; closeSheet(); setFocus(null); _toast('Travel on — three short sessions, nothing more'); _paintStart(); window.scrollTo(0, 0);
+}
+function tripOver(){
+ if (!_tripOn()) return;
+ if (Date.now() - _tripArm > 4000){ _tripArm = Date.now(); _toast('Tap again to end the trip'); var b = document.getElementById('trOver'); if (b) b.textContent = 'Tap again to end'; return; }
+ _tripArm = 0; _tripEnd(); try { document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); }); buildJots(); _paintDose(); } catch(e){}
+ closeSheet(); _toast('Back. Same weights, easy start.'); _paintStart();
+}
+function _tripStart(){ try { return (JSON.parse(store.get('bp-trip') || 'null') || {}).start || ''; } catch(e){ return ''; } }
+function _tripSessions(){ var st = _tripStart(); return _tripLogRead().filter(function(e){ return e && e.fin && e.d >= st; }); }
+function _tripCur(a){ a = a || _tripLogRead(); var e = a[a.length - 1]; return e && !e.fin && e.d >= _tripStart() ? e : null; }
+function _tripRest(){ var f = _tripSessions().pop(); return !!f && Date.now() - (f.fs || 0) < 48 * 36e5; }
+function _tripSet(id, fn){
+ var a = _tripLogRead(), e = _tripCur(a);
+ if (!e){ var t = _tripOn(), n = _tripSessions().length; e = { id: 't' + Date.now(), d: _today(), s: Date.now(), n: n + 1, ab: n % 2 ? 'B' : 'A', tier: t.tier, l: {} }; a.push(e); }
+ fn(e); _tripLogWrite(a); return e;
+}
+function _tripFinish(){
+ var a = _tripLogRead(), e = _tripCur(a); if (!e) return;
+ e.fin = 1; e.fs = Date.now(); _tripLogWrite(a);
+ var t = _tripOn(); if (t){ t.n = _tripSessions().length; try { store.set('bp-trip', JSON.stringify(t)); } catch(e2){} }
+ _tripGo = 0; _toast(a.filter(function(x){ return x.fin; }).length >= 3 ? 'That is plenty. Walk and enjoy.' : 'Logged. Next one in a couple of days.'); _paintTrip();
+}
+function _paintTrip(){
+ var t = _tripOn(), card = document.getElementById('tripCard'), body = document.body;
+ body.classList.toggle('travelling', !!t);
+ if (!card) return !!t;
+ if (!t){ card.hidden = true; card.innerHTML = ''; return false; }
+ var fin = _tripSessions().length, cur = _tripCur(), rest = !cur && !_tripGo && _tripRest(), ab = cur ? cur.ab : fin % 2 ? 'B' : 'A', lines = TRIP[t.tier][ab], l = cur ? cur.l : {};
+ var h = '<div class="tr-top"><span>Trip · day ' + (_tripDays(t) + 1) + '</span><button type="button" class="tr-end" id="trOver">Trip over</button></div>' +
+  '<div class="tr-tiers" role="group" aria-label="Where you are training">' + TRIP_TIERS.map(function(x){ return '<button type="button" class="tr-tier' + (x[0] === t.tier ? ' on' : '') + '" data-tier="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+ if (rest) h += '<div class="tr-rest"><b>Rest day</b><span>Your last one was under two days ago. Walk instead.</span><button type="button" id="trGo">Train anyway</button></div>';
+ else {
+  h += '<div class="tr-sess">Session ' + ab + ' · about 25 min</div>';
+  lines.forEach(function(x){
+   var sets = x[2].match(/^(\d+)/)[1] | 0, st = (l[x[0]] && l[x[0]].s) || [], ok = 0; for (var i = 0; i < sets; i++) ok += st[i] ? 1 : 0;
+   h += '<div class="tr-l' + (ok === sets ? ' done' : '') + '" data-id="' + x[0] + '"><div class="tr-n"><b>' + _esc(x[1]) + '</b><small>' + _esc(x[2]) + ' · ' + _esc(x[3]) + '</small></div>' +
+    (x[4] ? '<input class="tr-w" type="text" inputmode="decimal" placeholder="lb" aria-label="Weight" value="' + _esc((l[x[0]] && l[x[0]].w) || '') + '">' : '') +
+    '<span class="tr-sets">' + Array.apply(0, Array(sets)).map(function(_, i){ return '<button type="button" class="tr-s' + (st[i] ? ' on' : '') + '" data-i="' + i + '" aria-label="Set ' + (i + 1) + '"><i class="ic ic-check" aria-hidden="true"></i></button>'; }).join('') + '</span></div>';
+  });
+  h += '<div class="tr-l tr-sk' + (l.skill ? ' done' : '') + '" data-id="skill"><div class="tr-n"><b>5 min skill</b><small>Optional · ' + _esc(TRIP_SKILL) + '</small></div><span class="tr-sets"><button type="button" class="tr-s' + (l.skill ? ' on' : '') + '" data-i="0" aria-label="Done"><i class="ic ic-check" aria-hidden="true"></i></button></span></div>';
+  h += '<button type="button" class="tr-fin" id="trFin"' + (cur ? '' : ' hidden') + '>Done for today</button>';
+ }
+ card.innerHTML = h; card.hidden = false; _paintTripNext();
+ var rc = card.querySelector('#trOver'); if (rc) rc.onclick = tripOver;
+ card.querySelectorAll('.tr-tier').forEach(function(b){ b.onclick = function(){ var tt = _tripOn(); if (!tt) return; tt.tier = b.dataset.tier; try { store.set('bp-trip', JSON.stringify(tt)); } catch(e){} _paintTrip(); }; });
+ var go = card.querySelector('#trGo'); if (go) go.onclick = function(){ _tripGo = 1; _paintTrip(); };
+ var fb = card.querySelector('#trFin'); if (fb) fb.onclick = _tripFinish;
+ card.querySelectorAll('.tr-l').forEach(function(row){
+  var id = row.dataset.id, sets = row.querySelectorAll('.tr-s');
+  sets.forEach(function(b){ b.onclick = function(){
+   var i = +b.dataset.i, on = !b.classList.contains('on');
+   _tripSet(id, function(e){ if (id === 'skill') e.l.skill = on ? 1 : 0; else { var o = e.l[id] || (e.l[id] = { s: [] }); o.s[i] = on ? 1 : 0; } });
+   b.classList.toggle('on', on);
+   var all = [].every.call(sets, function(x){ return x.classList.contains('on'); }); row.classList.toggle('done', all);
+   var f = document.getElementById('trFin'); if (f) f.hidden = false;
+   var core = [].slice.call(card.querySelectorAll('.tr-l:not(.tr-sk)'));
+   if (id !== 'skill' && core.every(function(r){ return r.classList.contains('done'); })) _tripFinish(); }; });
+  var w = row.querySelector('.tr-w'); if (w) w.onchange = function(){ _tripSet(id, function(e){ var o = e.l[id] || (e.l[id] = { s: [] }); o.w = w.value.slice(0, 8); }); var f = document.getElementById('trFin'); if (f) f.hidden = false; };
+ });
+ return true;
+}
+function _paintTripNext(){
+ var n = _tripSessions().length, el = document.getElementById('hmNext'); if (!el) return;
+ el.innerHTML = '<div><span>Trip</span><p style="margin:0">' + (n > 3 ? n + ' done' : n + ' of 3 suggested') + '</p></div>';
+}
+window.toggleTrip = toggleTrip; window.tripOver = tripOver;
 function _paintStart(){
  var b = document.getElementById('startBtn'); if (!b) return;
+ try { if (_paintTrip()) return; } catch(e){}
  var dow = _dow(), col = { d5:'var(--g)', d1:'var(--r)', d3:'var(--gld)', d2:'var(--b)', d6:'var(--o)', d4:'var(--p)', daily:'var(--g)' };
  var dt = _doneToday() || (_snackToday() ? 'd6' : null), sg = suggestDay(), run = _daysRunning();
  var gap = (typeof daysSinceTrained === 'function') ? daysSinceTrained() : null, note = document.getElementById('startWhy'), msg = '';
@@ -4220,7 +4352,7 @@ function _paintStart(){
  else if (sg) m = [sg.id, '▶ Start ' + sg.name, col[sg.id]];
  else if (run >= 4) m = ['daily', 'Rest day · ' + run + ' in a row', col.daily];
  else m = dow === 0 ? ['d4', 'Hike day', col.d4] : dow === 6 ? ['recover', 'Rest day', col.daily] : ['recover', 'Rest or play', col.d4];
- if (gap !== null && gap >= 10) msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
+ if (gap !== null && gap >= 10 && !_retOn()) msg = gap + ' days since you trained. Come back at half volume and rebuild over three sessions.';
   if (note){ note.textContent = msg; note.hidden = !msg; }
  b.href = '#' + m[0];
  b.onclick = /^d[1-6]$/.test(m[0]) ? function(ev){ ev.preventDefault(); setFocus(m[0]); } : null;
@@ -4247,6 +4379,7 @@ function _paintHome(dt, sg, run, m, col){
  else if (dow === 0){ t = 'Hike day'; s = 'Get outside. Nothing to log.'; }
  else if (dow === 6){ t = 'Rest day'; s = 'Nothing to do today. Rest counts.'; rest = 1; }
  else { t = 'Rest day'; s = owedDays().length ? 'Yesterday was the same half — the other one comes next.' : 'This week’s lifting is done.'; rest = 1; }
+ if (_retFirst()) s += '<br>Back. Same weights, easy start.';
  document.getElementById('hmDay').textContent = DOW_N[dow];
  var ht = document.getElementById('hmT'); ht.textContent = t; ht.style.setProperty('--hc', dt || sg ? col[(dt || sg.id)] : 'var(--txt)');
  document.getElementById('hmS').innerHTML = s;
@@ -4450,6 +4583,7 @@ function _paintSess(){
 }
 var _sheetKind = null, _logHome = null;
 function _weekSheet(){
+ if (_tripOn()){ var tn = _tripSessions().length; return '<button type="button" class="sh-row" onclick="closeSheet();setFocus(null)"><span class="sh-n">‹ Home</span></button><div class="sh-t" style="margin-top:12px">Trip</div><div class="wring"><div class="wr-t"><b>' + tn + '<small>/3</small></b><span>sessions</span></div><div class="wr-s"><b>' + (tn > 3 ? tn + ' done' : tn + ' of 3 suggested') + '</b><span>Rest counts</span></div></div>'; }
  var wk = readCompletedWeek(), sg = typeof suggestDay === 'function' ? suggestDay() : null;
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = (ok('d5') ? 1 : 0) + (ok('d3') ? 1 : 0) + (ok('d1') || ok('d2') ? 1 : 0), extra = (ok('d6') ? 1 : 0) + (ok('d1') && ok('d2') ? 1 : 0), goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
  var dow = _dow(), sub2 = done >= 3 ? 'All three lift days done.' + (extra ? ' Plus ' + extra + ' extra.' : '') : (3 - done) + ' lift day' + (3 - done === 1 ? '' : 's') + ' left. Rest counts.';
@@ -4466,8 +4600,9 @@ function _moreSheet(){
  var gym = document.body.classList.contains('gym'), blk = document.getElementById('blockBtn');
  return '<div class="sh-t">More</div>' + [['variety','Skills & ladders'],['daily','Daily 9 min'],['recover','Recovery toys'],['safety','Game plan'],['fuel','Fuel'],['howruns','How it runs']].filter(function(x){ return document.getElementById(x[0]); }).map(function(x){
  return '<button type="button" class="sh-row" onclick="_goSection(\'' + x[0] + '\')"><span class="sh-n">' + x[1] + '</span><em>›</em></button>'; }).join('') +
-  '<div class="sh-tg">' + (blk ? '<button type="button" onclick="toggleBlock();openSheet(\'more\',1)">' + _esc(blk.textContent) + '</button>' : '') +
- '<button type="button" class="' + (gym ? 'on' : '') + '" onclick="toggleGym();openSheet(\'more\',1)"><i class="ic ic-bolt" aria-hidden="true"></i> Gym mode ' + (gym ? 'on' : 'off') + '</button></div>';
+  '<div class="sh-tg">' + (blk && !_tripOn() ? '<button type="button" onclick="toggleBlock();openSheet(\'more\',1)">' + _esc(blk.textContent) + '</button>' : '') +
+ '<button type="button" class="' + (gym ? 'on' : '') + '" onclick="toggleGym();openSheet(\'more\',1)"><i class="ic ic-bolt" aria-hidden="true"></i> Gym mode ' + (gym ? 'on' : 'off') + '</button>' +
+ '<button type="button" id="tripTg" onclick="toggleTrip()" class="' + (_tripOn() ? 'on' : '') + '"><i class="ic ic-travel" aria-hidden="true"></i> Travel ' + (_tripOn() ? 'on' : 'off') + '</button></div>';
 }
 function _goSection(id){
  closeSheet(); setFocus(null, true); document.body.classList.add('browse');
@@ -5000,7 +5135,7 @@ window.resetNumbers = resetNumbers;
 // ── Backup / restore ──────────────────────────────────────────────────
 // A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
 // one tap, "Save to Files", and the history lands in iCloud Drive.
-var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild','bp-reset','bp-custom'];
+var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild','bp-reset','bp-custom','bp-trip-log'];
 function _bkPayload(){
  var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
  BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
@@ -5175,6 +5310,12 @@ function _ghMerge(d){
   rs.forEach(function(s){ if (s && s.k && !sk[s.k]){ ls.push(s); added++; } });
   ls.sort(function(x, y){ return (x.s || 0) - (y.s || 0); });
   writeSess(ls);
+ }
+ if (d['bp-trip-log']){
+  var tr = []; try { tr = _asArr(JSON.parse(d['bp-trip-log'])); } catch(e){ tr = []; }
+  var tl = _tripLogRead(), ti = {}; tl.forEach(function(x){ ti[x.id] = 1; });
+  tr.forEach(function(x){ if (x && x.id && x.d && !ti[x.id]){ tl.push(x); ti[x.id] = 1; added++; } });
+  tl.sort(function(x, y){ return (x.s || 0) - (y.s || 0); }); _tripLogWrite(tl);
  }
  ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
  if (d['bp-custom']){ var cr = []; try { cr = JSON.parse(d['bp-custom']); } catch(e){} var cl = readCustom(), ci = {}; cl.forEach(function(x){ ci[x.id] = 1; });
@@ -6063,6 +6204,7 @@ function _anchorsGone(){
  return Math.max(0, Math.min(3, dow - 2) - done);
 }
 function _rwBad(){
+ if (_tripOn()) return false;
  var dow = _dow(); if (dow < 3 || dow > 5 || !owedDays().length) return false;
  var o = _rwRead(); if (o.plan) return !_rwLive();
  return _anchorsGone() >= 2;
@@ -6200,6 +6342,7 @@ buildDayChips(); paintWeek();
 // already loaded. Once a day only: "← All days" sticks for the rest of it.
 function autoStart(){
  var t = _today();
+ if (_tripOn()) return;
  if (!(_dow() >= 1 && _dow() <= 5)) return;   // the weekend never opens a session by itself
  if ((location.hash || '').length > 1 || store.get('bp-autostart') === t) return;
  if (!readSess().length) return;                                        // first visit: show the whole plan
