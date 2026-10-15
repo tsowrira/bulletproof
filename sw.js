@@ -23,7 +23,7 @@ self.addEventListener('fetch', e => {
   const nav = e.request.mode === 'navigate';
   // revalidate, so the browser's own 10-minute copy can't hide a fresh push
   const net = fetch(nav ? new Request(e.request.url, { cache: 'no-cache', credentials: 'same-origin' }) : e.request, nav ? undefined : { cache: 'no-cache' }).then(res => {
-    if (res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {}); }
+    if (res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(nav ? new URL(e.request.url).pathname : e.request, copy)).catch(() => {}); }
     return res;
   });
   e.waitUntil(net.catch(() => {}));
