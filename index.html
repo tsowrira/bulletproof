@@ -1393,6 +1393,10 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .tempo .tar{font-style:normal;opacity:.4;font-size:12px}
 .tempo{flex-wrap:wrap;row-gap:2px;white-space:normal}
 .tempo.pace .tph.on{opacity:1;color:var(--g);text-shadow:0 0 8px rgba(93,255,159,.5)}
+.tempo .tnum{font-weight:800;margin-left:2px;font-variant-numeric:tabular-nums}
+.tempo .tnum:empty{display:none}
+.tempo.wait{border-style:dashed;color:var(--dim)}
+.tempo.pace .tgo{width:1.35em;height:1.35em;vertical-align:-.25em;margin-left:8px;padding:4px;box-sizing:content-box}
 /* form link sits with the fold, not above it */
 .formlink{display:inline-flex;align-items:center;min-height:44px;font-family:'Inter',sans-serif;font-size:13px;color:var(--dim);text-decoration:none;-webkit-tap-highlight-color:transparent}
 .howfold .setup.fmt{font-size:15px;line-height:1.45;color:var(--txt);margin:4px 0 0}
@@ -2639,8 +2643,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="day-num" style="color:var(--gld)">03</div>
  <div class="day-info">
  <div class="day-eye" style="color:var(--gld)">// Pull + Hinge</div>
- <div class="day-title">PULL + HINGE — BALANCE + SLED</div>
- <div class="day-focus">Balance · 60 min</div>
+ <div class="day-title">PULL + HINGE — CHIN-UP + SLED</div>
+ <div class="day-focus">Chin-up · 55 min</div>
  </div>
 </div>
 
@@ -2655,28 +2659,6 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="exlist">
 
-<div class="excard" data-id="d2-balance" data-solo="1" data-unit="sec">
-<div class="extop">
- <div class="ex-left"><div class="exname">Balance Block</div></div>
- <div class="exmeta"><div class="sets">~8 min</div><div class="rest-lbl">45s rest</div><div class="tempo">STEADY</div></div>
- <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
-</div>
-<div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Clear floor by a rail, plus a low hurdle. Shoes off if allowed.</span></div>
-<div class="cue">Quiet feet, level hips — trail balance.</div>
-<div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
-<div class="drills">
- <div class="drill"><div class="dr-h"><b>1</b>Single-Leg Stand, Eyes Closed<span>2 × 20s each</span></div><div class="dr-w">Clear floor, one hand hovering over a rail.</div><div class="dr-d">Stand on one leg, knee soft, hips level. Eyes closed 20s; touch the rail only to save it. Right leg first.</div></div>
- <div class="drill"><div class="dr-h"><b>2</b>Backward Line Walk, Eyes Up<span>2 lengths</span></div><div class="dr-w">A straight 15 ft floor line by a rail.</div><div class="dr-d">Walk backward heel-to-toe on the line, eyes ahead. Wobble? Slow down, don't stop.</div></div>
- <div class="drill"><div class="dr-h"><b>3</b>Lateral Step-Over<span>2 × 8 each way</span></div><div class="dr-w">Low hurdle or rolled mat by a rail, fingertips on the rail.</div><div class="dr-d">Stand side-on. Lift the near knee high, step over, trail foot follows. Hips level, quiet feet. Right leg leads first.</div></div>
-</div>
-<button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
-<div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Eyes-closed stand + backward line walk + quiet step-overs</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>20s eyes-closed without a wobble; line walk without the rail</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>Eyes-closed stand on a folded mat; step-overs on a higher hurdle</span></div>
-</div></div>
-</div>
-
 <div class="ssh"><b>A</b>pull ↔ split squat · heaviest first<span>both sets of 1, then both of 2</span></div>
 
 <div class="excard" data-id="d3-chin" data-ss="A">
@@ -2685,7 +2667,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 6–8 · S2: stop 1 short</div><div class="rest-lbl">90s rest</div><div class="tempo">pull fast · lower 3 · hang 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">Step Down, Never Drop</div><p><strong>Start and end every rep in an active hang — never limp.</strong></p></div>
+<div class="caveat"><div class="caveat-t">Step Down, Never Drop</div><p><strong>Start and end every rep in an active hang — never limp.</strong> Hands sore even with chalk: bar in the finger crease, not the palm, and use the neutral-grip handles if the rig has them.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, palms facing you, shoulder-width. Box underneath.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Fast up, 3 full seconds down.</div>
@@ -3410,7 +3392,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.7';
+var APP_V = '2026-10-15.8';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4897,7 +4879,7 @@ function _lastBest(arr){
 var TRACK = { 'd1e1':5, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3e-abd':70, 'd5e-pistol':0,
  'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
- 'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
+ 'd5e-archer':0, 'd5e1':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
  'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0, 'd1-tib':0, 'd2-tib':0, 'd6-crow':0, 'd6-plank':0, 'd6-spin':0, 'd1-adduct':70, 'd3-abdlean':50 };
 // Block-B alternates start from their own first weight (0 = bodyweight), not the Block-A lift's
 var TRACK_B = { 'd3-wrow':15, 'd2e-press':15, 'd1-latraise':10, 'd3-inccurl':15, 'd3-stcalf':90, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
@@ -5130,7 +5112,7 @@ function _spark(arr){
 var NUM_CAT = { vpull:'pull', hpull:'pull', latiso:'pull', latuni:'pull', dip:'push', chest:'push', ohp:'push', serratus:'push', tri:'arm', bi:'arm', rdelt:'shoulder', sdelt:'shoulder', cuff:'shoulder',
  quad:'knee', hamknee:'hinge', hamhip:'hinge', backext:'hinge', glute:'hinge', gmed:'side', calf:'calf', corelat:'core', corerot:'core', cond:'cardio' };
 var OLD_LIFT = { 'd5-clat':'Cable side raise', 'd5-clat~b':'External rotation' };   // retired ids: their logs keep showing in Numbers
-var NUM_CAT_ID = { 'd5-clat':'shoulder', 'd5e-archer':'skill', 'd5e1':'skill', 'd5e-pistol':'knee', 'd2-balance':'skill', 'd1-tib':'calf', 'd2-tib':'calf', 'd6-crow':'skill', 'd6-plank':'core', 'd6-spin':'cardio', 'd1-adduct':'side' };
+var NUM_CAT_ID = { 'd5-clat':'shoulder', 'd5e-archer':'skill', 'd5e1':'skill', 'd5e-pistol':'knee', 'd1-tib':'calf', 'd2-tib':'calf', 'd6-crow':'skill', 'd6-plank':'core', 'd6-spin':'cardio', 'd1-adduct':'side' };
 function _numIc(k){
  var id = String(k).replace(/~b$/, ''), c = /^wild:/.test(id) ? 'dice' : /^x-/.test(id) ? 'custom' : /#\d+$/.test(id) ? 'skill' : NUM_CAT_ID[id] || NUM_CAT[SLOT[id]] || 'dumbbell';
  return '<i class="ic ic-' + c + ' sr-i" aria-hidden="true"></i>';
@@ -5559,7 +5541,7 @@ function _tempoHTML(raw, ph){
  var q = _tempoSeq(raw); if (!q) return _esc(raw);
  var k = ph ? 'tph' : 'tk';
  return q.map(function(x, i){ return '<span class="' + k + '" data-i="' + i + '">' + _esc(x.w) + ' ' + (x.fast ? 'fast' : x.s + 's') + '</span>'; }).join('<i class="tar" aria-hidden="true">→</i>') +
-  '<span class="tgo' + (ph ? ' stop' : '') + '" aria-hidden="true"></span>';
+  (ph ? '<span class="tnum" aria-live="polite"></span>' : '') + '<span class="tgo' + (ph ? ' stop' : '') + '" aria-hidden="true"></span>';
 }
 function _tempoRaw(el){ return String((el.querySelector('.tk,.tph') ? el.dataset.raw : el.textContent) || '').trim(); }
 function _fmtTempo(el){
@@ -5574,47 +5556,63 @@ function _tempoParts(card){
  return { el:el, raw:raw, seq:seq };
 }
 var _pacer = null;
+function _paceTone(at, f0, f1, dur, vol){ var o = _ac.createOscillator(), v = _ac.createGain(); o.type = 'triangle';
+ o.frequency.setValueAtTime(f0, at); if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, at + dur);
+ v.gain.setValueAtTime(0.0001, at); v.gain.exponentialRampToValueAtTime(vol, at + .015); v.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+ o.connect(v); v.connect(_pacer.g); o.start(at); o.stop(at + dur + .02); _pacer.osc.push(o); }
+function _paceHush(){ if (!_pacer) return; _pacer.osc.forEach(function(o){ try { o.stop(); } catch(e){} }); _pacer.osc = []; }
 function stopPacer(){
  if (!_pacer) return;
- cancelAnimationFrame(_pacer.raf);
+ cancelAnimationFrame(_pacer.raf); _paceHush();
  try { _pacer.g.gain.setValueAtTime(0, _ac.currentTime); _pacer.g.disconnect(); } catch(e){}
- _pacer.t.el.classList.remove('pace');
+ _pacer.t.el.classList.remove('pace', 'wait');
  _pacer.t.el.innerHTML = _tempoHTML(_pacer.t.raw);
+ _pacer.t.el.setAttribute('aria-label', 'Pace this rep at ' + _pacer.t.raw);
  _pacer = null;
 }
-// eyes off the phone: a soft tick each second down, one tone for the pause, a rising chirp to lift
+// one rep's sounds from `at`: chirp = move, tone = hold (ticks every 5s, 3-2-1 at the end), low ticks = lowering
+function _paceRep(at){
+ var t = _pacer.t, a = at;
+ t.seq.forEach(function(x){
+  if (x.k === 'ecc') for (var k = 0; k < x.s; k++) _paceTone(a + k, k ? 520 : 440, k ? 520 : 440, .1, k ? .35 : .5);
+  else if (x.k === 'hold'){ _paceTone(a, 660, 660, .18, .45); if (x.s >= 5) for (var q = 5; q < x.s - 3; q += 5) _paceTone(a + q, 520, 520, .1, .3); if (x.s >= 10) for (var q3 = 1; q3 <= 3; q3++) _paceTone(a + x.s - q3, 440, 440, .08, .35); }
+  else _paceTone(a, 660, 1180, .22, .5);
+  a += x.s; });
+ if (_pacer.one) _paceTone(a, 1180, 660, .25, .5);
+}
+// (re)start the current rep after a count-in, so you can get set first
+function _paceGo(lead){
+ var p = _pacer; _paceHush(); p.paused = false; p.t0 = _ac.currentTime + 0.15 + lead;
+ for (var i = 0; i < lead; i++) _paceTone(p.t0 - lead + i, 392, 392, .09, .3);
+ _paceRep(p.t0); p.t.el.classList.remove('wait'); p.t.el.setAttribute('aria-label', 'Pacing · tap to pause');
+}
+function _pacePause(){ var p = _pacer; _paceHush(); p.paused = true; p.t.el.classList.add('wait'); if (p.num) p.num.textContent = 'paused · tap to go on'; p.t.el.setAttribute('aria-label', 'Paused · tap to go on'); }
+// eyes off the phone: a count-in, then every phase sounds as it starts and the chip counts the seconds down.
+// Tap to pause between reps (it counts you back in); the square stops it. A pure hold runs once; a rep runs 15 times.
 function startPacer(card){
  var t = _tempoParts(card); if (!t) return;
- var same = _pacer && _pacer.card === card;
- stopPacer(); if (same) return;                        // second tap stops it
+ if (_pacer && _pacer.card === card){ if (_pacer.paused) _paceGo(2); else _pacePause(); return; }
+ stopPacer();
  _armAudio(); if (!_ac){ _toast('No sound on this phone'); return; }
  try { if (_ac.state === 'suspended') _ac.resume(); } catch(e){}
  t.el.dataset.raw = t.raw; t.el.innerHTML = _tempoHTML(t.raw, 1); t.el.classList.add('pace');
  var g = _ac.createGain(); g.gain.value = 1; g.connect(_ac.destination);
- var tone = function(at, f0, f1, dur, vol){ var o = _ac.createOscillator(), v = _ac.createGain(); o.type = 'sine';
-  o.frequency.setValueAtTime(f0, at); if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, at + dur);
-  v.gain.setValueAtTime(0.0001, at); v.gain.exponentialRampToValueAtTime(vol, at + .015); v.gain.exponentialRampToValueAtTime(0.0001, at + dur);
-  o.connect(v); v.connect(g); o.start(at); o.stop(at + dur + .02); };
- // a pure hold runs once; a rep repeats. Each phase sounds as it starts: chirp = move, tone = hold, ticks = lowering
- var one = t.seq.length === 1, cyc = t.seq.reduce(function(a, x){ return a + x.s; }, 0) + (one ? 0 : 0.6), REPS = one ? 1 : 15, t0 = _ac.currentTime + 0.4;
- for (var r = 0; r < REPS; r++){ var a = t0 + r * cyc;
-  t.seq.forEach(function(x){
-   if (x.k === 'ecc') for (var k = 0; k < x.s; k++) tone(a + k, k ? 520 : 440, k ? 520 : 440, .07, k ? .12 : .2);
-   else if (x.k === 'hold'){ tone(a, 660, 660, .12, .14); if (x.s >= 5) for (var q = 5; q < x.s; q += 5) tone(a + q, 520, 520, .07, .1); }
-   else tone(a, 660, 1180, .16, .22);
-   a += x.s; });
-  if (one) tone(a, 1180, 660, .2, .22); }
- var edges = []; t.seq.reduce(function(a, x){ edges.push(a + x.s); return a + x.s; }, 0);
- var phs = t.el.querySelectorAll('.tph');
- _pacer = { card:card, t:t, g:g, raf:0 };
+ var one = t.seq.length === 1, cyc = t.seq.reduce(function(a, x){ return a + x.s; }, 0) + (one ? 0 : 1), edges = [];
+ t.seq.reduce(function(a, x){ edges.push(a + x.s); return a + x.s; }, 0);
+ _pacer = { card:card, t:t, g:g, raf:0, osc:[], rep:0, reps: one ? 1 : 15, cyc:cyc, one:one, edges:edges, phs:t.el.querySelectorAll('.tph'), num:t.el.querySelector('.tnum'), paused:false, t0:0 };
+ _paceGo(3);
  (function frame(){
-  if (!_pacer) return;
-  var e = _ac.currentTime - t0; if (e > REPS * cyc){ stopPacer(); return; }
-  var u = ((e % cyc) + cyc) % cyc, ph = -1; if (e >= 0) for (var z = 0; z < edges.length; z++) if (u < edges[z]){ ph = z; break; }
-  phs.forEach(function(sp){ sp.classList.toggle('on', +sp.dataset.i === ph); });
-  _pacer.raf = requestAnimationFrame(frame);
+  var p = _pacer; if (!p) return;
+  p.raf = requestAnimationFrame(frame);
+  if (p.paused) return;
+  var e = _ac.currentTime - p.t0;   // seconds into this rep; negative while counting in
+  if (e >= p.cyc + (p.one ? 0.4 : 0)){ p.rep++; if (p.rep >= p.reps){ stopPacer(); return; } p.t0 += p.cyc; _paceRep(p.t0); e -= p.cyc; }
+  var ph = -1; if (e >= 0) for (var z = 0; z < p.edges.length; z++) if (e < p.edges[z]){ ph = z; break; }
+  p.phs.forEach(function(sp, i){ var x = p.t.seq[i]; sp.classList.toggle('on', i === ph);
+   sp.textContent = x.w + ' ' + (x.fast ? 'fast' : (i === ph ? Math.max(1, Math.ceil(p.edges[i] - e)) : x.s) + 's'); });
+  if (p.num) p.num.textContent = e < 0 ? 'get set · ' + Math.ceil(-e) : p.one ? '' : 'rep ' + (p.rep + 1);
  })();
- try { if (!store.get('bp-pace-tip')){ store.set('bp-pace-tip', '1'); _toast('Chirp = move · tone = hold · ticks = lowering. Tap again to stop.'); } } catch(e){}
+ try { if (!store.get('bp-pace-tip2')){ store.set('bp-pace-tip2', '1'); _toast('Counts you in first. Tap to pause, tap to go on; the square stops it.'); } } catch(e){}
 }
 (function wirePacer(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
@@ -5623,8 +5621,9 @@ function startPacer(card){
   t.el.setAttribute('role', 'button');
   t.el.setAttribute('tabindex', '0');
   t.el.setAttribute('aria-label', 'Pace this rep at ' + t.raw);
-  t.el.addEventListener('click', function(){ startPacer(card); });
-  t.el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); startPacer(card); } });
+  // the stop square is a hollow mask, so a tap inside it lands on the chip: go by where the tap was
+  t.el.addEventListener('click', function(ev){ var g = t.el.querySelector('.tgo'); if (_pacer && _pacer.card === card && g && ev.clientX){ var r = g.getBoundingClientRect(); if (ev.clientX >= r.left - 8 && ev.clientX <= r.right + 8 && ev.clientY >= r.top - 8 && ev.clientY <= r.bottom + 8){ stopPacer(); return; } } startPacer(card); });
+  t.el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); startPacer(card); } else if (e.key === 'Escape' && _pacer && _pacer.card === card) stopPacer(); });
  });
  // ticking a lift off, or leaving, ends the pacing
  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') stopPacer(); });
@@ -5984,7 +5983,8 @@ function planDay(dayId, budget, bring){
  var long = budget >= 80, tired = budget < 30, cap = long ? 4 : tired ? 0 : 2;
  var pace = _pace(), skill = [].reduce.call(sec.querySelectorAll('.excard[data-id] > .drills'), function(t, dr){ var m = /~(\d+) min/.exec((dr.parentNode.querySelector('.exmeta > .sets') || {}).textContent || ''); return t + (m ? +m[1] : 6); }, 0) * (long ? 1.5 : tired ? 0.4 : 0.75);   // ~8 min blocks: 12 long, 6 built, 3 tired
  var room = Math.max(tired ? 2 : 3, Math.floor((budget - 3 - skill) / (long ? pace + 1.5 : pace)));   // long: each key lift also gets a third set
- var cards = [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_isSkill(c) && !c.dataset.rescued && !c.dataset.added && !(tired && c.dataset.micro === 'drop') && !elsewhere[c.dataset.id]; });
+ var yday = _slotsOn(_ymd(Date.now() - 864e5));   // a bonus lift whose muscle worked yesterday (calves after calves) sits out
+ var cards = [].slice.call(sec.querySelectorAll('.excard[data-id]')).filter(function(c){ return !_isSkill(c) && !c.dataset.rescued && !c.dataset.added && !(tired && c.dataset.micro === 'drop') && !elsewhere[c.dataset.id] && !(c.dataset.x && yday[SLOT[c.dataset.id]]); });
  // pairs stay together; core first, bonus next, the wildcard last
  var groups = [];
  cards.forEach(function(c){ var g = groups[groups.length - 1], pri = c.dataset.x && PRIORITY_SLOT[SLOT[c.dataset.id]];   // a bonus lift that is a weekly priority (calves, wide row) stays in, on its own
@@ -6007,7 +6007,7 @@ function planDay(dayId, budget, bring){
  // rescue, in this order: lifts left undone in a session you started this week, then the key lifts of a
  // day that went missing — the same half first, the other half only once its scheduled day has passed
  var wk = readCompletedWeek(), rescue = [], src = {}, carry = {}, late = {}, mon = _weekStart(), dow = _dow(), t0 = _today(), ever = daysSinceTrained() !== null && daysSinceTrained() < 8;   // back after a gap: ease in, no make-up work
- var got = _loggedSince(mon), yday = _slotsOn(_ymd(Date.now() - 864e5)), have = {};
+ var got = _loggedSince(mon), have = {};
  keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
  var isKey = function(o, id){ return PRIORITY_SLOT[SLOT[id]] || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; }); };
  var bumpable = function(){ return keep.filter(function(c){ return rOf[c.dataset.id] >= 1 && !(KEY_LIFTS[dayId] || []).some(function(k){ return k[0] === c.dataset.id; }); }); };
@@ -6114,6 +6114,7 @@ document.addEventListener('click', function(ev){
 function readPlan(){ try { var p = JSON.parse(store.get('bp-plan') || 'null'); if (p && !Array.isArray(p.rescue)) p.rescue = []; return p && p.d === _today() && Array.isArray(p.keep) ? p : null; } catch(e){ return null; } }
 function clearPlan(){
  document.querySelectorAll('[data-off]').forEach(function(x){ delete x.dataset.off; });
+ document.querySelectorAll('.ssh[data-h0]').forEach(function(h){ h.innerHTML = h.dataset.h0; });
  document.querySelectorAll('.excard[data-rescued]:not([data-added])').forEach(function(c){
   var home = c._home; delete c.dataset.rescued; if (c.dataset.ss0){ c.dataset.ss = c.dataset.ss0; } delete c.dataset.ss0;
   var tg = c.querySelector('.rtag'); if (tg) tg.remove();
@@ -6142,9 +6143,14 @@ function applyPlan(p){
    left.insertBefore(t, left.firstChild); }
   if (xtra) list.appendChild(c); else if (anchor) list.insertBefore(c, anchor); else list.appendChild(c);
  });
- sec.querySelectorAll('.ssh').forEach(function(h){ var x = h.nextElementSibling, n = 0, off = 0;
-  while (x && x.classList.contains('excard')){ n++; if (x.dataset.off) off++; x = x.nextElementSibling; }
-  if (n && off === n) h.dataset.off = '1'; });
+ sec.querySelectorAll('.ssh').forEach(function(h){ var x = h.nextElementSibling, L = (h.querySelector('b') || {}).textContent, cs = [];
+  while (x && x.classList.contains('excard')){ if (x.dataset.ss === L) cs.push(x); x = x.nextElementSibling; }
+  var on = cs.filter(function(c){ return !c.dataset.off; });
+  if (cs.length && !on.length){ h.dataset.off = '1'; return; }
+  // a pair with one lift left out today is named after the lift that stays
+  if (h.dataset.h0 === undefined) h.dataset.h0 = h.innerHTML;
+  if (cs.length === 2 && on.length === 1){ var tn = [].filter.call(h.childNodes, function(n){ return n.nodeType === 3; })[0], bits = tn ? tn.nodeValue.split(' · ') : [], hv = (bits[0] || '').split('↔');
+   if (hv.length === 2){ tn.nodeValue = hv[cs.indexOf(on[0])].trim() + (bits[1] ? ' · ' + bits[1] : ''); var sp = h.querySelector('span'); if (sp && /both sets/.test(sp.textContent)) sp.textContent = 'on its own today'; } } });
  var bar = sec.querySelector('.planbar');
  if (!bar && list){ bar = document.createElement('div'); bar.className = 'planbar'; list.insertBefore(bar, list.firstChild);
   bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: p.day, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day'); } }); }
@@ -6506,7 +6512,7 @@ function parkCard(card){
 var SHORT = { 'd5e-archer':'Muscle-up drills', d1e1:'Pull-ups', 'd1e-dip':'Dips', d1e3:'Machine row', 'd2e-serr':'Push-up plus', 'd1-pullover':'Pullover', d1e5:'Face pull', 'd1-latraise':'DB side raise', 'd5-erot':'External rotation', 'd1e-curl':'Curl', 'd5-tripush':'Pushdown',
  'd5e-pistol':'Pistol drills', 'd4b-legext':'Leg extension', d3e7:'Nordic curl', 'd1-backext':'Back extension', 'd3e-abd':'Hip abductor', 'd1-adduct':'Hip adductor', 'd1-hiphike':'Hip hike', 'd1e-carry':'Anti-lean hold', d2e6:'Pallof press', 'd4b-calf':'Calf raise', 'd1-tib':'Tib raise',
  d5e1:'Handstand drills', 'd2e-press':'Chest press', 'd3-chin':'Chin-ups', d2e1:'Pike push-up', 'd3-sapd':'1-arm pulldown', d2e3:'Overhead triceps', 'd3e-stir':'Stir the pot', d2e2:'Cable side raise', 'd3-wrow':'Wide cable row', 'd3-inccurl':'Incline curl',
- 'd2-balance':'Balance drills', 'd3-rdl':'RDL', 'd3-abdlean':'Abductor, lean', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Tib raise',
+ 'd3-rdl':'RDL', 'd3-abdlean':'Abductor, lean', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Tib raise',
  'd6-hs':'Handstand', 'd6-crow':'Crow', 'd6-plank':'Plank taps', 'd6-spin':'Bike' };
 var SHORT_B = { d1e3:'Cable row', 'd1-pullover':'Straight-arm pull', d1e5:'Reverse pec-deck', 'd1-latraise':'Seated side raise', 'd5-erot':'Y-raise', 'd1e-curl':'Hammer curl', 'd5-tripush':'Kickback', 'd3e-abd':'Abductor, heavy',
  'd2e-press':'DB bench', d2e3:'Rope pushdown', 'd3e-stir':'Dead bug', d2e2:'Behind-back raise', 'd3-wrow':'DB row', 'd3-inccurl':'Cable curl', d4b1:'Hip thrust, heavy', d3e3:'Goblet squat', 'd4b-legcurl':'1-leg curl', 'd2-kick':'1-leg hip thrust', 'd3-stcalf':'Standing calf' };
