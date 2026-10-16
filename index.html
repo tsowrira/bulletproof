@@ -933,8 +933,8 @@ body.gym .excard.wild .howfold{display:block}
 body.gym .excard.wild .howfold .setup{display:block}
 .excard.wild .exname{color:var(--gld)}
 .check-status button.due{color:var(--gld);border-color:var(--gld);box-shadow:0 0 12px -3px var(--gld)}
-.drills{margin:10px 0 4px;display:grid;gap:8px}
-.drill{background:rgba(255,255,255,.025);border:1px solid var(--bdr);border-left:3px solid var(--dc,var(--b));border-radius:0 8px 8px 0;padding:10px 12px}
+.drills{margin:10px 0 4px;display:grid;gap:0}
+.drill{background:none;border:0;border-top:1px solid var(--bdr);border-radius:0;padding:12px 0 4px}
 .dr-h{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:700;color:var(--txt)}
 .dr-h b{width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#060611;background:var(--dc,var(--b))}
 .dr-h span{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--b);font-variant-numeric:tabular-nums}
@@ -1023,7 +1023,7 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 .ssh span{margin-left:auto;font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--dim);font-size:12px}
 .ssn{display:inline-block;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--dc,var(--b));border:1px solid currentColor;border-radius:4px;padding:1px 6px;margin-bottom:6px}
 .excard[data-ss]{border-bottom-color:transparent}
-.excard[data-ss]::after{content:'';position:absolute;left:0;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--dc,var(--b));opacity:.45}
+
 .excard[data-x] .exname::after{content:'last pair';margin-left:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--bdr);border-radius:100px;padding:2px 7px;vertical-align:middle}
 
 .xset{display:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);border:1px solid var(--g);border-radius:100px;padding:2px 7px;margin-left:6px;vertical-align:middle}
@@ -1122,6 +1122,7 @@ body.focus .section{scroll-margin-top:calc(var(--navh,55px) + 60px)}
  /* exercise cards → 2 columns */
  html:not(.dev-mobile) .exlist{display:grid;grid-template-columns:1fr 1fr;column-gap:34px;padding-left:34px;padding-right:34px;align-items:start}
  html:not(.dev-mobile) .exlist .excard{margin:0;padding:20px 0;border-bottom:1px solid rgba(42,42,56,.7)}
+ html:not(.dev-mobile) .exlist .excard.now{padding-left:20px;padding-right:20px}
  html:not(.dev-mobile) .exlist .excard:nth-last-child(-n+2){border-bottom:none}
  @media (hover:hover) and (pointer:fine){html:not(.dev-mobile) .exlist .excard:hover{background:transparent}}
  html:not(.dev-mobile) .exlist .ssh{grid-column:1 / -1;margin:10px 0 0;padding:14px 0 0}
@@ -1190,13 +1191,13 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .rest-lbl.running{animation:none;font-size:14px}
 .tempo{font-size:12px;font-weight:600;padding:0 10px;min-height:28px;display:inline-flex;align-items:center}
 .exname{font-size:19px;margin-bottom:4px}
-.caveat{background:none;border:0;border-left:2px solid var(--gld);padding:1px 0 1px 11px;margin:6px 0 10px;border-radius:0}
+.caveat{background:none;border:0;padding:0;margin:6px 0 10px;border-radius:0}
 .caveat-t{font-size:12px;margin-bottom:3px}
 .caveat p{font-size:13px;color:var(--fade);line-height:1.5}
 .band-badge{background:none;border:0;padding:0;margin-bottom:10px;gap:8px}
 .band-txt{color:var(--dim);font-size:13px;font-weight:400}
 .band-dot{margin-top:4px;width:8px;height:8px}
-.cue{font-size:15px;line-height:1.45;background:none;padding:1px 0 1px 11px;border-left:2px solid var(--r);border-radius:0;margin:8px 0}
+.cue{font-size:15px;line-height:1.45;background:none;padding:0;border:0;border-radius:0;margin:8px 0}
 .caveat{margin:6px 0 8px}
 .band-badge{margin-bottom:8px}
 .excard{padding:15px 18px 13px}
@@ -1292,7 +1293,7 @@ body.focus .section.cur .excard[data-id]:not(.now):not(.done){cursor:pointer}
 }
 @media(min-width:1100px){
  html:not(.dev-mobile) .sets{font-size:17px}
- html:not(.dev-mobile) .drills{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+ html:not(.dev-mobile) .drills{grid-template-columns:1fr}
  html:not(.dev-mobile) .exlist .excard{border-radius:0;border-bottom:0}
  html:not(.dev-mobile) .caveat,html:not(.dev-mobile) .cue{max-width:74ch}
  html:not(.dev-mobile) nav a{padding:12px 12px;font-size:12px}
@@ -1349,7 +1350,7 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .rest-lbl{min-height:44px;min-width:86px;transition:background .3s,border-color .3s,box-shadow .3s,color .15s,transform .15s}
 .xchip,.reroll,.check-status .cs-btns button,.focusbar button{min-height:44px}
 .prog-step{padding:12px 0}
-.howfold .setup strong:not(:first-child)::before{content:'\A';white-space:pre}
+.howfold .setup:not(.fmt) strong:not(:first-child)::before{content:'\A';white-space:pre}
 .acc-btn{gap:7px}
 .acc-btn .arr{font-size:0;line-height:1}
 .acc-btn .arr::before{content:"";display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>") center/contain no-repeat;color:var(--g);vertical-align:-.15em}
@@ -1359,7 +1360,7 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .stu{padding:0 6px 0 4px}
 .stv{transition:transform .12s,color .12s}
 .stp:active .stv{transform:scale(1.12);color:var(--g)}
-.drills{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.drills{grid-template-columns:1fr}
 /* drill number hangs in the margin, so a long title wraps beside it rather than under it */
 .dr-h{position:relative;padding-left:29px}.dr-h b{position:absolute;left:0;top:1px}
 @media(max-width:759px){.dr-h span{flex-basis:100%;margin:0}}
@@ -1388,7 +1389,13 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .tempo{flex-wrap:wrap;row-gap:2px;white-space:normal}
 .tempo.pace .tph.on{opacity:1;color:var(--g);text-shadow:0 0 8px rgba(93,255,159,.5)}
 /* form link sits with the fold, not above it */
-.formlink{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:0 4px;min-height:44px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.formlink{display:inline-flex;align-items:center;min-height:44px;font-family:'Inter',sans-serif;font-size:13px;color:var(--dim);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.howfold .setup.fmt{font-size:15px;line-height:1.45;color:var(--txt);margin:4px 0 0}
+.howfold .setup.fmt .howp{margin:0 0 8px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.steps li{display:grid;grid-template-columns:20px 1fr;column-gap:8px;align-items:baseline}
+.steps .sn{font-weight:700;color:var(--g);font-variant-numeric:tabular-nums}
+.stoprule{margin:10px 0 0 28px;font-size:13.5px;line-height:1.4;color:var(--dim)}
 .formlink:active{color:var(--g)}
 .foldrow{display:flex;align-items:center;gap:8px}
 .foldrow>details{flex:1;min-width:0}
@@ -1528,7 +1535,7 @@ body:has(.day-jump.show)::after{content:'';position:fixed;left:50%;bottom:0;tran
 .dr-h .dchk.part{border-color:var(--gld);color:var(--gld);font-size:13px;font-weight:800;box-shadow:0 0 12px -3px var(--gld)}
 .drill.ticked .dchk{border-color:var(--g);background:rgba(93,255,159,.18);color:var(--g)}
 .drill.ticked .dr-w,.drill.ticked .dr-d{display:none}
-@media(max-width:759px){.dr-h{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:8px;align-items:center}.dr-h span{grid-column:1/-1;grid-row:2}.dr-h .dnum{grid-column:2;grid-row:1;margin-left:0}.dr-h .dchk{grid-column:3;grid-row:1;margin-left:0}}
+.dr-h{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:8px;align-items:center}.dr-h span{grid-column:1/-1;grid-row:2;justify-self:start;margin-left:0;text-align:left}.dr-h .dnum{grid-column:2;grid-row:1;margin-left:0}.dr-h .dchk{grid-column:3;grid-row:1;margin-left:0}
 #d6 .day-hdr::before{background:var(--o);box-shadow:0 0 13px var(--o)}
 /* skip-aware tags */
 .skiptag{margin-top:6px;font:600 12px 'Inter',sans-serif;color:var(--p);letter-spacing:.02em}
@@ -2003,7 +2010,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
  <div class="drill" data-k="0"><div class="dr-h"><b>1</b>Wrist Turnover<span>2 × 8</span></div><div class="dr-w">Chest-height bar, standing, overhand grip.</div><div class="dr-d">Hands only, no body weight. Roll the wrists from hanging grip to on top of the bar, and back. Slow, elbows soft.</div></div>
- <div class="drill" data-k="2"><div class="dr-h"><b>2</b>Bar Support Hold<span>3 × 15s</span></div><div class="dr-w">Chest-height bar, box close enough to rest your toes.</div><div class="dr-d">Hop up to straight arms over the bar. Elbows soft, shoulders pressed down, hips on the bar. Hold still, toes light. Step down.</div></div>
+ <div class="drill" data-k="2"><div class="dr-h"><b>2</b>Bar Support Hold<span>3 × 15s</span></div><div class="dr-w">Chest-height bar, box close enough to rest your toes.</div><div class="dr-d">From the box, press up to straight arms over the bar. Elbows soft, shoulders pressed down, hips on the bar. Hold still, toes light. Step down.</div></div>
  <div class="drill" data-k="3"><div class="dr-h"><b>3</b>Top Pull Hold — Bar at the Chest<span>3 × 5s</span></div><div class="dr-w">Pull-up bar, overhand grip, box below.</div><div class="dr-d">From an active hang, pull the bar to the upper chest. Hold: shoulders down and back, ribs down. Lower in 3s, step down. Shoulders creep up or roll forward: stop.<br><strong>Move up when</strong> steady two sessions running → 8s, then 10s. Never weighted.</div></div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
@@ -2605,7 +2612,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. Shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up, switch sides."], ["Cartwheels, Both Sides", "Where: open floor or mat, a body-length clear.", "How: 2 × 3 each side. Hands down one at a time, legs pass over, land one foot then the other. Soft knees, no jump."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. Shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up, switch sides."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -3400,7 +3407,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.4';
+var APP_V = '2026-10-15.6';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4568,12 +4575,12 @@ function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every
 
 // One song is the whole warmup: ~90s to raise, then a named ~2 min flow. Standing or on equipment only, nothing on the floor.
 var WU_FLOWS = {
- bar:{ n:'Bar Tour', m:['Active hang, 2 × 10s. Shoulders down, ribs in.','8 scap pulls. Pull your shoulders down, away from your ears.','8 slow shoulder rolls each way.','Shake the arms out.'] },
- cab:{ n:'Cable Alphabet', m:['Lightest pin. Y: 8 low-to-high raises, thumbs up.','W: 8 turns out each side, elbow pinned.','T: 8 open-arm squeezes, no cable, blades together.'] },
- wall:{ n:'Wall Tour', m:['10 wall slides, forearms on the wall. Slide up like a snow angel.','10 wall push-up plus. One more inch away at the top.','6 chest turns each side, hand on the wall. Hips still, ribs down.'] },
- swing:{ n:'Swing Set', m:['10 leg swings front-to-back each leg, hand on a rail.','10 side-to-side swings each leg.','5 slow box squats to a bench. 3s down, knees over the second toe.','10 calf raises.'] },
- step:{ n:'Step Game', m:['5 slow step-downs each leg off a low step. 3-count, tap the heel, fingertips on a rail or ladder rung.','6 side step-overs each way on a low hurdle.','15s single-leg stand each side, soft knee.'] },
- hips:{ n:'Cable Hips', m:['8 light cable kickbacks each leg.','5 hip circles each way.','8 bodyweight hinges, hands on hips. Close a car door.','10 side shuffle steps each way.'] }
+ bar:{ n:'Bar Tour', m:['Hang from the bar for 10s, shoulders pulled down away from your ears. Twice.','Still hanging, arms straight: pull your shoulders down, then let them rise. 8 slow reps.','Standing: 8 slow shoulder rolls backward, 8 forward.','Shake your arms out.'] },
+ cab:{ n:'Cable Shoulders', m:['Lightest weight, low cable, one handle. Raise your straight arm in front of you up to eye level, thumb up, then lower slowly. 8 each arm.','Cable at elbow height, stand side-on. Elbow tucked at your side, bent 90°. Turn your forearm out away from your belly, then back. 8 each arm.','No cable: arms straight out to the sides. Squeeze your shoulder blades together and hold 2s. 8 reps.'] },
+ wall:{ n:'Wall Tour', m:['Forearms on the wall. Slide them up overhead and back down, slowly. 10 reps.','Push-ups against the wall. At the top, push one extra inch so your upper back rounds. 10 reps.','One hand on the wall. Turn your chest away from the wall and back, hips still. 6 each side.'] },
+ swing:{ n:'Rail Set', m:['Hand on a rail. Lift one knee to hip height, pause, lower slowly. 8 each leg.','Hand on a rail. Lift your straight leg out to the side a little, pause, lower slowly. 8 each leg.','Sit down to a bench slowly over 3s, then stand. Knees point where your toes point. 5 reps.','Rise up onto your toes, pause, lower slowly. 10 reps.'] },
+ step:{ n:'Step Game', m:['Stand on a low step, fingertips on a rail or ladder rung. Lower the other heel down over 3s, tap, stand back up. 5 each leg.','Step sideways over a low hurdle and back, one foot at a time. 6 each way.','Stand on one leg for 15s, knee soft. Each side.'] },
+ hips:{ n:'Cable Hips', m:['Light cable, strap on the ankle, face the machine. Push your straight leg back slowly, then return. 8 each leg.','Hand on something steady. Lift one knee and draw a slow circle with it. 5 each way, each leg.','Hands on hips. Push your hips back like closing a car door with your butt, then stand tall. 8 reps.','Step sideways, feet never crossing. 10 steps each way.'] }
 };
 // per day: the three flows in re-roll order, the flow it prefers to avoid, and what stands in for it
 var WU_DAY = { d5:{ i:0, o:['bar','step','swing'], no:'', alt:'step' }, d1:{ i:1, o:['wall','hips','cab'], no:'', alt:'hips' }, d3:{ i:2, o:['cab','swing','step'], no:'', alt:'swing' } };
@@ -4757,9 +4764,10 @@ function applyBlock(){
  if (m[0] === '.tempo'){ if (el.dataset.a === undefined) el.dataset.a = _tempoRaw(el); var want = isB ? c.dataset.altTempo : el.dataset.a;
   if (_tempoRaw(el) !== want){ el.textContent = want; _fmtTempo(el); } return; }
  if (el.dataset.orig === undefined) el.dataset.orig = el.innerHTML;
- if (!isB){ el.innerHTML = el.dataset.orig; return; }
+ if (!isB){ if (el.innerHTML !== el.dataset.orig){ el.innerHTML = el.dataset.orig; el.classList.remove('fmt'); } return; }
  el.textContent = c.dataset[m[1]];
  if (m[1] === 'altHow') el.innerHTML = el.innerHTML.replace(/(^|\s)(\d)\.\s/g, '$1<strong>$2.</strong> '); });
+ c.querySelectorAll('.howfold > .setup').forEach(_fmtSteps);
  var sl = c.querySelector('.start-l');
  if (sl && c.dataset.altStart !== undefined){ var sp = sl.querySelector('span'); if (sl.dataset.orig === undefined){ sl.dataset.orig = sp.textContent; sl.dataset.hid = sl.hidden ? '1' : ''; }
  var txt = isB ? c.dataset.altStart : sl.dataset.orig; sp.textContent = txt; sl.hidden = isB ? !txt : !!sl.dataset.hid; }
@@ -4813,7 +4821,7 @@ function applyWildcards(){
  var wh = (p.length > 2 ? p[1] : 'Anywhere with a little floor space.').replace(/^Where:\s*/i, ''); badge.querySelector('.band-txt').textContent = wh.charAt(0).toUpperCase() + wh.slice(1);
  var how = (p.length > 2 ? p[2] : p[1]).replace(/^How:\s*/i, ''), cut = how.indexOf('. ');
  if (cut > 0 && cut < 24 && /\d/.test(how.slice(0, cut))){ c.querySelector('.sets').textContent = how.slice(0, cut); how = how.slice(cut + 2); }
- c.querySelector('.setup').textContent = how;
+ var su = c.querySelector('.setup'); su.textContent = how; su.classList.remove('fmt'); if (su.closest('.howfold')) _fmtSteps(su);
  if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.innerHTML = '<i class="ic ic-dice" aria-hidden="true"></i> Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b);
   var jb = document.createElement('button'); jb.type = 'button'; jb.className = 'reroll jar'; jb.innerHTML = '<i class="ic ic-grid" aria-hidden="true"></i> Any day\u2019s toy'; jb.onclick = function(){ jarWild(c.dataset.id); }; c.appendChild(jb); }
  } catch(e){} });
@@ -5613,21 +5621,31 @@ function startPacer(card){
 window.startPacer = startPacer; window.stopPacer = stopPacer;
 _cmpCaveats();
 
-// ── Form video ────────────────────────────────────────────────────────
-// One line per card. Cheaper and more useful than any diagram for "how do I set up".
+// ── How-to steps: "1. … 2. … 3. …  X: set over." → one step per line, the stop rule on its own ──
+function _fmtSteps(el){
+ if (!el || el.querySelector('.steps, .howp')) return;
+ var parts = el.innerHTML.trim().split(/<strong>\d+\.<\/strong>\s*/), out = '';
+ if (parts.length < 2){ el.innerHTML = '<p class="howp">' + el.innerHTML.trim() + '</p>'; el.classList.add('fmt'); return; }
+ var steps = parts.slice(1).map(function(s){ return s.trim(); }), last = steps[steps.length - 1].match(/[^.!?]+[.!?]+(\s|$)/g) || [steps[steps.length - 1]], stop = [];
+ while (last.length > 1 && /set over|ends (it|the set)|stop the set/i.test(last[last.length - 1])) stop.unshift(last.pop().trim());
+ steps[steps.length - 1] = last.join('').trim();
+ if (parts[0].trim()) out += '<p class="howp">' + parts[0].trim() + '</p>';
+ out += '<ol class="steps">' + steps.map(function(s, i){ return '<li><span class="sn">' + (i + 1) + '</span><span>' + s + '</span></li>'; }).join('') + '</ol>';
+ if (stop.length) out += '<p class="stoprule">' + stop.join(' ') + '</p>';
+ el.innerHTML = out; el.classList.add('fmt');
+}
+// ── Form video: a quiet link at the bottom of the open how-to ──
 function addFormLinks(){
  document.querySelectorAll('.excard[data-id]').forEach(function(card){
-  var det = card.querySelector(':scope > .howfold'); if (!det || card.querySelector('.formlink')) return;
+  var det = card.querySelector(':scope > .howfold'); if (!det || det.querySelector('.formlink')) return;
   var name = (card.querySelector('.exname') || {}).textContent || '';
   name = name.split(' — ')[0].trim(); if (!name || /wildcard/i.test(name)) return;
-  var row = document.createElement('div'); row.className = 'foldrow';
-  det.insertAdjacentElement('beforebegin', row); row.appendChild(det);
   var a = document.createElement('a');
   a.className = 'formlink'; a.target = '_blank'; a.rel = 'noopener noreferrer';
   a.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(name + ' form');
-  a.innerHTML = 'Form <i class="ic ic-chev ic-sm" aria-hidden="true"></i>';
+  a.textContent = 'Form videos \u2197';
   a.setAttribute('aria-label', 'Search for ' + name + ' form videos');
-  row.appendChild(a);
+  det.appendChild(a);
  });
 }
 
@@ -5734,7 +5752,7 @@ function streamlineCards(){
     if (setup){
       var det = document.createElement('details'); det.className = 'howfold';
       det.innerHTML = '<summary><span class="hf-ic"><i class="ic ic-chev ic-sm" aria-hidden="true"></i></span> How to do it</summary>';
-      det.appendChild(setup);
+      det.appendChild(setup); _fmtSteps(setup);
       if (card.classList.contains('wild')) det.open = true;   // a wildcard's dose lives in its how-to
       (card.querySelector(':scope > .drills') || cue || anchor).insertAdjacentElement('afterend', det);
     }
