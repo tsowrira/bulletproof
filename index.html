@@ -891,6 +891,10 @@ body.gym .howfold{display:none}
 .exjot:focus{outline:none;border-bottom-color:var(--g);background:rgba(93,255,159,.05)}
 .exjot.has-val{border-bottom-style:solid;border-bottom-color:rgba(93,255,159,.55)}
 .exlog{display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap}
+.swb{flex:1 1 100%;min-height:44px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--txt);font:700 14px/1 'Inter',sans-serif;letter-spacing:.02em;cursor:pointer;font-variant-numeric:tabular-nums}
+.swb.run{border-color:var(--g);color:var(--g);background:rgba(93,255,159,.06)}
+.excard.done .swb{display:none}
+.excard:not(.done) .exlog.two .swb{grid-column:1/-1}
 .exnum{width:64px;min-height:44px;text-align:center;background:rgba(93,255,159,.04);border:1px solid rgba(93,255,159,.25);border-radius:8px;color:var(--txt);font-family:'Inter',sans-serif;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:transparent}
 .exnum::placeholder{color:var(--dim);opacity:.6;font-weight:500;font-size:12px}
 .exnum:focus{outline:none;border-color:var(--g);background:rgba(93,255,159,.09)}
@@ -1393,7 +1397,17 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .tempo .tar{font-style:normal;opacity:.4;font-size:12px}
 .tempo{flex-wrap:wrap;row-gap:2px;white-space:normal}
 .tempo.pace .tph.on{opacity:1;color:var(--g);text-shadow:0 0 8px rgba(93,255,159,.5)}
+.feel{font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.45;color:var(--dim);margin:0 0 8px}
+.feel b{color:var(--txt);font-weight:700;margin-right:6px}
+.excard.done .feel{display:none}
 .tempo .tnum{font-weight:800;margin-left:2px;font-variant-numeric:tabular-nums}
+#paceBar{position:fixed;left:50%;bottom:calc(146px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:121;display:flex;align-items:center;gap:10px;background:rgba(12,12,28,.97);border:1px solid var(--g);color:var(--g);padding:0 6px 0 18px;min-height:48px;border-radius:100px;font-family:'Inter',sans-serif;font-size:16px;font-weight:800;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.55);font-variant-numeric:tabular-nums;cursor:pointer}
+#paceBar[hidden]{display:none}
+#paceBar .pb-n{font-weight:600;font-size:13px;color:var(--dim)}
+#paceBar .pb-n:empty{display:none}
+#paceBar .pb-x{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:inherit;position:relative;cursor:pointer}
+#paceBar .pb-x::before{content:'';position:absolute;inset:12px;border:2px solid currentColor;border-radius:3px}
+#paceBar.wait{border-color:var(--dim);color:var(--dim)}
 .tempo .tnum:empty{display:none}
 .tempo.wait{border-style:dashed;color:var(--dim)}
 .tempo.pace .tgo{width:1.35em;height:1.35em;vertical-align:-.25em;margin-left:8px;padding:4px;box-sizing:content-box}
@@ -2072,6 +2086,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, grip just outside the shoulders. Dip belt, 5 lb. Box below.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Chest to the bar, elbows to the back pockets.</div>
+<div class="feel"><b>Feel it</b>Lats, the sides of the back under the armpits, and the upper back pulling the shoulder blades down. Not the neck or the front of the shoulders.</div>
 <div class="feet">Legs straight and together, toes lightly pointed, legs a touch in front of you. Still for the whole set: no kicking.</div>
 <div class="setup"><strong>1.</strong> Hang active: shoulders set, elbows soft, ribs down. <strong>2.</strong> Pull fast, chest to bar. Lower in 3, pause 1. <strong>3.</strong> Set 2 is about speed: a rep that only reaches the chin ends it. Arching ends the set too. Step down, never drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2093,6 +2108,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Leg-extension machine. Knee in line with the pivot, roller above the ankle.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Smooth up, squeeze, slow down — no kicking.</div>
+<div class="feel"><b>Feel it</b>Front of the thigh, strongest just above the knee at the top. Not the hip, not inside the knee joint.</div>
 <div class="feet">Flexed, toes to the ceiling and straight ahead. Not pointed, not turned out.</div>
 <div class="setup"><strong>1.</strong> Sit back, grip the handles, hips down. <strong>2.</strong> Straighten in 2 counts, squeeze 1, lower in 3. <strong>3.</strong> Hips lift or you kick: set over. Knee aches: last set.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2114,6 +2130,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Log one side’s plates + 8 lb for the machine. Taken: seated cable row.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Both arms. Elbows stop at your sides.</div>
+<div class="feel"><b>Feel it</b>Mid-back between the shoulder blades, and the lats. Not the biceps doing the work, not the low back.</div>
 <div class="setup"><strong>1.</strong> Chest on the pad, palms in, arms long — blades reach, chest stays put. <strong>2.</strong> Elbows back to your sides, squeeze 1. <strong>3.</strong> Return in 3. Chest lifts, torso twists or elbows pass your back: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2139,6 +2156,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Short of Widest</div><p><strong>Stop just short of your widest</strong> — never force it.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine. Hips back, pads on the outer thigh — not the knee.</span></div>
 <div class="cue">Push out from the side of the hips. Pelvis still.</div>
+<div class="feel"><b>Feel it</b>Outer hip, just behind the hip bone (side glutes). Not the front of the hip, not the outer thigh near the knee.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
 <div class="setup"><strong>1.</strong> Sit tall, hips back. Press out in 2, short of your widest; pause 1. <strong>2.</strong> Return in 2; the stack never rests. <strong>3.</strong> Set 2: drop to half the pin, one leg at a time, right first. <strong>4.</strong> One leg, how: lift the left leg out of its pad and rest that foot on the frame or floor, out of the way. The right leg pushes out alone, all clean reps, then switch. If the empty pad swings into you, leave that leg in its pad but completely relaxed.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2159,6 +2177,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Shoulder Height Is the Ceiling</div><p><strong>Hands stop at shoulder height, never above.</strong> Light forever.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Light dumbbell in each hand, standing, palms in.</span></div>
 <div class="cue">Lead with the elbows, thumbs level.</div>
+<div class="feel"><b>Feel it</b>Side of the shoulder, a burn by rep 8. The top of the trap or the neck means too heavy or shrugging.</div>
 <div class="setup"><strong>1.</strong> Stand tall, ribs down, elbows soft. <strong>2.</strong> Raise out and a bit forward to shoulder height, no higher. Hold 1. <strong>3.</strong> Lower in 3. Swing or shrug: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2176,6 +2195,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">4–6″ step by a rail. 5 lb dumbbell in the free-side hand.</span></div>
 <div class="cue">Standing hip lifts the free hip. No leaning.</div>
+<div class="feel"><b>Feel it</b>Outer hip of the leg you are standing on. Not the low back.</div>
 <div class="feet">Standing foot flat on the step, toes straight ahead. Free foot relaxed.</div>
 <div class="setup"><strong>1.</strong> Stand on one leg, knee soft, hips level. <strong>2.</strong> Drop the free hip an inch in 2; lift it just above level in 2; hold 2. <strong>3.</strong> Leaning sideways ends the set.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2196,6 +2216,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Kneel tall on a pad, pulley at forehead height, rope, thumbs toward you. Knees not happy kneeling? Stand in a staggered stance, pulley at eye height.</span></div>
 <div class="cue">Pull apart, not just back. Shoulders down.</div>
+<div class="feel"><b>Feel it</b>Rear shoulders and the muscles between the shoulder blades. Not the neck, not the biceps.</div>
 <div class="setup"><strong>1.</strong> Kneel tall, glutes tight, ribs down: no leaning back. Pull the rope apart to your face, elbows at shoulder height. <strong>2.</strong> Turn the forearms up, hold 1. <strong>3.</strong> Return in 3. Elbows drop or shrug: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2214,6 +2235,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Lying, Not Seated</div><p>Hips flat. <strong>Stop ~15° short of straight</strong>; the knee never snaps.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Lying curl: pad under the hips, knees off the edge, roller above the heels.</span></div>
 <div class="cue">Hips glued down — heels to glutes, slow down.</div>
+<div class="feel"><b>Feel it</b>Back of the thigh, from behind the knee up to the glute. A cramping calf means the toes are pulled up too hard; let the feet relax.</div>
 <div class="feet">Flexed: toes pulled toward your shins, every rep, every session. Pointed toes make it harder and your numbers stop matching, so pick flexed and keep it.</div>
 <div class="setup"><strong>1.</strong> Lie face down, hips flat, hold the grips. <strong>2.</strong> Curl heels to glutes in 2, squeeze 1; lower in 3 to ~15° short of straight. <strong>3.</strong> Set 2: ⅓ the weight, one leg at a time, right first.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2237,6 +2259,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, single handle. Face away, split stance, arm just behind you.</span></div>
 <div class="cue">Elbow only slightly behind your hip. Only the forearm moves.</div>
+<div class="feel"><b>Feel it</b>A long stretch in the front of the upper arm at the bottom, biceps all the way up. Not the front of the shoulder.</div>
 <div class="setup"><strong>1.</strong> Stand tall, palm forward, arm just behind the hip. <strong>2.</strong> Curl in 2, elbow still. Squeeze 1. <strong>3.</strong> Lower in 3 to a soft elbow. Elbow swings: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2255,6 +2278,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Short of Locked</div><p><strong>Elbow finishes soft, never snapped straight.</strong> Arm drifts forward: too heavy.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, single handle, palm in. Face the stack a step back.</span></div>
 <div class="cue">Elbow welded to the rib.</div>
+<div class="feel"><b>Feel it</b>Back of the upper arm, hardest at full lockout. Not the shoulder or the chest.</div>
 <div class="setup"><strong>1.</strong> Elbow pinned to your side, ribs down. <strong>2.</strong> Press down in 2, short of locked. Squeeze 1. <strong>3.</strong> Return in 3. Elbow drifts or shoulder hikes: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2275,6 +2299,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Pulley at chest height, D-handle. Side-on, one step out, knees soft.</span></div>
 <div class="cue">Press out — don't let the cable turn you.</div>
+<div class="feel"><b>Feel it</b>Side of the trunk on the cable side and the deep abs, fighting the twist. Not the arms, not the low back.</div>
 <div class="feet">Shoulder-width and flat, toes straight ahead. Push the floor away; don't shift onto one foot.</div>
 <div class="setup"><strong>1.</strong> Handle at the breastbone, hips square. <strong>2.</strong> Press out in 2, elbows soft; hold 3; back in 2. <strong>3.</strong> Torso turns: set over. Then switch sides.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2294,6 +2319,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Step edge by a rail, ball of one foot on, heel free.</span></div>
 <div class="cue">Up over the big toe — squeeze at the top.</div>
+<div class="feel"><b>Feel it</b>The calf: a stretch at the bottom, a squeeze at the top. Not the arch of the foot.</div>
 <div class="feet">Ball of the foot on the step edge, toes straight ahead. Push through the big toe; don't roll out to the pinky side.</div>
 <div class="setup"><strong>1.</strong> Stand on one leg, knee soft — never locked. <strong>2.</strong> Rise in 2, hold 1, lower in 3, no bounce. <strong>3.</strong> Set 2 ends when the height drops.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2312,6 +2338,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Back on a wall, heels a foot-length out, knees soft.</span></div>
 <div class="cue">Shins pull the toes up — lower slow.</div>
+<div class="feel"><b>Feel it</b>Front of the shin, burning by the last reps. Not the top of the foot.</div>
 <div class="feet">Heels on the floor about a foot from the wall. Pull the toes up as high as they go; heels stay down.</div>
 <div class="setup"><strong>1.</strong> Lean on the wall, knees soft. <strong>2.</strong> Toes up high, hold 1; lower in 3 to kiss the floor. <strong>3.</strong> Range shrinks: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2322,7 +2349,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths. 45s between. Elbows bent 90°, shoulders down, no swinging. Step down."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. Slide the hands sideways along the bar, never crossing, no swing. Feet down between rounds."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. Pull your head to one side of the bar, lower 3 counts, switch sides next rep. Shoulders down, no kip."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. Hand over hand, feet stay down, slow release."]]'>
+<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths, 45s between. Elbows bent 90°, shoulders down, no swinging. One length = across and back is two. Step down at the end."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. One rep = both hands have moved one hand-width sideways, never crossing, no swing. Feet down between rounds."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. One rep = pull your head up to one side of the bar, lower 3 counts. Switch sides next rep. Shoulders down, no kip."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. One pull = one hand reaches up and pulls the rope down past your chest. Feet stay down, slow release."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2397,6 +2424,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest press machine, handles at mid-chest, range stop set. <strong>No machine? Smith bench, safeties a fist above the chest.</strong></span></div>
 <div class="warmset">Ramp: half weight × 8, then ¾ × 3</div>
 <div class="cue">Shoulder blades pinned back and down.</div>
+<div class="feel"><b>Feel it</b>Chest and the back of the upper arms. The front of the shoulder leading means the seat is too low or the range too deep.</div>
 <div class="setup"><strong>1.</strong> Back and head on the pad, elbows ~45° out. <strong>2.</strong> Press up, stop just short of locked. <strong>3.</strong> Return 3 counts, pause 1, no bounce. Shoulders roll forward: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2415,6 +2443,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Pad below the shoulder blades, belt on the hip crease, feet flat hip-width.</span></div>
 <div class="warmset">Ramp: 1 × 6 at half weight</div>
 <div class="cue">Ribs down — glutes finish the rep, not the back.</div>
+<div class="feel"><b>Feel it</b>Glutes, a hard squeeze at the top. Not the low back or the hamstrings: ribs down and chin tucked fixes both.</div>
 <div class="feet">Flat, hip-width, under your knees at the top (shins straight up and down). Drive through the heels; the toes can lift a little.</div>
 <div class="setup"><strong>1.</strong> Belt tight, chin tucked, shins vertical at the top. <strong>2.</strong> Drive through the heels to a straight line — no arching. <strong>3.</strong> Squeeze 2, lower in 2. Low back helps: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2437,6 +2466,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Head-Down Work</div><p><strong>Kneel 10s before you stand.</strong> Low back arches: set over.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Open floor, hands shoulder-width, hips high, knees bent.</span></div>
 <div class="cue">Head lands just ahead of the hands.</div>
+<div class="feel"><b>Feel it</b>Front and side of the shoulders, triceps at the top. Not the neck: eyes on the floor between the hands.</div>
 <div class="feet">On your toes, hip-width, heels up. Walk the feet closer to the hands to get steeper.</div>
 <div class="setup"><strong>1.</strong> Hips high in an upside-down V, knees bent. <strong>2.</strong> Lower 3 counts, head just ahead of the hands, elbows back. <strong>3.</strong> Pause 1 above the floor, press up — never lock out.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2457,6 +2487,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Nordic machine, assist 10 lb. Kneecaps off the pad edge, heels under the rollers.</span></div>
 <div class="warmset">Ramp: 2 short-range reps</div>
 <div class="cue">Straight plank, knees to head — own 5s down.</div>
+<div class="feel"><b>Feel it</b>Hamstrings, on the way down. A cramp behind the knee means use more assist.</div>
 <div class="feet">Toes tucked and pulled toward your shins (flexed), not pointed. Flexed lets the calves help and keeps the knee steadier. Heels press up into the rollers the whole way.</div>
 <div class="setup"><strong>1.</strong> Kneel tall, glutes on, hands at the chest. <strong>2.</strong> Tip forward for 5 counts, hips straight; hold 3 at your lowest. <strong>3.</strong> Push back up with your hands.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2479,6 +2510,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Parallel dip bars, palms in. Step up from the footplate.</span></div>
 <div class="warmset">Ramp: 3 easy reps</div>
 <div class="cue">Push the bars down, chest tips forward.</div>
+<div class="feel"><b>Feel it</b>Chest and the back of the arms. The front of the shoulder means you went past the 90° cap.</div>
 <div class="feet">Legs straight under you, or knees bent with ankles crossed, whichever keeps you still. No swinging.</div>
 <div class="setup"><strong>1.</strong> Start on top, arms straight but soft, legs still. <strong>2.</strong> Lower in 3, elbows back, to 90°. Pause 1. <strong>3.</strong> Press up in 2, no snapping straight. Never grind.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2499,6 +2531,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Leg press, safeties in, balls of the feet low on the platform. Nothing on your shoulders.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Balls of the feet push — knees never bend.</div>
+<div class="feel"><b>Feel it</b>The calf: a stretch at the bottom, a squeeze at the top. Not the arch, not the knee.</div>
 <div class="feet">Balls of the feet on the edge, toes straight ahead, heels free. Push through the big toe; don't roll out to the pinky side.</div>
 <div class="setup"><strong>1.</strong> Safeties set, feet low, knees straight but soft. <strong>2.</strong> Heels down 3 counts to a full stretch; pause 2. <strong>3.</strong> Press all the way up, squeeze. Knees bend to help: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2518,6 +2551,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Pulley at head height, rope. Face away, one step out, split stance.</span></div>
 <div class="cue">Ribs down, elbows still, never locked.</div>
+<div class="feel"><b>Feel it</b>Back of the upper arms, a stretch behind the elbows at the bottom. Not the low back arching.</div>
 <div class="setup"><strong>1.</strong> Rope behind the head, elbows by the ears, mild stretch only. <strong>2.</strong> Extend forward and up, stop just short of locked; squeeze 1. <strong>3.</strong> Return 3 counts. Elbows wing out or ribs pop: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2535,6 +2569,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Straight Line, Never Arched</div><p>Straight line, never arched past. Never to failure. <strong>Stand 10s before the next lift.</strong></p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">45° back-extension bench. Pad just below the hip crease, heels on the plate.</span></div>
 <div class="cue">Long and level. Glutes hold, low back quiet.</div>
+<div class="feel"><b>Feel it</b>Glutes and hamstrings holding the line; the low back works but never pinches. A pinch means hinge from the hips, not the spine.</div>
 <div class="feet">Flat on the foot plate, heels pushing back into the pad. Toes relaxed.</div>
 <div class="setup"><strong>1.</strong> Climb on via the handles, back flat. <strong>2.</strong> Arms crossed, lift to a straight line — no higher. <strong>3.</strong> Hold 10s, lower, rest 10s on the handles. Three holds = one set. Log 10 per set if every hold made it.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2555,6 +2590,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Floor or mat, hands under the shoulders. Bodyweight, vest, or a plate high between the shoulder blades — face-down, so no spine load.</span></div>
 <div class="cue">At the top, push one more inch away.</div>
+<div class="feel"><b>Feel it</b>The muscles along the ribs under the armpit, at the top push. Not the neck shrugging.</div>
 <div class="feet">Feet together on the toes, legs straight. Squeeze your glutes so the hips don't sag.</div>
 <div class="setup"><strong>1.</strong> Plank in one line, ribs down. <strong>2.</strong> Lower in 2, elbows angled back, chest near the floor. <strong>3.</strong> Press up, push the floor away, pause 1. Hips sag: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2575,6 +2611,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="caveat"><div class="caveat-t">Straight Hip Is the Top</div><p><strong>Stop when the hip is straight</strong> — any higher only arches the low back.</p></div> <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Kickback machine. Chest on the pad, hands on the grips, working foot on the plate.</span></div>
 <div class="cue">Glute drives the leg back — the back never arches.</div>
+<div class="feel"><b>Feel it</b>Glute of the working leg at the top. Not the low back: ribs down.</div>
 <div class="feet">Push through the heel. Standing foot flat, knee soft.</div>
 <div class="setup"><strong>1.</strong> Hips square, ribs down, back flat. <strong>2.</strong> Press the leg back in 2 until the hip is straight; squeeze 1. <strong>3.</strong> Return in 3, the stack never rests. Low back joins in: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2594,6 +2631,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Swiss ball on a non-slip floor, forearms on top, feet wide.</span></div>
 <div class="cue">Hips dead still, only the forearms orbit.</div>
+<div class="feel"><b>Feel it</b>Deep abs and the whole trunk bracing, shoulders steady. Not the low back.</div>
 <div class="setup"><strong>1.</strong> Forearms on the ball, walk back to a straight plank, ribs down. <strong>2.</strong> Draw slow saucer-size circles with the elbows, 6 each way. <strong>3.</strong> Hips sway or low back sags: knees down, set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2612,6 +2650,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Start Narrow</div><p><strong>Start only as wide as feels easy</strong> — no stretch. Close short of touching.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Adductor machine. Hips back, pads on the inner thigh above the knee.</span></div>
 <div class="cue">Squeeze in from the inner thigh. No rocking.</div>
+<div class="feel"><b>Feel it</b>Inner thighs. Not the knees: pads sit mid-thigh.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
 <div class="setup"><strong>1.</strong> Sit tall, hips back. Squeeze in for 2, short of touching; pause 1. <strong>2.</strong> Open in 3; the stack never rests. <strong>3.</strong> Hips shift or back rocks: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2621,7 +2660,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. Shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up, switch sides."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 holds of 10s. From push-up position, shoulders past the wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 holds of 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. One rep = shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up. Switch sides next rep."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2671,6 +2710,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, palms facing you, shoulder-width. Box underneath.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Fast up, 3 full seconds down.</div>
+<div class="feel"><b>Feel it</b>Lats and biceps, upper back on the lowering. Not the neck or the front of the shoulder.</div>
 <div class="feet">Legs straight and together, toes lightly pointed, legs a touch in front of you. Still for the whole set: no kicking.</div>
 <div class="setup"><strong>1.</strong> Hang active: shoulders set, elbows soft. <strong>2.</strong> Pull fast, chin over the bar. <strong>3.</strong> Lower 3s, pause 1, no swing. Step down onto the box — never drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2700,6 +2740,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Rear laces down on a 10–12″ step, long stance, dumbbell on the back-leg side.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Drop straight down — knee over the second toe.</div>
+<div class="feel"><b>Feel it</b>Front thigh and glute of the front leg. The back leg's hip flexor pulling means lean the torso a touch forward.</div>
 <div class="feet">Front foot flat, weight over its middle, heel never lifts. Back foot on the bench: laces down or toes tucked, whichever your ankle likes.</div>
 <div class="setup"><strong>1.</strong> Stand tall, back flat, weight on the front foot. <strong>2.</strong> Lower 3 counts to front thigh parallel; pause 1, no bounce. <strong>3.</strong> Drive up through the whole front foot; knee never locks.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2723,6 +2764,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Top pulley, one handle. Face the stack an arm's length back, working-side foot forward.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Reach long, set the shoulder, elbow to back pocket.</div>
+<div class="feel"><b>Feel it</b>The lat on the working side, from the armpit down to the waist. Not the forearm or the biceps.</div>
 <div class="setup"><strong>1.</strong> Stand tall, reach up the cable, elbow soft. <strong>2.</strong> Pull the elbow to the back pocket, ribs down; squeeze 1. <strong>3.</strong> Return 3 counts to a long reach. Leaning back: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2742,6 +2784,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">One dumbbell held by both ends. Feet hip-width, knees soft.</span></div>
 <div class="warmset">Ramp: 3 easy reps</div>
 <div class="cue">Hips back, like closing a car door.</div>
+<div class="feel"><b>Feel it</b>A stretch down the hamstrings on the way down, glutes to stand up. Not the low back: it stays flat and quiet.</div>
 <div class="feet">Hip-width and flat, weight from mid-foot to heel. Toes stay down; never rock onto the balls of the feet.</div>
 <div class="setup"><strong>1.</strong> Stand tall, dumbbell on the thighs, knees soft. <strong>2.</strong> Push hips back 3 counts, back flat, to just below the knee. <strong>3.</strong> Pause 1, drive hips forward to stand tall — no leaning back.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2763,6 +2806,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Bottom pulley, one handle, light pin. Side-on, cable in front of the thighs.</span></div>
 <div class="cue">Stop at shoulder height — no shrug.</div>
+<div class="feel"><b>Feel it</b>Side of the shoulder. The top of the trap means the shoulder is shrugging.</div>
 <div class="setup"><strong>1.</strong> Free hand on the column, handle by the thigh, elbow soft. <strong>2.</strong> Elbow leads up to shoulder height, no higher; hold 2. <strong>3.</strong> Lower 3 counts. Swing, shrug or lean: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2781,6 +2825,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Lean From the Hips</div><p>Flat back, chest forward over the thighs. <strong>Stop just short of your widest</strong> — never force it.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine. Lighter pin than Push + Glutes. Hands on the front of the seat or the handles.</span></div>
 <div class="cue">Lean forward, push out from the back of the hips.</div>
+<div class="feel"><b>Feel it</b>Outer hip, deeper and further back than the upright version. Not the low back.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
 <div class="setup"><strong>1.</strong> Sit, pads on the outer thigh, then hinge forward from the hips with a flat back until the chest is over the thighs. <strong>2.</strong> Press out in 2, short of your widest; hold 1. <strong>3.</strong> Return in 3; the stack never rests. Back rounds or you rock to finish a rep: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2800,6 +2845,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Seated cable row, long straight bar, wide overhand grip, knees soft.</span></div>
 <div class="cue">Bar to the lower chest, elbows wide, torso still.</div>
+<div class="feel"><b>Feel it</b>Upper back between the shoulder blades, rear shoulders. Not the biceps or the low back.</div>
 <div class="setup"><strong>1.</strong> Sit tall, arms long, shoulders down. <strong>2.</strong> Row to the lower chest; elbows stop level with the torso; squeeze 1. <strong>3.</strong> Return 3 counts, no rounding. Torso rocks: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2817,6 +2863,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Pulley at chest height, D-handle, light weight. Stand side-on to the machine, a big step away.</span></div>
 <div class="cue">The cable tries to tip you sideways. Stay straight up; nothing moves.</div>
+<div class="feel"><b>Feel it</b>The side of the trunk away from the cable, holding you upright. Not the arms.</div>
 <div class="feet">Hip-width and flat, toes straight ahead. Weight even on both feet; don't shift onto one.</div>
 <div class="setup"><strong>1.</strong> Hold the handle in both hands against your breastbone, elbows tucked to your ribs. Your arms only hold it there; they don't pull. <strong>2.</strong> Side-step away until the weight lifts off the stack. <strong>3.</strong> Stand tall 25s, ribs over hips, knees soft, breathing. Lean toward the machine, or twist to face it: set over. <strong>4.</strong> Walk back in, turn around, other side.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2830,14 +2877,15 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d2-sled" data-solo="1" data-opt="1" data-unit="sec">
 <div class="extop">
  <div class="ex-left"><div class="exname">Backward Treadmill Push + Drag</div></div>
- <div class="exmeta"><div class="sets">4 × 30s push · then 6 min backward</div><div class="rest-lbl">60s rest</div><div class="tempo">STEADY</div></div>
+ <div class="exmeta"><div class="sets">S1: push, 4 rounds of 30s · S2: walk back, 6 min</div><div class="rest-lbl">60s rest</div><div class="tempo">STEADY</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Any treadmill with a safety key.</span></div>
 <div class="cue">Brisk, smooth, quiet feet.</div>
+<div class="feel"><b>Feel it</b>Front of the thighs on the push; the backward walk hits just above the knees. Knee pain means cut the time.</div>
 <div class="feet">Short steps on the balls of the feet, heels kissing the belt. Toes straight ahead.</div>
 <div class="rule"><i class="ic ic-warn" aria-hidden="true"></i> <strong>Clip the safety key to your shirt before you turn around.</strong> Start the backward walk at 1 mph with both hands on the rails and only speed up once it is boring. Never step on or off a moving belt.</div>
-<div class="setup"><strong>1.</strong> Belt off, key clipped, hands on rails: push 30s, back flat. Four rounds. <strong>2.</strong> Belt on, 10% incline, 1–1.5 mph: walk backward 6 min, short steps. <strong>3.</strong> Knee complains on the push: cut the time.</div>
+<div class="setup"><strong>1.</strong> Belt OFF, key clipped. Hands on the rails, lean in and push the dead belt backward with your legs for 30s, then rest 30s. Four rounds. This is the sled work itself, not a warm-up. <strong>2.</strong> Belt ON, 10% incline, 1–1.5 mph. Turn around, both hands on the rails, walk backward 6 min with short steps. <strong>3.</strong> Log set 1 as the push seconds in total (120 if you did all four rounds) and set 2 as the walk; the Time it button counts for you. Knee complains on the push: cut the time.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>4 × 30s dead-belt push · then 6 min backward at 10% incline</span></div>
@@ -2858,6 +2906,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Soft Elbow at the Stretch</div><p><strong>Never a dead-straight arm at the bottom.</strong> Bench no flatter than 45°.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Incline bench at 45°, light dumbbells, back on the pad, palms forward.</span></div>
 <div class="cue">Elbows under the shoulders, only slightly behind your hip.</div>
+<div class="feel"><b>Feel it</b>Biceps, with a stretch at the bottom. Not the front of the shoulder.</div>
 <div class="setup"><strong>1.</strong> Back on the pad, ribs down, arms long, elbows soft. <strong>2.</strong> Curl 2 counts, elbows still; squeeze 1. <strong>3.</strong> Lower 3 counts, a touch short of straight. Shoulders roll or elbows swing: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2875,6 +2924,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seated calf: balls of the feet on the edge, pad snug on the lower thighs.</span></div>
 <div class="cue">Slow, full stretch at the bottom — no bounce.</div>
+<div class="feel"><b>Feel it</b>The deep calf, low near the heel. Not the arch.</div>
 <div class="feet">Balls of the feet on the edge, toes straight ahead, heels free. Push through the big toe; don't roll out to the pinky side.</div>
 <div class="setup"><strong>1.</strong> Sit, pad snug; release the catch. <strong>2.</strong> Heels down 2 to a full stretch, press up 2, squeeze 1. <strong>3.</strong> Heels stop reaching full height: set over. Reset the catch.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2895,6 +2945,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Pulley at elbow height, single handle, light pin. Side-on, towel under the elbow.</span></div>
 <div class="cue">Elbow glued to your side; forearm swings out.</div>
+<div class="feel"><b>Feel it</b>The back of the shoulder, small and deep. The forearm or the neck means too heavy.</div>
 <div class="setup"><strong>1.</strong> Elbow pinned, forearm across the belly. <strong>2.</strong> Rotate out to straight ahead, no further. Pause 1. <strong>3.</strong> Return in 3. Elbow leaves your side: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2912,6 +2963,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="caveat"><div class="caveat-t">Knee on the Bench First</div><p><strong>Foot on the bench only after 2 × 30s is clean.</strong> Any pinch inside the knee: back to the incline side plank.</p></div> <div class="band-badge"><div class="band-dot" style="background:#5dff9f"></div><span class="band-txt">Flat bench. Top knee on the bench, forearm on the floor or a low step, elbow under the shoulder.</span></div>
 <div class="cue">The top inner thigh lifts you — hips tall, no sag.</div>
+<div class="feel"><b>Feel it</b>Inner thigh of the top leg and the side of the trunk. The inside of the knee is the pinch: stop.</div>
 <div class="feet">Top knee and shin on the bench. Bottom foot lightly on the floor; lift it once that's easy.</div>
 <div class="setup"><strong>1.</strong> Lie side-on, forearm under the shoulder, top knee on the bench. <strong>2.</strong> Press the knee down to lift the hips to one straight line; hold 20s, breathing. <strong>3.</strong> Switch sides. Hips sag or roll: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
@@ -2928,6 +2980,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Straight Arms, Not a Pushdown</div><p><strong>Elbows keep the same slight bend the whole rep</strong> — never locked, never bending to push.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">High pulley, rope. Step back until your arms point up at the pulley, hinge forward a little, knees soft.</span></div>
 <div class="cue">Arms stay straight: sweep the rope in an arc from overhead down to your thighs.</div>
+<div class="feel"><b>Feel it</b>Lats, from the armpit down the side, with a stretch at the top. Not the triceps or the low back.</div>
 <div class="setup"><strong>1.</strong> Arms up toward the pulley, elbows slightly bent and frozen there, ribs down. <strong>2.</strong> Sweep the hands down to your thighs, squeeze under the armpits 1. <strong>3.</strong> Let the arms rise back in 3, only to about head height. Elbows bending more, shoulders shrugging or back arching: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
@@ -2936,7 +2989,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Slow Bear Crawl", "Where: a 15 ft floor lane.", "How: 3 lengths. Flat back, knees an inch up, opposite hand and foot, slow steps."], ["Bear Hold Shoulder Taps", "Where: open floor, hands only on the ground.", "How: 3 × 10 taps. Knees an inch up, back flat as a table. Tap the opposite shoulder, hips do not rock."], ["Low Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Arms out, heel-to-toe, eyes on the far end. Fall off: step down, start again."], ["Lateral Bear Crawl", "Where: a clear lane, hands only on the ground.", "How: 2 lengths each way. Knees an inch up, back flat. Hand and foot move together, small steps, hips level."], ["Bear Hold Kickback", "Where: open floor, hands only on the ground.", "How: 2 × 8 each leg. From bear hold, push one heel back and up to hip height, squeeze, return. Hips level, low back never arches."], ["Backward Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Walking backward: toe reaches back, then heel, arms out. Fall off: step down, start again."], ["Clock Taps", "Where: standing on one foot by a rail or post.", "How: 2 rounds each leg. Reach the free toe to 12, 3, then 6 o&#39;clock and back, slow. Knee over the second toe, fingertips on the rail if you wobble."]]'>
+<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Slow Bear Crawl", "Where: a 15 ft floor lane.", "How: 3 lengths. Hands and toes on the floor, knees an inch up, back flat as a table. Opposite hand and foot move together, slow steps."], ["Bear Hold Shoulder Taps", "Where: open floor.", "How: 3 × 10 taps each side. Hands and toes on the floor, knees an inch up, back flat as a table. One tap = one hand to the opposite shoulder and back down. 10 each side is 20 taps a round. Hips do not rock."], ["Low Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Arms out, heel-to-toe, eyes on the far end. Fall off: step down, start again."], ["Lateral Bear Crawl", "Where: a clear lane.", "How: 2 lengths each way. Hands and toes on the floor, knees an inch up, back flat. The hand and foot on the same side move together, small steps, hips level."], ["Bear Hold Kickback", "Where: open floor.", "How: 2 × 8 each leg. Hands and toes on the floor, knees an inch up. One rep = push one heel back and up to hip height, squeeze, return. Hips level, low back never arches."], ["Backward Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Walking backward: toe reaches back, then heel, arms out. Fall off: step down, start again."], ["Clock Taps", "Where: standing on one foot by a rail or post.", "How: 2 rounds each leg. One round = reach the free toe to 12, 3, then 6 o&#39;clock and back, slow. Knee over the second toe, fingertips on the rail if you wobble."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2983,12 +3036,13 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d6-crow" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Crow → Frog Stand</div></div>
- <div class="exmeta"><div class="sets">3 × 10s each pose</div><div class="rest-lbl">45s rest</div><div class="tempo">hold 10</div></div>
+ <div class="exmeta"><div class="sets">3 × 10s crow · then 3 × 10s frog</div><div class="rest-lbl">45s rest</div><div class="tempo">hold 10</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor, folded mat in front of your head, fingers spread.</span></div>
 <div class="cue">Lean until the toes float — eyes ahead.</div>
-<div class="setup"><strong>1.</strong> Squat low, hands shoulder-width, knees high on the upper arms. <strong>2.</strong> Lean until the toes float; hold 10s. Frog: knees outside bent elbows. <strong>3.</strong> Tip back to the feet, never onto the head.</div>
+<div class="feel"><b>Feel it</b>Wrists and forearms, the arms pushing, the belly holding the knees in. Not the neck.</div>
+<div class="setup"><strong>1.</strong> Crow first, three holds: squat low, hands shoulder-width, arms nearly straight. Knees ON the backs of the upper arms, up near the armpits. Lean forward until the toes float; hold 10s. <strong>2.</strong> Then frog, three holds: same start, but elbows bent and the knees OUTSIDE the arms, inner knees squeezing the upper arms. Lean until the toes float; hold 10s. <strong>3.</strong> Quick check: knees resting on top of the arms is crow; knees hugging the outside of bent elbows is frog. <strong>4.</strong> Tip back to the feet, never onto the head.</div>
 </div>
 
 <div class="excard" data-id="d6-plank" data-solo="1">
@@ -2999,6 +3053,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Hands on a flat bench under the shoulders, feet wide, body straight.</span></div>
 <div class="cue">Hips still and level — slow taps.</div>
+<div class="feel"><b>Feel it</b>Shoulders and the trunk holding still. Not the low back.</div>
 <div class="setup"><strong>1.</strong> High plank on the bench: ribs down, glutes on, feet wide. <strong>2.</strong> Tap the opposite shoulder in 2 counts; alternate, 6 each. <strong>3.</strong> Hips rock or sag: set over. Harder: feet closer.</div>
 </div>
 
@@ -3392,7 +3447,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.8';
+var APP_V = '2026-10-15.9';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4961,6 +5016,7 @@ function buildJots(){
  function setLab(){ var n = _nSets(card), k = card.classList.contains('done') ? n - 1 : Math.min(+card.dataset.sn || 0, n - 1); return n > 1 ? 'S' + (k + 1) + ' ' + rUnit : rUnit; }
  row.innerHTML = '<span class="setdone" hidden></span>' + (bw ? '' : stp('w', plus + wUnit, 1))
   + (wOnly ? '' : stp('r', setLab()))
+  + (timed && !wild ? '<button type="button" class="swb" aria-label="Stopwatch: tap to start, tap to stop and log the seconds">Time it</button>' : '')
   + '<span class="exlast">' + _lastBest(all) + '</span>';
  if (!bw) row.classList.add('two', 's2only');
  var _u = function(x){ return timed ? 's' : mins ? ' min' : ''; };
@@ -5047,6 +5103,14 @@ function buildJots(){
  // iOS can keep the box focused when the ✓ is tapped, so change never fires: track keystrokes so the tick saves what's typed
  row.addEventListener('input', function(ev){ var i = ev.target.closest('.stv'); if (!i) return;
   var _n = parseFloat(String(i.value).replace(',', '.')); if (isFinite(_n) && (_n > 0 || i.parentNode.dataset.k === 'w')) v[i.parentNode.dataset.k] = Math.round(_n * 100) / 100; paintFirst(); });
+ // timed sets: a stopwatch that writes the seconds into the box when you stop it
+ var swb = row.querySelector('.swb');
+ if (swb){ var sw0 = 0, swT = 0;
+  swb.addEventListener('click', function(){
+   if (sw0){ clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0; v.r = sec;
+    var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; swb.textContent = 'Time it'; swb.classList.remove('run'); paintFirst(); commit(); _toast(sec + 's in the box — tick the circle to log it'); return; }
+   sw0 = Date.now(); swb.classList.add('run'); swb.textContent = '0:00 · stop'; requestWakeLock();
+   swT = setInterval(function(){ var e = Math.round((Date.now() - sw0) / 1000); swb.textContent = Math.floor(e / 60) + ':' + ('0' + e % 60).slice(-2) + ' · stop'; }, 250); }); }
  // one note box, no length cap: mid-lift it notes the set you're on (saved as "S2: …"), after the last set it notes the lift
  var lastN = (p.filter(function(e){ return e.n; }).pop() || {}).n;
  if (mine && mine.n) v.n = mine.n;
@@ -5568,7 +5632,7 @@ function stopPacer(){
  _pacer.t.el.classList.remove('pace', 'wait');
  _pacer.t.el.innerHTML = _tempoHTML(_pacer.t.raw);
  _pacer.t.el.setAttribute('aria-label', 'Pace this rep at ' + _pacer.t.raw);
- _pacer = null;
+ _pacer = null; var pb = document.getElementById('paceBar'); if (pb) pb.hidden = true;
 }
 // one rep's sounds from `at`: chirp = move, tone = hold (ticks every 5s, 3-2-1 at the end), low ticks = lowering
 function _paceRep(at){
@@ -5586,7 +5650,15 @@ function _paceGo(lead){
  for (var i = 0; i < lead; i++) _paceTone(p.t0 - lead + i, 392, 392, .09, .3);
  _paceRep(p.t0); p.t.el.classList.remove('wait'); p.t.el.setAttribute('aria-label', 'Pacing · tap to pause');
 }
-function _pacePause(){ var p = _pacer; _paceHush(); p.paused = true; p.t.el.classList.add('wait'); if (p.num) p.num.textContent = 'paused · tap to go on'; p.t.el.setAttribute('aria-label', 'Paused · tap to go on'); }
+function _pacePause(){ var p = _pacer; _paceHush(); p.paused = true; p.t.el.classList.add('wait'); if (p.num) p.num.textContent = 'paused · tap to go on'; p.t.el.setAttribute('aria-label', 'Paused · tap to go on'); _paceBarPaint('paused', 'tap to go on', true); }
+// the same count, floating above the tab bar whenever the chip has scrolled away (eyes on the how-to, not the chip)
+function _paceBar(){ var b = document.getElementById('paceBar'); if (b) return b;
+ b = document.createElement('div'); b.id = 'paceBar'; b.hidden = true; b.setAttribute('role', 'status');
+ b.innerHTML = '<span class="pb-t"></span><span class="pb-n"></span><button type="button" class="pb-x" aria-label="Stop pacing"></button>';
+ b.addEventListener('click', function(ev){ if (!_pacer) return; if (ev.target.closest('.pb-x')) stopPacer(); else startPacer(_pacer.card); });
+ document.body.appendChild(b); return b; }
+function _paceBarPaint(t, n, wait){ var p = _pacer; if (!p) return; var b = _paceBar(), r = p.t.el.getBoundingClientRect(), off = r.bottom < 110 || r.top > innerHeight - 120;
+ b.hidden = !off; if (off){ b.querySelector('.pb-t').textContent = t; b.querySelector('.pb-n').textContent = n; b.classList.toggle('wait', !!wait); } }
 // eyes off the phone: a count-in, then every phase sounds as it starts and the chip counts the seconds down.
 // Tap to pause between reps (it counts you back in); the square stops it. A pure hold runs once; a rep runs 15 times.
 function startPacer(card){
@@ -5610,7 +5682,9 @@ function startPacer(card){
   var ph = -1; if (e >= 0) for (var z = 0; z < p.edges.length; z++) if (e < p.edges[z]){ ph = z; break; }
   p.phs.forEach(function(sp, i){ var x = p.t.seq[i]; sp.classList.toggle('on', i === ph);
    sp.textContent = x.w + ' ' + (x.fast ? 'fast' : (i === ph ? Math.max(1, Math.ceil(p.edges[i] - e)) : x.s) + 's'); });
-  if (p.num) p.num.textContent = e < 0 ? 'get set · ' + Math.ceil(-e) : p.one ? '' : 'rep ' + (p.rep + 1);
+  var numT = e < 0 ? 'get set · ' + Math.ceil(-e) : p.one ? '' : 'rep ' + (p.rep + 1);
+  if (p.num) p.num.textContent = numT;
+  _paceBarPaint(ph >= 0 ? p.t.seq[ph].w + ' ' + (p.t.seq[ph].fast ? '' : Math.max(1, Math.ceil(p.edges[ph] - e)) + 's') : e < 0 ? 'get set' : '', numT, false);
  })();
  try { if (!store.get('bp-pace-tip2')){ store.set('bp-pace-tip2', '1'); _toast('Counts you in first. Tap to pause, tap to go on; the square stops it.'); } } catch(e){}
 }
@@ -5880,8 +5954,8 @@ document.addEventListener('click', function(ev){ var t = ev.target.closest && ev
 // machine settings memory: one short note per card that has a seat, pad or roller to set
 (function(){ var notes = {}; try { notes = _asObj(JSON.parse(store.get('bp-seat') || '{}')); } catch(e){}
  if (/low row/i.test(notes['d2e-press'] || '') && !notes.d1e3){ notes.d1e3 = 'Seat 3 · Iso-Lateral Low Row'; delete notes['d2e-press']; try { store.set('bp-seat', JSON.stringify(notes)); } catch(e){} }   // a row note typed on the press card
- document.querySelectorAll('.excard[data-id] > .band-badge').forEach(function(bd){ var c = bd.parentNode; if (c.classList.contains('wild') || !/machine|seat|thigh pad/i.test(bd.textContent)) return;
- var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.placeholder = 'Machine settings (seat, pad) — kept every time'; i.setAttribute('aria-label', 'Machine settings note');
+ document.querySelectorAll('.excard[data-id] > .band-badge').forEach(function(bd){ var c = bd.parentNode; if (c.classList.contains('wild') || !/machine|seat|thigh pad|treadmill/i.test(bd.textContent)) return;
+ var i = document.createElement('input'); i.type = 'text'; i.className = 'seatjot'; i.placeholder = /treadmill/i.test(bd.textContent) ? 'Incline + speed — kept every time' : 'Machine settings (seat, pad) — kept every time'; i.setAttribute('aria-label', 'Machine settings note');
  function key(){ return _logKey(c); } function paint(){ i.value = notes[key()] || ''; i.classList.toggle('has', !!i.value); }
  i.addEventListener('change', function(){ var v = i.value.trim(); if (v) notes[key()] = v; else delete notes[key()]; try { store.set('bp-seat', JSON.stringify(notes)); } catch(e){} paint(); });
  i._paint = paint; paint(); bd.insertAdjacentElement('afterend', i); }); })();
