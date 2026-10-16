@@ -1888,10 +1888,10 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <!-- NAV -->
 <nav id="topnav">
  <a href="#top">Today</a>
- <a href="#d6" style="color:var(--o)" id="n-d6">Mon</a>
  <a href="#d5" style="color:var(--g)" id="n-d5">Day 1</a>
  <a href="#d1" style="color:var(--r)" id="n-d1">Day 2</a>
  <a href="#d3" style="color:var(--gld)" id="n-d3">Day 3</a>
+ <a href="#d6" style="color:var(--o)" id="n-d6">Extra</a>
  <a href="#d4" style="color:var(--p)" id="n-d4">Play</a>
  <a href="#variety" style="color:var(--g)">Skills</a>
  <a href="#daily">Daily</a>
@@ -2967,7 +2967,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="day-info">
  <div class="day-eye" style="color:var(--o)">// Skill + engine · optional</div>
  <div class="day-title">SKILL + ENGINE</div>
- <div class="day-focus">≈ 45 min · optional · no legs after the hike, light on the shoulders</div>
+ <div class="day-focus">≈ 45 min · optional · no legs, light on the shoulders</div>
  </div>
 </div>
 <div class="exlist">
@@ -3400,7 +3400,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.3';
+var APP_V = '2026-10-15.4';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
