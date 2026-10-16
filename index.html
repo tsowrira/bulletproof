@@ -496,10 +496,6 @@ nav a.active{border-bottom-width:3px;font-weight:700}
  display:inline-flex;
  align-items:flex-start;
  gap:7px;
- background:rgba(31,224,255,.08);
- border:1px solid rgba(31,224,255,.22);
- border-radius:var(--rad);
- padding:6px 10px;
  margin-bottom:10px;
 }
 .band-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1.5px solid rgba(234,240,255,.20)}
@@ -526,11 +522,6 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 /* caveat box (risk-flagged exercises) */
 .caveat{
  margin:8px 0;
- background:rgba(255,210,58,.08);
- border:1px solid rgba(255,210,58,.30);
- border-left:3px solid var(--gld);
- padding:10px 13px;
- border-radius:0 var(--rad) var(--rad) 0;
 }
 .caveat-t{
  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
@@ -541,8 +532,6 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .caveat strong{color:var(--gld);font-weight:600}
 .caveat .rule-in{margin-top:6px;font-size:12.5px;color:var(--dim);line-height:1.5}
 .caveat.cmp .caveat-t{margin:-10px 0;padding:14px 0;cursor:pointer;display:flex;justify-content:space-between;min-height:44px;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}
-.caveat.cmp .caveat-t::after{content:'tap for more';font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--fade);font-weight:500}
-.caveat.cmp.open .caveat-t::after{content:'hide'}
 .caveat.cmp:not(.open) p{display:none}
 .caveat.cmp.open .caveat-t{margin-bottom:-4px}
 
@@ -552,11 +541,7 @@ nav a.active{border-bottom-width:3px;font-weight:700}
 .clbl{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:4px;font-weight:600}
 .cue{
  font-size:14px;color:#ffb3da;
- padding:10px 13px;
- border-left:3px solid var(--r);
- background:rgba(255,46,136,.10);
  line-height:1.5;
- border-radius:0 var(--rad) var(--rad) 0;
  font-weight:500;
 }
 
@@ -804,7 +789,7 @@ body.gym .howfold{display:none}
  color:var(--dim);
  font-weight:600;
  padding:6px 10px;
- border-radius:4px;
+ border-radius:100px;
  min-height:48px;
  min-width:72px;
  display:inline-flex;align-items:center;justify-content:center;
@@ -1198,17 +1183,15 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .sets{flex-basis:100%;text-align:left;font-size:16px;text-wrap:pretty}
 .rest-lbl{min-height:40px;min-width:0;padding:0 12px;border-radius:100px;font-size:12.5px}
 .rest-lbl.running{animation:none;font-size:14px}
-.tempo{font-size:12px;font-weight:600;padding:0 10px;min-height:28px;display:inline-flex;align-items:center}
+.tempo{font-size:12px;font-weight:600;padding:0 10px;min-height:44px;display:inline-flex;align-items:center}
 .exname{font-size:19px;margin-bottom:4px}
-.caveat{background:none;border:0;padding:0;margin:6px 0 10px;border-radius:0}
+.caveat{margin:6px 0 8px}
 .caveat-t{font-size:12px;margin-bottom:3px}
 .caveat p{font-size:13px;color:var(--fade);line-height:1.5}
-.band-badge{background:none;border:0;padding:0;margin-bottom:10px;gap:8px}
+.band-badge{margin-bottom:8px;gap:8px}
 .band-txt{color:var(--dim);font-size:13px;font-weight:400}
 .band-dot{margin-top:4px;width:8px;height:8px}
-.cue{font-size:15px;line-height:1.45;background:none;padding:0;border:0;border-radius:0;margin:8px 0}
-.caveat{margin:6px 0 8px}
-.band-badge{margin-bottom:8px}
+.cue{font-size:15px;line-height:1.45;margin:8px 0}
 .excard{padding:15px 18px 13px}
 .exlog{margin-top:9px}
 .howfold{margin:0 0 4px}
@@ -2158,7 +2141,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="cue">Push out from the side of the hips. Pelvis still.</div>
 <div class="feel"><b>Feel it</b>Outer hip, just behind the hip bone (side glutes). Not the front of the hip, not the outer thigh near the knee.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
-<div class="setup"><strong>1.</strong> Sit tall, hips back. Press out in 2, short of your widest; pause 1. <strong>2.</strong> Return in 2; the stack never rests. <strong>3.</strong> Set 2: drop to half the pin, one leg at a time, right first. <strong>4.</strong> One leg, how: lift the left leg out of its pad and rest that foot on the frame or floor, out of the way. The right leg pushes out alone, all clean reps, then switch. If the empty pad swings into you, leave that leg in its pad but completely relaxed.</div>
+<div class="setup"><strong>1.</strong> Sit tall, hips back. Press out in 2, short of your widest; pause 1. <strong>2.</strong> Return in 2; the stack never rests. <strong>3.</strong> Set 2: drop to half the pin, one leg at a time, right first. <strong>4.</strong> One leg, how: lift the left leg out of its pad and rest that foot on the frame or floor, out of the way. The right leg pushes out alone, all clean reps, then switch. If the empty pad swings into you, leave that leg in its pad but completely relaxed. Log the lower of the two legs.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>S1: 12 · S2: half the pin, one leg at a time (other leg out of its pad), all clean reps, right leg first</span></div>
@@ -2237,7 +2220,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="cue">Hips glued down — heels to glutes, slow down.</div>
 <div class="feel"><b>Feel it</b>Back of the thigh, from behind the knee up to the glute. A cramping calf means the toes are pulled up too hard; let the feet relax.</div>
 <div class="feet">Flexed: toes pulled toward your shins, every rep, every session. Pointed toes make it harder and your numbers stop matching, so pick flexed and keep it.</div>
-<div class="setup"><strong>1.</strong> Lie face down, hips flat, hold the grips. <strong>2.</strong> Curl heels to glutes in 2, squeeze 1; lower in 3 to ~15° short of straight. <strong>3.</strong> Set 2: ⅓ the weight, one leg at a time, right first.</div>
+<div class="setup"><strong>1.</strong> Lie face down, hips flat, hold the grips. <strong>2.</strong> Curl heels to glutes in 2, squeeze 1; lower in 3 to ~15° short of straight. <strong>3.</strong> Set 2: ⅓ the weight, one leg at a time, right first. Log the lower of the two legs.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>S1: 12 both legs · S2: one leg at a time at about a third of the weight</span></div>
@@ -2254,7 +2237,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="extop">
  <div class="ex-left"><div class="ssn">E1</div><div class="exname">Bayesian Curl — Behind-Body Stretch</div>
  <div class="start-l"><span>Right side first · left matches its reps</span></div></div>
- <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">curl 2 · lower 3 · stretch 1</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 each · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">curl 2 · squeeze 1 · lower 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Low pulley, single handle. Face away, split stance, arm just behind you.</span></div>
@@ -2314,7 +2297,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="extop">
  <div class="ex-left"><div class="ssn">F2</div><div class="exname">Single-Leg Calf Raise — Off a Step</div>
  <div class="start-l"><span>Right side first · left matches its reps</span></div></div>
- <div class="exmeta"><div class="sets">S1: 12 each · S2: stop 1 short</div><div class="rest-lbl">45s rest</div><div class="tempo">lower 3 · stretch 1 · rise 2</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 each · S2: stop 1 short</div><div class="rest-lbl">45s rest</div><div class="tempo">rise 2 · hold 1 · lower 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Step edge by a rail, ball of one foot on, heel free.</span></div>
@@ -2349,7 +2332,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths, 45s between. Elbows bent 90°, shoulders down, no swinging. One length = across and back is two. Step down at the end."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. One rep = both hands have moved one hand-width sideways, never crossing, no swing. Feet down between rounds."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. One rep = pull your head up to one side of the bar, lower 3 counts. Switch sides next rep. Shoulders down, no kip."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. One pull = one hand reaches up and pulls the rope down past your chest. Feet stay down, slow release."]]'>
+<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths. Across is one, back is two; rest 45s between. Elbows bent 90°, shoulders down, no swinging. Step down at the end."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. One rep = both hands have moved one hand-width sideways, never crossing, no swing. Feet down between rounds."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. One rep = pull your head up to one side of the bar, lower 3 counts. Switch sides next rep. Shoulders down, no kip."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. One pull = one hand reaches up and pulls the rope down past your chest. Feet stay down, slow release."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2379,7 +2362,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 
 <div class="callout warn">
  <div class="callout-t"><i class="ic ic-warn" aria-hidden="true"></i> Wall Only</div>
- <p>The wall is the catch for every hold. Free kick-ups: clear floor, exit by cartwheeling down sideways. Step down one foot at a time, no backbend exits.</p>
+ <p>The wall is the catch for every hold. Free kick-ups: clear floor, come down by turning a hand out and stepping down sideways, one foot at a time. No backbend exits.</p>
 </div>
 
 <div class="wu" data-wu="1">
@@ -2400,7 +2383,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Wrist Prep — Standing<span>60s</span></div><div class="dr-w">Wall, palms flat at shoulder height, a step back.</div><div class="dr-d">Rock the shoulders past the fingertips and back × 10, elbows soft. Then 15 pulses: palm heels lift, fingertips stay down.</div></div>
- <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries · hold what you get</span></div><div class="dr-w">Open floor, a body-length clear all round, no wall.</div><div class="dr-d">Kick up with a straight leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, cartwheel down.</div></div>
+ <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries · hold what you get</span></div><div class="dr-w">Open floor, a body-length clear all round, no wall.</div><div class="dr-d">Kick up with a straight leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, step down sideways.</div></div>
  <div class="drill"><div class="dr-h"><b>3</b>Chest-to-Wall Line + Shoulder Taps<span>2 × 20s + 3 taps each</span></div><div class="dr-w">Wall. From push-up position, walk the feet up until your chest is a hand from the wall.</div><div class="dr-d">Belly to the wall, ribs in, push tall. Hold 20s, then tap each shoulder 3×, hips square. Walk down one foot at a time.</div></div>
 </div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> The ladder</button>
@@ -2546,7 +2529,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d2e3" data-ss="D" data-opt="1" data-alt-tempo="push 2 · squeeze 1 · return 3" data-alt-name="Rope Pushdown" data-alt-where="Top pulley, rope. Face the stack one step back, slight forward lean." data-alt-cue="Elbows pinned to the ribs; never lock out." data-alt-how="1. Elbows pinned to the ribs, forearms just above level. 2. Press down and apart, stop just short of locked; squeeze 1. 3. Return 3 counts. Elbows drift or torso pumps: set over." data-alt-caveat="" data-alt-prog="Now: Your working weight — S1: 12 · S2: AMRAP, no lockout | 15 clean: One pin up next time, rebuild from ~10">
 <div class="extop">
  <div class="ex-left"><div class="ssn">D1</div><div class="exname">Overhead Rope Extension — Ribs Down</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">press 2 · return 3 · stretch 1</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">press 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Pulley at head height, rope. Face away, one step out, split stance.</span></div>
@@ -2660,7 +2643,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 holds of 10s. From push-up position, shoulders past the wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 holds of 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. One rep = shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up. Switch sides next rep."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past the wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. One rep = shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up. Switch sides next rep."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2791,7 +2774,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>5 lb, 2 × 10</span></div>
  <div class="prog-step"><span class="pn">Earn it</span><span>A clean week or two + a quiet next morning → smallest dumbbell jump</span></div>
- <div class="prog-step"><span class="pn">Aim</span><span>35 lb for 2 × 8, then two dumbbells</span></div>
+ <div class="prog-step"><span class="pn">Aim</span><span>35 lb, still 2 × 10, then two dumbbells</span></div>
 </div></div>
 </div>
 
@@ -2885,7 +2868,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="feel"><b>Feel it</b>Front of the thighs on the push; the backward walk hits just above the knees. Knee pain means cut the time.</div>
 <div class="feet">Short steps on the balls of the feet, heels kissing the belt. Toes straight ahead.</div>
 <div class="rule"><i class="ic ic-warn" aria-hidden="true"></i> <strong>Clip the safety key to your shirt before you turn around.</strong> Start the backward walk at 1 mph with both hands on the rails and only speed up once it is boring. Never step on or off a moving belt.</div>
-<div class="setup"><strong>1.</strong> Belt OFF, key clipped. Hands on the rails, lean in and push the dead belt backward with your legs for 30s, then rest 30s. Four rounds. This is the sled work itself, not a warm-up. <strong>2.</strong> Belt ON, 10% incline, 1–1.5 mph. Turn around, both hands on the rails, walk backward 6 min with short steps. <strong>3.</strong> Log set 1 as the push seconds in total (120 if you did all four rounds) and set 2 as the walk; the Time it button counts for you. Knee complains on the push: cut the time.</div>
+<div class="setup"><strong>1.</strong> Belt OFF, key clipped. Hands on the rails, lean in and push the dead belt backward with your legs for 30s, then rest 30s. Four rounds. This is the sled work itself, not a warm-up. <strong>2.</strong> Belt ON, 10% incline, 1–1.5 mph. Turn around, both hands on the rails, walk backward 6 min with short steps. <strong>3.</strong> Log set 1 as the push seconds in total (120 if you did all four rounds) and set 2 as the walk in seconds (360 for the 6 min); the Time it button counts for you. Knee complains on the push: cut the time.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>4 × 30s dead-belt push · then 6 min backward at 10% incline</span></div>
@@ -2900,7 +2883,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d3-inccurl" data-ss="E" data-x="1" data-alt-name="Reverse-Incline Bench Cable Curl" data-alt-where="Bottom pulley, rope. Chest on a low incline bench, arms hanging toward the pulley." data-alt-cue="Chest on the pad, elbows still." data-alt-sets="S1: 12 · S2: AMRAP" data-alt-how="1. Chest on the pad, arms long, elbows soft. 2. Curl 2 counts, squeeze 1. 3. Lower 3 to a soft elbow. Chest leaves the pad: set over." data-alt-caveat="Never a dead straight arm at the bottom — the elbow keeps a bend." data-alt-prog="Now: Lightest useful pin — S1: 12 · S2: AMRAP, 3s lowering | 15 clean: One pin up next time">
 <div class="extop">
  <div class="ex-left"><div class="ssn">E1</div><div class="exname">Incline Dumbbell Curl — Soft Elbow</div></div>
- <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">curl 2 · lower 3 · stretch 1</div></div>
+ <div class="exmeta"><div class="sets">S1: 10 · S2: AMRAP</div><div class="rest-lbl">45s rest</div><div class="tempo">curl 2 · squeeze 1 · lower 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">Soft Elbow at the Stretch</div><p><strong>Never a dead-straight arm at the bottom.</strong> Bench no flatter than 45°.</p></div>
@@ -2919,7 +2902,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d3e-scalf" data-ss="E" data-x="1">
 <div class="extop">
  <div class="ex-left"><div class="ssn">E2</div><div class="exname">Seated Calf Raise — Bent Knee</div></div>
- <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">lower 2 · stretch 1 · rise 2</div></div>
+ <div class="exmeta"><div class="sets">S1: 12 · S2: stop 2 short</div><div class="rest-lbl">45s rest</div><div class="tempo">rise 2 · squeeze 1 · lower 2</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Seated calf: balls of the feet on the edge, pad snug on the lower thighs.</span></div>
@@ -3028,7 +3011,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="cue">Short and crisp — practice, not a workout.</div>
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Wrist Rocks on the Wall<span>60s</span></div><div class="dr-w">Bare wall, palms flat at shoulder height.</div><div class="dr-d">Lean in, rock the shoulders past the fingertips and back × 10. Slow, elbows soft.</div></div>
- <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries</span></div><div class="dr-w">Open floor, a clear body-length all round.</div><div class="dr-d">Straight lead leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, cartwheel down.</div></div>
+ <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries</span></div><div class="dr-w">Open floor, a clear body-length all round.</div><div class="dr-d">Straight lead leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, step down sideways.</div></div>
  <div class="drill"><div class="dr-h"><b>3</b>Shape Play — Tuck or Straddle<span>4 tries</span></div><div class="dr-w">Same floor, a wall a step behind as a catch.</div><div class="dr-d">Kick up, balance, then tuck or straddle for a breath. Ribs in. Wobbles or back arches: come down.</div></div>
 </div>
 </div>
@@ -3054,7 +3037,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Hands on a flat bench under the shoulders, feet wide, body straight.</span></div>
 <div class="cue">Hips still and level — slow taps.</div>
 <div class="feel"><b>Feel it</b>Shoulders and the trunk holding still. Not the low back.</div>
-<div class="setup"><strong>1.</strong> High plank on the bench: ribs down, glutes on, feet wide. <strong>2.</strong> Tap the opposite shoulder in 2 counts; alternate, 6 each. <strong>3.</strong> Hips rock or sag: set over. Harder: feet closer.</div>
+<div class="setup"><strong>1.</strong> High plank on the bench: ribs down, glutes on, feet wide. <strong>2.</strong> Tap the opposite shoulder in 1, hold it 2, place the hand back in 1; alternate, 6 each. <strong>3.</strong> Hips rock or sag: set over. Harder: feet closer.</div>
 </div>
 
 <div class="excard" data-id="d6-spin" data-unit="min" data-solo="1">
@@ -3148,7 +3131,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <p style="margin:0 0 8px"><strong>Front lever:</strong> shoulder-blade pulls, shoulders packed (you're here). <em><strong>Tuck hold: not yet</strong> — the low back has to own a long hang first.</em></p>
 <p style="margin:0 0 8px"><strong>Pull variations:</strong> chin-up → wide-grip → close/commando → mixed-grip → around-the-worlds. <em><strong>L-sit pull-up: not yet</strong> — it squeezes the low back.</em></p>
 <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gld);margin:16px 0 7px">Push &amp; balance · Push + Glutes + skill day</div>
-<p style="margin:0 0 8px"><strong>Handstand:</strong> back-to-wall hold → chest-to-wall hold 3 × 30s → toe-pull floats (toes drift off the wall, 5 × 3–5s) → chest-to-wall shoulder taps → pike hold at the wall → kick-ups to free balance → 10s → 20s → shapes (tuck, straddle, stag). <em>Cartwheel out sideways to come down; active shoulders, never locked joints.</em></p>
+<p style="margin:0 0 8px"><strong>Handstand:</strong> back-to-wall hold → chest-to-wall hold 3 × 30s → toe-pull floats (toes drift off the wall, 5 × 3–5s) → chest-to-wall shoulder taps → pike hold at the wall → kick-ups to free balance → 10s → 20s → shapes (tuck, straddle, stag). <em>Turn a hand out and step down sideways to come down; active shoulders, never locked joints.</em></p>
 <p style="margin:0 0 8px"><strong>Handstand push-up:</strong> pike push-up → feet-elevated pike → 30s chest-to-wall hold → wall lowering (5s down) → partial → full wall handstand push-up. <em>Wall only. Cap the depth — never sink into the shoulder.</em></p>
 <p style="margin:0 0 8px"><strong>Press to handstand:</strong> seated pike-compression lifts → wall tuck-ups → straddle-press lowering from the wall handstand → straddle press. <em>Straight arms, ribs in.</em></p>
 <p style="margin:0 0 8px"><strong>Planche line:</strong> frog stand 30s → crow / straight-arm frog → planche lean (soft elbow, shoulders past wrists) → tuck planche. <em>Stay low, safe to bail. <strong>Past tuck planche: not yet</strong> — too much straight-arm load on elbows and shoulders.</em></p>
@@ -3447,7 +3430,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.9';
+var APP_V = '2026-10-15.10';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3716,7 +3699,9 @@ window.toggleDone = function(btn){
  const wasDone = card && card.classList.contains('done');
  const _r0 = card && card.querySelector('.rest-lbl');
  var _k = card ? +card.dataset.sn || 0 : 0;
+ if (card && !wasDone && card._swStop) card._swStop();   // a running stopwatch logs its real seconds, not the preloaded target
  if (card && !wasDone && _k + 1 < _nSets(card)){   // one tap per set: logs that set's numbers, rest starts, the circle shows the next set
+ if (typeof _pacer !== 'undefined' && _pacer && _pacer.card === card) stopPacer();   // the pacer must not count on through the rest
  card.dataset.sn = String(_k + 1); if (card._logSet) card._logSet();
  card.dataset.r1 = card.dataset.r1 || String(Date.now()); _saveR1(); _paintChk(card);
  var _sec0 = card.closest('.section'); if (_sec0) sessTick(_sec0.id);
@@ -4530,6 +4515,7 @@ function _paintLow(){
 }
 // Low battery rewrites the dose chips (a sibling chip, so Block swaps and the log never see it) and the time line
 function _lowDose(t){
+ if (/S2:[^·]*\bmin\b/.test(t)) return '';   // a timed walk has no reps to stop short of
  if (/^2 × /.test(t)) return t.replace(/^2 × /, '1 × ').replace(' · fixed', '') + ' · round 1 only';
  if (/\d+s × \d+ holds/.test(t)) return t;
  if (/S2:/.test(t)) return t.replace(/S2:.*$/, 'S2: stop 3 short').replace(/^S1: stop \d short/, 'S1: stop 3 short');
@@ -4540,7 +4526,7 @@ function _lowDose(t){
 var ISO_SLOT = { cuff:1, sdelt:1, bi:1, tri:1, latiso:1, quad:1 };
 function _engDoseOn(){ var p = readPlan(); return (_easyWk() || _retOn()) && !(p && p.full); }
 function _engDose(card, t){
- var easy = _easyWk(); if (typeof SLOT === 'undefined' || typeof PRIORITY_SLOT === 'undefined' || !/S2:/.test(t) || /fixed/i.test(t)) return '';
+ var easy = _easyWk(); if (typeof SLOT === 'undefined' || typeof PRIORITY_SLOT === 'undefined' || !/S2:/.test(t) || /fixed/i.test(t) || /S2:[^·]*\bmin\b/.test(t)) return '';
  if (easy && ISO_SLOT[SLOT[card.dataset.id]] && !NO_UP[card.dataset.id] && !PRIORITY_SLOT[SLOT[card.dataset.id]]){ var m = t.match(/S1:\s*([^·]+?)\s*(?:·|$)/); return m ? '1 × ' + m[1].trim() + ' · set 1 only' : ''; }
  return t.replace(/S2:.*$/, 'S2: stop ' + (easy ? 3 : 2) + ' short');
 }
@@ -4623,7 +4609,7 @@ function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every
 
 // One song is the whole warmup: ~90s to raise, then a named ~2 min flow. Standing or on equipment only, nothing on the floor.
 var WU_FLOWS = {
- bar:{ n:'Bar Tour', m:['Hang from the bar for 10s, shoulders pulled down away from your ears. Twice.','Still hanging, arms straight: pull your shoulders down, then let them rise. 8 slow reps.','Standing: 8 slow shoulder rolls backward, 8 forward.','Shake your arms out.'] },
+ bar:{ n:'Bar Tour', m:['Hang from the bar for 10s, shoulders pulled down away from your ears. Twice.','Still hanging, arms straight: pull your shoulders down, then let them rise. 8 slow reps.','Standing: 8 slow shoulder rolls backward, 8 forward.','Let your arms hang loose by your sides and breathe slowly for 10s.'] },
  cab:{ n:'Cable Shoulders', m:['Lightest weight, low cable, one handle. Raise your straight arm in front of you up to eye level, thumb up, then lower slowly. 8 each arm.','Cable at elbow height, stand side-on. Elbow tucked at your side, bent 90°. Turn your forearm out away from your belly, then back. 8 each arm.','No cable: arms straight out to the sides. Squeeze your shoulder blades together and hold 2s. 8 reps.'] },
  wall:{ n:'Wall Tour', m:['Forearms on the wall. Slide them up overhead and back down, slowly. 10 reps.','Push-ups against the wall. At the top, push one extra inch so your upper back rounds. 10 reps.','One hand on the wall. Turn your chest away from the wall and back, hips still. 6 each side.'] },
  swing:{ n:'Rail Set', m:['Hand on a rail. Lift one knee to hip height, pause, lower slowly. 8 each leg.','Hand on a rail. Lift your straight leg out to the side a little, pause, lower slowly. 8 each leg.','Sit down to a bench slowly over 3s, then stand. Knees point where your toes point. 5 reps.','Rise up onto your toes, pause, lower slowly. 10 reps.'] },
@@ -5106,11 +5092,15 @@ function buildJots(){
  // timed sets: a stopwatch that writes the seconds into the box when you stop it
  var swb = row.querySelector('.swb');
  if (swb){ var sw0 = 0, swT = 0;
+  var swStop = function(quiet){ if (!sw0) return; clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0; v.r = sec;
+   var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; swb.textContent = 'Time it'; swb.classList.remove('run'); paintFirst();
+   if (!quiet){ commit(); _toast(sec + 's in the box — tick the circle to log it'); } };
+  card._swStop = function(){ swStop(true); };
   swb.addEventListener('click', function(){
-   if (sw0){ clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0; v.r = sec;
-    var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; swb.textContent = 'Time it'; swb.classList.remove('run'); paintFirst(); commit(); _toast(sec + 's in the box — tick the circle to log it'); return; }
+   if (sw0){ swStop(); return; }
    sw0 = Date.now(); swb.classList.add('run'); swb.textContent = '0:00 · stop'; requestWakeLock();
-   swT = setInterval(function(){ var e = Math.round((Date.now() - sw0) / 1000); swb.textContent = Math.floor(e / 60) + ':' + ('0' + e % 60).slice(-2) + ' · stop'; }, 250); }); }
+   swT = setInterval(function(){ if (!swb.isConnected){ clearInterval(swT); sw0 = 0; return; } var e = Math.round((Date.now() - sw0) / 1000); swb.textContent = Math.floor(e / 60) + ':' + ('0' + e % 60).slice(-2) + ' · stop'; }, 250); }); }
+ else card._swStop = null;
  // one note box, no length cap: mid-lift it notes the set you're on (saved as "S2: …"), after the last set it notes the lift
  var lastN = (p.filter(function(e){ return e.n; }).pop() || {}).n;
  if (mine && mine.n) v.n = mine.n;
@@ -5646,11 +5636,11 @@ function _paceRep(at){
 }
 // (re)start the current rep after a count-in, so you can get set first
 function _paceGo(lead){
- var p = _pacer; _paceHush(); p.paused = false; p.t0 = _ac.currentTime + 0.15 + lead;
+ var p = _pacer; _paceHush(); p.paused = false; p.key = ''; p.t0 = _ac.currentTime + 0.15 + lead;
  for (var i = 0; i < lead; i++) _paceTone(p.t0 - lead + i, 392, 392, .09, .3);
  _paceRep(p.t0); p.t.el.classList.remove('wait'); p.t.el.setAttribute('aria-label', 'Pacing · tap to pause');
 }
-function _pacePause(){ var p = _pacer; _paceHush(); p.paused = true; p.t.el.classList.add('wait'); if (p.num) p.num.textContent = 'paused · tap to go on'; p.t.el.setAttribute('aria-label', 'Paused · tap to go on'); _paceBarPaint('paused', 'tap to go on', true); }
+function _pacePause(){ var p = _pacer; _paceHush(); p.paused = true; p.key = ''; p.t.el.classList.add('wait'); if (p.num) p.num.textContent = 'paused · tap to go on'; p.t.el.setAttribute('aria-label', 'Paused · tap to go on'); _paceBarPaint('paused', 'tap to go on', true); }
 // the same count, floating above the tab bar whenever the chip has scrolled away (eyes on the how-to, not the chip)
 function _paceBar(){ var b = document.getElementById('paceBar'); if (b) return b;
  b = document.createElement('div'); b.id = 'paceBar'; b.hidden = true; b.setAttribute('role', 'status');
@@ -5658,7 +5648,7 @@ function _paceBar(){ var b = document.getElementById('paceBar'); if (b) return b
  b.addEventListener('click', function(ev){ if (!_pacer) return; if (ev.target.closest('.pb-x')) stopPacer(); else startPacer(_pacer.card); });
  document.body.appendChild(b); return b; }
 function _paceBarPaint(t, n, wait){ var p = _pacer; if (!p) return; var b = _paceBar(), r = p.t.el.getBoundingClientRect(), off = r.bottom < 110 || r.top > innerHeight - 120;
- b.hidden = !off; if (off){ b.querySelector('.pb-t').textContent = t; b.querySelector('.pb-n').textContent = n; b.classList.toggle('wait', !!wait); } }
+ if (off){ var pt = b.firstChild, pn = pt.nextSibling; if (pt.textContent !== t) pt.textContent = t; if (pn.textContent !== n) pn.textContent = n; b.classList.toggle('wait', !!wait); } b.hidden = !off; }
 // eyes off the phone: a count-in, then every phase sounds as it starts and the chip counts the seconds down.
 // Tap to pause between reps (it counts you back in); the square stops it. A pure hold runs once; a rep runs 15 times.
 function startPacer(card){
@@ -5680,11 +5670,13 @@ function startPacer(card){
   var e = _ac.currentTime - p.t0;   // seconds into this rep; negative while counting in
   if (e >= p.cyc + (p.one ? 0.4 : 0)){ p.rep++; if (p.rep >= p.reps){ stopPacer(); return; } p.t0 += p.cyc; _paceRep(p.t0); e -= p.cyc; }
   var ph = -1; if (e >= 0) for (var z = 0; z < p.edges.length; z++) if (e < p.edges[z]){ ph = z; break; }
-  p.phs.forEach(function(sp, i){ var x = p.t.seq[i]; sp.classList.toggle('on', i === ph);
-   sp.textContent = x.w + ' ' + (x.fast ? 'fast' : (i === ph ? Math.max(1, Math.ceil(p.edges[i] - e)) : x.s) + 's'); });
-  var numT = e < 0 ? 'get set · ' + Math.ceil(-e) : p.one ? '' : 'rep ' + (p.rep + 1);
-  if (p.num) p.num.textContent = numT;
-  _paceBarPaint(ph >= 0 ? p.t.seq[ph].w + ' ' + (p.t.seq[ph].fast ? '' : Math.max(1, Math.ceil(p.edges[ph] - e)) + 's') : e < 0 ? 'get set' : '', numT, false);
+  var cd = ph >= 0 ? Math.max(1, Math.ceil(p.edges[ph] - e)) : Math.ceil(-e), key = ph + '|' + cd + '|' + p.rep;
+  var numT = e < 0 ? 'get set · ' + cd : p.one ? '' : 'rep ' + (p.rep + 1);
+  if (key !== p.key){ p.key = key;   // the readout changes once a second; the other frames leave the DOM alone
+   p.phs.forEach(function(sp, i){ var x = p.t.seq[i]; sp.classList.toggle('on', i === ph);
+    sp.textContent = x.w + ' ' + (x.fast ? 'fast' : (i === ph ? cd : x.s) + 's'); });
+   if (p.num) p.num.textContent = numT; }
+  _paceBarPaint(ph >= 0 ? p.t.seq[ph].w + ' ' + (p.t.seq[ph].fast ? '' : cd + 's') : e < 0 ? 'get set' : '', numT, false);
  })();
  try { if (!store.get('bp-pace-tip2')){ store.set('bp-pace-tip2', '1'); _toast('Counts you in first. Tap to pause, tap to go on; the square stops it.'); } } catch(e){}
 }
@@ -5850,7 +5842,6 @@ streamlineCards(); addFormLinks();
  var h = readHist(); Object.keys(h).forEach(function(k){ h[k] = _asArr(h[k]).filter(function(e){ return e && e.d >= F; }); if (!h[k].length) delete h[k]; }); writeHist(h); })();
 buildJots(); applyAdds();
 // solo two-set lifts get the same ½ → ✓ taps as the pairs
-document.querySelectorAll('.excard[data-solo]:not(.wild)').forEach(function(c){ if (!c.querySelector('.drills') && /^(S1:|2 )/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1'; });
 
 // the drills are the block — they go right under its warning, before the setup text
 document.querySelectorAll('.excard > .drills').forEach(function(list){ var card = list.parentNode, anchor = card.querySelector(':scope > .caveat') || card.querySelector(':scope > .extop');
@@ -6080,7 +6071,7 @@ function planDay(dayId, budget, bring){
  groups.filter(function(g){ return g.r <= 1; }).forEach(function(g){ if (keep.length + g.c.length <= room) take(g); });
  // rescue, in this order: lifts left undone in a session you started this week, then the key lifts of a
  // day that went missing — the same half first, the other half only once its scheduled day has passed
- var wk = readCompletedWeek(), rescue = [], src = {}, carry = {}, late = {}, mon = _weekStart(), dow = _dow(), t0 = _today(), ever = daysSinceTrained() !== null && daysSinceTrained() < 8;   // back after a gap: ease in, no make-up work
+ var wk = readCompletedWeek(), rescue = [], src = {}, carry = {}, late = {}, mon = _weekStart(), dow = _dow() || 7, t0 = _today(), ever = daysSinceTrained() !== null && daysSinceTrained() < 8;   // back after a gap: ease in, no make-up work
  var got = _loggedSince(mon), have = {};
  keep.forEach(function(c){ have[SLOT[c.dataset.id]] = 1; });
  var isKey = function(o, id){ return PRIORITY_SLOT[SLOT[id]] || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; }); };
@@ -6091,7 +6082,7 @@ function planDay(dayId, budget, bring){
  var SCHED = { d5:2, d1:3, d3:4 };   // the usual Tue · Wed · Thu
  // a reworked week names lifts to bring over: they go first, before anything the day finds on its own
  (bring || []).forEach(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'), hm = c && (c._home && c._home.parentNode ? c._home.parentNode : c), o = hm && hm.closest('.section'), sl = SLOT[id];
-  if (!c || !o || o.id === dayId || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && (have[sl] || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
+  if (!c || !o || o.id === dayId || c.dataset.added || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && (have[sl] || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
   rescue.push(id); src[id] = o.id; if (sl) have[sl] = 1; });
  var byPri = function(ids){ return ids.slice().sort(function(a, b){ return (PRIORITY_SLOT[SLOT[b]] ? 1 : 0) - (PRIORITY_SLOT[SLOT[a]] ? 1 : 0); }); };
  readSess().filter(function(x){ return x && x.day !== dayId && DAY_HALF[x.day] && x.d !== t0 && x.e >= mon && x.n >= 1 && Array.isArray(x.off); }).slice(-2).reverse().forEach(function(x){
@@ -6132,7 +6123,7 @@ function planExtra(budget){
  while (pick.length < room && (U.length || L.length)){ var q = pick.length % 2 ? L : U; pick.push((q.length ? q : q === L ? U : L).shift()); }
  var src = {}; pick.forEach(function(x){ src[x.id] = x.o; });
  return { v: APP_V, d: _today(), day: 'd6', mode: 'lift', from: '', src: src, carry: {}, late: {}, long: 0, extra: [], keep: [], rescue: pick.map(function(x){ return x.id; }), up: [],
-  min: Math.round(3 + pick.length * pace), budget: budget, easy: easy ? 1 : 0, lifts: pick.length };
+  min: pick.length ? Math.round(3 + pick.length * pace) : 0, budget: budget, easy: easy ? 1 : 0, lifts: pick.length };
 }
 function _extraOn(){ var p = readPlan(); return !!(p && p.day === 'd6' && p.mode === 'lift'); }
 function setExtra(on){
@@ -6146,7 +6137,7 @@ function _paintExtra(){
  var sec = document.getElementById('d6'); if (!sec) return;
  var on = _extraOn(), p = readPlan(), t = sec.querySelector('.day-title'), f = sec.querySelector('.day-focus'), row = sec.querySelector('.xrow.tseg:not(.xmode)');
  if (t){ if (t.dataset.full === undefined) t.dataset.full = t.textContent; t.textContent = on ? 'EXTRA LIFTS' : t.dataset.full; }
- if (f){ if (f.dataset.full === undefined) f.dataset.full = f.textContent; f.textContent = on ? '≈ ' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' · optional' : f.dataset.full; }
+ if (f){ if (f.dataset.full === undefined) f.dataset.full = f.textContent; f.textContent = on ? (p.lifts ? '≈ ' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' · optional' : 'Nothing to add today') : f.dataset.full; }
  if (row) row.hidden = !on;
  var dl = document.getElementById('sbDay'); if (dl && sec.classList.contains('cur') && dl.firstChild && dl.firstChild.nodeType === 3) dl.firstChild.nodeValue = (on ? 'Extra lifts' : DAY_NAME.d6) + ' ';
  sec.querySelectorAll('.xchip.xm').forEach(function(x){ var o = (x.dataset.x === 'lift') === on; x.classList.toggle('on', o); x.setAttribute('aria-pressed', o ? 'true' : 'false'); });
@@ -6207,10 +6198,9 @@ function applyPlan(p){
  // rescued lifts move into today for the day, then go home
  var list = sec.querySelector('.exlist'), anchor = list && list.querySelector('.excard.wild');
  p.rescue.concat(p.extra || []).forEach(function(id){
-  var c = document.querySelector('.excard[data-id="' + id + '"]'), xtra = (p.extra || []).indexOf(id) >= 0; if (!c || !list) return;
+  var c = document.querySelector('.excard[data-id="' + id + '"]'), xtra = (p.extra || []).indexOf(id) >= 0; if (!c || !list || c.dataset.added) return;
   var home = document.createComment('home'); c.parentNode.insertBefore(home, c); c._home = home;
   c.dataset.ss0 = c.dataset.ss || ''; delete c.dataset.ss; c.dataset.rescued = DAY_NAME[(p.src || {})[id] || p.from] || '';
-  if (/S1/.test((c.querySelector('.sets') || {}).textContent || '')) c.dataset.two = '1';
   var left = c.querySelector('.ex-left'); if (left && !left.querySelector('.rtag')){ var t = document.createElement('div'); t.className = 'rtag'; t.innerHTML = xtra ? '<i class="ic ic-hourglass" aria-hidden="true"></i> Extra time · to finish' : '<i class="ic ic-undo" aria-hidden="true"></i> ' + _esc(((p.carry || {})[id] ? 'Left from ' : 'from ') + c.dataset.rescued);
    if (!xtra && !(p.carry || {})[id]){ var rx = document.createElement('button'); rx.type = 'button'; rx.className = 'rt-x'; rx.textContent = '×'; rx.setAttribute('aria-label', 'Leave this lift out today');
     rx.addEventListener('click', function(ev){ ev.stopPropagation(); _dropBring(id); }); t.appendChild(rx); }
@@ -6250,7 +6240,7 @@ function writeAdds(a){ try { if (a.length) store.set('bp-add', JSON.stringify({ 
 function readCustom(){ try { var a = JSON.parse(store.get('bp-custom') || '[]'); return Array.isArray(a) ? a.filter(function(x){ return x && /^x-/.test(x.id) && x.name; }) : []; } catch(e){ return []; } }
 function _customName(id){ var x = readCustom().filter(function(c){ return c.id === id; })[0]; return x ? x.name : ''; }
 function _mkCustom(id, name){
- var c = document.createElement('div'); c.className = 'excard'; c.dataset.id = id; c.dataset.custom = '1'; c.dataset.solo = '1'; c.dataset.two = '1';
+ var c = document.createElement('div'); c.className = 'excard'; c.dataset.id = id; c.dataset.custom = '1'; c.dataset.solo = '1';
  c.innerHTML = '<div class="extop"><div class="ex-left"><div class="exname">' + _esc(name) + '</div></div><div class="exmeta"><div class="sets">S1: your call · S2: your call</div><div class="rest-lbl">60–90s rest</div></div><button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button></div>' +
   '<div class="cue">Your own lift: not in the program, so there are no cues here. Log each set as you do it, and put the setup, machine or how it felt in the note.</div>';
  TRACK_W[id] = 1; NO_UP[id] = 1;
@@ -6365,7 +6355,7 @@ function buildDay(dayId, force, budget){
  applyPlan(p); _afterPlan();
  var nc = Object.keys(p.carry || {}).length, nm = p.rescue.length - nc;
  var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' ≈ ' + p.min + ' min' + (nm ? ' · +' + nm + ' from another day' : '') + (nc ? ' · +' + nc + ' unfinished' : '') + (p.long ? ' · every drill, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') : '');
- if (p.mode === 'lift') _bm = 'Extra lifts: ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' ≈ ' + p.min + ' min';
+ if (p.mode === 'lift') _bm = p.lifts ? 'Extra lifts: ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' ≈ ' + p.min + ' min' : 'Nothing to add today';
  if (force || p.back || nc) setTimeout(function(){ _toast(_bm); }, 700);
  if (first) _blockPrompt();
 }
@@ -6681,7 +6671,7 @@ paintBests();
 document.querySelectorAll('.ssh').forEach(function(h){ var l = h.querySelector('b'); if (l && l.textContent.trim() === 'B') h.dataset.b = '1'; });
 paintTabs(); _paintSess(); if (typeof _paintPlanChips === 'function') _paintPlanChips(); if (typeof paintSkipTags === 'function') paintSkipTags();
 // the tab can sit open for days: repaint everything that depends on "today" when she comes back to it
-function refreshDay(){ _paintStart(); markToday(); paintWeek(); paintBests(); applyAdds(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
+function refreshDay(){ _paintStart(); markToday(); paintWeek(); paintBests(); if (!readPlan()) clearPlan(); applyAdds(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
  if (!document.body.classList.contains('focus')) autoStart(); }
 document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') refreshDay(); });
 window.addEventListener('pageshow', function(ev){ if (ev.persisted) refreshDay(); });
