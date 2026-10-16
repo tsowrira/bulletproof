@@ -955,6 +955,11 @@ body.gym .excard.wild .howfold .setup{display:block}
 .xchip.tm small{font-size:12px;letter-spacing:.1em}
 .xchip.tm.on{color:var(--day,var(--g));border-color:var(--day,var(--g));background:rgba(234,240,255,.05)}
 .xchip.tm.on b{color:var(--day,var(--g))}
+.tseg[hidden]{display:none!important}
+.tseg.xmode{grid-template-columns:1fr 1fr}
+#d6 .tseg:not(.xmode){grid-template-columns:repeat(3,1fr)}
+.xchip.xm{min-height:44px;letter-spacing:.04em;text-transform:none;font-size:14px;border-radius:12px;padding:0 8px}
+.xchip.xm.on{color:var(--day,var(--o));border-color:var(--day,var(--o));background:rgba(234,240,255,.05)}
 .tskip{margin-top:4px}.tskip .xchip.skip{border:0;background:none;padding:0 2px;min-height:40px;color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 .lowbar{display:none;margin:12px var(--pad) 0;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,210,58,.35);background:rgba(255,210,58,.07);color:var(--gld);font-size:13px;line-height:1.5}
 body.lowbat .lowbar{display:block}
@@ -2785,23 +2790,21 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard" data-micro="drop" data-id="d2-cabd" data-ss="C" data-opt="1">
+<div class="excard" data-id="d3-abdlean" data-ss="C" data-opt="1">
 <div class="extop">
- <div class="ex-left"><div class="ssn">C2</div><div class="exname">Cable Hip Abduction — Ankle Strap</div>
- <div class="start-l"><span>Right side first · left matches its reps</span></div></div>
- <div class="exmeta"><div class="sets">2 × 12 each · fixed</div><div class="rest-lbl">45s rest</div><div class="tempo">out 2 · hold 1 · return 2</div></div>
+ <div class="ex-left"><div class="ssn">C2</div><div class="exname">Hip Abductor Machine — Lean Forward</div></div>
+ <div class="exmeta"><div class="sets">2 × 15</div><div class="rest-lbl">45s rest</div><div class="tempo">open 2 · hold 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="caveat"><div class="caveat-t">New Here — Start Lightest</div><p>Lightest pin only. <strong>Stop short of your widest</strong>, every rep.</p></div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Lowest pulley, strap on the outside ankle. Stand side-on, hand on the frame.</span></div>
-<div class="cue">Heel leads, hips level — small and clean.</div>
-<div class="feet">Working foot flexed, toes pointing straight ahead, not up. Toes up turns it into a hip-flexor move. Standing foot flat.</div>
-<div class="setup"><strong>1.</strong> Stand a step out, cable taut, standing knee soft. <strong>2.</strong> Sweep the leg out ~30° in 2, heel leading; pause 1. <strong>3.</strong> Return in 2, stack never rests. Torso leans or hip hikes: set over.</div>
+<div class="caveat"><div class="caveat-t">Lean From the Hips</div><p>Flat back, chest forward over the thighs. <strong>Stop just short of your widest</strong> — never force it.</p></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Abductor machine. Lighter pin than Push + Glutes. Hands on the front of the seat or the handles.</span></div>
+<div class="cue">Lean forward, push out from the back of the hips.</div>
+<div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
+<div class="setup"><strong>1.</strong> Sit, pads on the outer thigh, then hinge forward from the hips with a flat back until the chest is over the thighs. <strong>2.</strong> Press out in 2, short of your widest; hold 1. <strong>3.</strong> Return in 3; the stack never rests. Back rounds or you rock to finish a rep: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Lightest pin, 2 × 12 each, fixed for the first week</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>After week one: set 2 becomes every clean rep, with a 2s hold at the top</span></div>
- <div class="prog-step"><span class="pn">15 clean</span><span>One pin up next time</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Light pin, 2 × 15, 1s hold at the widest clean point</span></div>
+ <div class="prog-step"><span class="pn">15 clean</span><span>Both sets clean with the hold → one pin up next time</span></div>
 </div></div>
 </div>
 
@@ -3407,7 +3410,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.6';
+var APP_V = '2026-10-15.7';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4470,6 +4473,14 @@ function buildDayChips(){
  var bar = document.createElement('div'); bar.className = 'lowbar'; bar.textContent = LOWTXT;
  var hdr = document.querySelector('#' + id + ' .day-hdr'); if (hdr) hdr.insertAdjacentElement('afterend', bar);
  });
+ var x6 = document.querySelector('#d6 .day-info');
+ if (x6 && !x6.querySelector('.xchip')){
+  var sg = document.createElement('div'); sg.className = 'xrow tseg xmode'; sg.setAttribute('role', 'group'); sg.setAttribute('aria-label', 'What today is');
+  [['skill', 'Skill + engine'], ['lift', 'Extra lifts']].forEach(function(o){ var x = document.createElement('button'); x.type = 'button'; x.className = 'xchip xm'; x.dataset.x = o[0]; x.textContent = o[1]; x.onclick = function(){ setExtra(o[0] === 'lift'); }; sg.appendChild(x); });
+  var tr = document.createElement('div'); tr.className = 'xrow tseg'; tr.setAttribute('role', 'group'); tr.setAttribute('aria-label', 'How long today'); tr.hidden = true;
+  [['20', 'Short'], ['45', 'Built'], ['60', 'More']].forEach(function(o){ var x = document.createElement('button'); x.type = 'button'; x.className = 'xchip tm'; x.dataset.m = o[0];
+   x.innerHTML = '<b>' + o[0] + '</b><small>min</small>'; x.setAttribute('aria-label', o[0] + ' minutes, ' + o[1].toLowerCase()); x.onclick = function(){ setMode('d6', o[0]); }; tr.appendChild(x); });
+  x6.appendChild(sg); x6.appendChild(tr); _paintExtra(); }
  _paintLow();
 }
 function _hidden(c){ return !!(c.dataset && c.dataset.off); }
@@ -4498,7 +4509,7 @@ function _engDose(card, t){
 }
 function _paintDose(){
  var st = _lowState(), eng = !st && _engDoseOn(); document.body.classList.toggle('engdose', !!_engDoseOn());
- DAY_ORDER.forEach(function(id){
+ DAY_ORDER.concat('d6').forEach(function(id){
  document.querySelectorAll('#' + id + ' .excard .exmeta > .sets:not(.lowdose):not(.longdose)').forEach(function(c){
  var card = c.closest('.excard'), t3 = c.textContent.trim(), lp = typeof readPlan === 'function' ? readPlan() : null, ls = c.parentNode.querySelector('.sets.longdose');
  var key3 = typeof NO_RESCUE === 'object' && card && lp && lp.long && lp.day === id && /S2:/.test(t3) && !/fixed/i.test(t3) && !NO_RESCUE[card.dataset.id] && LONG_S3[card.dataset.id] && !_easyWk();
@@ -4507,7 +4518,7 @@ function _paintDose(){
  if (!low){ if (sib) sib.remove(); c.classList.remove('haslow'); return; }
  if (!sib){ sib = document.createElement('div'); sib.className = 'sets lowdose'; c.insertAdjacentElement('afterend', sib); }
  sib.textContent = low; c.classList.add('haslow'); });
- var f = document.querySelector('#' + id + ' .day-focus'); if (!f) return;
+ var f = id === 'd6' ? null : document.querySelector('#' + id + ' .day-focus'); if (!f) return;
  if (f.dataset.full === undefined) f.dataset.full = f.textContent;
  var skill = (f.dataset.full.split(' · ')[0] || '');
  f.textContent = f.dataset.full;
@@ -4887,14 +4898,14 @@ var TRACK = { 'd1e1':5, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3
  'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
  'd5e-archer':0, 'd5e1':0, 'd2-balance':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
- 'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0, 'd1-tib':0, 'd2-tib':0, 'd6-crow':0, 'd6-plank':0, 'd6-spin':0, 'd1-adduct':70 };
+ 'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0, 'd1-tib':0, 'd2-tib':0, 'd6-crow':0, 'd6-plank':0, 'd6-spin':0, 'd1-adduct':70, 'd3-abdlean':50 };
 // Block-B alternates start from their own first weight (0 = bodyweight), not the Block-A lift's
 var TRACK_B = { 'd3-wrow':15, 'd2e-press':15, 'd1-latraise':10, 'd3-inccurl':15, 'd3-stcalf':90, 'd1e3':40, 'd1-pullover':20, 'd4b-legcurl':20, 'd3e3':25, 'd3e-abd':90, 'd4b1':90, 'd1e-pld':60 };
 // weight-only memory (no reps): "what pin did I use last time?" for every other loaded lift
-var TRACK_W = { 'd1e5':20, 'd5-erot':5, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15, 'd2e3':25, 'd2e2':7.5, 'd2-kick':30, 'd2-cabd':5, 'd3e-scalf':45, 'd1-hiphike':5, 'd3e7':10, 'd5-tripush':15 };
+var TRACK_W = { 'd1e5':20, 'd5-erot':5, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15, 'd2e3':25, 'd2e2':7.5, 'd2-kick':30, 'd3e-scalf':45, 'd1-hiphike':5, 'd3e7':10, 'd5-tripush':15 };
 function _firstW(card){ if (card.dataset.id in TRACK_W) return TRACK_W[card.dataset.id]; var id = card.dataset.id; return (card.dataset.blk === 'b' && id in TRACK_B) ? TRACK_B[id] : TRACK[id]; }
 // cards whose load the ladder decides by hand — the app never suggests going heavier
-var NO_UP = { 'd3-rdl':1, 'd3e3':1, 'd3e7':1, 'd2-cabd':1 };
+var NO_UP = { 'd3-rdl':1, 'd3e3':1, 'd3e7':1 };
 // today's line for one lift, from its last logs (today excluded). Up is offered, never applied;
 // a long gap or reps sliding preloads a lighter weight; everything else holds and names a rep to chase.
 function _sugg(p, o){
@@ -5930,7 +5941,7 @@ var SLOT = {
  d1e1:'vpull', 'd1e-dip':'dip', d1e3:'hpull', 'd2e-serr':'serratus', 'd1-pullover':'latiso', d1e5:'rdelt', 'd5-erot':'cuff', 'd1e-curl':'bi', 'd5-tripush':'tri',
  'd2e-press':'chest', 'd3-chin':'vpull', d2e1:'ohp', 'd3-sapd':'latuni', d2e3:'tri', 'd3e-stir':'corerot', d2e2:'sdelt', 'd3-wrow':'hpull', 'd3-inccurl':'bi', 'd3-stcalf':'calf',
  'd4b-legext':'quad', d3e7:'hamknee', 'd1-backext':'backext', 'd3e-abd':'gmed', 'd1-hiphike':'gmed', 'd1e-carry':'corelat', d2e6:'corerot', 'd4b-calf':'calf', 'd1-latraise':'sdelt',
- 'd3-rdl':'hamhip', 'd2-cabd':'gmed', d4b1:'glute', d3e3:'quad', 'd4b-legcurl':'hamknee', 'd3e-splank':'corelat', 'd2-kick':'glute', 'd2-sled':'cond', 'd3e-scalf':'calf'
+ 'd3-rdl':'hamhip', 'd3-abdlean':'gmed', d4b1:'glute', d3e3:'quad', 'd4b-legcurl':'hamknee', 'd3e-splank':'corelat', 'd2-kick':'glute', 'd2-sled':'cond', 'd3e-scalf':'calf'
 };
 var NO_RESCUE = { 'd3-rdl':1, d3e3:1 };   // spine-loaded, fixed-rep: they stay on their own day
 var PRIORITY_SLOT = { vpull:1, latuni:1, hpull:1, rdelt:1, gmed:1, corelat:1, calf:1, hamknee:1, hamhip:1 };   // pulls, cuff, side glutes, side core, calves, hamstrings
@@ -6025,6 +6036,47 @@ function planDay(dayId, budget, bring){
  if (long && est(keep.length + rescue.length) + 12 <= budget){ var eng = document.querySelector('#d6 .excard[data-id="d6-spin"]'); if (eng && !eng.classList.contains('done') && !got['d6-spin']) extra.push('d6-spin'); }
  return { v: APP_V, d: _today(), day: dayId, from: other, src: src, carry: carry, late: late, long: long ? 1 : 0, extra: extra, keep: keep.map(function(c){ return c.dataset.id; }), rescue: rescue, up: up.filter(function(id){ return keep.some(function(c){ return c.dataset.id === id; }); }), min: Math.round(est(keep.length + rescue.length) + extra.length * 12), budget: budget, easy: easy ? 1 : 0, lifts: keep.length + rescue.length + extra.length };
 }
+// An extra lift day: the lagging muscles first, one lift per muscle, nothing trained yesterday or today,
+// nothing tomorrow's day has on it, no main lifts, legs kept to the small ones. Upper and lower alternate.
+var EXTRA_SLOTS = ['latuni', 'sdelt', 'gmed', 'latiso', 'rdelt', 'calf', 'hpull', 'glute', 'corelat', 'hamknee', 'cuff', 'bi', 'tri', 'serratus'];
+var EXTRA_LEG = { gmed:1, calf:1, glute:1, hamknee:1 };
+function planExtra(budget){
+ budget = budget || PLAN_MIN;
+ var pace = _pace(), easy = _easyWk(), room = Math.min(easy ? 4 : 7, Math.max(2, Math.floor((budget - 3) / pace)));
+ var sch = { d5:2, d1:3, d3:4 }, dow = _dow(), tmw = DAY_ORDER.filter(function(d){ return sch[d] === dow + 1 && !readCompletedWeek()[d]; })[0];
+ var wk = _loggedSince(_weekStart()), busy = _slotsOn(_ymd(Date.now() - 864e5)), now = _slotsOn(_today()), pool = [];
+ Object.keys(now).forEach(function(k){ busy[k] = 1; });
+ var sg = suggestDay(), tdy = sg && !sg.done && DAY_HALF[sg.id] ? sg.id : '';   // today's own day keeps its lifts
+ DAY_ORDER.forEach(function(o, di){ if (o === tmw || o === tdy) return;
+  [].forEach.call(document.querySelectorAll('#' + o + ' .excard[data-id]'), function(c){
+   var id = c.dataset.id, sl = SLOT[id], r = EXTRA_SLOTS.indexOf(sl);
+   if (r < 0 || busy[sl] || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || c.classList.contains('done') || c.dataset.added || (KEY_LIFTS[o] || []).some(function(k){ return k[0] === id; })) return;
+   pool.push({ id: id, o: o, sl: sl, r: r + (wk[id] ? 0.5 : 0) + di / 10 }); }); });
+ pool.sort(function(a, b){ return a.r - b.r; });
+ var seen = {}, U = [], L = [], pick = [];
+ pool.forEach(function(x){ if (seen[x.sl]) return; seen[x.sl] = 1; (EXTRA_LEG[x.sl] ? L : U).push(x); });
+ while (pick.length < room && (U.length || L.length)){ var q = pick.length % 2 ? L : U; pick.push((q.length ? q : q === L ? U : L).shift()); }
+ var src = {}; pick.forEach(function(x){ src[x.id] = x.o; });
+ return { v: APP_V, d: _today(), day: 'd6', mode: 'lift', from: '', src: src, carry: {}, late: {}, long: 0, extra: [], keep: [], rescue: pick.map(function(x){ return x.id; }), up: [],
+  min: Math.round(3 + pick.length * pace), budget: budget, easy: easy ? 1 : 0, lifts: pick.length };
+}
+function _extraOn(){ var p = readPlan(); return !!(p && p.day === 'd6' && p.mode === 'lift'); }
+function setExtra(on){
+ if (on === _extraOn()) return;
+ if (on){ setMode('d6', '45'); return; }
+ try { store.del('bp-plan'); } catch(e){}
+ setLow(0); clearPlan(); _afterPlan(); _toast('Skill + engine');
+}
+window.setExtra = setExtra;
+function _paintExtra(){
+ var sec = document.getElementById('d6'); if (!sec) return;
+ var on = _extraOn(), p = readPlan(), t = sec.querySelector('.day-title'), f = sec.querySelector('.day-focus'), row = sec.querySelector('.xrow.tseg:not(.xmode)');
+ if (t){ if (t.dataset.full === undefined) t.dataset.full = t.textContent; t.textContent = on ? 'EXTRA LIFTS' : t.dataset.full; }
+ if (f){ if (f.dataset.full === undefined) f.dataset.full = f.textContent; f.textContent = on ? '≈ ' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' · optional' : f.dataset.full; }
+ if (row) row.hidden = !on;
+ var dl = document.getElementById('sbDay'); if (dl && sec.classList.contains('cur') && dl.firstChild && dl.firstChild.nodeType === 3) dl.firstChild.nodeValue = (on ? 'Extra lifts' : DAY_NAME.d6) + ' ';
+ sec.querySelectorAll('.xchip.xm').forEach(function(x){ var o = (x.dataset.x === 'lift') === on; x.classList.toggle('on', o); x.setAttribute('aria-pressed', o ? 'true' : 'false'); });
+}
 // How a lift has fared the last few times it was on the menu (earlier days, sessions with real work in them).
 // A lift left out at the end of a session ran out of time; left out earlier, it was probably passed over.
 function _skipStats(id){
@@ -6076,7 +6128,7 @@ function applyPlan(p){
  var short = (p.budget || PLAN_MIN) < 30;
  sec.classList.add('planned'); sec.classList.toggle('long', !!p.long); sec.classList.toggle('short', short);
  if (!p.long) sec.querySelectorAll('.excard:not([data-id="d5e1"]) > .drills').forEach(function(d){ var st = d.parentNode.querySelector('.exmeta > .sets'); if (st && st.dataset.porig === undefined){ st.dataset.porig = st.textContent; st.textContent = short ? '~3 min · 1 drill' : '~5 min · 2 drills'; } });
- sec.querySelectorAll('.excard[data-id]').forEach(function(c){ if (!_isSkill(c) && !c.dataset.added && p.keep.indexOf(c.dataset.id) < 0) c.dataset.off = '1'; });
+ sec.querySelectorAll('.excard[data-id]').forEach(function(c){ if ((!_isSkill(c) || p.mode === 'lift') && !c.dataset.added && p.keep.indexOf(c.dataset.id) < 0) c.dataset.off = '1'; });
  // rescued lifts move into today for the day, then go home
  var list = sec.querySelector('.exlist'), anchor = list && list.querySelector('.excard.wild');
  p.rescue.concat(p.extra || []).forEach(function(id){
@@ -6100,7 +6152,8 @@ function applyPlan(p){
   var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
   bar.innerHTML = '<b>' + (p.long ? 'Long day · ≈' + p.min + ' min · ' : short ? 'Tired day · ≈' + p.min + ' min · ' : 'Built from your logs · ≈' + p.min + ' min · ') + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (names.length ? '<span>Brought over: ' + _esc(names.join(', ')) + '</span>' : '') + (lateN.length ? '<span>Brought over: ' + _esc(lateN.join(', ')) + '</span>' : '') + (leftN.length ? '<span>Left unfinished, picked up today: ' + _esc(leftN.join(', ')) + '</span>' : '') + (upN.length ? '<span>Left out the last two times, kept in today: ' + _esc(upN.join(', ')) + '</span>' : '') + '<button type="button" class="pl-full">Full day</button>';
-  bar.hidden = !p.long && !names.length && !lateN.length && !leftN.length && !upN.length; }
+  bar.hidden = !p.long && !names.length && !lateN.length && !leftN.length && !upN.length;
+  if (p.mode === 'lift'){ bar.innerHTML = p.lifts ? '<b>Extra lifts · ≈' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b><span>Weakest muscles first, one lift each. Nothing you trained yesterday, nothing tomorrow repeats, no main lifts, legs kept light.</span>' : '<b>Nothing to add today</b><span>Everything left is trained yesterday or tomorrow. Skill + engine is the better pick.</span>'; bar.hidden = false; } }
 }
 function _dropBring(id){
  var p = readPlan(); if (!p || p.rescue.indexOf(id) < 0) return;
@@ -6110,7 +6163,7 @@ function _dropBring(id){
  applyPlan(p); _afterPlan(); _toast('Off today');
 }
 function _paintPlanChips(){ document.querySelectorAll('.xchip.tm').forEach(function(x){ var sec = x.closest('.section'), on = sec && _mode(sec.id) === x.dataset.m; x.classList.toggle('on', !!on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
-function _afterPlan(){ _paintPlanChips(); _paintAddBoxes(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
+function _afterPlan(){ _paintExtra(); _paintPlanChips(); _paintAddBoxes(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); }
 // ── add a lift to today: any lift from another day, or one of your own ──
 function readAdds(){ try { var a = JSON.parse(store.get('bp-add') || 'null'); return a && a.d === _today() && Array.isArray(a.add) ? a.add : []; } catch(e){ return []; } }
 function writeAdds(a){ try { if (a.length) store.set('bp-add', JSON.stringify({ d: _today(), add: a })); else store.del('bp-add'); } catch(e){} }
@@ -6217,13 +6270,14 @@ function buildDay(dayId, force, budget){
  var p = readPlan(), first = !p || p.day !== dayId;
  if (p && p.day === dayId && !force && !p.full && p.v !== APP_V && !readSess().some(function(x){ return x && x.d === _today() && x.day === dayId && x.n >= 1; })){ force = true; budget = budget || p.budget; }
  if (p && p.day === dayId && !force){ if (p.full) return; applyPlan(p); _afterPlan(); return; }
+ if (dayId === 'd6' && !force) return;   // the extra day stays skill + engine until you pick lifts
  if (!force && p && p.day !== dayId) return;   // one plan a day — browsing another day doesn't rebuild it
  var back0 = p && p.day === dayId && p.back, rw = _rwToday(), eng = null;
  if (rw && rw.day === dayId && !budget) budget = rw.budget;
  clearPlan();
  var bringIds = rw && rw.day === dayId ? rw.bring : [];
  if (!(rw && rw.day === dayId) && !_tripOn()){ _enMemo = {}; eng = _planNow(); if (eng && eng.day === dayId){ if (!budget) budget = eng.budget; bringIds = eng.bring.slice(0, budget < 30 ? 0 : budget < 60 ? 2 : budget < 80 ? 3 : 4); } }
- p = planDay(dayId, budget, bringIds); if (!p) return;
+ p = dayId === 'd6' ? planExtra(budget) : planDay(dayId, budget, bringIds); if (!p) return;
  if (back0) p.back = back0;   // switching length keeps the welcome-back easing
  var gap = daysSinceTrained();
  if (first && gap !== null && gap >= 8 && !document.body.classList.contains('lowbat')){ if (!p.long) setLow(1); p.back = gap; }   // she picked a long day on purpose: note it, don't shrink it
@@ -6231,6 +6285,7 @@ function buildDay(dayId, force, budget){
  applyPlan(p); _afterPlan();
  var nc = Object.keys(p.carry || {}).length, nm = p.rescue.length - nc;
  var _bm = (p.back ? 'Welcome back — every set stops short today · ' : '') + 'Built: ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' ≈ ' + p.min + ' min' + (nm ? ' · +' + nm + ' from another day' : '') + (nc ? ' · +' + nc + ' unfinished' : '') + (p.long ? ' · every drill, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') : '');
+ if (p.mode === 'lift') _bm = 'Extra lifts: ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + ' ≈ ' + p.min + ' min';
  if (force || p.back || nc) setTimeout(function(){ _toast(_bm); }, 700);
  if (first) _blockPrompt();
 }
@@ -6451,7 +6506,7 @@ function parkCard(card){
 var SHORT = { 'd5e-archer':'Muscle-up drills', d1e1:'Pull-ups', 'd1e-dip':'Dips', d1e3:'Machine row', 'd2e-serr':'Push-up plus', 'd1-pullover':'Pullover', d1e5:'Face pull', 'd1-latraise':'DB side raise', 'd5-erot':'External rotation', 'd1e-curl':'Curl', 'd5-tripush':'Pushdown',
  'd5e-pistol':'Pistol drills', 'd4b-legext':'Leg extension', d3e7:'Nordic curl', 'd1-backext':'Back extension', 'd3e-abd':'Hip abductor', 'd1-adduct':'Hip adductor', 'd1-hiphike':'Hip hike', 'd1e-carry':'Anti-lean hold', d2e6:'Pallof press', 'd4b-calf':'Calf raise', 'd1-tib':'Tib raise',
  d5e1:'Handstand drills', 'd2e-press':'Chest press', 'd3-chin':'Chin-ups', d2e1:'Pike push-up', 'd3-sapd':'1-arm pulldown', d2e3:'Overhead triceps', 'd3e-stir':'Stir the pot', d2e2:'Cable side raise', 'd3-wrow':'Wide cable row', 'd3-inccurl':'Incline curl',
- 'd2-balance':'Balance drills', 'd3-rdl':'RDL', 'd2-cabd':'Cable abduction', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Tib raise',
+ 'd2-balance':'Balance drills', 'd3-rdl':'RDL', 'd3-abdlean':'Abductor, lean', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Tib raise',
  'd6-hs':'Handstand', 'd6-crow':'Crow', 'd6-plank':'Plank taps', 'd6-spin':'Bike' };
 var SHORT_B = { d1e3:'Cable row', 'd1-pullover':'Straight-arm pull', d1e5:'Reverse pec-deck', 'd1-latraise':'Seated side raise', 'd5-erot':'Y-raise', 'd1e-curl':'Hammer curl', 'd5-tripush':'Kickback', 'd3e-abd':'Abductor, heavy',
  'd2e-press':'DB bench', d2e3:'Rope pushdown', 'd3e-stir':'Dead bug', d2e2:'Behind-back raise', 'd3-wrow':'DB row', 'd3-inccurl':'Cable curl', d4b1:'Hip thrust, heavy', d3e3:'Goblet squat', 'd4b-legcurl':'1-leg curl', 'd2-kick':'1-leg hip thrust', 'd3-stcalf':'Standing calf' };
