@@ -1000,16 +1000,11 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 .cue,.setup,.evi p,.callout p{text-wrap:pretty}
 ::selection{background:rgba(255,46,136,.32);color:#fff}
 
-/* card glass depth + day-keyed focus edge */
+/* card glass depth + focus lift */
 .excard::before{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--card-grad);opacity:0;transition:opacity .25s;pointer-events:none}
 @media (hover:hover) and (pointer:fine){.excard:hover::before{opacity:1}}
 .excard:active{box-shadow:var(--elev)}
 .excard:has(:focus-visible){box-shadow:var(--elev)}
-#d1 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,46,136,.5)}
-#d2 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(31,224,255,.5)}
-#d3 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(255,210,58,.5)}
-#d4 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(176,107,255,.5)}
-#d5 .excard:has(:focus-visible){box-shadow:var(--elev),inset 3px 0 0 rgba(93,255,159,.5)}
 /* ── SUPERSETS ── */
 #d5{--dc:var(--g)}#d1{--dc:var(--r)}#d2{--dc:var(--b)}#d3{--dc:var(--gld)}#d4{--dc:var(--p)}#d6{--dc:var(--o)}
 .ssh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px -18px 0;padding:12px 18px 4px;border-top:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--txt)}
@@ -1270,7 +1265,6 @@ body.focus .section.cur .excard.later .laterbtn{float:none;margin-left:0;color:v
 body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills))>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.feet,.foldrow,.howfold,.acc-btn,.prog-wrap),
 body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills)) :is(.laterbtn,.warmset,.rest-lbl,.tempo,.notebox:not(.has)){display:none}
 body.focus .section.cur .excard[data-id]:not(.now):not(.done){cursor:pointer}
-.excard.later:not(.now){box-shadow:inset 3px 0 0 var(--gld)}
 .excard.later:not(.now) .ex-left{opacity:.7}
 .exlast .aim{font-weight:700;color:var(--b)}.exlast .aim.down{color:var(--gld)}
 .upnudge.on{background:rgba(255,210,58,.2);border-color:var(--gld);box-shadow:0 0 12px -4px var(--gld)}
@@ -1577,7 +1571,7 @@ body.travelling :is(.week,.home,.startbtn,.hm-any,.hm-rw,#rwPill,#sqCard,.startw
 .tr-n b{display:block;font-size:15px;font-weight:600;color:var(--txt)}
 .tr-n small{display:block;margin-top:2px;font-size:12.5px;line-height:1.35;color:var(--fade2)}
 .tr-l.done .tr-n b{color:var(--g)}
-.tr-w{width:54px;min-height:44px;border-radius:10px;border:1px solid var(--bdr);background:none;color:var(--txt);text-align:center;font:600 14px 'Inter',sans-serif}
+.tr-w{width:54px;min-height:44px;border-radius:10px;border:1px solid var(--bdr);background:none;color:var(--txt);text-align:center;font:600 16px 'Inter',sans-serif}
 .tr-sets{display:flex;gap:6px;flex:none}
 .tr-s{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--bdr);background:none;color:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
 .tr-s.on{background:var(--g);border-color:var(--g);color:#060611}
@@ -1974,7 +1968,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
  <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 More</b>: the same, with room for more. <b>80 Long</b>: every drill, a third set on the key lifts. Times come from your own logged sessions, door to door. <b>Full day</b> on the plan bar shows everything. Skip freely: never make up, never double up.</p>
- <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · 2 left / 2 in the tank = stop when you could still do 2 more clean reps · 2 × 25s = two holds of 25 seconds, rest between · each side = right first, then left for the same reps or time · C2B = chest to bar · fixed = no extra reps · tempo = each part of the rep in the order you do it, in seconds (out 2s → hold 1s → lower 3s) — tap it <i class="ic ic-play" aria-hidden="true"></i> and it beeps along: chirp = move, tone = hold, ticks = lowering</p>
+ <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · AMRAP = all clean reps (−1/−2 = stop that many short) · 2 left / 2 in the tank = stop when you could still do 2 more clean reps · 2 × 25s = two holds of 25 seconds, rest between · each side = right first, then left for the same reps or time · fixed = no extra reps · tempo = each part of the rep in the order you do it, in seconds (out 2s → hold 1s → lower 3s) — tap it <i class="ic ic-play" aria-hidden="true"></i> and it beeps along: chirp = move, tone = hold, ticks = lowering</p>
 </div>
 
 
@@ -2020,7 +2014,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="prog-step"><span class="pn">Done</span><span>10 strict pull-ups</span></div>
  <div class="prog-step"><span class="pn">Now</span><span>Wrist turnovers · support hold 3 × 15s · top pull hold 3 × 5s · the fast pulling is A1</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Support hold, toes hovering · A1 set 2 reaches the lower ribs, not just the chest</span></div>
- <div class="prog-step"><span class="pn">Then</span><span>Transitions: two feet → one → heels — locked until you've had the OK</span></div>
+ <div class="prog-step"><span class="pn">Then</span><span>Transitions: two feet → one → heels — locked for now</span></div>
  <div class="prog-step"><span class="pn">Then</span><span>Toes-on-box muscle-up, 3s lowering — legs help less only after 4 clean sessions</span></div>
  <div class="prog-step"><span class="pn">Goal</span><span><strong>Strict muscle-up</strong></span></div>
 </div></div>
@@ -2106,7 +2100,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">90s rest</div><div class="tempo">pull 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Log one side’s plates + 8 lb for the machine. Taken: seated cable row.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Chest-supported row, palms-in handles level with the lower ribs. Log one side’s plates + 8 lb for the machine. If it is taken, use the seated cable row.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
 <div class="cue">Both arms. Elbows stop at your sides.</div>
 <div class="feel"><b>Feel it</b>Mid-back between the shoulder blades, and the lats. Not the biceps doing the work, not the low back.</div>
@@ -2465,7 +2459,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">No Freefall</div><p>Bend only at the knees — <strong>hips straight, glutes on, low back never arches.</strong> Fixed reps.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#b06bff"></div><span class="band-txt">Nordic machine, assist 10 lb. Kneecaps off the pad edge, heels under the rollers.</span></div>
 <div class="warmset">Ramp: 2 short-range reps</div>
-<div class="cue">Straight plank, knees to head — own 5s down.</div>
+<div class="cue">Body straight from knees to head — lower for 5 counts.</div>
 <div class="feel"><b>Feel it</b>Hamstrings, on the way down. A cramp behind the knee means use more assist.</div>
 <div class="feet">Toes tucked and pulled toward your shins (flexed), not pointed. Flexed lets the calves help and keeps the knee steadier. Heels press up into the rollers the whole way.</div>
 <div class="setup"><strong>1.</strong> Kneel tall, glutes on, hands at the chest. <strong>2.</strong> Tip forward for 5 counts, hips straight; hold 3 at your lowest. <strong>3.</strong> Push back up with your hands.</div>
@@ -3008,7 +3002,6 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Wrist Rocks on the Wall<span>60s</span></div><div class="dr-w">Bare wall, palms flat at shoulder height.</div><div class="dr-d">Lean in, rock the shoulders past the fingertips and back × 10. Slow, elbows soft.</div></div>
  <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries</span></div><div class="dr-w">Open floor, a clear body-length all round.</div><div class="dr-d">Straight lead leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, step down sideways.</div></div>
- <div class="drill"><div class="dr-h"><b>3</b>Shape Play — Tuck or Straddle<span>4 tries</span></div><div class="dr-w">Same floor, a wall a step behind as a catch.</div><div class="dr-d">Kick up, balance, then tuck or straddle for a breath. Ribs in. Wobbles or back arches: come down.</div></div>
 </div>
 </div>
 
@@ -3122,7 +3115,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="t-mono" style="color:var(--r);margin-bottom:10px;font-size:11px">Skill ladders</div>
  <div style="font-size:13px;line-height:1.7">
 <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin:2px 0 7px">Pull · Pull + Squat</div>
-<p style="margin:0 0 8px"><strong>Muscle-up:</strong> 10 strict pull-ups (done) → 12–15 + chest-to-bar × 5 → high pulls to the lower ribs (fast chest-to-bar pulls until they reach) → feet-assisted low-bar transitions (two feet → one → heels) → toes-on-box muscle-up, 3s lowering → strict muscle-up. <em>Shoulders quiet for 48 h before each new rung; no kipping.</em></p>
+<p style="margin:0 0 8px"><strong>Muscle-up:</strong> 10 strict pull-ups (done) → 12–15 + chest-to-bar × 5 → high pulls to the lower ribs (fast chest-to-bar pulls until they reach) → feet-assisted low-bar transitions (two feet → one → heels; locked for now) → toes-on-box muscle-up, 3s lowering → strict muscle-up. <em>Shoulders quiet for 48 h before each new rung; no kipping.</em></p>
 <p style="margin:0 0 8px"><strong>One-arm pull-up:</strong> strict → weighted (+10–25 lb) → archer practice (2 × 2 each, first thing while fresh, 3 counts down) → typewriter → one-arm lowering (5s, spare hand light on the wrist) → finger-assisted → one-arm pull-up. <em>Soft elbow at the bottom. Right side first, left matches its reps. Measured in years.</em></p>
 <p style="margin:0 0 8px"><strong>Front lever:</strong> shoulder-blade pulls, shoulders packed (you're here). <em><strong>Tuck hold: not yet</strong> — the low back has to own a long hang first.</em></p>
 <p style="margin:0 0 8px"><strong>Pull variations:</strong> chin-up → wide-grip → close/commando → mixed-grip → around-the-worlds. <em><strong>L-sit pull-up: not yet</strong> — it squeezes the low back.</em></p>
@@ -3153,7 +3146,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <p style="margin:0 0 6px"><strong>Overhead push:</strong> pike push-up | wall handstand shoulder taps</p>
  <p style="margin:0 0 6px"><strong>Rear delt / lower trap:</strong> reverse pec-deck | low-cable Y-raise (light forever)</p>
  <p style="margin:0 0 6px"><strong>Triceps:</strong> overhead rope extension (ribs down) | rope pushdown</p>
- <p style="margin:0 0 6px"><strong>Biceps:</strong> behind-body cable curl (the Bayesian curl) | reverse-incline bench cable curl | hammer curl (DB or rope) | incline DB curl — soft elbow at the stretch</p>
+ <p style="margin:0 0 6px"><strong>Biceps:</strong> behind-body cable curl (the Bayesian curl) | reverse-incline bench cable curl | hammer curl (dumbbell or rope) | incline dumbbell curl — soft elbow at the stretch</p>
  <p style="margin:0 0 6px"><strong>Hinge:</strong> dumbbell RDL | cable pull-through, once earned — see Game plan</p>
  <p style="margin:0 0 6px"><strong>Quads:</strong> Bulgarian split squat | heel-elevated goblet squat (25 lb) | slow step-up to balance | lateral step-down from a 6″ box</p>
  <p style="margin:0 0 6px"><strong>Knee brakes:</strong> slant-board goblet squat to a shallow depth | wall-sit 3 × 40s, thighs above parallel</p>
@@ -3230,8 +3223,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="daily-hd"><div class="daily-t" style="color:var(--p)">Recovery Toys</div><div class="daily-sub">// when each one earns its place</div></div>
  <div class="daily-grid">
   <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Sauna</div><div class="daily-dose">5–10 min to start, 15 max · 2–3× a week</div><div class="daily-note">After a session or on Sunday, never before lifting. Eat and have a salty drink first, sit low, out if you get dizzy, stand up in stages.</div></div>
-  <div class="daily-card" style="border-left-color:var(--b)"><div class="daily-name">Hot tub</div><div class="daily-dose">10–15 min · 1–2 hours before bed</div><div class="daily-note">Your sleep tool: a warm soak an hour or two before bed helps you drop off. Fine after lifting. No stretching in there — warm joints go too far. Get out slowly.</div></div>
-  <div class="daily-card" style="border-left-color:var(--g)"><div class="daily-name">Steam room</div><div class="daily-dose">8–10 min · instead of sauna, not extra</div><div class="daily-note">Same job as the sauna, with less evidence. Sweat can't cool you in wet air, so it hits harder than it feels. Pick one heat per day, and eat afterwards.</div></div>
+  <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Hot tub</div><div class="daily-dose">10–15 min · 1–2 hours before bed</div><div class="daily-note">Your sleep tool: a warm soak an hour or two before bed helps you drop off. Fine after lifting. No stretching in there — warm joints go too far. Get out slowly.</div></div>
+  <div class="daily-card" style="border-left-color:var(--p)"><div class="daily-name">Steam room</div><div class="daily-dose">8–10 min · instead of sauna, not extra</div><div class="daily-note">Same job as the sauna, with less evidence. Sweat can't cool you in wet air, so it hits harder than it feels. Pick one heat per day, and eat afterwards.</div></div>
   <div class="daily-card" style="border-left-color:var(--gld)"><div class="daily-name">Compression boots</div><div class="daily-dose">20–30 min · after leg-heavy days or hikes</div><div class="daily-note">Evenings after a hard leg day or a hike, feet up with a snack. Legs feel less sore; they don't get stronger faster. Medium pressure.</div></div>
   <div class="daily-card" style="border-left-color:var(--o)"><div class="daily-name">Massage gun</div><div class="daily-dose">30–60 sec per muscle · warm-up or evening</div><div class="daily-note">Low speed on meaty muscle: quads, glutes, calves, lats, upper traps. Calms tight spots; never use it to chase more range. Never on neck, spine, low back or back of the knee.</div></div>
   <div class="daily-card" style="border-left-color:var(--r)"><div class="daily-name">Lacrosse ball</div><div class="daily-dose">60–90 sec per spot · evenings or rest day</div><div class="daily-note">Against a wall: glutes, upper back, chest, feet. Lean in gently until it lets go. Tingling down a limb: move off. Never the spine, front of the neck or back of the knee.</div></div>
@@ -3243,7 +3236,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
- <p class="numkey">Each dot is a session. Dashed line = trend, with slope per week and R². Tap a lift to delete its last entry.</p>
+ <p class="numkey">Each dot is a session. Dashed line = trend: the change per week and how well the line fits. Tap a lift to delete its last entry.</p>
  <div id="numList" style="max-width:620px"></div>
  <div class="wkview" id="wkView"></div>
  <div class="bk-note" id="bkNote"></div>
@@ -3289,9 +3282,9 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <summary>What unlocks what <span class="swim-hint">not yet ≠ never</span></summary>
  <div class="swim-intro" style="padding:4px 16px 14px">
  <p style="margin:0 0 10px"><strong>Heavier hinge:</strong> dumbbell RDL 25 lb 2 × 10 clean · side plank 2 × 40s each · back-extension 12 × 10s clean · six steady months → RDL past 35 lb, or a cable pull-through.</p>
- <p style="margin:0 0 10px"><strong>Handstand shapes (tuck, straddle):</strong> freestanding 20s on 3 of 6 kick-ups · shoulder taps 3 × 4 each at the wall, hips square · wrists happy across 8 skill sessions in a row.</p>
- <p style="margin:0 0 10px"><strong>Unassisted pistol — ALL of:</strong> heel-tap pistol 2 × 6 to parallel, no fingertips · forward step-down 2 × 15 clean, no knee cave-in · split squat 25 lb 2 × 8, knees quiet · L = R eyes-closed balance 20s.</p>
- <p style="margin:0"><strong>Toes-on-box muscle-up, then strict — ALL of:</strong> 12–15 strict pull-ups · 5 chest-to-bar with sternum contact · 3 × 3 high pulls to the lower ribs · clean heels-only transitions · bar dips 2 × 10 at the 90° cap with 2s pauses. Every rung below that is open now.</p>
+ <p style="margin:0 0 10px"><strong>Handstand shapes (tuck, straddle):</strong> freestanding 20s on 4 of 8 kick-ups · shoulder taps 3 × 4 each at the wall, hips square · wrists happy across 8 skill sessions in a row.</p>
+ <p style="margin:0 0 10px"><strong>Unassisted pistol — ALL of:</strong> heel-tap pistol 2 × 6 to parallel, no fingertips · forward step-down 2 × 15 clean, no knee cave-in · split squat 25 lb 2 × 8, knees quiet · left and right match on a 20s eyes-closed one-leg balance.</p>
+ <p style="margin:0"><strong>Toes-on-box muscle-up, then strict — ALL of:</strong> 12–15 strict pull-ups · 5 chest-to-bar with sternum contact · 3 × 3 high pulls to the lower ribs · clean heels-only transitions (locked for now) · bar dips 2 × 10 at the 90° cap with 2s pauses. The transition rungs stay locked; every rung before them is open now.</p>
  </div>
  </details>
 
@@ -3396,7 +3389,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  <div class="leg-grid">
  <div class="leg-item"><div class="leg-dot" style="background:#b06bff"></div><div><div class="leg-name">Machines &amp; cables</div><div class="leg-desc">Rep-range cards: set 1 tops the range clean → one pin up. Other lifts: set 2 hits 15 clean → one pin up. Jump too big? Stay, slow the lowering to 4s first.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#ffd23a"></div><div><div class="leg-name">Squat &amp; split squat — ~25 lb</div><div class="leg-desc">One dumbbell. Fixed reps, never to failure. Two clean weeks + a quiet next morning → smallest jump.</div></div></div>
- <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Hinge — 5 lb and climbing</div><div class="leg-desc">One-dumbbell RDL, 2 × 10, flat back. A clean week or two + a quiet next morning → smallest dumbbell jump. Aim 35 lb for 2 × 8, then two dumbbells. Barbell off the floor: not yet.</div></div></div>
+ <div class="leg-item"><div class="leg-dot" style="background:#1a1535;border-color:rgba(234,240,255,.32)"></div><div><div class="leg-name">Hinge — 5 lb and climbing</div><div class="leg-desc">One-dumbbell RDL, 2 × 10, flat back. A clean week or two + a quiet next morning → smallest dumbbell jump. Aim 35 lb, still 2 × 10, then two dumbbells. Barbell off the floor: not yet.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#1fe0ff"></div><div><div class="leg-name">Pull-ups — about +5 lb</div><div class="leg-desc">Dip belt, set 1 only: 5 reps, 2 in the tank. 5 clean → +2.5 lb, at most weekly, shoulders quiet 48 h. Aim +25 lb × 3.</div></div></div>
  <div class="leg-item"><div class="leg-dot" style="background:#ff2e88"></div><div><div class="leg-name">Week 4 of every block</div><div class="leg-desc">Easy week: 45-minute days, set 2 stops at set-1 reps. Swap blocks the week after.</div></div></div>
  </div>
@@ -3426,7 +3419,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.11';
+var APP_V = '2026-10-15.12';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3688,7 +3681,7 @@ function _glide(el){ if (!el) return; var _h = el.previousElementSibling; if (_h
 // a short beep when rest ends — iPhones cannot vibrate from a web page
 var _ac = null;
 function _armAudio(){ if (_ac) return; try { var C = window.AudioContext || window.webkitAudioContext; if (C){ _ac = new C(); } } catch(e){} }
-function _beep(){ if (!_ac) return; try { if (_ac.state === 'suspended') _ac.resume(); var t = _ac.currentTime; [0, .18].forEach(function(d, i){ var o = _ac.createOscillator(), g = _ac.createGain(); o.type = 'sine'; o.frequency.value = i ? 1175 : 880; g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(0.18, t + d + .02); g.gain.exponentialRampToValueAtTime(0.0001, t + d + .16); o.connect(g); g.connect(_ac.destination); o.start(t + d); o.stop(t + d + .18); }); } catch(e){} }
+function _beep(){ if (!_ac) return; try { if (_ac.state !== 'running') _ac.resume(); var t = _ac.currentTime; [0, .18].forEach(function(d, i){ var o = _ac.createOscillator(), g = _ac.createGain(); o.type = 'sine'; o.frequency.value = i ? 1175 : 880; g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(0.18, t + d + .02); g.gain.exponentialRampToValueAtTime(0.0001, t + d + .16); o.connect(g); g.connect(_ac.destination); o.start(t + d); o.stop(t + d + .18); }); } catch(e){} }
 // Hook into toggleDone
 const _origToggleDone = window.toggleDone;
 window.toggleDone = function(btn){
@@ -3725,14 +3718,14 @@ window.toggleDone = function(btn){
  updateDayComplete();
  updateResetCountdown();
  updateFabCount();
- requestWakeLock();
+ if (_workoutLive()) requestWakeLock(); else _wakeOff();
  if (card){
  const nowDone = card.classList.contains('done');
  const rest = card.querySelector('.rest-lbl');
  if (nowDone && !wasDone){
  if (navigator.vibrate) navigator.vibrate(30); // confirm tap (eyes on the rack)
  var _sec = card.closest('.section'), _fin = _sec && document.querySelector('.day-complete.shown[data-day="' + _sec.id + '"]');
- if (!_fin){ if (rest && rest._restStart) rest._restStart(); // one tap = logged + rest clock running
+ if (!_fin){ if (rest && rest._restStart){ rest._restReset(); rest._restStart(); } // one tap = logged + rest clock running
  _armAudio(); }
  // Nothing auto-scrolls any more. Moving the page under a thumb mid-set is how a
  // mistyped rep count becomes permanent: the field you wanted slides out of reach.
@@ -3789,7 +3782,7 @@ document.querySelectorAll('.rest-lbl').forEach(el => {
  el.classList.add('running'); el.classList.remove('done');
  el.textContent = remaining + 's';
  el.setAttribute('aria-label', remaining + ' seconds of rest left. Activate to cancel');
- requestWakeLock(); _fabRest(remaining);
+ requestWakeLock(); _fabRest(remaining); _armAudio();
  interval = setInterval(tick, 1000);
  }
  el._restStart = start;
@@ -3853,13 +3846,16 @@ async function requestWakeLock(){
  } catch(e) { /* iOS Safari <16.4 or denied — silent */ }
  _wakePending = false;
 }
-function _workoutLive(){ return !!document.querySelector('.rest-lbl.running, .excard[data-r1]') || Object.keys(readSaved()).length > 0; }
+function _workoutLive(){
+ if (document.querySelector('.rest-lbl.running, .excard[data-r1]')) return true;
+ var t = _tday(Date.now()), c = {}; try { c = readCompleted(); } catch(e){}
+ return Object.keys(readSaved()).some(function(id){ var card = document.querySelector('.excard[data-id="' + id + '"]'), s = card && card.closest('.section[id]');
+  return !s || !(document.querySelector('.day-complete.shown[data-day="' + s.id + '"]') || (c[s.id] && _tday(+c[s.id]) === t)); });   // a finished day is not a live session
+}
+function _wakeOff(){ if (_wakeLock && !document.querySelector('.rest-lbl.running')){ const wl = _wakeLock; _wakeLock = null; try { wl.release().catch(function(){}); } catch(e){} } }
 document.addEventListener('visibilitychange', () => {
  if (document.visibilityState === 'visible') { if (_workoutLive()) requestWakeLock(); }
- else if (_wakeLock && !document.querySelector('.rest-lbl.running')) {
- const wl = _wakeLock; _wakeLock = null;
- try { wl.release().catch(function(){}); } catch(e){}
- }
+ else _wakeOff();
 });
 // If she returns to page with a workout in progress, re-request lock
 if (_workoutLive()) requestWakeLock();
@@ -4153,6 +4149,7 @@ function _yesterdayHalf(){
  var w = {}; try { w = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){}   // raw, not this week's copy: Sunday still counts on Monday
  var y = _tday(Date.now() - 864e5), h = null;
  Object.keys(w).forEach(function(d){ var t = +w[d]; if (t && _tday(t) === y) h = DAY_HALF[d]; });
+ readSess().forEach(function(x){ if (x && x.d === _ymd(Date.now() - 864e5) && x.n >= 3 && DAY_HALF[x.day]) h = DAY_HALF[x.day]; });   // started, never finished: still counts
  return h;
 }
 // the session already trained today, if any — one a day, never doubled up
@@ -4177,7 +4174,7 @@ function _retOn(){   // the first sessions back from a trip: last weights, no st
 function _rates(){
  return _once('rates', function(){
   var ws = _weekStart(), from = ws - 42 * 864e5, wk = {}, fri = {}, mon = {};
-  readSess().forEach(function(x){ if (!x || !x.d || !(x.n >= 3)) return;
+  readSess().forEach(function(x){ if (!x || !x.d || !(x.n >= 3) || x.day === 'd6') return;   // a skill + engine day is not a lift day
    var ts = new Date(x.d + 'T12:00').getTime(); if (ts < from || ts >= ws) return;
    var k = Math.floor((ts - from) / (7 * 864e5)), dw = new Date(ts).getDay(); wk[k] = 1; if (dw === 5) fri[k] = 1; if (dw === 1) mon[k] = 1; });
   var n = Object.keys(wk).length;
@@ -4283,7 +4280,7 @@ function suggestDay(){
 // ── Travel mode: one card, three tiers, A/B, own log ──────────────────
 var TRIP = {
  room: { A: [['r-a1','Split squat, hand on a chair','2 × 8 / side','Slow down, thigh to parallel, knee over toes'], ['r-a2','Single-leg hinge, fingertips on a chair','2 × 8 / side','Flat back, 3 down, stop mid-shin'], ['r-a3','Hands-up push-up plus','2 × 10','Hands on a desk or bed edge, push tall at the top'], ['r-a4','Backpack row, hand on a chair','2 × 12 / side','Light pack, flat back, 3 down'], ['r-a5','Calf raise, one leg','2 × 12 / side','Hand on a wall, 3 up, 3 down']],
-  B: [['r-b1','One-leg bridge on the bed','2 × 10 / side','Hips level, 2-count at the top'], ['r-b2','Step-up, low stair','2 × 8 / side','Hand on the rail, lower for 3'], ['r-b3','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°'], ['r-b4','Y-T-W on the bed, face down','2 × 8 each','Chest stays on the bed, lift the arms only'], ['r-b5','Incline side plank, forearm on the bed','2 × 20s / side','Long line, hips up']] },
+  B: [['r-b1','One-leg bridge on the bed','2 × 10 / side','Hips level, 2-count at the top'], ['r-b2','Step-up, low stair','2 × 8 / side','Hand on the rail, lower for 3'], ['r-b3','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°'], ['r-b4','Arm lifts on the bed, face down','2 × 8 each','Chest stays on the bed. Arms out in a Y, then out to the sides in a T, then bent in a W, slowly'], ['r-b5','Incline side plank, forearm on the bed','2 × 20s / side','Long line, hips up']] },
  db: { A: [['d-a1','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w'], ['d-a2','Dumbbell bench press','2 × 10','Your usual or lighter, elbows tucked','w'], ['d-a3','Chest-supported row, incline bench','2 × 10','Chest on the pad, pull to the ribs','w'], ['d-a4','Lateral raise','2 × 12','Stop at shoulder height','w'], ['d-a5','Dumbbell RDL','2 × 10','5 lb, 3 down, 1 pause, 1 up','w']],
   B: [['d-b1','One-leg bridge, bench or bed','2 × 10 / side','Bodyweight, 2-count at the top'], ['d-b2','Step-up, low bench','2 × 8 / side','Bodyweight, lower for 3'], ['d-b3','One-arm row, hand on the bench','2 × 10 / side','Flat back, pull to the hip','w'], ['d-b4','Incline curl','2 × 10','Arms hang back, no swing','w'], ['d-b5','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°']] },
  cable: { A: [['c-a1','One-arm cable pulldown','2 × 10 / side','Staggered stance, ribs down','w'], ['c-a2','Cable face pull','2 × 15','Elbows high, pull to the eyes','w'], ['c-a3','Incline dumbbell press','2 × 10','Your usual or lighter','w'], ['c-a4','Cable Pallof press','2 × 10 / side','Do not let it turn you','w'], ['c-a5','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w']],
@@ -4606,7 +4603,7 @@ function _weekNo(){ return Math.floor(_weekStart() / (7 * 864e5)); } // +1 every
 
 // One song is the whole warmup: ~90s to raise, then a named ~2 min flow. Standing or on equipment only, nothing on the floor.
 var WU_FLOWS = {
- bar:{ n:'Bar Tour', m:['Hang from the bar for 10s, shoulders pulled down away from your ears. Twice.','Still hanging, arms straight: pull your shoulders down, then let them rise. 8 slow reps.','Standing: 8 slow shoulder rolls backward, 8 forward.','Let your arms hang loose by your sides and breathe slowly for 10s.'] },
+ bar:{ n:'Bar Tour', m:['Hang from the bar for 10s, shoulders pulled down away from your ears. Twice.','Still hanging, arms straight: pull your shoulders down, then let them rise only a little, never fully relaxed. 8 slow reps.','Standing: 8 slow shoulder rolls backward, 8 forward.','Let your arms hang loose by your sides and breathe slowly for 10s.'] },
  cab:{ n:'Cable Shoulders', m:['Lightest weight, low cable, one handle. Raise your straight arm in front of you up to eye level, thumb up, then lower slowly. 8 each arm.','Cable at elbow height, stand side-on. Elbow tucked at your side, bent 90°. Turn your forearm out away from your belly, then back. 8 each arm.','No cable: arms straight out to the sides. Squeeze your shoulder blades together and hold 2s. 8 reps.'] },
  wall:{ n:'Wall Tour', m:['Forearms on the wall. Slide them up overhead and back down, slowly. 10 reps.','Push-ups against the wall. At the top, push one extra inch so your upper back rounds. 10 reps.','One hand on the wall. Turn your chest away from the wall and back, hips still. 6 each side.'] },
  swing:{ n:'Rail Set', m:['Hand on a rail. Lift one knee to hip height, pause, lower slowly. 8 each leg.','Hand on a rail. Lift your straight leg out to the side a little, pause, lower slowly. 8 each leg.','Sit down to a bench slowly over 3s, then stand. Knees point where your toes point. 5 reps.','Rise up onto your toes, pause, lower slowly. 10 reps.'] },
@@ -4748,16 +4745,8 @@ function fallbackCopy(text, cb){
  document.body.removeChild(ta);
 }
 
-// debounced saves register a flush — a half-typed note survives locking the phone mid-window
-const _pendingSaves = new Set();
-function _debounce(ms, fn){
- let t = null;
- function flush(){ clearTimeout(t); t = null; _pendingSaves.delete(flush); fn(); }
- return function(){ clearTimeout(t); _pendingSaves.add(flush); t = setTimeout(flush, ms); };
-}
-function _flushSaves(){ _pendingSaves.forEach(f => f()); }
-window.addEventListener('pagehide', _flushSaves);
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _flushSaves(); });
+// a note is saved on blur; locking the phone can skip the blur, so force it
+document.addEventListener('visibilitychange', function(){ var a = document.activeElement; if (document.visibilityState === 'hidden' && a && a.classList && a.classList.contains('notebox')) a.blur(); });
 
 function readCompleted(){ try { return _asObj(JSON.parse(store.get('bp-complete') || '{}')); } catch(e){ return {}; } }
 function writeCompleted(o){ try { store.set('bp-complete', JSON.stringify(o)); } catch(e){} }
@@ -4992,6 +4981,7 @@ function buildJots(){
  var tdS = function(){ var e = readHist()[exId]; e = _asArr(e).filter(function(x){ return x.d === _today(); })[0]; if (e && !Array.isArray(e.s)) e.s = e.r > 0 ? [[e.w, e.r]] : []; return e || null; };
  // what set k preloads: today's number if you are redoing it, else set 1 = the card's count (or last set 1 where set 1 is what moves), later sets = last time's
  function pre(k){ var td = tdS(), ls = lastP && Array.isArray(lastP.s) ? lastP.s : null;
+  if (!(td && td.s[k]) && card._todaySnap && card._todaySnap.s[k]) td = card._todaySnap;   // an undo rewrote today's entry: the snapshot still has the later sets
   if (td && td.s[k]) return { w: _conv(td.s[k][0], td.u || 'lb', wUnit), r: td.s[k][1] };
   var ow = null; if (own && k > 0){ var st = wUnit === 'kg' ? 2.5 : 5; ow = ls && ls[k] && ls[k][0] !== ls[0][0] ? _conv(ls[k][0], lastP.u || 'lb', wUnit) : v.w > 0 ? Math.max(st, Math.round(v.w * (+card.dataset.s2r || 0.5) / st) * st) : null; }
   var r = ls && ls[k] ? ls[k][1] : k === 0 && twoSets ? (s1Read ? (lastP && lastP.r1) || tgt : tgt || (lastP && lastP.r1)) : (lastP && lastP.r > 0 ? lastP.r : tgt);
@@ -5014,6 +5004,7 @@ function buildJots(){
   paintFirst(); }
  // rebuild where the card stands: sets already logged today come back, the boxes hold the next one
  function restore(){ var td = tdS(), done = card.classList.contains('done'), k = done ? (td ? Math.max(td.s.length - 1, 0) : 0) : (+card.dataset.sn || 0);
+  card._todaySnap = td ? { u: td.u, s: td.s.map(function(x){ return x.slice(); }) } : null;
   v.s = td ? td.s.slice(0, k).map(function(x){ return [_conv(x[0], td.u || 'lb', wUnit), x[1]]; }) : [];
   var x = pre(k); if (x.w != null) v.w = x.w; v.r = x.r; }
  // first time on a weighted lift: no number to chase, so say how to find one — gone as soon as a weight is in the box
@@ -5042,6 +5033,7 @@ function buildJots(){
   } else sb.textContent = sg.t + ' · ';
   var ex0 = row.querySelector('.exlast'); ex0.insertBefore(document.createTextNode(' '), ex0.firstChild); ex0.insertBefore(sb, ex0.firstChild);
  }
+ function commitEdit(){ if (card.classList.contains('done')) commit(); else if (v.s.length) commit(true); }   // an edit saves only what is ticked
  function commit(partial){
  if (wOnly) v.r = 0; else if (!(v.r > 0)) return;
  var t = _today(); // not the page-load date — the tab can stay open for days
@@ -5076,12 +5068,12 @@ function buildJots(){
  var k = b.parentNode.dataset.k, step = k === 'w' ? _wstep(v.w, wUnit, +b.dataset.d) : ((timed || mins) ? 5 : 1);
  v[k] = Math.max(k === 'w' ? 0 : 1, Math.round((v[k] + step * b.dataset.d) * 100) / 100); b.parentNode.querySelector('.stv').value = sv(k); paintFirst();
  if (navigator.vibrate) navigator.vibrate(10);
- commit();
+ commitEdit();
  });
  row.addEventListener('change', function(ev){
  var i = ev.target.closest('.stv'); if (!i) return;
  var _n = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(_n)){ i.value = sv(i.parentNode.dataset.k); return; }
- v[i.parentNode.dataset.k] = Math.max(i.parentNode.dataset.k === 'w' ? 0 : 1, Math.round(_n * 100) / 100); i.value = sv(i.parentNode.dataset.k); paintFirst(); commit();
+ v[i.parentNode.dataset.k] = Math.max(i.parentNode.dataset.k === 'w' ? 0 : 1, Math.round(_n * 100) / 100); i.value = sv(i.parentNode.dataset.k); paintFirst(); commitEdit();
  });
  // iOS can keep the box focused when the ✓ is tapped, so change never fires: track keystrokes so the tick saves what's typed
  row.addEventListener('input', function(ev){ var i = ev.target.closest('.stv'); if (!i) return;
@@ -5091,7 +5083,7 @@ function buildJots(){
  if (swb){ var sw0 = 0, swT = 0;
   var swStop = function(quiet){ if (!sw0) return; clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0; v.r = sec;
    var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; swb.textContent = 'Time it'; swb.classList.remove('run'); paintFirst();
-   if (!quiet){ commit(); _toast(sec + 's in the box — tick the circle to log it'); } };
+   if (!quiet){ commitEdit(); _toast(sec + 's in the box — tick the circle to log it'); } };
   card._swStop = function(){ swStop(true); };
   swb.addEventListener('click', function(){
    if (sw0){ swStop(); return; }
@@ -5155,7 +5147,7 @@ function _spark(arr){
  if (fit) g += '<line class="fit" x1="' + px(X[0]) + '" y1="' + py(a + b * X[0]) + '" x2="' + px(X[n - 1]) + '" y2="' + py(a + b * X[n - 1]) + '"/>';
  g += '<polyline class="dl" points="' + line + '"/>' + X.map(function(x, i){ return '<circle class="' + (i === n - 1 ? 'dt last' : 'dt') + '" cx="' + px(x) + '" cy="' + py(Y[i]) + '" r="' + (i === n - 1 ? 3.2 : 2.3) + '"/>'; }).join('');
  var u = wt ? 'lb' : pts[n - 1].t === 's' ? 's' : pts[n - 1].t === 'm' ? 'min' : 'reps', wk = b * 7;
- var tr = fit && span >= 7 ? '<em class="trd"><b class="' + (wk > 0.05 ? 'up' : wk < -0.05 ? 'dn' : '') + '">' + (wk > 0 ? '+' : wk < 0 ? '−' : '±') + f0(Math.abs(wk)) + ' ' + u + '/wk</b> · R² ' + r2.toFixed(2) + ' · n = ' + n + '</em>'
+ var tr = fit && span >= 7 ? '<em class="trd"><b class="' + (wk > 0.05 ? 'up' : wk < -0.05 ? 'dn' : '') + '">' + (wk > 0 ? '+' : wk < 0 ? '−' : '±') + f0(Math.abs(wk)) + ' ' + u + '/wk</b> · fit ' + r2.toFixed(2) + ' · ' + n + ' sessions</em>'
   : '<em class="trd">n = ' + n + ' · the fit line starts at 3 sessions across a week</em>';
  return '<svg class="spk" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Trend chart">' + g + '</svg>' + tr;
 }
@@ -5416,6 +5408,14 @@ function _ghMerge(d){
   tl.sort(function(x, y){ return (x.s || 0) - (y.s || 0); }); _tripLogWrite(tl);
  }
  ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
+ if (d['bp-week']){
+  var rw = {}; try { rw = _asObj(JSON.parse(d['bp-week'])); } catch(e){ rw = {}; }
+  var lw = {}; try { lw = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){ lw = {}; }
+  var wch = 0;
+  Object.keys(rw).forEach(function(k){ var v = rw[k]; if (!DAY_HALF[k] || !(parseInt(String(v).replace('skip:', '')) > 0)) return;
+   if (!lw[k] || (String(lw[k]).indexOf('skip') === 0 && String(v).indexOf('skip') !== 0)){ lw[k] = v; wch++; } });
+  if (wch){ store.set('bp-week', JSON.stringify(lw)); added++; }
+ }
  if (d['bp-custom']){ var cr = []; try { cr = JSON.parse(d['bp-custom']); } catch(e){} var cl = readCustom(), ci = {}; cl.forEach(function(x){ ci[x.id] = 1; });
   (Array.isArray(cr) ? cr : []).forEach(function(x){ if (x && /^x-/.test(x.id) && x.name && !ci[x.id]){ cl.push({ id: x.id, name: String(x.name).slice(0, 60) }); ci[x.id] = 1; added++; } }); if (cl.length) store.set('bp-custom', JSON.stringify(cl)); }
  return added;
@@ -5424,6 +5424,7 @@ function _repaintDrills(){ document.querySelectorAll('.drill').forEach(function(
 function _ghRepaint(){
  document.querySelectorAll('.exlog').forEach(function(x){ x.remove(); });
  buildJots(); renderNumbers(); paintBests(); paintBackupNote(); _repaintDrills();
+ if (typeof paintWeek === 'function') paintWeek(); if (typeof paintResume === 'function') paintResume();
 }
 
 // a dropped signal is not a bad key: don't flag the sync as stopped, just try again later
@@ -5509,7 +5510,7 @@ window.addEventListener('pagehide', ghFlush);   // iOS fires this when the brows
  document.getElementById('ghNow').addEventListener('click', function(){
   if (!readGH()){ _toast('Connect first'); return; }
   clearTimeout(_ghT); _ghT = null;
-  ghPull().then(function(){ return ghPush(); });
+  if (store.get('bp-gh-dirty')) ghPush(); else ghPull().then(function(){ return ghPush(); });
  });
  document.getElementById('ghOff').addEventListener('click', function(){
   if (!readGH()) return;
@@ -5554,7 +5555,7 @@ document.addEventListener('click', function(ev){
  if (!id || !document.getElementById(id)) return;
  ev.preventDefault();
  try { history.replaceState(null, '', '#' + id); } catch(e){}
- jumpTo(id);
+ if (!(/^d[1-6]$/.test(id) && (a.closest('#topnav') || a.classList.contains('wc') || a.id === 'startBtn'))) jumpTo(id);   // those call setFocus, which restores the saved spot
 }, true);
 // a deep link opened cold needs the same treatment
 window.addEventListener('load', function(){
@@ -6571,13 +6572,13 @@ function parkCard(card){
  else { _setNow(null); paintJump(); _toast('Everything left is parked — tap one when it frees up'); }
 }
 // plain names for the top strip: what the lift is, not its first two words
-var SHORT = { 'd5e-archer':'Muscle-up drills', d1e1:'Pull-ups', 'd1e-dip':'Dips', d1e3:'Machine row', 'd2e-serr':'Push-up plus', 'd1-pullover':'Pullover', d1e5:'Face pull', 'd1-latraise':'DB side raise', 'd5-erot':'External rotation', 'd1e-curl':'Curl', 'd5-tripush':'Pushdown',
- 'd5e-pistol':'Pistol drills', 'd4b-legext':'Leg extension', d3e7:'Nordic curl', 'd1-backext':'Back extension', 'd3e-abd':'Hip abductor', 'd1-adduct':'Hip adductor', 'd1-hiphike':'Hip hike', 'd1e-carry':'Anti-lean hold', d2e6:'Pallof press', 'd4b-calf':'Calf raise', 'd1-tib':'Tib raise',
+var SHORT = { 'd5e-archer':'Muscle-up drills', d1e1:'Pull-ups', 'd1e-dip':'Dips', d1e3:'Machine row', 'd2e-serr':'Push-up plus', 'd1-pullover':'Pullover', d1e5:'Face pull', 'd1-latraise':'Dumbbell side raise', 'd5-erot':'External rotation', 'd1e-curl':'Curl', 'd5-tripush':'Pushdown',
+ 'd5e-pistol':'Pistol drills', 'd4b-legext':'Leg extension', d3e7:'Nordic curl', 'd1-backext':'Back extension', 'd3e-abd':'Hip abductor', 'd1-adduct':'Hip adductor', 'd1-hiphike':'Hip hike', 'd1e-carry':'Anti-lean hold', d2e6:'Pallof press', 'd4b-calf':'Calf raise', 'd1-tib':'Shin raise',
  d5e1:'Handstand drills', 'd2e-press':'Chest press', 'd3-chin':'Chin-ups', d2e1:'Pike push-up', 'd3-sapd':'1-arm pulldown', d2e3:'Overhead triceps', 'd3e-stir':'Stir the pot', d2e2:'Cable side raise', 'd3-wrow':'Wide cable row', 'd3-inccurl':'Incline curl',
- 'd3-rdl':'RDL', 'd3-abdlean':'Abductor, lean', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Tib raise',
+ 'd3-rdl':'RDL', 'd3-abdlean':'Abductor, lean', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Shin raise',
  'd6-hs':'Handstand', 'd6-crow':'Crow', 'd6-plank':'Plank taps', 'd6-spin':'Bike' };
 var SHORT_B = { d1e3:'Cable row', 'd1-pullover':'Straight-arm pull', d1e5:'Reverse pec-deck', 'd1-latraise':'Seated side raise', 'd5-erot':'Y-raise', 'd1e-curl':'Hammer curl', 'd5-tripush':'Kickback', 'd3e-abd':'Abductor, heavy',
- 'd2e-press':'DB bench', d2e3:'Rope pushdown', 'd3e-stir':'Dead bug', d2e2:'Behind-back raise', 'd3-wrow':'DB row', 'd3-inccurl':'Cable curl', d4b1:'Hip thrust, heavy', d3e3:'Goblet squat', 'd4b-legcurl':'1-leg curl', 'd2-kick':'1-leg hip thrust', 'd3-stcalf':'Standing calf' };
+ 'd2e-press':'Dumbbell bench', d2e3:'Rope pushdown', 'd3e-stir':'Dead bug', d2e2:'Behind-back raise', 'd3-wrow':'Dumbbell row', 'd3-inccurl':'Cable curl', d4b1:'Hip thrust, heavy', d3e3:'Goblet squat', 'd4b-legcurl':'1-leg curl', 'd2-kick':'1-leg hip thrust', 'd3-stcalf':'Standing calf' };
 var SHORT_W = { 'Bent-Arm Monkey-Bar Traverse':'Monkey bars', 'Bar Shimmy':'Bar shimmy', 'Commando Pull-Up':'Commando pull-ups', 'Standing Rope Pulls':'Rope pulls', 'Slow Bear Crawl':'Bear crawl', 'Bear Hold Shoulder Taps':'Bear taps', 'Low Rail Walk':'Rail walk',
  'Planche Lean':'Planche lean', 'Ring Support Hold':'Ring support', 'Archer Push-Up':'Archer push-ups', 'Cartwheels Both Sides':'Cartwheels', 'Lateral Bear Crawl':'Side bear crawl', 'Bear Hold Kickback':'Bear kickback', 'Backward Rail Walk':'Backward rail walk' };
 function paintJump(){
@@ -6585,7 +6586,7 @@ function paintJump(){
  var strip = bar.querySelector('.jstrip');
  var sec = document.body.classList.contains('focus') ? document.querySelector('.section.cur') : null;
  var cards = sec ? _dayCards(sec) : [];
- if (!cards.length){ if (strip) strip.hidden = true; return; }
+ if (!cards.length){ if (strip){ strip.hidden = true; strip._nid = null; strip._h = null; } return; }
  if (!strip){ strip = document.createElement('div'); strip.className = 'jstrip'; strip.setAttribute('role', 'list'); bar.appendChild(strip);
   strip.addEventListener('click', function(ev){ var b = ev.target.closest('.jchip'); if (!b) return;
    var c = document.querySelector('.section.cur .excard[data-id="' + b.dataset.id + '"]'); if (c) goCard(c); }); }
@@ -6593,7 +6594,7 @@ function paintJump(){
  if (!cards.some(function(c){ return c.classList.contains('now'); })){ var first = cards.filter(function(c){ return !c.classList.contains('done') && later.indexOf(c.dataset.id) < 0; })[0]; if (first) first.classList.add('now'); }
  document.querySelectorAll('.excard[data-id]').forEach(function(c){ var p = later.indexOf(c.dataset.id) >= 0 && !c.classList.contains('done'); c.classList.toggle('later', p);
   var lb = c.querySelector('.laterbtn'); if (lb) lb.innerHTML = p ? '<i class="ic ic-later" aria-hidden="true"></i> Parked · do it now' : '<i class="ic ic-later" aria-hidden="true"></i> Later'; });
- strip.innerHTML = cards.map(function(c){
+ var h = cards.map(function(c){
   var done = c.classList.contains('done'), p = c.classList.contains('later'), half = !done && !!c.dataset.r1;
   if (p) parked++;
   var full = ((c.querySelector('.exname') || {}).textContent || '').trim(), parts = full.split(' — ');
@@ -6603,9 +6604,10 @@ function paintJump(){
    '" data-id="' + _esc(c.dataset.id) + '" aria-label="' + _esc(nm) + (done ? ', done' : p ? ', parked' : '') + '">' +
    (done ? '<i class="ic ic-check ic-sm" aria-hidden="true"></i> ' : p ? '<i class="ic ic-later ic-sm" aria-hidden="true"></i> ' : wild ? '<i class="ic ic-skill ic-sm" aria-hidden="true"></i> ' : '') + _esc(short) + '</button>';
  }).join('');
+ if (strip._h !== h){ strip.innerHTML = h; strip._h = h; }   // the minute timer repaints too: leave the strip's scroll alone unless something changed
  strip.hidden = false;
  var now = strip.querySelector('.jchip.now');
- if (now) strip.scrollTo({ left: now.offsetLeft - strip.clientWidth / 2 + now.offsetWidth / 2, behavior: 'smooth' });
+ if (now && strip._nid !== now.dataset.id){ strip._nid = now.dataset.id; strip.scrollTo({ left: now.offsetLeft - strip.clientWidth / 2 + now.offsetWidth / 2, behavior: 'smooth' }); }
  bar.classList.toggle('has-parked', parked > 0);
 }
 (function wireLater(){
@@ -6669,7 +6671,12 @@ paintBests();
 document.querySelectorAll('.ssh').forEach(function(h){ var l = h.querySelector('b'); if (l && l.textContent.trim() === 'B') h.dataset.b = '1'; });
 paintTabs(); _paintSess(); if (typeof _paintPlanChips === 'function') _paintPlanChips(); if (typeof paintSkipTags === 'function') paintSkipTags();
 // the tab can sit open for days: repaint everything that depends on "today" when she comes back to it
-function refreshDay(){ _paintStart(); markToday(); paintWeek(); paintBests(); if (!readPlan()) clearPlan(); applyAdds(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
+var _seenWk = _weekNo() + ':' + _blockInfo().wk;
+function refreshDay(){
+ try { var wkKey = _weekNo() + ':' + _blockInfo().wk;   // a new week: new toy, new warmup flow, new block week — same steps as a re-roll
+  if (wkKey !== _seenWk){ _seenWk = wkKey; _wuRoll = {}; var _wc = [].slice.call(document.querySelectorAll('.excard.wild')); _freshSets(_wc); applyWildcards(); applyBlock(); paintWarmups();
+   _wc.forEach(function(c){ c.querySelectorAll('.exlog').forEach(function(r){ r.remove(); }); }); buildJots(); _repaintSets(_wc); } } catch(e){}
+ _paintStart(); markToday(); paintWeek(); paintBests(); if (!readPlan()) clearPlan(); applyAdds(); applyState(); updateDayComplete(); updateResetCountdown(); updateFabCount();
  if (!document.body.classList.contains('focus')) autoStart(); }
 document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') refreshDay(); });
 window.addEventListener('pageshow', function(ev){ if (ev.persisted) refreshDay(); });
