@@ -462,9 +462,8 @@ nav a.active{border-bottom-width:3px;font-weight:700}
  Wraps within the capped meta column so it never starves the badge column beside it. */
 .sets{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--b);letter-spacing:-.01em;line-height:1.25;font-variant-numeric:tabular-nums;text-align:right;text-wrap:balance}
 .sets .s-lead{font-size:22px;font-weight:800;display:block}
-.rest-lbl{font-family:'Inter',sans-serif;font-size:12px;color:var(--dim);white-space:nowrap}
 .tempo{
- font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+ font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
  color:var(--gld);background:rgba(255,210,58,.08);
  border:1px solid rgba(255,210,58,.28);
  padding:4px 9px;border-radius:100px;white-space:nowrap;font-variant-numeric:tabular-nums;
@@ -784,23 +783,24 @@ body.gym .howfold{display:none}
 
 /* ── REST TIMER ── */
 .rest-lbl{
+ font-family:'Inter',sans-serif;font-size:13px;white-space:nowrap;
  background:rgba(31,224,255,.05);
  border:1px solid rgba(31,224,255,.22);
  color:var(--dim);
  font-weight:600;
- padding:6px 10px;
+ padding:0 12px;
  border-radius:100px;
- min-height:48px;
- min-width:72px;
+ min-height:44px;
+ min-width:86px;
  display:inline-flex;align-items:center;justify-content:center;
  cursor:pointer;
  -webkit-tap-highlight-color:transparent;
  font-variant-numeric:tabular-nums;
- transition:all .15s;
+ transition:background .3s,border-color .3s,box-shadow .3s,color .15s,transform .15s;
  -webkit-user-select:none;-webkit-touch-callout:none;user-select:none;
 }
 .rest-lbl:active{transform:scale(.96)}
-.rest-lbl.running{background:rgba(255,46,136,.18);border-color:var(--r);color:#ffd0e6;box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 18px rgba(255,46,136,.3);animation:restpulse 1s ease-in-out infinite;font-size:15px}
+.rest-lbl.running{background:rgba(255,46,136,.18);border-color:var(--r);color:#ffd0e6;box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 18px rgba(255,46,136,.3);font-size:14px}
 .rest-lbl.done{background:rgba(93,255,159,.20);border-color:var(--g);color:var(--g);animation:restdone .6s ease}
 @keyframes restdone{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 
@@ -941,7 +941,7 @@ body.gym .excard.wild .howfold .setup{display:block}
 .tseg{display:grid!important;grid-template-columns:repeat(4,1fr);gap:6px!important;overflow:visible!important;max-width:420px}
 .xchip.tm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:52px;padding:4px 0!important;border-radius:12px;letter-spacing:.06em!important}
 .xchip.tm b{font:800 17px/1 'Inter',sans-serif;letter-spacing:0;color:var(--txt)}
-.xchip.tm small{font-size:12px;letter-spacing:.1em}
+.xchip.tm small{font-size:13px;letter-spacing:.1em}
 .xchip.tm.on{color:var(--day,var(--g));border-color:var(--day,var(--g));background:rgba(234,240,255,.05)}
 .xchip.tm.on b{color:var(--day,var(--g))}
 .tseg[hidden]{display:none!important}
@@ -953,7 +953,7 @@ body.gym .excard.wild .howfold .setup{display:block}
 .lowbar{display:none;margin:12px var(--pad) 0;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,210,58,.35);background:rgba(255,210,58,.07);color:var(--gld);font-size:13px;line-height:1.5}
 body.lowbat .lowbar{display:block}
 .wc.skipped .wd::after{content:' –';color:var(--dim);font-weight:800}
-.xchip{margin-top:10px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid var(--bdr);border-radius:100px;padding:0 14px;min-height:36px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.xchip{margin-top:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid var(--bdr);border-radius:100px;padding:0 14px;min-height:36px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .xchip.on{color:var(--g);border-color:var(--g);background:rgba(93,255,159,.08)}
 .wc.hit .wd::after{content:"";display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>") center/contain no-repeat;margin-left:2px;color:var(--g);vertical-align:-.15em}
 .dl-dot{min-width:44px;min-height:44px}
@@ -1029,7 +1029,6 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 
 /* satisfying micro-interactions */
 @keyframes chkpop{0%{transform:scale(.82)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
-@keyframes restpulse{0%,100%{box-shadow:0 0 0 1px rgba(255,46,136,.25),0 0 14px rgba(255,46,136,.25)}50%{box-shadow:0 0 0 1px rgba(255,46,136,.4),0 0 24px rgba(255,46,136,.45)}}
 @keyframes fabin{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
 .acc-btn:active{transform:scale(.98)}
 .prog-wrap,.evi-wrap{transition:max-height .4s cubic-bezier(.25,.8,.3,1),opacity .3s ease}
@@ -1181,9 +1180,7 @@ input,button{font-size:inherit;-webkit-appearance:none;appearance:none;border-ra
 .chk{grid-column:2;grid-row:1;border-color:rgba(234,240,255,.38);color:var(--fade)}
 .exmeta{grid-column:1 / -1;grid-row:2;max-width:none;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px}
 .sets{flex-basis:100%;text-align:left;font-size:16px;text-wrap:pretty}
-.rest-lbl{min-height:40px;min-width:0;padding:0 12px;border-radius:100px;font-size:12.5px}
-.rest-lbl.running{animation:none;font-size:14px}
-.tempo{font-size:12px;font-weight:600;padding:0 10px;min-height:44px;display:inline-flex;align-items:center}
+.tempo{font-size:13px;font-weight:600;padding:0 10px;min-height:44px;display:inline-flex;align-items:center}
 .exname{font-size:19px;margin-bottom:4px}
 .caveat{margin:6px 0 8px}
 .caveat-t{font-size:12px;margin-bottom:3px}
@@ -1339,7 +1336,6 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .caveat strong{color:var(--txt)}
 .band-dot{width:6px;height:6px;margin-top:6px;border:0;opacity:.7}
 .exmeta .warmset{margin:0;min-height:28px;display:inline-flex;align-items:center}
-.rest-lbl{min-height:44px;min-width:86px;transition:background .3s,border-color .3s,box-shadow .3s,color .15s,transform .15s}
 .xchip,.reroll,.check-status .cs-btns button,.focusbar button{min-height:44px}
 .prog-step{padding:12px 0}
 .howfold .setup:not(.fmt) strong:not(:first-child)::before{content:'\A';white-space:pre}
@@ -1840,10 +1836,10 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  .tskip .xchip.skip{margin:0;min-height:44px;padding:0 4px;font-size:13px;text-decoration:none;color:var(--dim);letter-spacing:0;text-transform:none;font-weight:600}
  .xchip.tm{flex:1 1 0;flex-direction:row;gap:5px;min-height:44px;padding:0!important;border-radius:var(--chip-r,100px);letter-spacing:0!important}
  .xchip.tm b{font:800 16px/1 'Inter',sans-serif}
- .xchip.tm small{font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--dim)}
+ .xchip.tm small{font-size:13px;letter-spacing:.04em;text-transform:none;color:var(--dim)}
  .xchip.tm.on small{color:inherit;opacity:.8}
  /* chips: one height, one radius */
- .rest-lbl,.tempo,.laterbtn,body.focus .section.cur .excard:not(.done) .laterbtn,.xchip{min-height:44px;border-radius:100px}
+ .tempo,.laterbtn,body.focus .section.cur .excard:not(.done) .laterbtn,.xchip{min-height:44px;border-radius:100px}
  .exmeta{gap:8px}
  .exmeta .rest-lbl{order:1}.exmeta .tempo{order:2;flex:1 1 auto;min-width:0;min-height:44px;padding:0 12px;justify-content:center;white-space:normal}
  .exmeta .warmset{order:3}.exmeta .laterbtn{order:4;margin-left:auto!important}
@@ -2456,7 +2452,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Knees bent, feet on the floor — it counts</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>Legs straight on the floor, then toes up on the knee-high bench</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>Feet-up S1: 10 clean + 3 × 30s wall hold → 5s lowering to a 4″ pad</span></div>
+ <div class="prog-step"><span class="pn">Later</span><span>Feet on the bench: 10 clean reps in set 1, plus 3 × 30s wall hold → then 5s lowering onto a 4″ pad</span></div>
 </div></div>
 </div>
 
@@ -3019,7 +3015,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d6-crow" data-solo="1">
 <div class="extop">
  <div class="ex-left"><div class="exname">Crow → Frog Stand</div></div>
- <div class="exmeta"><div class="sets">3 × 10s crow · then 3 × 10s frog</div><div class="rest-lbl">45s rest</div><div class="tempo">hold 10</div></div>
+ <div class="exmeta"><div class="sets">6 × 10s · 3 crow, then 3 frog</div><div class="rest-lbl">45s rest</div><div class="tempo">hold 10</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor, folded mat in front of your head, fingers spread.</span></div>
@@ -3430,7 +3426,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-10-15.10';
+var APP_V = '2026-10-15.11';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3677,7 +3673,8 @@ function _shown(c){ return c && c.offsetParent !== null; }
 // how many sets the card asks for right now (the tired dose, a long day's S3 and Block B all change it); skill blocks tick per drill
 function _nSets(card){
  if (!card || card.querySelector(':scope > .drills')) return 1;
- var t = [].slice.call(card.querySelectorAll('.exmeta > .sets')).filter(function(x){ return getComputedStyle(x).display !== 'none'; }).map(function(x){ return x.textContent; }).join(' '), m = t.match(/^\s*(\d+)\s*×/);
+ var bc = document.body.classList, dose = bc.contains('lowbat') || bc.contains('engdose'), lng = !!card.closest('.section.long');   // mirrors the .lowdose / .haslow / .longdose CSS
+ var t = [].slice.call(card.querySelectorAll('.exmeta > .sets')).filter(function(x){ var k = x.classList; return k.contains('lowdose') ? dose : k.contains('haslow') ? !dose : k.contains('longdose') ? lng : true; }).map(function(x){ return x.textContent; }).join(' '), m = t.match(/^\s*(\d+)\s*×/);
  return Math.min(6, Math.max(1, /\bS3\b/.test(t) ? 3 : /S2:/.test(t) ? 2 : m ? +m[1] : 1));
 }
 function _paintChk(card){ var b = card.querySelector(':scope > .extop .chk'); if (!b) return;
@@ -6128,6 +6125,7 @@ function planExtra(budget){
 function _extraOn(){ var p = readPlan(); return !!(p && p.day === 'd6' && p.mode === 'lift'); }
 function setExtra(on){
  if (on === _extraOn()) return;
+ if ([].some.call(document.querySelectorAll('#d6 .excard'), function(c){ return c.classList.contains('done') || c.dataset.sn; })){ _toast('Finish or reset today first'); return; }
  if (on){ setMode('d6', '45'); return; }
  try { store.del('bp-plan'); } catch(e){}
  setLow(0); clearPlan(); _afterPlan(); _toast('Skill + engine');
