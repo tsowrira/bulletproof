@@ -5441,7 +5441,7 @@ function ghPull(quiet){
   c = readGH(); if (!c) return false;
   delete c.err;
   if (!j){ delete c.sha; writeGH(c); paintGH(); return false; }   // log.json gone: a stale sha would 422 forever
-  c.sha = j.sha; writeGH(c);
+  c.sha = j.sha; writeGH(c); _ghPulledAt = Date.now();
   var o = {}; try { o = JSON.parse(_b64dec(j.content)); } catch(e){ throw new Error('log.json is not readable'); }
   var added = _ghMerge(o && o.data);
   if (added) _ghRepaint();
@@ -5488,7 +5488,11 @@ var _ghT = null;
 function ghTouch(){ try { store.set('bp-gh-dirty', String(Date.now())); } catch(e){} if (!readGH()){ paintSyncDot(null); return; } clearTimeout(_ghT); _ghT = setTimeout(function(){ _ghT = null; ghPush(1); }, 120000); paintSyncDot(); }
 // a push the phone cut off stays marked, so the next hide or open sends it
 function ghFlush(){ var c = readGH(); if (!c || !(_ghT || (store.get('bp-gh-dirty') && !c.err))) return; clearTimeout(_ghT); _ghT = null; ghPush(1); }
-document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden' || !_ghT) ghFlush(); });
+var _ghPulledAt = 0;
+// coming back to the page after a while: take the repo's copy first, so a session logged on another device (or a long break) shows before anything is planned
+function _ghResume(){ var c = readGH(); if (!c || c.err || store.get('bp-gh-dirty') || _ghT || Date.now() - _ghPulledAt < 6e4) return; ghPull(1); }
+document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden' || !_ghT) ghFlush(); if (document.visibilityState === 'visible') _ghResume(); });
+window.addEventListener('pageshow', function(e){ if (e.persisted) _ghResume(); });
 window.addEventListener('pagehide', ghFlush);   // iOS fires this when the browser really lets go
 
 (function wireGH(){
