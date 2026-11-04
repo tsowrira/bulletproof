@@ -4915,6 +4915,8 @@ var TRACK_W = { 'd1e5':20, 'd5-erot':5, 'd1e-curl':20, 'd2e6':15, 'd1e-carry':15
 function _firstW(card){ if (card.dataset.id in TRACK_W) return TRACK_W[card.dataset.id]; var id = card.dataset.id; return (card.dataset.blk === 'b' && id in TRACK_B) ? TRACK_B[id] : TRACK[id]; }
 // cards whose load the ladder decides by hand — the app never suggests going heavier
 var NO_UP = { 'd3-rdl':1, 'd3e3':1, 'd3e7':1 };
+// still on the bodyweight rung: the +lb box never preloads, whatever went in it before
+var BW_NOW = { 'd4b-calf':1 };
 // today's line for one lift, from its last logs (today excluded). Up is offered, never applied;
 // a long gap or reps sliding preloads a lighter weight; everything else holds and names a rep to chase.
 function _sugg(p, o){
@@ -4970,6 +4972,8 @@ function buildJots(){
  var rm = st0.match(/S1:\s*(\d+)(?:\s*[–-]\s*(\d+))?/), dip = card.dataset.id === 'd1e-dip', rng = dip ? [6, 10] : rm ? [rm[2] ? +rm[1] : 0, rm[2] ? +rm[2] : +rm[1]] : [0, 0];
  var sg = (!mine && !wOnly && !firstW) ? _sugg(p, { tgt:tgt, ladder:ladder, full:full, two:twoSets, unit:wUnit, fixed:/fixed/i.test(st0) || NO_UP[card.dataset.id], timed:timed || mins, mins:mins, hi:/lateral|rear-delt|face pull/i.test(name), hiR:rng[1], rngLo:rng[0], dip:dip, noUp:_easyWk() || _retOn() }) : null;
  if (sg && sg.down && !own) v.w = sg.w;   // only ever lowers what's preloaded; going up is her tap
+ var bwNow = !mine && BW_NOW[card.dataset.id];
+ if (bwNow){ v.w = 0; if (sg && sg.t) sg.t = sg.t.replace(/same [\d.]+ (lb|kg), /, 'bodyweight, ').replace(/: [\d.]+ (lb|kg), /, ': bodyweight, '); }   // the +lb box is only for a dumbbell you choose to hold
  function stp(k, unit, tap){ return '<div class="stp" data-k="' + k + '"><button type="button" class="stb" data-d="-1" aria-label="' + lbl + ': less ' + unit + '">−</button>' +
  '<input class="stv" type="text" inputmode="decimal" value="' + sv(k) + '"' + (k === 'w' && firstW ? ' placeholder="?"' : '') + ' aria-label="' + lbl + ': ' + unit + '">' +
  (tap ? '<button type="button" class="stu stu-b" aria-label="' + lbl + ': unit, now ' + unit + ' — tap to switch">' + unit + '</button>' : '<span class="stu">' + unit + '</span>') +
@@ -5070,6 +5074,8 @@ function buildJots(){
  if (navigator.vibrate) navigator.vibrate(10);
  commitEdit();
  });
+ // a tap into a box selects what's there: the first digit typed replaces it, no backspacing a 70 to get to 33
+ row.addEventListener('focusin', function(ev){ var i = ev.target.closest('.stv'); if (!i) return; requestAnimationFrame(function(){ try { i.setSelectionRange(0, i.value.length); } catch(e){ i.select(); } }); });
  row.addEventListener('change', function(ev){
  var i = ev.target.closest('.stv'); if (!i) return;
  var _n = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(_n)){ i.value = sv(i.parentNode.dataset.k); return; }
