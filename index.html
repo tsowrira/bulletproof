@@ -3420,7 +3420,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-13.1';
+var APP_V = '2026-11-13.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -6103,7 +6103,7 @@ function planDay(dayId, budget, bring){
   if (_lastDone(o) >= Date.now() - 6 * 864e5) return;                    // trained lately: nothing to rescue
   if (DAY_HALF[o] !== DAY_HALF[dayId] && !(dow > SCHED[o] && !(wk[o] && String(wk[o]).indexOf('skip') !== 0))) return;   // other half: only a day that already went missing this week
   byPri([].map.call(document.querySelectorAll('#' + o + ' .excard[data-id]'), function(c){ return c.dataset.id; })).forEach(function(id){ tryAdd(id, o, false); }); });
- while (keep.length + rescue.length > room){ var bp = bumpable(); if (!bp.length) break; keep.splice(keep.lastIndexOf(bp[bp.length - 1]), 1); }
+ while (keep.length + rescue.length > room){ var bp = bumpable(); if (!bp.length) break; var mx = Math.max.apply(null, bp.map(function(c){ return _cutTier(c.dataset.id, dayId); })); bp = bp.filter(function(c){ return _cutTier(c.dataset.id, dayId) === mx; }); keep.splice(keep.lastIndexOf(bp[bp.length - 1]), 1); }   // making room for a rescued lift: isolations go before the priority lifts
  var other = rescue.length ? src[rescue[0]] : '';
  // extra time: the engine finisher comes over from Monday, logged in minutes like it is there
  var extra = [];
