@@ -1647,6 +1647,8 @@ body.travelling :is(.week,.home,.startbtn,.hm-any,.hm-rw,#rwPill,#sqCard,.startw
 .rtag .rt-x{margin-left:8px;min-height:30px;padding:0 10px;border-radius:100px;border:1px solid var(--bdr);background:none;color:var(--dim);font:600 12px 'Inter',sans-serif;letter-spacing:.06em;text-transform:none;cursor:pointer}
 .section.keyonly .addex{display:none}
 .wt small{font-size:12px}
+.stopbtn{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;padding:0 14px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--fade);font:600 13px 'Inter',sans-serif;letter-spacing:.04em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.stopbtn[hidden]{display:none}
 #numList{max-width:620px}
 .brief{display:none;margin-top:22px;padding:16px;border:1px solid var(--bdr);border-radius:12px;background:rgba(234,240,255,.03);position:relative}
 .br-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
@@ -1670,7 +1672,7 @@ body.travelling :is(.week,.home,.startbtn,.hm-any,.hm-rw,#rwPill,#sqCard,.startw
 .br-p{margin:0 0 6px;font-size:14px;line-height:1.45;color:var(--fade)}
 .br-p:last-child{margin-bottom:0}
 @media(max-width:759px){body:not(.focus):not(.browse) .brief:not([hidden]){display:block}}
-@media(min-width:760px){.brief:not([hidden]){display:block;max-width:520px}html:not(.dev-mobile) .hero.has-brief .pills{display:none}html:not(.dev-mobile) .hero.has-brief{grid-template-rows:auto auto auto auto auto 1fr;padding-top:40px;padding-bottom:40px}html:not(.dev-mobile) .hero .brief:not([hidden]){grid-column:2;grid-row:1 / 7;align-self:start;margin-top:0;max-width:none}}
+@media(min-width:760px){.brief:not([hidden]){display:block;max-width:520px}html:not(.dev-mobile) .hero.has-brief .pills{display:none}html:not(.dev-mobile) .hero.has-brief{grid-template-rows:auto auto auto auto auto 1fr;padding-top:40px;padding-bottom:40px}html:not(.dev-mobile) .hero .brief:not([hidden]){grid-column:2;grid-row:1 / 7;align-self:start;margin-top:0;max-width:none}.br-l li{grid-template-columns:22px auto minmax(0,1fr);padding:7px 0}.br-a{grid-column:3;margin-top:0;text-align:right;align-self:center}}
 body.travelling .brief{display:none!important}
 /* phone home: today, this week, what's next — the program lives behind Today / Week / More */
 .home,.hm-next,.hm-any,.hm-rw{display:none}
@@ -2708,7 +2710,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="excard" data-id="d3-chin" data-ss="A">
 <div class="extop">
  <div class="ex-left"><div class="ssn">A1</div><div class="exname">Chin-Up — Slow Lowering</div></div>
- <div class="exmeta"><div class="sets">S1: 6–8 · S2: stop 1 short</div><div class="rest-lbl">90s rest</div><div class="tempo">pull fast · lower 3 · hang 1</div></div>
+ <div class="exmeta"><div class="sets">S1: 4–6 · S2: stop 1 short</div><div class="rest-lbl">90s rest</div><div class="tempo">pull fast · lower 3 · hang 1</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
 <div class="caveat"><div class="caveat-t">Step Down, Never Drop</div><p><strong>Start and end every rep in an active hang — never limp.</strong> Hands sore even with chalk: bar in the finger crease, not the palm, and use the neutral-grip handles if the rig has them.</p></div>
@@ -2720,8 +2722,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="setup"><strong>1.</strong> Hang active: shoulders set, elbows soft. <strong>2.</strong> Pull fast, chin over the bar. <strong>3.</strong> Lower 3s, pause 1, no swing. Step down onto the box — never drop.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Bodyweight — S1: 6–8 · S2: stop 1 short, every lowering a full 3s (slow lowering counts)</span></div>
- <div class="prog-step"><span class="pn">Next</span><span>Set 1 easy two sessions running → +1 rep, up to 8. Past 8, load goes on the belt (Pull + Squat)</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Bodyweight — S1: 4–6 · S2: stop 1 short, every lowering a full 3s (slow lowering counts)</span></div>
+ <div class="prog-step"><span class="pn">Next</span><span>Set 1 reaches 6 clean two sessions running → +1 rep, up to 8. Past 8, load goes on the belt (Pull + Squat)</span></div>
  <div class="prog-step"><span class="pn">Stay</span><span><strong>Bodyweight only here</strong> — the lowering stays 3s, never slower</span></div>
 </div></div>
 </div>
@@ -3268,7 +3270,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <!-- MY NUMBERS -->
 <div class="dailywrap" id="log" style="background:rgba(93,255,159,.04);border-color:rgba(93,255,159,.18)">
  <div class="daily-hd"><div class="daily-t" style="color:var(--g)">My Numbers</div><div class="daily-sub">// last · best · saved on this device</div></div>
- <p class="numkey">Each dot is a session. Dashed line = trend: the change per week and how well the line fits. Tap a lift to delete its last entry.</p>
+ <p class="numkey">Each dot is a session. Dashed line = trend, with the change per week. Tap a lift to delete its last entry.</p>
  <div id="numList"></div>
  <div class="wkview" id="wkView"></div>
  <div class="bk-note" id="bkNote"></div>
@@ -3451,7 +3453,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-13.4';
+var APP_V = '2026-11-13.5';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3706,6 +3708,10 @@ function _paintChk(card){ var b = card.querySelector(':scope > .extop .chk'); if
  var done = card.classList.contains('done'), k = done ? 0 : +card.dataset.sn || 0;
  if (card.querySelector(':scope > .drills')){ if (done){ b.textContent = '✓'; b.classList.remove('half', 's2'); } return; }   // blocks: paintDrills shows the ½
  b.textContent = done ? '✓' : k ? 'S' + (k + 1) : '○'; b.classList.toggle('half', !!k); b.classList.toggle('s2', !!k);
+ var sb = card.querySelector('.stopbtn');   // mid-lift: one tap ends it at the sets already done
+ if (!done && k && _nSets(card) > 1){ if (!sb){ sb = document.createElement('button'); sb.type = 'button'; sb.className = 'stopbtn'; var lg = card.querySelector('.exlog') || card.querySelector(':scope > .extop'); lg.insertAdjacentElement('afterend', sb);
+   sb.addEventListener('click', function(ev){ ev.stopPropagation(); window.toggleDone(b, true); }); }
+  sb.textContent = 'Stop at ' + k + (k === 1 ? ' set' : ' sets'); sb.hidden = false; } else if (sb) sb.hidden = true;
  b.setAttribute('aria-label', done ? 'Done. Tap to undo' : k ? 'Set ' + k + ' logged. Tap when set ' + (k + 1) + ' is done' : _nSets(card) > 1 ? 'Tap when set 1 is done' : 'Mark complete'); }
 function _partner(card){ var sec = card.closest('.section'); if (!sec || !card.dataset.ss) return null; var p = [].slice.call(sec.querySelectorAll('.excard[data-ss="' + card.dataset.ss + '"]')).filter(function(x){ return x !== card; })[0]; return _shown(p) ? p : null; }
 function _nextOpen(card){ var sec = card.closest('.section'); if (!sec) return null; var all = [].slice.call(sec.querySelectorAll('.excard')), i = all.indexOf(card); for (var k = i + 1; k < all.length; k++){ if (_shown(all[k]) && !all[k].classList.contains('done')) return all[k]; } return null; }
@@ -3716,13 +3722,13 @@ function _armAudio(){ if (_ac) return; try { var C = window.AudioContext || wind
 function _beep(){ if (!_ac) return; try { if (_ac.state !== 'running') _ac.resume(); var t = _ac.currentTime; [0, .18].forEach(function(d, i){ var o = _ac.createOscillator(), g = _ac.createGain(); o.type = 'sine'; o.frequency.value = i ? 1175 : 880; g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(0.18, t + d + .02); g.gain.exponentialRampToValueAtTime(0.0001, t + d + .16); o.connect(g); g.connect(_ac.destination); o.start(t + d); o.stop(t + d + .18); }); } catch(e){} }
 // Hook into toggleDone
 const _origToggleDone = window.toggleDone;
-window.toggleDone = function(btn){
+window.toggleDone = function(btn, early){
  const card = btn.closest('.excard');
  const wasDone = card && card.classList.contains('done');
  const _r0 = card && card.querySelector('.rest-lbl');
  var _k = card ? +card.dataset.sn || 0 : 0;
  if (card && !wasDone && card._swStop) card._swStop();   // a running stopwatch logs its real seconds, not the preloaded target
- if (card && !wasDone && _k + 1 < _nSets(card)){   // one tap per set: logs that set's numbers, rest starts, the circle shows the next set
+ if (card && !wasDone && !early && _k + 1 < _nSets(card)){   // one tap per set: logs that set's numbers, rest starts, the circle shows the next set
  if (typeof _pacer !== 'undefined' && _pacer && _pacer.card === card) stopPacer();   // the pacer must not count on through the rest
  card.dataset.sn = String(_k + 1); if (card._logSet) card._logSet();
  card.dataset.r1 = card.dataset.r1 || String(Date.now()); _saveR1(); _paintChk(card);
@@ -3737,7 +3743,8 @@ window.toggleDone = function(btn){
  var _top0 = card && !wasDone ? card.getBoundingClientRect().top : 0;
  _origToggleDone(btn);
  if (_top0 < 0 && card.classList.contains('done')) card.scrollIntoView({ block: 'start' });
- if (card && !wasDone && card.classList.contains('done') && card._commitLog) card._commitLog(); // before the banner counts saved numbers
+ if (card && !wasDone && card.classList.contains('done') && early){ if (card._resetSets) card._resetSets(); }   // stopped short: the sets already ticked are the log, nothing more is saved
+ else if (card && !wasDone && card.classList.contains('done') && card._commitLog) card._commitLog(); // before the banner counts saved numbers
  if (card && wasDone && card._resetSets) card._resetSets();   // undone: back to set 1, today's numbers preloaded
  else if (card && card._paintRow) card._paintRow();
  if (card) _paintChk(card);
@@ -5193,8 +5200,8 @@ function _spark(arr){
  if (fit) g += '<line class="fit" x1="' + px(X[0]) + '" y1="' + py(a + b * X[0]) + '" x2="' + px(X[n - 1]) + '" y2="' + py(a + b * X[n - 1]) + '"/>';
  g += '<polyline class="dl" points="' + line + '"/>' + X.map(function(x, i){ return '<circle class="' + (i === n - 1 ? 'dt last' : 'dt') + '" cx="' + px(x) + '" cy="' + py(Y[i]) + '" r="' + (i === n - 1 ? 3.2 : 2.3) + '"/>'; }).join('');
  var u = wt ? 'lb' : pts[n - 1].t === 's' ? 's' : pts[n - 1].t === 'm' ? 'min' : 'reps', wk = b * 7;
- var tr = fit && span >= 7 ? '<em class="trd"><b class="' + (wk > 0.05 ? 'up' : wk < -0.05 ? 'dn' : '') + '">' + (wk > 0 ? '+' : wk < 0 ? '−' : '±') + f0(Math.abs(wk)) + ' ' + u + '/wk</b> · fit ' + r2.toFixed(2) + ' · ' + n + ' sessions</em>'
-  : '<em class="trd">n = ' + n + ' · the fit line starts at 3 sessions across a week</em>';
+ var tr = fit && span >= 7 ? '<em class="trd"><b class="' + (wk > 0.05 ? 'up' : wk < -0.05 ? 'dn' : '') + '">' + (wk > 0 ? '+' : wk < 0 ? '−' : '±') + f0(Math.abs(wk)) + ' ' + u + ' a week</b> · ' + n + ' sessions</em>'
+  : '<em class="trd">' + n + ' session' + (n === 1 ? '' : 's') + ' so far · the trend line starts at 3 sessions across a week</em>';
  return '<svg class="spk" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Trend chart">' + g + '</svg>' + tr;
 }
 // one small line icon per lift in Numbers: what kind of move it is
@@ -6275,7 +6282,7 @@ function paintSkipTags(){
    var alt = c.dataset.altName && !c.dataset.blk ? c.dataset.altName.split(' — ')[0] : '';
    tag.innerHTML = 'Left out a lot lately · <button type="button" data-sw="' + _esc(id) + '" data-v="' + (alt ? 'alt' : 'bonus') + '">' + (alt ? 'swap for ' + _esc(alt) : 'make it a bonus') + '</button>';
    left.appendChild(tag);
-  } else if (st.slip && !st.tailOnly){ tag.textContent = 'Left out the last two times — early today'; left.appendChild(tag); }
+  } else if (st.slip && !st.tailOnly){ tag.textContent = 'Left out the last two times, so it stays in today'; left.appendChild(tag); }
  });
 }
 document.addEventListener('click', function(ev){
@@ -6330,7 +6337,7 @@ function applyPlan(p){
  if (bar){ var nm = function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; };
   var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>' + (p.long ? 'Long day · ≈' + p.min + ' min · ' : short ? 'Tired day · ≈' + p.min + ' min · ' : 'Built from your logs · ≈' + p.min + ' min · ') + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (function(){ try { return _planWhy(p.day, p); } catch(e){ return []; } })().slice(1).map(function(w){ return '<span>' + _esc(w) + '</span>'; }).join('') + '<button type="button" class="pl-full">Full day</button>';
+  bar.innerHTML = '<b>' + (p.long ? 'Long day' : short ? 'Tired day' : 'Built from your logs') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (function(){ try { return _planWhy(p.day, p); } catch(e){ return []; } })().slice(1).map(function(w){ return '<span>' + _esc(w) + '</span>'; }).join('') + '<button type="button" class="pl-full">Full day</button>';
   bar.hidden = false;
   if (p.mode === 'lift'){ bar.innerHTML = p.lifts ? '<b>Extra lifts · ≈' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b><span>Weakest muscles first, one lift each. Nothing you trained yesterday, nothing tomorrow repeats, no main lifts, legs kept light.</span>' : '<b>Nothing to add today</b><span>Everything left is trained yesterday or tomorrow. Skill + engine is the better pick.</span>'; bar.hidden = false; } }
 }
