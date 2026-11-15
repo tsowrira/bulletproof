@@ -1376,6 +1376,9 @@ nav a.active{border-radius:var(--rad) var(--rad) 0 0}
 .feel{font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.45;color:var(--dim);margin:0 0 8px}
 .feel b{color:var(--txt);font-weight:700;margin-right:6px}
 .excard.done .feel{display:none}
+.ease{font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.45;color:var(--dim);margin:10px 0 4px}
+.ease b{color:var(--txt);font-weight:700;margin-right:6px}
+.excard.done .ease{display:none}
 .tempo .tnum{font-weight:800;margin-left:2px;font-variant-numeric:tabular-nums}
 #paceBar{position:fixed;left:50%;bottom:calc(146px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:121;display:flex;align-items:center;gap:10px;background:rgba(12,12,28,.97);border:1px solid var(--g);color:var(--g);padding:0 6px 0 18px;min-height:48px;border-radius:100px;font-family:'Inter',sans-serif;font-size:16px;font-weight:800;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.55);font-variant-numeric:tabular-nums;cursor:pointer}
 #paceBar[hidden]{display:none}
@@ -2000,7 +2003,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
  </ul>
  <p><strong>Every 4 weeks</strong> tap Block — the accessories swap to a sibling lift, your main lifts and numbers stay.</p>
  <p><strong>One rule everywhere.</strong> Stop a set on joint pain, never on muscle burn.</p>
- <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 More</b>: the same, with room for more. <b>80 Long</b>: every drill, a third set on the key lifts. Times come from your own logged sessions, door to door. <b>Full day</b> on the plan bar shows everything. Skip freely: never make up, never double up.</p>
+ <p><strong>How long?</strong> Pick one at the top of the day. <b>20 Tired</b>: first drill + two lifts, every set stops 3 short. <b>45 Built</b> (default): picked from your logs — lifts you keep missing go first, a skipped day's key lifts come along. <b>60 More</b>: the same, with room for more. <b>80 Long</b>: about the same lifts as 60, plus every drill and a third set on the main lifts. Times come from your own logged sessions, door to door. <b>Every lift</b> on the plan bar shows the whole menu for the day, close to two hours. No session needs all of it: the plan rotates the lifts so each one comes round. Skip freely: never make up, never double up.</p>
  <p style="font-size:12px;color:var(--dim)">S1/S2 = set 1/2 · all clean reps = as many as stay clean (−1/−2 = stop that many short) · 2 left / 2 in the tank = stop when you could still do 2 more clean reps · 2 × 25s = two holds of 25 seconds, rest between · each side = right first, then left for the same reps or time · fixed = no extra reps · tempo = each part of the rep in the order you do it, in seconds (out 2s → hold 1s → lower 3s) — tap it <i class="ic ic-play" aria-hidden="true"></i> and it beeps along: chirp = move, tone = hold, ticks = lowering</p>
 </div>
 
@@ -2036,6 +2039,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Shoulders Decide the Pace</div><p><strong>No kipping.</strong> Step down, never drop. Next rung: 4 clean sessions, shoulders quiet 48 h.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Pull-up bar, a fixed bar at chest height (Smith or low bar), a box.</span></div>
 <div class="cue">Low effort: this primes the wrists and the top position. The pulling is A1.</div>
+<div class="feel"><b>Feel it</b>Wrists and forearms warming up, shoulders pressing down in the support, upper back in the top hold. Not the front of the shoulder.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
  <div class="drill" data-k="0"><div class="dr-h"><b>1</b>Wrist Turnover<span>2 × 8</span></div><div class="dr-w">Chest-height bar, standing, overhand grip.</div><div class="dr-d">Hands only, no body weight. Roll the wrists from hanging grip to on top of the bar, and back. Slow, elbows soft.</div></div>
@@ -2063,6 +2067,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Step, Fingertips, Parallel</div><p>Off a step, never a wall. Fingertips on a rung for balance only. <strong>Stop at parallel.</strong> Knee caves in: set over, go 2″ shallower.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Drill 1: knee-high step by ladder rungs. Drill 2: 6″ step by a rail.</span></div>
 <div class="cue">Five slow counts down — your downhill brakes.</div>
+<div class="feel"><b>Feel it</b>Thigh and glute of the standing leg, working the whole way down. Not the knee.</div>
 <div class="feet">Standing foot flat on the step, weight mid-foot, heel stays down. Free foot flexed: it's the heel that taps.</div>
 <div class="rule">Both sets of drill 1, then both of drill 2. Stop a drill after two reps that look worse.</div>
 <div class="drills">
@@ -2356,7 +2361,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths. Across is one, back is two; rest 45s between. Elbows bent 90°, shoulders down, no swinging. Step down at the end."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. One rep = both hands have moved one hand-width sideways, never crossing, no swing. Feet down between rounds."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. One rep = pull your head up to one side of the bar, lower 3 counts. Switch sides next rep. Shoulders down, no kip."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. One pull = one hand reaches up and pulls the rope down past your chest. Feet stay down, slow release."]]'>
+<div class="excard wild" data-id="wild-mon" data-solo="1" data-x="1" data-wild='[["Bent-Arm Monkey-Bar Traverse", "Where: monkey bars or a long rig over a mat.", "How: 2 lengths. Across is one, back is two; rest 45s between. Elbows bent 90°, shoulders down, no swinging. Step down at the end.", "Lats and biceps holding the bend, and the grip. Not the front of the shoulders.", "Go half way, step down and walk back."], ["Bar Shimmy", "Where: a long pull-up bar or rig.", "How: 2 × 6 each way. Active hang, shoulders down. One rep = both hands have moved one hand-width sideways, never crossing, no swing. Feet down between rounds.", "Grip and the sides of the back. Shoulders stay away from the ears.", "Rest your toes on a box under the bar."], ["Commando Pull-Up", "Where: a pull-up bar, standing under it side-on so it runs past your ear.", "How: 2 × 3 each side. Hands close, one in front of the other. One rep = pull your head up to one side of the bar, lower 3 counts. Switch sides next rep. Shoulders down, no kip.", "Lats and biceps, with the trunk holding you square.", "Toes on a box take some of your weight, or do 2 each side."], ["Standing Rope Pulls", "Where: climbing rope, standing, feet flat.", "How: 2 × 6 pulls. One pull = one hand reaches up and pulls the rope down past your chest. Feet stay down, slow release.", "Grip, forearms and lats.", "Shorter pulls, hands lower on the rope."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2404,6 +2409,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Kneel First, Then Stand</div><p><strong>Kneel 10s before you stand.</strong> Tipping over: turn a hand out, step down sideways. Elbows straight, never jammed.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ffd23a"></div><span class="band-txt">Bare wall, six feet of open floor. Shoes off, hands on firm floor — no soft mat.</span></div>
 <div class="cue">Push the floor away — ribs in, no sagging.</div>
+<div class="feel"><b>Feel it</b>Shoulders pushing tall, belly tight, weight spread across the whole hand. Not the low back.</div>
 <div class="rule">Top to bottom, once. Stop a drill after two reps that look worse.</div>
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Wrist Prep — Standing<span>60s</span></div><div class="dr-w">Wall, palms flat at shoulder height, a step back.</div><div class="dr-d">Rock the shoulders past the fingertips and back × 10, elbows soft. Then 15 pulses: palm heels lift, fingertips stay down.</div></div>
@@ -2667,7 +2673,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past the wrists, upper back round, elbows soft, never locked."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop."], ["Archer Push-Up", "Where: floor, hands wide. Too hard: hands on a bench.", "How: 2 × 3 each side. One rep = shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up. Switch sides next rep."]]'>
+<div class="excard wild" data-id="wild-wed" data-solo="1" data-x="1" data-wild='[["Planche Lean", "Where: open floor, pad in front, fingers slightly out.", "How: 3 × 10s. From push-up position, shoulders past the wrists, upper back round, elbows soft, never locked.", "Front of the shoulders, wrists and belly. Not the elbows.", "A smaller lean, or knees on the floor."], ["Ring Support Hold", "Where: rings at hip height, low enough to step out.", "How: 3 × 15s. Arms by the sides, elbows straight but soft, never jammed, shoulders down, feet hover. Step out, never drop.", "Triceps, chest and shoulders pressing down. Rings stay close to the hips.", "Toes stay on the floor and take some weight."], ["Archer Push-Up", "Where: floor, hands wide.", "How: 2 × 3 each side. One rep = shift over one hand and lower 3 counts; the other arm goes long, elbow soft, never locked. Press up. Switch sides next rep.", "Chest and triceps on the bending side.", "Hands on a bench."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -2996,7 +3002,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div></div>
 </div>
 
-<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Slow Bear Crawl", "Where: a 15 ft floor lane.", "How: 3 lengths. Hands and toes on the floor, knees an inch up, back flat as a table. Opposite hand and foot move together, slow steps."], ["Bear Hold Shoulder Taps", "Where: open floor.", "How: 3 × 10 taps each side. Hands and toes on the floor, knees an inch up, back flat as a table. One tap = one hand to the opposite shoulder and back down. 10 each side is 20 taps a round. Hips do not rock."], ["Low Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Arms out, heel-to-toe, eyes on the far end. Fall off: step down, start again."], ["Lateral Bear Crawl", "Where: a clear lane.", "How: 2 lengths each way. Hands and toes on the floor, knees an inch up, back flat. The hand and foot on the same side move together, small steps, hips level."], ["Bear Hold Kickback", "Where: open floor.", "How: 2 × 8 each leg. Hands and toes on the floor, knees an inch up. One rep = push one heel back and up to hip height, squeeze, return. Hips level, low back never arches."], ["Backward Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Walking backward: toe reaches back, then heel, arms out. Fall off: step down, start again."], ["Clock Taps", "Where: standing on one foot by a rail or post.", "How: 2 rounds each leg. One round = reach the free toe to 12, 3, then 6 o&#39;clock and back, slow. Knee over the second toe, fingertips on the rail if you wobble."]]'>
+<div class="excard wild" data-id="wild-tue" data-solo="1" data-x="1" data-wild='[["Slow Bear Crawl", "Where: a 15 ft floor lane.", "How: 3 lengths. Hands and toes on the floor, knees an inch up, back flat as a table. Opposite hand and foot move together, slow steps.", "Shoulders, thighs and belly. Back stays flat.", "Knees touch down between steps, or do 2 lengths."], ["Bear Hold Shoulder Taps", "Where: open floor.", "How: 3 × 10 taps each side. Hands and toes on the floor, knees an inch up, back flat as a table. One tap = one hand to the opposite shoulder and back down. 10 each side is 20 taps a round. Hips do not rock.", "Shoulders and belly holding the hips still.", "Feet wider, or 6 taps each side."], ["Low Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Arms out, heel-to-toe, eyes on the far end. Fall off: step down, start again.", "Feet and ankles working, hips steady.", "Walk a line on the floor first."], ["Lateral Bear Crawl", "Where: a clear lane.", "How: 2 lengths each way. Hands and toes on the floor, knees an inch up, back flat. The hand and foot on the same side move together, small steps, hips level.", "Shoulders, thighs and belly. Hips stay level.", "One length each way, knees down to rest."], ["Bear Hold Kickback", "Where: open floor.", "How: 2 × 8 each leg. Hands and toes on the floor, knees an inch up. One rep = push one heel back and up to hip height, squeeze, return. Hips level, low back never arches.", "Glute of the moving leg, shoulders and belly.", "Knees rest on the floor, on hands and knees."], ["Backward Rail Walk", "Where: a low balance beam, a parallette rail, or a 2×4 on the floor.", "How: 3 lengths. Walking backward: toe reaches back, then heel, arms out. Fall off: step down, start again.", "Feet, ankles and calves.", "Walk a line on the floor, or keep fingertips on a rail."], ["Clock Taps", "Where: standing on one foot by a rail or post.", "How: 2 rounds each leg. One round = reach the free toe to 12, 3, then 6 o&#39;clock and back, slow. Knee over the second toe, fingertips on the rail if you wobble.", "Glute and thigh of the standing leg, the foot gripping the floor.", "Smaller reaches, fingertips on the rail."]]'>
 <div class="extop">
  <div class="ex-left"><div class="exname">Wildcard</div></div>
  <div class="exmeta"><div class="sets">~4 min</div><div class="rest-lbl">45s rest</div><div class="tempo">PLAY</div></div>
@@ -3033,6 +3039,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 <div class="caveat"><div class="caveat-t">Fresh Only</div><p><strong>Stop while it still looks good.</strong> Back arches or wrists complain: done for today.</p></div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Open floor with a clear body-length all round, and a bare wall.</span></div>
 <div class="cue">Short and crisp — practice, not a workout.</div>
+<div class="feel"><b>Feel it</b>Shoulders pushing tall, belly tight, weight spread across the whole hand. Not the low back.</div>
 <div class="drills">
  <div class="drill"><div class="dr-h"><b>1</b>Wrist Rocks on the Wall<span>60s</span></div><div class="dr-w">Bare wall, palms flat at shoulder height.</div><div class="dr-d">Lean in, rock the shoulders past the fingertips and back × 10. Slow, elbows soft.</div></div>
  <div class="drill"><div class="dr-h"><b>2</b>Kick-Ups to Freestanding<span>8 tries</span></div><div class="dr-w">Open floor, a clear body-length all round.</div><div class="dr-d">Straight lead leg, hips over hands, ribs in, push tall. Back arches or you overshoot: turn a hand out, step down sideways.</div></div>
@@ -3071,6 +3078,8 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 </div>
 <div class="band-badge"><div class="band-dot" style="background:#ff8a4c"></div><span class="band-txt">Any bike, seat high enough for a soft knee at the bottom.</span></div>
 <div class="cue">Easy spin. Feel good? 5 × 1 min brisk, 1 easy.</div>
+<div class="feel"><b>Feel it</b>Legs warm, breathing up but you can still talk. Not the knees.</div>
+<div class="setup"><strong>1.</strong> Set the seat level with your hip bone when you stand next to the bike, so the knee stays soft at the bottom. <strong>2.</strong> Spin easy for 5 min. <strong>3.</strong> Feel good: 5 rounds of 1 min brisk, 1 min easy. If not, stay easy. <strong>4.</strong> Finish with 2 easy min and stand up slowly.</div>
 </div>
 
 </div><!-- /exlist -->
@@ -3453,7 +3462,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-13.5';
+var APP_V = '2026-11-14.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4582,7 +4591,7 @@ function _paintDose(){
   // once there is real data, your own median beats my estimate
   var sec2 = f.closest('.section'), tp = sec2 && typeof sessTypical === 'function' ? sessTypical(sec2.id) : null;
   var fm = tp && tp.n >= 2 ? tp.med : (/^(\d+) min$/.exec(f.dataset.full.split(' · ')[1] || '') || [])[1];
-  if (fm) f.textContent = skill + ' · full ≈' + fm + ' min';
+  try { f.textContent = skill + ' · every lift · about ' + _fullMin(id) + ' min'; } catch(e){ if (fm) f.textContent = skill + ' · ' + fm + ' min'; }
   var pl = typeof readPlan === 'function' ? readPlan() : null;
   if (pl && pl.day === id && !pl.full) f.textContent = skill + ' · ' + pl.min + ' min · ' + pl.lifts + ' lift' + (pl.lifts === 1 ? '' : 's');
  });
@@ -4609,7 +4618,7 @@ function setMode(id, m){
  if (_mode(id) === m) return;
  var p0 = readPlan(), back = p0 && p0.day === id && p0.back;
  setLow(m === '20' || (m === '45' && back));
- if (m === 'full'){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [], back: back })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day — everything on the page'); }
+ if (m === 'full'){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: id, full: 1, keep: [], back: back })); } catch(e){} clearPlan(); _afterPlan(); _toast('Every lift on the page · about ' + _fullMin(id) + ' min'); }
  else buildDay(id, true, m === '20' ? 20 : m === '80' ? 80 : m === '60' ? 60 : 45);
  _paintPlanChips();
 }
@@ -4816,7 +4825,27 @@ try { store.set('bp-express', ''); } catch(e){}   // Express retired: the 20/45/
 function _logKey(card){ if (card.classList.contains('wild')) return 'wild:' + card.querySelector('.exname').textContent.replace(/^Wildcard\s*—\s*/, '').trim();
  return card.dataset.id + (card.dataset.blk === 'b' ? '~b' : ''); }
 function readBlock(){ try { var b = _asObj(JSON.parse(store.get('bp-block') || 'null')); return b.b ? b : { b:'A', t:Date.now() }; } catch(e){ return { b:'A', t:Date.now() }; } }
-function applyBlock(){
+function _paintEase(){
+ var G = 'Go one step lighter or cut the reps, and keep the tempo. Stop while it still looks clean.', E = {
+  'd5e-archer': 'Do the wrist turnover and one support hold, then move on.', 'd5e-pistol': '', 'd3e-stir': '',
+  'd5e1': 'Wrist prep and the chest-to-wall line only. Leave the kick-ups for a fresh day.', 'd6-hs': 'Wrist rocks and three tries, then stop.',
+  'd1e1': 'Take the belt off and do the same reps at bodyweight. Still rough: toes on the box for the last reps.',
+  'd3-chin': 'Step up to the top from the box and do only the slow lowering.', 'd2e1': 'Hands on a bench, hips still high.',
+  'd1e-dip': 'Toes on the footplate take some of your weight. Same stop at 90°.', 'd2e-serr': 'Hands on a bench, same straight line.',
+  'd1-backext': 'Hold 5s instead of 10s, same straight line.', 'd3e7': 'Add 5 lb more assist and keep the 5 counts.',
+  'd3e-splank': 'Bottom knee stays on the floor and helps. Or hold 10s.', 'd1-hiphike': 'Put the dumbbell down and hold the rail.',
+  'd4b-calf': 'Both feet on the step going up, one foot coming down.', 'd1-tib': 'Heels closer to the wall.',
+  'd2-sled': 'Two push rounds, then walk back for 3 min.', 'd6-crow': 'Toes stay on the floor. Lean until the hands take most of your weight and hold 10s.',
+  'd6-plank': 'Feet wider, or 4 taps each side.', 'd6-spin': 'Ten easy minutes counts.' };
+ document.querySelectorAll('.excard[data-id]').forEach(function(c){
+  var t = c.classList.contains('wild') ? c.dataset.ease || '' : c.dataset.blk === 'b' ? G : E[c.dataset.id] === undefined ? G : E[c.dataset.id];
+  var host = c.querySelector(':scope > .howfold'), dr = c.querySelector(':scope > .drills'), el = c.querySelector('.ease');
+  if (!t || (!host && !dr)){ if (el) el.remove(); return; }
+  if (!el){ el = document.createElement('div'); el.className = 'ease'; el.innerHTML = '<b>Too hard today</b><span></span>'; }
+  if (host){ if (el.parentNode !== host) host.appendChild(el); } else if (el.previousElementSibling !== dr) dr.insertAdjacentElement('afterend', el);
+  el.lastChild.textContent = t; });
+}
+function applyBlock(){ setTimeout(_paintEase, 0);
  var st = readBlock(); try { if (!store.get('bp-block')) store.set('bp-block', JSON.stringify(st)); } catch(e){}
  var isB0 = st.b === 'B', isB = isB0, SW = _swaps(), map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow'],['.sets','altSets'],['.tempo','altTempo'],['.feet','altFeet']];
  document.querySelectorAll('.excard[data-alt-name]').forEach(function(c){
@@ -4883,6 +4912,8 @@ function applyWildcards(){
  var how = (p.length > 2 ? p[2] : p[1]).replace(/^How:\s*/i, ''), cut = how.indexOf('. ');
  if (cut > 0 && cut < 24 && /\d/.test(how.slice(0, cut))){ c.querySelector('.sets').textContent = how.slice(0, cut); how = how.slice(cut + 2); }
  var su = c.querySelector('.setup'); su.textContent = how; su.classList.remove('fmt'); if (su.closest('.howfold')) _fmtSteps(su);
+ var fe = c.querySelector('.feel'); if (p[3]){ if (!fe){ fe = document.createElement('div'); fe.className = 'feel'; (su.closest('.howfold') || su).insertAdjacentElement('afterend', fe); } fe.innerHTML = '<b>Feel it</b>' + _esc(p[3]); } else if (fe) fe.remove();
+ c.dataset.ease = p[4] || ''; setTimeout(_paintEase, 0);
  if (!c.querySelector('.reroll')){ var b = document.createElement('button'); b.type = 'button'; b.className = 'reroll'; b.innerHTML = '<i class="ic ic-dice" aria-hidden="true"></i> Different toy'; b.onclick = function(){ rerollWild(c.dataset.id); }; c.appendChild(b);
   var jb = document.createElement('button'); jb.type = 'button'; jb.className = 'reroll jar'; jb.innerHTML = '<i class="ic ic-grid" aria-hidden="true"></i> Any day\u2019s toy'; jb.onclick = function(){ jarWild(c.dataset.id); }; c.appendChild(jb); }
  } catch(e){} });
@@ -6293,7 +6324,17 @@ document.addEventListener('click', function(ev){
  paintSkipTags(); _toast(b.dataset.undo ? 'Back to the usual lift' : b.dataset.v === 'alt' ? 'Swapped — undo sits on the card' : 'It waits with the bonus lifts now');
 });
 function readPlan(){ try { var p = JSON.parse(store.get('bp-plan') || 'null'); if (p && !Array.isArray(p.rescue)) p.rescue = []; return p && p.d === _today() && Array.isArray(p.keep) ? p : null; } catch(e){ return null; } }
-function clearPlan(){
+function _fullMin(id){ var cs = [].slice.call(document.querySelectorAll('#' + id + ' .excard[data-id]')), sk = cs.filter(function(c){ return c.querySelector(':scope > .drills'); }).length;
+ return Math.round((3 + sk * 8 + (cs.length - sk) * _pace()) / 5) * 5; }
+function _mkPlanBar(sec, list){ var bar = sec.querySelector('.planbar'); if (bar || !list) return bar;
+ bar = document.createElement('div'); bar.className = 'planbar'; list.insertBefore(bar, list.firstChild);
+ bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')) setMode(sec.id, 'full'); }); return bar; }
+// the whole menu showing: say plainly how much that is
+function _paintFullBar(){ try { var raw = JSON.parse(store.get('bp-plan') || 'null'); if (!raw || !raw.full || raw.d !== _today()) return;
+ var sec = document.getElementById(raw.day), list = sec && sec.querySelector('.exlist'), bar = sec && _mkPlanBar(sec, list); if (!bar) return;
+ var n = sec.querySelectorAll('.excard[data-id]').length - sec.querySelectorAll('.excard[data-id] > .drills').length;
+ bar.innerHTML = '<b>Every lift</b><span>All ' + n + ' lifts for this day, about ' + _fullMin(raw.day) + ' min. That is the whole menu, more than one session needs. Pick a time above and the plan picks the lifts for you.</span>'; bar.hidden = false; } catch(e){} }
+function clearPlan(){ setTimeout(_paintFullBar, 0);
  document.querySelectorAll('[data-off]').forEach(function(x){ delete x.dataset.off; });
  document.querySelectorAll('.ssh[data-h0]').forEach(function(h){ h.innerHTML = h.dataset.h0; });
  document.querySelectorAll('.excard[data-rescued]:not([data-added])').forEach(function(c){
@@ -6332,12 +6373,11 @@ function applyPlan(p){
   if (cs.length === 2 && on.length === 1){ var tn = [].filter.call(h.childNodes, function(n){ return n.nodeType === 3; })[0], bits = tn ? tn.nodeValue.split(' · ') : [], hv = (bits[0] || '').split('↔');
    if (hv.length === 2){ tn.nodeValue = hv[cs.indexOf(on[0])].trim() + (bits[1] ? ' · ' + bits[1] : ''); var sp = h.querySelector('span'); if (sp && /both sets|every set/.test(sp.textContent)) sp.textContent = 'on its own today'; } } });
  var bar = sec.querySelector('.planbar');
- if (!bar && list){ bar = document.createElement('div'); bar.className = 'planbar'; list.insertBefore(bar, list.firstChild);
-  bar.addEventListener('click', function(ev){ if (ev.target.closest('.pl-full')){ try { store.set('bp-plan', JSON.stringify({ d: _today(), day: p.day, full: 1, keep: [] })); } catch(e){} clearPlan(); _afterPlan(); _toast('Full day'); } }); }
+ if (!bar) bar = _mkPlanBar(sec, list);
  if (bar){ var nm = function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; };
   var names = p.rescue.filter(function(id){ return !(p.carry || {})[id] && !(p.late || {})[id]; }).map(nm), lateN = p.rescue.filter(function(id){ return (p.late || {})[id]; }).map(nm), leftN = p.rescue.filter(function(id){ return (p.carry || {})[id]; }).map(nm);
   var upN = (p.up || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-  bar.innerHTML = '<b>' + (p.long ? 'Long day' : short ? 'Tired day' : 'Built from your logs') + '</b>' + (p.long ? '<span>Every drill in the block, a third set on the key lifts' + ((p.extra || []).length ? ', bike to finish' : '') + '</span>' : '') + (function(){ try { return _planWhy(p.day, p); } catch(e){ return []; } })().slice(1).map(function(w){ return '<span>' + _esc(w) + '</span>'; }).join('') + '<button type="button" class="pl-full">Full day</button>';
+  bar.innerHTML = '<b>' + (p.long ? 'Long day · 80 min' : short ? 'Tired day' : 'Built from your logs') + '</b>' + (p.long ? '<span>About the same lifts as 60 min. The extra time goes to every drill and a third set on the main lifts' + ((p.extra || []).length ? ', with the bike to finish' : '') + '.</span>' : '') + (function(){ try { return _planWhy(p.day, p); } catch(e){ return []; } })().slice(1).map(function(w){ return '<span>' + _esc(w) + '</span>'; }).join('') + '<button type="button" class="pl-full">Every lift</button>';
   bar.hidden = false;
   if (p.mode === 'lift'){ bar.innerHTML = p.lifts ? '<b>Extra lifts · ≈' + p.min + ' min · ' + p.lifts + ' lift' + (p.lifts === 1 ? '' : 's') + '</b><span>Weakest muscles first, one lift each. Nothing you trained yesterday, nothing tomorrow repeats, no main lifts, legs kept light.</span>' : '<b>Nothing to add today</b><span>Everything left is trained yesterday or tomorrow. Skill + engine is the better pick.</span>'; bar.hidden = false; } }
 }
@@ -6446,7 +6486,7 @@ function _paintAddBoxes(){
   }
   // a trimmed day: one tap makes it longer without scrolling back to the top
   var more = box.querySelector('.ax-more'), m = typeof _mode === 'function' && DAY_ORDER.indexOf(sec.id) >= 0 ? _mode(sec.id) : 'full', ups = { '20': ['45', '60', 'full'], '45': ['60', '80', 'full'], '60': ['80', 'full'], '80': ['full'] }[m] || [];
-  var lbl = { '45': '45 min', '60': '60 min', '80': 'Long · 80', 'full': 'Whole day' };
+  var lbl = { '45': '45 min', '60': '60 min', '80': '80 min', 'full': 'Every lift' };
   more.innerHTML = ups.length ? '<span>Got more time?</span>' + ups.map(function(k){ return '<button type="button" data-m="' + k + '">' + lbl[k] + '</button>'; }).join('') : '';
   more.hidden = !ups.length;
  });
@@ -6634,7 +6674,7 @@ function _rwNudge(){
 window._rwSet = _rwSet; window._rwUse = _rwUse; window._rwClear = _rwClear;
 
 renderNumbers();
-buildDayChips(); paintWeek();
+buildDayChips(); paintWeek(); setTimeout(_paintFullBar, 0);
 try { _paintStart(); } catch(e){}
 (function(){ try { var f = (sessionStorage.getItem('bp-focus') || '').split('|'), h = (location.hash || '').slice(1);
  if (f[0] && f[1] === _today() && document.getElementById(f[0]) && (!h || h === f[0])) { setFocus(f[0]); return; }
