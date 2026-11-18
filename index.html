@@ -1265,7 +1265,7 @@ body.focus .section.cur .excard.later .laterbtn{float:none;margin-left:0;color:v
 .laterbtn:active{transform:scale(.96)}
 .excard.now{background:rgba(31,224,255,.035);box-shadow:inset 3px 0 0 var(--b),0 0 0 1px rgba(31,224,255,.18)}
 /* in a session only the lift you're on opens up; the rest read as a slim list — tap one to open it */
-body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills))>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.feet,.foldrow,.howfold,.acc-btn,.prog-wrap),
+body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(.wild):not(:has(> .drills))>:is(.caveat,.band-badge,.seatjot:not(.has),.cue,.feet,.foldrow,.howfold,.acc-btn,.prog-wrap),
 body.focus .section.cur .excard[data-id]:not(.now):not(.done):not(:has(> .drills)) :is(.laterbtn,.warmset,.rest-lbl,.tempo,.notebox:not(.has)){display:none}
 body.focus .section.cur .excard[data-id]:not(.now):not(.done){cursor:pointer}
 .excard.later:not(.now) .ex-left{opacity:.7}
@@ -1880,6 +1880,23 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 }
 .laterbtn .ic{width:14px;height:14px;vertical-align:0}
 .laterbtn{gap:6px}
+.skipbtn{display:none}
+body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):not(:has(> .skipbox))>.skipbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;margin:10px 0 4px;border:1px solid var(--bdr);border-radius:100px;background:transparent;color:var(--dim);font:600 12px 'Inter',sans-serif;letter-spacing:.04em;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.skipbtn .ic{width:13px;height:13px;vertical-align:0}
+.skipbox{display:grid;gap:10px;margin:10px 0 6px;padding:14px;border:1px solid var(--bdr);border-radius:14px;background:rgba(234,240,255,.03);cursor:default}
+.excard:not(.now)>.skipbox,.excard.done>.skipbox{display:none}
+.sk-h{font:700 15px/1.3 'Inter',sans-serif;color:var(--txt)}
+.sk-s{font:500 13px/1.45 'Inter',sans-serif;color:var(--dim)}
+.sk-idea{display:grid;gap:4px;padding:11px 12px;border-radius:12px;background:rgba(31,224,255,.06)}
+.sk-idea small{font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--b)}
+.sk-idea b{font:700 15px/1.3 'Inter',sans-serif;color:var(--txt)}
+.sk-idea span{font:500 13px/1.45 'Inter',sans-serif;color:var(--fade)}
+.sk-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sk-btns button{flex:1 1 auto;min-height:44px;padding:0 14px;border-radius:100px;border:1px solid var(--bdr);background:transparent;color:var(--txt);font:600 13px 'Inter',sans-serif;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.sk-btns button:active{transform:scale(.97)}
+.sk-btns .sk-do{border-color:var(--b);color:var(--b);background:rgba(31,224,255,.08)}
+.skiprow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px var(--pad,0px) 0;font:600 12px 'Inter',sans-serif;letter-spacing:.04em;color:var(--dim)}
+.skiprow button{min-height:44px;padding:0 14px;border-radius:100px;border:1px dashed var(--bdr);background:none;color:var(--fade);font:600 12px 'Inter',sans-serif;cursor:pointer;touch-action:manipulation}
 /* notes: slim, dashed, obviously tappable */
 .notebox{min-height:36px;height:36px;padding:7px 10px 7px 34px;border:1px dashed rgba(234,240,255,.22);border-radius:10px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa3c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6.500 3.500h8L19 8v10.500a2 2 0 0 1-2 2H6.500a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2z'/><path d='M14.500 3.500V8H19M8 12.500h8M8 16h5'/></svg>") 11px 50%/16px no-repeat;font-size:16px;line-height:20px;box-sizing:border-box;margin-top:8px}
 .notebox::placeholder{font-size:14px;color:var(--fade)}
@@ -3462,7 +3479,7 @@ body.focus .section.cur>.callout:not(.warn),body.focus .section.cur .fin,body.fo
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-14.1';
+var APP_V = '2026-11-18.1';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4847,9 +4864,10 @@ function _paintEase(){
 }
 function applyBlock(){ setTimeout(_paintEase, 0);
  var st = readBlock(); try { if (!store.get('bp-block')) store.set('bp-block', JSON.stringify(st)); } catch(e){}
+ var TA = {}; try { TA = readSkips().alt; } catch(e){}
  var isB0 = st.b === 'B', isB = isB0, SW = _swaps(), map = [['.exname','altName'],['.band-txt','altWhere'],['.cue','altCue'],['.setup','altHow'],['.sets','altSets'],['.tempo','altTempo'],['.feet','altFeet']];
  document.querySelectorAll('.excard[data-alt-name]').forEach(function(c){
- var isB = isB0 !== (SW[c.dataset.id] === 'alt');
+ var isB = (isB0 !== (SW[c.dataset.id] === 'alt')) !== !!TA[c.dataset.id];
  map.forEach(function(m){ var el = c.querySelector(m[0]); if (!el || !c.dataset[m[1]]) return;
  if (m[0] === '.tempo'){ if (el.dataset.a === undefined) el.dataset.a = _tempoRaw(el); var want = isB ? c.dataset.altTempo : el.dataset.a;
   if (_tempoRaw(el) !== want){ el.textContent = want; _fmtTempo(el); } return; }
@@ -6301,12 +6319,13 @@ function _skipStats(id){
 function _swaps(){ try { return _asObj(JSON.parse(store.get('bp-swap') || '{}')); } catch(e){ return {}; } }
 function _setSwap(id, v){ var o = _swaps(); if (v) o[id] = v; else delete o[id]; try { store.set('bp-swap', JSON.stringify(o)); } catch(e){} }
 function paintSkipTags(){
- var sw = _swaps();
+ var sw = _swaps(), ta = readSkips().alt;
  document.querySelectorAll('.skiptag').forEach(function(x){ x.remove(); });
  document.querySelectorAll('.section[id^="d"] .excard[data-id]').forEach(function(c){
   var id = c.dataset.id; if (_isSkill(c) || c.classList.contains('wild') || c.classList.contains('done')) return;
   var left = c.querySelector('.ex-left'); if (!left) return;
   var tag = document.createElement('div'); tag.className = 'skiptag';
+  if (ta[id]){ tag.innerHTML = 'Different one for today · <button type="button" data-unta="' + _esc(id) + '">undo</button>'; left.appendChild(tag); return; }
   if (sw[id]){ tag.innerHTML = (sw[id] === 'alt' ? 'Swapped in for you' : 'Bonus by choice') + ' · <button type="button" data-undo="' + _esc(id) + '">undo</button>'; left.appendChild(tag); return; }
   var st = _skipStats(id);
   if (st.passed){
@@ -6318,6 +6337,7 @@ function paintSkipTags(){
 }
 document.addEventListener('click', function(ev){
  var b = ev.target.closest && ev.target.closest('.skiptag button'); if (!b) return;
+ if (b.dataset.unta){ var s0 = readSkips(); delete s0.alt[b.dataset.unta]; writeSkips(s0); _skipRefresh(b.dataset.unta); _toast('Back to the usual lift'); return; }
  var id = b.dataset.sw || b.dataset.undo; _setSwap(id, b.dataset.undo ? null : b.dataset.v);
  applyBlock(); document.querySelectorAll('.excard[data-id="' + id + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); applyState();
  var p = readPlan(); if (p && !p.full){ buildDay(p.day, true); }
@@ -6343,6 +6363,7 @@ function clearPlan(){ setTimeout(_paintFullBar, 0);
   if (home && home.parentNode){ home.parentNode.insertBefore(c, home); home.remove(); } c._home = null; });
  document.querySelectorAll('.exmeta > .sets[data-porig]').forEach(function(st){ st.textContent = st.dataset.porig; delete st.dataset.porig; });
  document.querySelectorAll('.section.planned').forEach(function(x){ x.classList.remove('planned'); x.classList.remove('long'); x.classList.remove('short'); var b = x.querySelector('.planbar'); if (b) b.hidden = true; });
+ _applySkips();
 }
 function applyPlan(p){
  clearPlan();
@@ -6435,7 +6456,7 @@ function applyAdds(){
  document.querySelectorAll('.excard[data-added]').forEach(function(c){ if (ids.indexOf(c.dataset.id) < 0) _unAdd(c); });
  var made = 0; want.forEach(function(a){ var had = !!document.querySelector('.excard[data-id="' + a[0] + '"]'), c = _placeAdd(a[0], a[1]); if (c && !had) made++; });
  if (made){ buildJots(); applyState(); }
- _paintAddBoxes();
+ _paintAddBoxes(); _applySkips();
 }
 function _axNorm(t){ return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 function _axItems(sec){
@@ -6779,6 +6800,114 @@ function paintJump(){
    if (ev.target.closest('button, input, a, summary, .stp')) return; pick(ev); }, { passive: true });
  });
 })();
+// ── skip a lift for today, or swap it for a different one picked from your log ──
+function readSkips(){ var o = { d: _today(), ids: [], sub: {}, alt: {} };
+ try { var s = JSON.parse(store.get('bp-skipd') || 'null'); if (s && s.d === o.d){ o.ids = Array.isArray(s.ids) ? s.ids.filter(function(x){ return typeof x === 'string'; }) : []; o.sub = _asObj(s.sub); o.alt = _asObj(s.alt); } } catch(e){}
+ return o; }
+function writeSkips(s){ try { if (s.ids.length || Object.keys(s.alt).length) store.set('bp-skipd', JSON.stringify(s)); else store.del('bp-skipd'); } catch(e){} }
+function _skCard(id){ return document.querySelector('.excard[data-id="' + id + '"]'); }
+var SLOT_SAY = { vpull:'lats and biceps', latuni:'lats, one side at a time', latiso:'lats', hpull:'the middle of the back', rdelt:'the back of the shoulders', cuff:'the small muscles round the shoulder', serratus:'the muscles under the shoulder blade',
+ chest:'chest', dip:'chest and triceps', ohp:'shoulders', tri:'triceps', bi:'biceps', sdelt:'the side of the shoulders', quad:'the front of the thighs', hamknee:'hamstrings', hamhip:'hamstrings and glutes', backext:'lower back and glutes',
+ gmed:'the side of the hips', glute:'glutes', calf:'calves', corerot:'the trunk, holding against a twist', corelat:'the side of the trunk' };
+var SLOT_GRP = { vpull:'lat', latuni:'lat', latiso:'lat', hpull:'back', rdelt:'back', cuff:'cuff', serratus:'serr', chest:'press', dip:'press', ohp:'press', tri:'tri', bi:'bi', sdelt:'sdelt', quad:'quad', hamknee:'ham', hamhip:'ham',
+ backext:'backext', gmed:'gmed', glute:'glute', calf:'calf', corerot:'trunk', corelat:'trunk' };
+// stand-ins for a lift, best first: its own other version, then lifts from other days that do the same job.
+// Ranked from the log: the one that has waited longest wins, lifts you keep leaving out sink, priority muscles float.
+function _skipIdeas(card){
+ var id = card.dataset.id, out = [], sec = card.closest('.section'), slot = SLOT[id];
+ if (!slot || !SLOT_GRP[slot] || !sec || NO_RESCUE[id] || card.classList.contains('wild') || _isSkill(card) || card.dataset.custom) return out;
+ var t = _today(), h = readHist(), sk = readSkips();
+ function last(k){ var d = ''; _asArr(h[k]).forEach(function(e){ if (e && e.d > d) d = e.d; }); return d; }
+ function ago(d){ return d ? Math.round((Date.parse(t) - Date.parse(d)) / 864e5) : -1; }
+ function when(n){ return n < 0 ? 'Not in your log yet.' : n === 0 ? 'Last done today.' : n === 1 ? 'Last done yesterday.' : 'Last done ' + n + ' days ago.'; }
+ function txt(html){ var d = document.createElement('div'); d.innerHTML = html || ''; return d.textContent.trim(); }
+ if (card.dataset.altName && !sk.alt[id]){ var b = card.dataset.blk === 'b', nm = b ? txt((card.querySelector('.exname') || {}).dataset.orig) : card.dataset.altName;
+  if (nm && !/heavy/i.test(nm)) out.push({ kind: 'alt', id: id, name: nm, why: 'Same muscles, a different version. ' + when(ago(last(b ? id : id + '~b'))) }); }
+ var busy = {}; _dayCards(sec).forEach(function(c){ if (c !== card && SLOT[c.dataset.id]) busy[SLOT[c.dataset.id]] = 1; });
+ Object.keys(h).forEach(function(k){ if (last(k) === t) busy[SLOT[k.replace(/~b$/, '')]] = 1; });
+ var pool = [];
+ document.querySelectorAll('.section[id^="d"] .excard[data-id]').forEach(function(c){
+  var cid = c.dataset.id, cs = SLOT[cid]; if (!cs || cid === id || SLOT_GRP[cs] !== SLOT_GRP[slot] || busy[cs] || _noBring(cid) || c.classList.contains('wild') || _isSkill(c) || c.dataset.custom || c.dataset.added || c.dataset.rescued || sk.ids.indexOf(cid) >= 0) return;
+  var o = c.closest('.section'); if (!o || o === sec || DAY_ORDER.indexOf(o.id) < 0) return;
+  var a = last(cid), a2 = last(cid + '~b'), n = ago(a > a2 ? a : a2); if (n === 0 || n === 1) return;   // worked today or yesterday: let it rest
+  var st = _skipStats(cid), score = (cs === slot ? 30 : 0) + (n < 0 ? 10 : Math.min(n, 21)) + (PRIORITY_SLOT[cs] ? 5 : 0) - (st.passed ? 15 : 0);
+  pool.push({ kind: 'add', id: cid, name: ((c.querySelector('.exname') || {}).textContent || '').trim(), score: score,
+   why: (cs === slot ? 'Same job: ' : 'Close to it: ') + SLOT_SAY[cs] + '. ' + when(n) + ' Borrowed from ' + DAY_NAME[o.id] + '.' });
+ });
+ pool.sort(function(x, y){ return y.score - x.score; });
+ return out.concat(pool.slice(0, 3 - out.length));
+}
+function _applySkips(){ try {
+ var s = readSkips(), by = {};
+ document.querySelectorAll('.excard[data-skipd]').forEach(function(c){ if (s.ids.indexOf(c.dataset.id) < 0 || c.dataset.added){ if (!c.dataset.added) delete c.dataset.off; delete c.dataset.skipd; } });
+ s.ids.forEach(function(id){ var c = _skCard(id); if (!c || c.classList.contains('done') || c.dataset.added) return;
+  c.dataset.off = '1'; c.dataset.skipd = '1'; c.classList.remove('now');
+  var sec = c.closest('.section'); if (sec) (by[sec.id] = by[sec.id] || []).push(c);
+  // the stand-in takes the skipped lift's place in the order
+  var y = s.sub[id] && _skCard(s.sub[id]);
+  if (y && y.dataset.added && y.parentNode === c.parentNode){ if (y.nextElementSibling !== c) c.parentNode.insertBefore(y, c);
+   var tg = y.querySelector('.rtag.addtag'); if (tg && !tg.dataset.sk){ var lbl = ' Instead of ' + _shortOf(c); [].forEach.call(tg.childNodes, function(n){ if (n.nodeType === 3) n.nodeValue = lbl; }); tg.dataset.sk = '1'; } } });
+ document.querySelectorAll('.section .ssh').forEach(function(hd){ var x = hd.nextElementSibling, L = (hd.querySelector('b') || {}).textContent, cs = [];
+  while (x && x.classList.contains('excard')){ if (x.dataset.ss === L) cs.push(x); x = x.nextElementSibling; }
+  if (cs.length && cs.every(function(c){ return c.dataset.off; })) hd.dataset.off = '1'; });
+ document.querySelectorAll('.skiprow').forEach(function(r){ r.remove(); });
+ Object.keys(by).forEach(function(k){ var list = document.querySelector('#' + k + ' .exlist'); if (!list) return;
+  var row = document.createElement('div'); row.className = 'skiprow'; row.innerHTML = '<span>Skipped today</span>';
+  by[k].forEach(function(c){ var b = document.createElement('button'); b.type = 'button'; b.textContent = _shortOf(c) + ' · bring back';
+   b.addEventListener('click', function(){ unskipLift(c.dataset.id); }); row.appendChild(b); });
+  list.insertAdjacentElement('afterend', row); });
+} catch(e){} }
+function _skipRefresh(blk){
+ if (blk){ applyBlock(); document.querySelectorAll('.excard[data-id="' + blk + '"] .exlog').forEach(function(r){ r.remove(); }); buildJots(); applyState(); }
+ var p = readPlan(); if (p && !p.full) applyPlan(p); else clearPlan();
+ applyAdds(); _afterPlan(); paintSkipTags();
+}
+function skipLift(card, idea){
+ var id = card.dataset.id, s = readSkips(), sec = card.closest('.section');
+ if (idea && idea.kind === 'alt'){ s.alt[id] = 1; writeSkips(s); _skipRefresh(id); goCard(card); _toast('Swapped for today: ' + idea.name.split(' — ')[0]); return; }
+ var all = _dayCards(sec), k = all.indexOf(card), later = readLater(), next = null, nm = _shortOf(card);
+ for (var n = 1; n < all.length && !next; n++){ var c = all[(k + n) % all.length]; if (!c.classList.contains('done') && later.indexOf(c.dataset.id) < 0) next = c; }
+ if (s.ids.indexOf(id) < 0) s.ids.push(id);
+ if (idea){ s.sub[id] = idea.id; var a = readAdds().filter(function(x){ return x[0] !== idea.id; }); a.push([idea.id, sec.id]); writeAdds(a); }
+ writeSkips(s); _skipRefresh();
+ var tgt = idea ? _skCard(idea.id) : next;
+ if (tgt && !_hidden(tgt)) goCard(tgt); else { _setNow(null); paintJump(); }
+ if (navigator.vibrate) navigator.vibrate(15);
+ _toast(idea ? 'Swapped in: ' + idea.name.split(' — ')[0] : 'Skipped today: ' + nm + ' · bring it back under the list');
+}
+function unskipLift(id){
+ var s = readSkips(), y = s.sub[id], yc = y && _skCard(y);
+ if (yc && !yc.classList.contains('done') && !yc.dataset.r1) writeAdds(readAdds().filter(function(a){ return a[0] !== y; }));   // the stand-in leaves with it, unless you already started it
+ s.ids = s.ids.filter(function(x){ return x !== id; }); delete s.sub[id]; writeSkips(s); _skipRefresh();
+ var c = _skCard(id); if (c && !_hidden(c)) goCard(c); _toast('Back in today');
+}
+function _openSkip(card){
+ var old = card.querySelector(':scope > .skipbox'); if (old){ old.remove(); return; }
+ var ideas = _skipIdeas(card), i = 0, id = card.dataset.id, box = document.createElement('div'); box.className = 'skipbox';
+ function paint(){ var x = ideas[i], many = ideas.length > 1;
+  box.innerHTML = '<div class="sk-h">Skip ' + _esc(_shortOf(card)) + ' today?</div>' +
+   (x ? '<div class="sk-s">' + (PRIORITY_SLOT[SLOT[id]] ? 'This is one of your priority lifts, so a swap beats a skip.' : 'You can do a different one instead.') + '</div>' +
+     '<div class="sk-idea"><small>Do this instead' + (many ? ' · idea ' + (i + 1) + ' of ' + ideas.length : '') + '</small><b>' + _esc(x.name) + '</b><span>' + _esc(x.why) + '</span></div>' +
+     '<div class="sk-btns"><button type="button" class="sk-do">Do this instead</button>' + (many ? '<button type="button" class="sk-next">Another idea</button>' : '') + '</div>'
+    : '<div class="sk-s">' + (NO_RESCUE[id] ? 'This lift has no stand-in. It stays on its own day.' : card.classList.contains('wild') ? 'For a different toy, use the two buttons above.' : 'No stand-in for this one today.') + '</div>') +
+   '<div class="sk-btns"><button type="button" class="sk-skip">Skip it today</button><button type="button" class="sk-keep">Keep it</button></div>'; }
+ box.addEventListener('click', function(ev){ ev.stopPropagation(); var b = ev.target.closest('button'); if (!b) return;
+  if (b.classList.contains('sk-next')){ i = (i + 1) % ideas.length; paint(); return; }
+  box.remove();
+  if (b.classList.contains('sk-do')) skipLift(card, ideas[i]); else if (b.classList.contains('sk-skip')) skipLift(card, null); });
+ paint(); var sb = card.querySelector(':scope > .skipbtn'); if (sb) sb.insertAdjacentElement('afterend', box); else card.appendChild(box);
+}
+(function wireSkip(){
+ document.querySelectorAll('.section[id^="d"] .excard[data-id]').forEach(function(card){
+  if (card.querySelector(':scope > .skipbtn')) return;
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'skipbtn';
+  b.innerHTML = '<i class="ic ic-x" aria-hidden="true"></i> Skip today'; b.setAttribute('aria-label', 'Skip this lift today, or swap it for a different one');
+  b.addEventListener('click', function(ev){ ev.stopPropagation(); _openSkip(card); });
+  var at = card.querySelector(':scope > .band-badge, :scope > .cue, :scope > .drills, :scope > .howfold');   // right under the set boxes, not at the foot of the card
+  if (at) card.insertBefore(b, at); else card.appendChild(b);
+ });
+})();
+_applySkips();
 // tap a level-up rung when you own it — it stays ticked, the button shows how far up the ladder you are
 (function(){
  var got = {}; try { got = _asObj(JSON.parse(store.get('bp-rungs') || '{}')); } catch(e){}
