@@ -3474,7 +3474,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-18.2';
+var APP_V = '2026-11-18.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -6219,7 +6219,7 @@ function planDay(dayId, budget, bring){
  var sw = _swaps(), up = [];
  groups.forEach(function(g){ var st = g.c.map(function(c){ return _skipStats(c.dataset.id); }), key = function(c){ return PRIORITY_SLOT[SLOT[c.dataset.id]] || (KEY_LIFTS[dayId] || []).some(function(k){ return k[0] === c.dataset.id; }); };
   if (g.c.some(function(c){ return sw[c.dataset.id] === 'bonus'; })) g.r = 2;
-  else if (st.some(function(x){ return x.slip && !x.tailOnly; }) || g.c.some(function(c, i){ return st[i].slip && key(c); })){ g.r = -1; g.c.forEach(function(c, i){ if (st[i].slip) up.push(c.dataset.id); }); }
+  else if (!tired && (st.some(function(x){ return x.slip && !x.tailOnly; }) || g.c.some(function(c, i){ return st[i].slip && key(c); }))){ g.r = -1; g.c.forEach(function(c, i){ if (st[i].slip) up.push(c.dataset.id); }); }
   else if (g.r <= 1.5 && st.every(function(x){ return x.tailOnly; }) && !g.c.some(key)) g.r = 2.5; });
  // short on time, cut in this order: wild and bonus, then isolations, secondary compounds, core; the priority lifts last
  var tier = function(g){ return Math.min.apply(null, g.c.map(function(c){ return _cutTier(c.dataset.id, dayId); })); };
