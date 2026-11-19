@@ -1632,6 +1632,7 @@ body.travelling :is(.week,.home,.startbtn,.hm-any,.hm-rw,#rwPill,#sqCard,.startw
 .tempo .tgo.stop{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='12' rx='2'/></svg>") center/contain no-repeat}
 #tabbar b .ic{width:22px;height:22px;vertical-align:0}
 .seatjot{padding-left:32px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa3c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2.8v2.9M12 18.3v2.9M2.8 12h2.9M18.3 12h2.9M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2'/></svg>") 9px 50%/16px 16px no-repeat}
+.seatjot.has{background-image:none}
 .newv{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 10px);z-index:9999;min-height:44px;padding:0 18px;border-radius:100px;border:1px solid rgba(93,255,159,.5);background:#0c0c1c;color:var(--g);font:700 13px 'Inter',sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:calc(100vw - 32px)}
 .addex{margin:16px 0 4px;border:1px dashed var(--bdr);border-radius:13px;padding:12px}
 .addex .ax-more{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;font:500 13px/1.35 'Inter',sans-serif;color:var(--fade)}
@@ -3474,7 +3475,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-18.3';
+var APP_V = '2026-11-18.4';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
