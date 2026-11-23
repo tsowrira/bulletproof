@@ -1757,7 +1757,7 @@ body.travelling .brief{display:none!important}
  .sh-tg button{flex:1;min-height:48px;border-radius:12px;border:1px solid var(--bdr);background:none;color:var(--fade);font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
  .sh-tg button.on{border-color:var(--g);color:var(--g)}
  .day-jump{bottom:calc(72px + env(safe-area-inset-bottom))}
- body:not(.focus):not(.browse) .hm-rw:not([hidden]){display:block;margin:12px auto 0;min-height:44px;padding:0 14px;background:none;border:0;color:var(--dim);font:600 13px 'Inter',sans-serif;cursor:pointer}
+ body:not(.focus):not(.browse) .hm-rw:not([hidden]){display:block;margin:14px auto 0;min-height:44px;padding:0 18px;background:none;border:1px solid var(--bdr);border-radius:999px;color:var(--fade);font:600 13px 'Inter',sans-serif;cursor:pointer}
  .rw-sum{font-size:14px;line-height:1.5;color:var(--fade);margin:0 0 6px}
  .rw-q{padding:10px 0;border-bottom:1px solid var(--bdr)}
  .rw-q>span{display:block;font:700 12px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
@@ -1766,6 +1766,10 @@ body.travelling .brief{display:none!important}
  .rw-c button small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
  .rw-c button.on{border-color:var(--g);color:var(--g);background:rgba(93,255,159,.08)}
  .rw-o{margin-top:12px;padding:12px;border:1px solid var(--bdr);border-radius:14px}
+ .rw-log{margin-top:12px;padding:12px;border-radius:14px;background:rgba(176,107,255,.07)}
+ .rw-log>span{display:block;font:700 12px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:6px}
+ .rw-log p{margin:0 0 6px;font-size:13.5px;line-height:1.5;color:var(--fade)}.rw-log p:last-child{margin:0}.rw-log b{color:var(--txt);font-weight:600}.rw-log q{color:var(--p);font-style:italic}
+ .rw-l{display:block;margin-left:40px;font-size:12.5px;line-height:1.45;color:var(--dim);margin-top:2px}
  .rw-o.rec{border-color:var(--g)}
  .rw-oh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
  .rw-oh b{font:700 15px 'Inter',sans-serif;color:var(--txt)}
@@ -1926,6 +1930,51 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 .rs-btns #rsDone,.rs-btns #rsNew{flex:1 1 0;border:0;background:none;color:var(--fade);text-decoration:underline;text-underline-offset:3px;text-transform:none;letter-spacing:.02em;font-size:13px;font-weight:600}
 .sh-tg{flex-wrap:wrap}.sh-tg button{flex:1 1 calc(50% - 4px)}.sh-tg .ew{font:700 12px 'Inter',sans-serif;font-style:normal;letter-spacing:.04em;text-transform:none;color:var(--gld);border:1px solid rgba(255,210,58,.4);border-radius:100px;padding:2px 8px;margin-left:6px}
 .hm-rw .ic,.hm-any .ic{vertical-align:-.15em}
+@media(min-width:760px){
+ /* the rework sheet as a centred panel on a wide screen */
+ #scrim{position:fixed;inset:0;z-index:112;background:rgba(0,0,0,.6)}
+ #scrim:not([hidden]){display:block}
+ .sh-x{min-height:44px;min-width:64px;border-radius:100px;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);font:700 12px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+ .sh-t{font:700 12px 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:2px 0 10px}
+ .rw-sum{font-size:14px;line-height:1.5;color:var(--fade);margin:0 0 6px}
+ .rw-q{padding:10px 0;border-bottom:1px solid var(--bdr)}
+ .rw-q>span{display:block;font:700 12px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+ .rw-c{display:flex;flex-wrap:wrap;gap:6px}
+ .rw-c button{flex:1 0 auto;min-width:48px;min-height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--bdr);background:none;color:var(--fade);font:600 13px 'Inter',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+ .rw-c button small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+ .rw-c button.on{border-color:var(--g);color:var(--g);background:rgba(93,255,159,.08)}
+ .rw-o{margin-top:12px;padding:12px;border:1px solid var(--bdr);border-radius:14px}
+ .rw-log{margin-top:12px;padding:12px;border-radius:14px;background:rgba(176,107,255,.07)}
+ .rw-log>span{display:block;font:700 12px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:6px}
+ .rw-log p{margin:0 0 6px;font-size:13.5px;line-height:1.5;color:var(--fade)}.rw-log p:last-child{margin:0}.rw-log b{color:var(--txt);font-weight:600}.rw-log q{color:var(--p);font-style:italic}
+ .rw-l{display:block;margin-left:40px;font-size:12.5px;line-height:1.45;color:var(--dim);margin-top:2px}
+ .rw-o.rec{border-color:var(--g)}
+ .rw-oh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+ .rw-oh b{font:700 15px 'Inter',sans-serif;color:var(--txt)}
+ .rw-oh em{font:700 12px 'Inter',sans-serif;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--g)}
+ .rw-oh span{margin-left:auto;font:600 12px 'Inter',sans-serif;color:var(--dim)}
+ .rw-o p{margin:4px 0 6px;font-size:13px;line-height:1.45;color:var(--fade)}
+ .rw-o ul{list-style:none;margin:0;padding:0}
+ .rw-o li{padding:6px 0;border-top:1px solid rgba(234,240,255,.06);font-size:14px;color:var(--txt)}
+ .rw-o li b{display:inline-block;width:40px;font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+ .rw-o li small{font-size:12px;color:var(--dim)}
+ .rw-o li i{display:block;margin-left:40px;font-style:normal;font-size:12.5px;color:var(--gld)}
+ .rw-o .rw-let{font-size:12.5px;color:var(--dim)}
+ .rw-oh em.same{color:var(--dim)}
+ .rw-ok{padding:10px 12px;border:1px solid var(--bdr);border-radius:12px;margin:10px 0 4px}.rw-ok b{color:var(--g)}
+ .rw-use{width:100%;min-height:46px;margin-top:8px;border-radius:100px;border:1px solid var(--g);background:rgba(93,255,159,.12);color:var(--g);font:700 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+ .rw-o:not(.rec) .rw-use{border-color:var(--bdr);background:none;color:var(--fade)}
+ .rw-clear{display:block;margin:14px auto 0;min-height:44px;background:none;border:0;color:var(--dim);font:600 13px 'Inter',sans-serif;text-decoration:underline;cursor:pointer}
+ .rw-x{min-width:40px;min-height:40px;border:0;border-radius:50%;background:none;color:var(--dim);font-size:20px;cursor:pointer}
+ .sh-x{position:absolute;top:6px;right:-8px;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;border:1px solid var(--bdr);background:#0c0c1e;color:var(--fade);display:grid;place-items:center}
+ .sh-x .ic{width:18px;height:18px;vertical-align:0}
+ .sh-t{display:flex;align-items:center;min-height:56px;margin:0;padding-right:44px}
+ .sh-t .ic{margin-right:8px}
+ #sheet{display:block;position:fixed;left:50%;top:7vh;width:min(600px,92vw);max-height:86vh;overflow-y:auto;overscroll-behavior:contain;z-index:115;background:#0c0c1e;border:1px solid var(--bdr);border-radius:16px;padding:16px 20px 20px;transform:translate(-50%,10px);opacity:0;visibility:hidden;transition:transform .2s,opacity .2s,visibility 0s .2s}
+ #sheet.open{transform:translate(-50%,0);opacity:1;visibility:visible;transition:transform .2s,opacity .2s}
+ .sh-x{position:sticky;float:right;top:0;right:0}
+}
+@media(min-width:760px){body:not(.focus) .hm-rw:not([hidden]){display:block;width:fit-content;order:9;margin:14px 0 0;min-height:44px;padding:0 18px;background:none;border:1px solid var(--bdr);border-radius:999px;color:var(--fade);font:600 13px 'Inter',sans-serif;cursor:pointer}}
 .rw-c button small{display:inline;margin-left:4px;letter-spacing:.02em;text-transform:none}
 .ic-down{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M6 13l6 6 6-6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M6 13l6 6 6-6'/></svg>") center/contain no-repeat}
 .ic-x{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M6 6l12 12M18 6 6 18'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M6 6l12 12M18 6 6 18'/></svg>") center/contain no-repeat}
@@ -3477,7 +3526,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.1';
+var APP_V = '2026-11-23.2';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4508,7 +4557,7 @@ function _paintHome(dt, sg, run, m, col){
  var later = Object.keys(wp).filter(function(d){ return d > tmd && wp[d] && wp[d].id && !wp[d].opt && !wp[d].done; })[0];
  var rows = [['This week', wkTxt], ['Tomorrow', tmTxt]];
  if (!(wp[tmd] && wp[tmd].id && !wp[tmd].opt)) rows.push(['Next lift', later ? _esc(DAY_NAME[wp[later].id]) : _esc(DAY_NAME[_wkOrder(sg && !sg.optional ? sg.id : 1)[0]]) + ' <small>· next week</small>']);
- var hr = document.getElementById('hmRw'); if (hr){ hr.hidden = !(dow >= 1 && dow <= 5 && owedDays().length); hr.innerHTML = '<i class="ic ic-rework ic-sm" aria-hidden="true"></i> ' + (rwo.plan ? 'Reworked · change ' : 'Different days this week? Rework it ') + '<i class="ic ic-chev ic-sm" aria-hidden="true"></i>'; }
+ var hr = document.getElementById('hmRw'); if (hr){ hr.hidden = !(dow >= 1 && dow <= 5 && owedDays().length); hr.innerHTML = '<i class="ic ic-rework ic-sm" aria-hidden="true"></i> ' + (rwo.plan ? 'Reworked · change ' : 'Smart rework · your days, your time ') + '<i class="ic ic-chev ic-sm" aria-hidden="true"></i>'; }
  _rwNudge(); try { _paintBrief(); } catch(e){}
  document.getElementById('hmNext').innerHTML = rows.map(function(r){ return '<div><span>' + r[0] + '</span><p style="margin:0">' + r[1] + '</p></div>'; }).join('');
 }
@@ -4744,7 +4793,7 @@ function _weekSheet(){
  var ok = function(d){ return wk[d] && String(wk[d]).indexOf('skip') !== 0; }, done = DAY_ORDER.filter(ok).length, extra = ok('d6') ? 1 : 0, goal = 3, pct = Math.min(1, done / goal), C = 2 * Math.PI * 26;
  var dow = _dow(), sub2 = done >= 3 ? 'All three done' + (extra ? ' · +' + extra + ' extra' : '') : (3 - done) + ' to go';
  var ring = '<div class="wring"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><circle cx="30" cy="30" r="26" class="on" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + (C * (1 - pct)).toFixed(1) + '"/></svg><div class="wr-t"><b>' + Math.min(done, goal) + (done > goal ? '+' : '') + '<small>/' + goal + '</small></b><span>days</span></div><div class="wr-s"><b>' + sub2 + '</b></div></div>';
- var rwo = { plan: _rwLive() }, rwb = dow >= 1 && dow <= 5 && owedDays().length ? '<button type="button" class="sh-row" onclick="openSheet(\'rework\',1)"><span class="sh-n"><i class="ic ic-rework ic-sm" aria-hidden="true"></i> ' + (rwo.plan ? 'Reworked week' : 'Rework my week') + '<small>' + (rwo.plan ? Object.keys(rwo.plan).sort().filter(function(d){ return d >= _today(); }).map(function(d){ var e = rwo.plan[d]; return e.day ? DAY_NAME[e.day] : 'rest'; }).join(' · ') : 'Days you can train') + '</small></span><em><i class="ic ic-chev ic-sm" aria-hidden="true"></i></em></button>' : '';
+ var rwo = { plan: _rwLive() }, rwb = dow >= 1 && dow <= 5 && owedDays().length ? '<button type="button" class="sh-row" onclick="openSheet(\'rework\',1)"><span class="sh-n"><i class="ic ic-rework ic-sm" aria-hidden="true"></i> ' + (rwo.plan ? 'Reworked week' : 'Smart rework') + '<small>' + (rwo.plan ? Object.keys(rwo.plan).sort().filter(function(d){ return d >= _today(); }).map(function(d){ var e = rwo.plan[d]; return e.day ? DAY_NAME[e.day] : 'rest'; }).join(' · ') : 'Days you can train') + '</small></span><em><i class="ic ic-chev ic-sm" aria-hidden="true"></i></em></button>' : '';
  return '<div class="sh-t">This week</div>' + ring + rwb + ['d6', 'd5', 'd1', 'd3', 'd4'].map(function(id){ return [id, _when(id)]; }).sort(function(a, b){ return a[1].ymd < b[1].ymd ? -1 : a[1].ymd > b[1].ymd ? 1 : 0; }).map(function(x){
  var sec = document.getElementById(x[0]), st = _status(x[0]); if (!sec) return '';
  var ttl = ((sec.querySelector('.day-title') || {}).textContent || '').split(' — ');
@@ -5019,8 +5068,25 @@ var NO_UP = { 'd3-rdl':1, 'd3e3':1, 'd3e7':1 };
 var BW_NOW = { 'd4b-calf':1 };
 // today's line for one lift, from its last logs (today excluded). Up is offered, never applied;
 // a long gap or reps sliding preloads a lighter weight; everything else holds and names a rep to chase.
+// what a set note says about how it went: 'ow' it bothered something, 'hard' it was a grind. Notes only ever hold a lift back, never push it up.
+function _noteMood(n){ n = String(n || '').toLowerCase(); if (!n) return '';
+ if (/\b(hurt|hurts|hurting|pain|painful|pinch|pinchy|pinched|tweak|tweaked|ache|achy|sharp|sore)\b/.test(n)) return 'ow';
+ if (/\bhard\b|\bheavy\b|\bgrind|struggl|half rep|\bbarely\b|\bfailed?\b|\btough\b|\bbrutal\b|too much|couldn.?t/.test(n) && !/not (that |too |so )?(hard|heavy)/.test(n)) return 'hard';
+ return ''; }
+// the side a note calls harder, so that side goes first
+function _noteSide(n){ var out = ''; String(n || '').toLowerCase().split(/[.!?·\n]+/).forEach(function(t){ var k = t.search(/harder|weaker|worse/); if (k < 0) return;
+  var a = /(?:harder|weaker|worse)\s+(?:on|for|with)?\s*(?:the|my)?\s*(left|right)/.exec(t), b = /\b(left|right)\b/.exec(t.slice(0, k)); if (a) out = a[1]; else if (b) out = b[1]; });
+ return out; }
+function _noteClip(n){ var t = String(n || '').replace(/S\d:\s*/g, '').replace(/\s*·\s*/g, ' ').trim(); return t.length > 48 ? t.slice(0, 46).replace(/\s+\S*$/, '') + '…' : t; }
+function _sideNotes(){ var h = readHist();
+ [].forEach.call(document.querySelectorAll('.excard[data-id] .start-l span'), function(sp){ var card = sp.closest('.excard'), m = /^(Right|Left) side first · (left|right) matches its (\w+)/.exec(sp.dataset.orig || sp.textContent); if (!m) return;
+  if (!sp.dataset.orig) sp.dataset.orig = sp.textContent;
+  var arr = _asArr(h[_logKey(card)]), side = ''; for (var i = arr.length - 1; i >= 0 && !side; i--) side = _noteSide(arr[i].n);
+  if (!side){ sp.textContent = sp.dataset.orig; delete card.dataset.side; return; }
+  var other = side === 'left' ? 'right' : 'left'; card.dataset.side = side;
+  sp.textContent = side.charAt(0).toUpperCase() + side.slice(1) + ' side first · ' + other + ' matches its ' + m[3] + ' · your note says ' + side + ' is harder'; }); }
 function _sugg(p, o){
- var L = p[p.length-1]; if (!L || !(L.r > 0)) return null;
+ var L = p[p.length-1]; if (!L || !(L.r > 0)) return null; var mood = _noteMood(L.n);
  var u = L.u || 'lb', w = _conv(L.w, u, o.unit), gap = _daysAgo(L.d), un = o.unit;
  var s1 = (o.full || '').match(/when (\d+) is clean/i), useS1 = /S1 reaches/i.test(o.ladder) || !!s1, rr = function(e){ return useS1 ? (e.r1 || e.r) : e.r; };
  var cm = o.ladder.match(/(\d+)\s*clean/i) || s1, pl = (o.full || '').match(/(?:^|\| )(\d+)\+/);   // the card's own ladder names its top; else the top of the range it prints; 15 or 20 is only the last resort
@@ -5032,8 +5098,9 @@ function _sugg(p, o){
  if (gap >= 14) return { t:'Back after ' + gap + ' days: ' + (wt ? 'same ' + wt + ', ' : '') + 'every set stops 2 short' };
  if (o.fixed) return { t:'Today: ' + (wt ? wt + ', ' : '') + 'same reps — this one stays fixed' };
  if (o.dip && thr && rr(L) >= thr) return { t:'Top of ' + (o.rngLo || 6) + '–' + thr + ' — slow the lowering or add a pause. The 90° cap stays' };
- if (w > 0 && thr && rr(L) >= thr && !o.noUp && !o.dip){ var st = _wstep(w, un, 1); return { up:1, from:w, w:w + st, lo:o.rngLo || 0, t:'Up to ' + (w + st) + ' ' + un + '? You hit ' + rr(L) + ' — tap if you want it' }; }
+ if (w > 0 && thr && rr(L) >= thr && !o.noUp && !o.dip && !mood){ var st = _wstep(w, un, 1); return { up:1, from:w, w:w + st, lo:o.rngLo || 0, t:'Up to ' + (w + st) + ' ' + un + '? You hit ' + rr(L) + ' — tap if you want it' }; }
  if (w > 0 && ((P && Q && rr(L) <= Math.max(rr(P), rr(Q)) - 3) || _slidFlag(p))){ var sd = _wstep(w, un, -1), w3 = Math.max(w - sd, 0); return { w:w3, down:1, t:'−1 step · reps slid, ' + w3 + ' ' + un + ' today' }; }
+ if (mood) return { hold: mood, t:'Today: ' + (wt ? wt + ', ' : '') + 'match ' + rr(L) + unitR + ', nothing added · ' + (mood === 'ow' ? 'your note flagged it last time' : 'you wrote it was hard last time') };
  if (P && Q && R4 && rr(P) === rr(L) && rr(Q) === rr(L) && rr(R4) === rr(L)) return { t:'Same ' + rr(L) + unitR + ' four times — swap the lift, or drop one step and rebuild' };
  var nx = o.timed ? rr(L) + 5 : (thr && rr(L) < thr ? Math.min(rr(L) + 1, thr) : rr(L) + 1);
  if (P && Q && rr(P) === rr(L) && rr(Q) === rr(L)) return { t:'Same ' + rr(L) + unitR + ' three times — chase ' + nx + ', or hold and own it' };
@@ -5957,6 +6024,7 @@ streamlineCards(); addFormLinks();
 // numbers logged before this date were entered wrong: drop them once so no old number sets a weight
 (function(){ var F = '2026-10-03'; if (_resetDate() >= F) return; store.set('bp-reset', F);
  var h = readHist(); Object.keys(h).forEach(function(k){ h[k] = _asArr(h[k]).filter(function(e){ return e && e.d >= F; }); if (!h[k].length) delete h[k]; }); writeHist(h); })();
+var _bj0 = buildJots; buildJots = function(){ _bj0.apply(this, arguments); try { _sideNotes(); } catch(e){} };
 buildJots(); applyAdds();
 // solo two-set lifts get the same ½ → ✓ taps as the pairs
 
@@ -6253,7 +6321,7 @@ function planDay(dayId, budget, bring){
  var tryAdd = function(id, o, left){ var c = document.querySelector('#' + o + ' .excard[data-id="' + id + '"]'), sl = SLOT[id];
   if (!ever || !c || _noBring(id) || rescue.length >= cap || keep.length - bumpable().length + rescue.length >= room || _isSkill(c) || c.classList.contains('wild') || c.dataset.rescued || got[id] || !sl || have[sl] || yday[sl] || !isKey(o, id)) return;
   rescue.push(id); src[id] = o; if (left) carry[id] = 1; else if (!(dow > SCHED[o])) late[id] = 1; have[sl] = 1; };
- var SCHED = { d5:2, d1:3, d3:4 };   // the usual Tue · Wed · Thu
+ var SCHED = {}; _wkOrder().forEach(function(d, i){ SCHED[d] = i + 2; });   // this week's order on the usual three days
  // a reworked week names lifts to bring over: they go first, before anything the day finds on its own
  (bring || []).forEach(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'), hm = c && (c._home && c._home.parentNode ? c._home.parentNode : c), o = hm && hm.closest('.section'), sl = SLOT[id];
   if (!c || !o || o.id === dayId || c.dataset.added || _noBring(id) || _isSkill(c) || c.classList.contains('wild') || got[id] || (sl && (have[sl] || yday[sl])) || keep.length - bumpable().length + rescue.length >= room) return;
@@ -6622,7 +6690,7 @@ function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
    plan[d] = { rest: 1, why: !left.length ? '' : ans.hike && _dowOf(d) === 6 ? 'legs fresh for the hike' : hb ? 'same muscles the day before' : '' }; return; }
   var run = 0, x = _dayBefore(d);
   while (dates.indexOf(x) >= 0 ? best.seq[dates.indexOf(x)] : pastHalf(x)){ run++; x = _dayBefore(x); }
-  var b = budgetFor(d); if (run >= 3) b = Math.min(b, 20);
+  var b = budgetFor(d, o); if (run >= 3) b = Math.min(b, 20);
   plan[d] = { day: o, budget: b, bring: [] }; });
  // a session that didn't get a day sends its key lifts to the days that have room for them
  var tdays = Object.keys(plan).filter(function(d){ return plan[d].day; });
@@ -6634,12 +6702,41 @@ function _rwBuild(dates, budgetFor, sessions, ans, capFor, fixed){
  return { plan: plan, left: left };
 }
 var _rwAns = null, _rwLast = [];
+// your usual session length from the log, as the nearest time chip
+function _usualMin(){ var xs = readSess().filter(function(x){ return x && x.n >= 3 && DAY_HALF[x.day] && x.e > x.s; }).slice(-8).map(function(x){ return (x.e - x.s) / 6e4; }).sort(function(a, b){ return a - b; }); return xs.length ? Math.round(xs[(xs.length - 1) >> 1]) : 0; }
+function _usualChip(){ var u = _usualMin(); return !u ? 45 : [20, 45, 60, 80].reduce(function(a, b){ return Math.abs(b - u) < Math.abs(a - u) ? b : a; }); }
+// the shortest day that holds this many lifts
+function _budgetFor(day, n){ return _once('bf' + day + n, function(){ var bs = [20, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 90, 100, 110]; for (var i = 0; i < bs.length; i++){ var p = planDay(day, bs[i], []); if (p && p.lifts >= n) return bs[i]; } return 110; }); }
+function _sixWk(){ var from = Date.now() - 42 * 864e5, c = { d5:0, d1:0, d3:0 }; readSess().forEach(function(x){ if (x && x.n >= 3 && x.day in c && x.e >= from) c[x.day]++; }); return c; }
+// what the log says, in words: the reasons behind the order, the length and each lift's line
+function _rwLog(op){
+ var out = [], ord = _wkOrder(), c6 = _sixWk(), lead = ord[0], wt = _waitDays(lead), um = _usualMin(), pc = Math.round(_pace());
+ var w = readCompletedWeek(), owed = _rwOwed();
+ if (owed.indexOf(lead) >= 0 && wt !== null) out.push('<b>Order.</b> ' + _esc(DAY_NAME[lead]) + ' goes first: ' + wt + ' days since the last one. Six weeks: ' + DAY_ORDER.map(function(d){ return _esc(DAY_NAME[d]) + ' ' + c6[d]; }).join(', ') + '.');
+ if (um) out.push('<b>Length.</b> Your sessions run about ' + um + ' min, about ' + pc + ' min a lift.');
+ var ids = [], up = [], seen = {}; Object.keys(op.plan).sort().forEach(function(d){ var e = op.plan[d]; if (!e.day) return; (e.keep || []).concat(e.got || []).forEach(function(id){ if (!seen[id]){ seen[id] = 1; ids.push(id); } }); (e.up || []).forEach(function(id){ up.push(id); }); });
+ var h = readHist(), g = { up: [], back: [], slid: [], stuck: [], hard: [], ow: [], side: [] }, nm = function(c){ return _esc(_shortOf(c)); };
+ ids.forEach(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'); if (!c) return;
+  var a = c.querySelector('.upnudge, .aim'), t = a ? a.textContent : '', arr = _prev(_asArr(h[_logKey(c)])), L = arr[arr.length - 1], q = L && L.n ? ' <q>' + _esc(_noteClip(L.n)) + '</q>' : '';
+  if (/^Up to/.test(t)) g.up.push(nm(c)); else if (/Back after/.test(t)) g.back.push(nm(c)); else if (/reps slid/.test(t)) g.slid.push(nm(c)); else if (/flagged it/.test(t)) g.ow.push(nm(c) + q); else if (/it was hard/.test(t)) g.hard.push(nm(c) + q); else if (/three times|four times/.test(t)) g.stuck.push(nm(c));
+  if (c.dataset.side) g.side.push(nm(c) + ' ' + c.dataset.side); });
+ var say = function(k, a, b){ if (g[k].length) out.push('<b>' + a + '</b> ' + g[k].join(', ') + '. ' + b); };
+ say('up', 'Ready to go up.', 'You hit the top of the range last time. The step up is offered on the card.');
+ say('hard', 'Holding.', 'Your note said hard, so same weight and reps.');
+ say('ow', 'Flagged by your note.', 'Same weight and reps, nothing added.');
+ say('slid', 'One step lighter.', 'Reps slid at this weight.');
+ say('stuck', 'Stuck.', 'Same reps three sessions running.');
+ say('back', 'Lighter start.', 'Two weeks or more since you did these.');
+ if (up.length) out.push('<b>Back in.</b> ' + up.map(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'); return c ? nm(c) : ''; }).filter(Boolean).join(', ') + '. Left out the last two times.');
+ say('side', 'Harder side first.', 'From your notes.');
+ return out;
+}
 function _rwOptions(ans){
  var owed = _rwOwed(), dates = ans.days.slice().sort(), out = []; if (!owed.length || !dates.length) return out;
  var base = ans.energy === 'wiped' ? 20 : ans.energy === 'meh' ? Math.min(ans.min, 45) : ans.min;
  var wkGot = _loggedSince(_weekStart()), cap = function(b){ return b < 30 ? 0 : b < 60 ? 2 : b < 80 ? 3 : 4; }, none = function(){ return 0; };
  var mk = function(key, title, why, ds, bud, ses, cf){ var r = _rwBuild(ds, bud, ses, ans, cf), tot = 0, n = 0, br = 0;
-  Object.keys(r.plan).forEach(function(d){ var e = r.plan[d]; if (!e.day) return; var p = planDay(e.day, e.budget, e.bring); e.min = p ? p.min : e.budget; e.lifts = p ? p.lifts : 0; e.got = p ? p.rescue : []; e.keep = p ? p.keep : []; tot += e.min; n++; br += e.got.length; });
+  Object.keys(r.plan).forEach(function(d){ var e = r.plan[d]; if (!e.day) return; var p = planDay(e.day, e.budget, e.bring); e.min = p ? p.min : e.budget; e.lifts = p ? p.lifts : 0; e.got = p ? p.rescue : []; e.keep = p ? p.keep : []; e.up = p ? p.up : []; tot += e.min; n++; br += e.got.length; });
   var nm = r.left.map(function(o){ return DAY_NAME[o]; }).join(' and ');
   var one = r.left.length === 1, its = one ? 'its' : 'their', brought = [], lost = [];
   var have = {}; Object.keys(wkGot).forEach(function(id){ if (SLOT[id]) have[SLOT[id]] = 1; });
@@ -6649,30 +6746,34 @@ function _rwOptions(ans){
   if (r.left.length) why = lost.length ? 'No room for ' + lostN.join(', ') + '.' : br ? nm + ' joins the other days.' : '';
   return { key: key, title: title, why: why, plan: r.plan, left: r.left.concat(owed.filter(function(o){ return ses.indexOf(o) < 0; })), lost: lost, min: tot, n: n }; };
  var fits = dates.length >= owed.length;
- out.push(mk('all', owed.length === 1 ? 'The one session left' : 'All ' + owed.length + ' sessions left', fits ? '' : 'Fewer days than sessions, so the days run longer.', dates, function(){ return fits ? base : base < 45 ? 45 : base < 60 ? 60 : 80; }, owed, cap));
- out.push(mk('easy', 'One session only', 'Just ' + DAY_NAME[owed[0]] + '. The rest waits for next week.', dates, function(){ return ans.energy === 'wiped' ? 20 : 45; }, [owed[0]], none));
+ out.push(mk('all', owed.length === 1 ? 'The one session left' : 'All ' + owed.length + ' sessions left', fits ? '' : 'Fewer days than sessions, so the days run longer.', dates, ans.lifts ? function(d, o){ return _budgetFor(o, ans.lifts); } : function(){ return fits ? base : base < 45 ? 45 : base < 60 ? 60 : 80; }, owed, cap));
+ out.push(mk('easy', 'One session only', 'Just ' + DAY_NAME[owed[0]] + '. The rest waits for next week.', dates, ans.lifts ? function(d, o){ return _budgetFor(o, ans.lifts); } : function(){ return ans.energy === 'wiped' ? 20 : Math.min(base, 45); }, [owed[0]], none));
  var seen = {}; out = out.filter(function(o){ var k = JSON.stringify(o.plan); if (seen[k] || !o.n) return false; seen[k] = 1; return true; });
  var rec = ans.energy === 'wiped' ? 'easy' : 'all'; if (!out.some(function(o){ return o.key === rec; })) rec = out.length ? out[0].key : '';
  var wp = _weekPlan();
- out.forEach(function(o){ o.rec = o.key === rec; o.same = Object.keys(o.plan).every(function(d){ var e = o.plan[d], x = wp[d]; var pk = e.day && d === _today() ? _peekPlan(e.day) : null; return (e.day || null) === (x && x.id && !x.opt && !x.done ? x.id : null) && !(e.got || []).length && !(pk && (pk.rescue || []).length); }); });
+ out.forEach(function(o){ o.rec = o.key === rec; o.same = !ans.lifts && Object.keys(o.plan).every(function(d){ return !o.plan[d].day || o.plan[d].budget === PLAN_MIN; }) && Object.keys(o.plan).every(function(d){ var e = o.plan[d], x = wp[d]; var pk = e.day && d === _today() ? _peekPlan(e.day) : null; return (e.day || null) === (x && x.id && !x.opt && !x.done ? x.id : null) && !(e.got || []).length && !(pk && (pk.rescue || []).length); }); });
  return out;
 }
 function _rwSheet(){
  var all = _rwDays(), o = _rwRead(), w = readCompletedWeek(), owed = _rwOwed();
  _rwAns = _rwAns || o.ans || _rwDefault(); _rwAns.days = _rwAns.days.filter(function(d){ return all.indexOf(d) >= 0; });
- var pl = readPlan(); _rwAns.min = pl && !pl.full && pl.budget >= 45 ? pl.budget : 45; _rwAns.energy = _lowState() ? 'wiped' : 'good'; _rwAns.hike = true;   // length comes from the 20/45/60/80 chip, energy from Low battery
- var h = '<div class="sh-t"><i class="ic ic-rework ic-sm" aria-hidden="true"></i> Rework my week</div>' + (owed.length ? '<p class="rw-sum">Tick the days you can train this week. The sessions you have left get fitted onto those days, pull days never back to back.</p>' : '<p class="rw-sum">Nothing left this week.</p>');
+ if (!_rwAns.set){ _rwAns.min = _usualChip(); _rwAns.lifts = 0; } _rwAns.energy = _lowState() ? 'wiped' : 'good'; _rwAns.hike = true;   // length comes from the 20/45/60/80 chip, energy from Low battery
+ var h = '<div class="sh-t"><i class="ic ic-rework ic-sm" aria-hidden="true"></i> Smart rework</div>' + (owed.length ? '<p class="rw-sum">Pick your days and how much you want per day. The sessions left this week get fitted to that, using your log.</p>' : '<p class="rw-sum">Nothing left this week.</p>');
  if (!owed.length) return h;
  h += '<div class="rw-q"><span>Days you can train</span><div class="rw-c">' + all.map(function(d){ var on = _rwAns.days.indexOf(d) >= 0;
   return '<button type="button" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '" onclick="_rwSet(\'day\',\'' + d + '\')">' + _dShort(d) + (d === _today() ? ' <small>today</small>' : '') + '</button>'; }).join('') + '</div></div>';
+ var uc = _usualChip(), um = _usualMin();
+ h += '<div class="rw-q"><span>Time per day</span><div class="rw-c">' + [20, 45, 60, 80].map(function(m){ var on = !_rwAns.lifts && _rwAns.min === m; return '<button type="button" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '" onclick="_rwSet(\'min\',' + m + ')">' + m + ' min' + (um && m === uc ? ' <small>your usual</small>' : '') + '</button>'; }).join('') + '</div></div>';
+ h += '<div class="rw-q"><span>Or lifts per day</span><div class="rw-c">' + [4, 6, 8, 10].map(function(k){ var on = _rwAns.lifts === k; return '<button type="button" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '" onclick="_rwSet(\'lifts\',' + k + ')">' + k + ' lifts</button>'; }).join('') + '</div></div>';
  var os = _rwOptions(_rwAns); _rwLast = os;
+ var lg = os.length ? _rwLog(os[0]) : []; if (lg.length) h += '<div class="rw-log"><span>What your log says</span>' + lg.map(function(x){ return '<p>' + x + '</p>'; }).join('') + '</div>';
  if (!os.length) h += '<p class="rw-sum">' + (_rwAns.days.length ? 'Those days can’t fit it all. Add a day.' : 'Pick a day.') + '</p>';
  else if (os.some(function(x){ return x.key === 'all' && x.same && !x.lost.length; })) h += '<p class="rw-sum rw-ok"><b>No change needed.</b> Your week already fits these days.</p>';
  os.forEach(function(op){
   var lines = Object.keys(op.plan).sort().map(function(d){ var e = op.plan[d];
    if (!e.day) return '<li><b>' + _dShort(d) + '</b> rest <small>' + _esc(e.why || '') + '</small></li>';
    var nm = (e.got || []).map(function(id){ var n = document.querySelector('.excard[data-id="' + id + '"] .exname'); return n ? n.textContent.split(' — ')[0] : id; });
-   return '<li><b>' + _dShort(d) + '</b> ' + _esc(DAY_NAME[e.day]) + ' <small>' + e.lifts + ' lifts · ≈' + e.min + ' min' + (e.budget < 30 ? ' · easy' : '') + '</small>' + (nm.length ? '<i>+ ' + _esc(nm.join(', ')) + '</i>' : '') + '</li>'; }).join('');
+   return '<li><b>' + _dShort(d) + '</b> ' + _esc(DAY_NAME[e.day]) + ' <small>' + e.lifts + ' lifts · ≈' + e.min + ' min' + (e.budget < 30 ? ' · easy' : '') + '</small>' + (nm.length ? '<i>+ ' + _esc(nm.join(', ')) + '</i>' : '') + '<span class="rw-l">' + (e.keep || []).map(function(id){ var c = document.querySelector('.excard[data-id="' + id + '"]'); return c ? _esc(_shortOf(c)) : ''; }).filter(Boolean).join(', ') + '</span></li>'; }).join('');
   h += '<div class="rw-o' + (op.rec ? ' rec' : '') + '"><div class="rw-oh"><b>' + op.title + '</b>' + (op.same ? '<em class="same">your plan now</em>' : op.rec ? '<em>best fit</em>' : '') + '<span>' + op.n + ' day' + (op.n === 1 ? '' : 's') + ' · ≈' + op.min + ' min</span></div>' + (op.why ? '<p>' + op.why + '</p>' : '') + '<ul>' + lines + '</ul>' +
    (op.same ? '<button type="button" class="rw-use" onclick="closeSheet()">Keep my plan</button>' : '<button type="button" class="rw-use" onclick="_rwUse(\'' + op.key + '\')">Use this</button>') + '</div>'; });
  if (o.plan) h += '<button type="button" class="rw-clear" onclick="_rwClear()">Back to the normal week</button>';
@@ -6680,6 +6781,8 @@ function _rwSheet(){
 }
 function _rwSet(k, v){
  if (k === 'day'){ var i = _rwAns.days.indexOf(v); if (i >= 0) _rwAns.days.splice(i, 1); else _rwAns.days.push(v); }
+ if (k === 'min'){ _rwAns.min = v; _rwAns.lifts = 0; _rwAns.set = 1; }
+ if (k === 'lifts'){ _rwAns.lifts = _rwAns.lifts === v ? 0 : v; _rwAns.set = 1; }
  openSheet('rework', 1);
 }
 function _rwUse(key){
