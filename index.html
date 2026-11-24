@@ -2014,6 +2014,24 @@ body.focus .focusbar .jchip.parked{border-color:var(--gld);background:none}
 @media(min-width:760px){
 html:not(.dev-mobile) .exlist .excard{border-radius:16px;margin:10px 0;padding:18px 20px;border-bottom:0}
 }
+body.focus{--bg:#0a0a0b;--s1:#131316;--s2:#1b1b1f;--bdr:#26262b}
+body.focus nav,body.focus #tabbar{background:#0a0a0b;box-shadow:none}
+body:not(.focus) #tabbar{background:#0e0a1e}
+#sheet{--bdr:#26262b;--s1:#1b1b1f;background:#131316}
+#sheet .sh-x{background:#1d1d23;border-color:transparent}
+.bp-toast{background:#131316;box-shadow:0 8px 28px rgba(0,0,0,.6)}
+body.focus .planbar{background:#131316;border-bottom:0}
+body.focus .wu{background:#131316}
+body.focus .ssh{border-top:0}
+body.focus .section.cur,body.focus .day-hdr{border-bottom-color:#1b1b1f}
+body.focus :is(.xchip.tm,.laterbtn,.skipbtn,.swb,.pl-full,.wu-re,.allbtn,.ax-q){border-color:transparent;background-color:#1d1d23;box-shadow:none}
+body.focus .section.cur .excard.later .laterbtn{border:1px dashed var(--gld);background:none}
+body.focus .xchip.tm.on{background:#f5f5f4;border-color:transparent;color:#0a0a0b}
+body.focus .xchip.tm.on b{color:#0a0a0b}
+body.focus .addex{border-style:solid;border-color:transparent;background:#131316;border-radius:16px}
+body.focus .addex .ax-q{background-color:#1d1d23}
+body.focus .addex .ax-more button{border-color:transparent;background:#1d1d23}
+body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 </style>
 </head>
 <body>
@@ -3552,7 +3570,7 @@ html:not(.dev-mobile) .exlist .excard{border-radius:16px;margin:10px 0;padding:1
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.6';
+var APP_V = '2026-11-23.7';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
