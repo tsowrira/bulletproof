@@ -3526,7 +3526,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.2';
+var APP_V = '2026-11-23.3';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -6722,8 +6722,8 @@ function _rwLog(op){
   if (c.dataset.side) g.side.push(nm(c) + ' ' + c.dataset.side); });
  var say = function(k, a, b){ if (g[k].length) out.push('<b>' + a + '</b> ' + g[k].join(', ') + '. ' + b); };
  say('up', 'Ready to go up.', 'You hit the top of the range last time. The step up is offered on the card.');
- say('hard', 'Holding.', 'Your note said hard, so same weight and reps.');
- say('ow', 'Flagged by your note.', 'Same weight and reps, nothing added.');
+ say('hard', 'Still in, same weight.', 'Your note said hard, so no step up yet. Match the reps first.');
+ say('ow', 'Still in, nothing added.', 'Your note flagged it, so same weight and reps this time.');
  say('slid', 'One step lighter.', 'Reps slid at this weight.');
  say('stuck', 'Stuck.', 'Same reps three sessions running.');
  say('back', 'Lighter start.', 'Two weeks or more since you did these.');
