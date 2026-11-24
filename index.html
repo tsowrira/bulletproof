@@ -2031,6 +2031,13 @@ body.focus .xchip.tm.on b{color:#0a0a0b}
 body.focus .addex{border-style:solid;border-color:transparent;background:#131316;border-radius:16px}
 body.focus .addex .ax-q{background-color:#1d1d23}
 body.focus .addex .ax-more button{border-color:transparent;background:#1d1d23}
+body:not(.focus) .daynote{display:none}
+.daynote{margin:10px 0 4px}
+.daynote label{display:block;font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.daynote .notebox{margin-top:4px}
+.daynote p{margin:4px 0 0;font-size:12.5px;line-height:1.4;color:var(--dim)}
+@media(max-width:759px){.daynote{margin-left:var(--pad,16px);margin-right:var(--pad,16px)}}
+@media(min-width:760px){html:not(.dev-mobile) .daynote{margin-left:34px;margin-right:34px}}
 body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 </style>
 </head>
@@ -3570,7 +3577,7 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.8';
+var APP_V = '2026-11-23.9';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -5175,7 +5182,7 @@ function buildJots(){
  // bodyweight lifts get a "+lb" box for added load (belt, dumbbell); skill blocks stay reps-only
  var bw = wild || mins || /^d6-/.test(card.dataset.id) || !!card.querySelector(':scope > .drills'), plus = !_firstW(card) ? '+' : '', lbl = _esc(name.split(' — ')[0]);
  // no weight on record: the TRACK maps only mark which lifts are tracked, never preload a weight
- var firstW = !bw && _firstW(card) > 0 && !all.some(function(e){ return e.w > 0; });
+ var firstW = !bw && _firstW(card) > 0 && card.dataset.id !== 'd3-seatpd' && !all.some(function(e){ return e.w > 0; });
  if (firstW) v.w = 0;
  function sv(k){ return k === 'w' && firstW && !(v.w > 0) ? '' : v[k]; }
  var ladder = card.dataset.blk === 'b' ? (card.dataset.altProg || '') : [].map.call(card.querySelectorAll('.prog-block:not(.prog-block-alt) .pn'), function(x){ return x.textContent; }).join(' | ');
@@ -5303,15 +5310,27 @@ function buildJots(){
   var _n = parseFloat(String(i.value).replace(',', '.')); if (isFinite(_n) && (_n > 0 || i.parentNode.dataset.k === 'w')) v[i.parentNode.dataset.k] = Math.round(_n * 100) / 100; paintFirst(); });
  // timed sets: a stopwatch that writes the seconds into the box when you stop it
  var swb = row.querySelector('.swb');
- if (swb){ var sw0 = 0, swT = 0;
-  var swStop = function(quiet){ if (!sw0) return; clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0; v.r = sec;
-   var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; swb.textContent = 'Time it'; swb.classList.remove('run'); paintFirst();
-   if (!quiet){ commitEdit(); _toast(sec + 's in the box — tick the circle to log it'); } };
+ if (swb){ var sw0 = 0, swT = 0, sides = /each/i.test(st0), sd = 0, sd1 = 0;
+  var sdName = function(i){ var f = /right side first/i.test((card.querySelector('.start-l') || {}).textContent || '') ? 1 : 0; return (i ^ f) ? 'Right' : 'Left'; };
+  var swIdle = function(){ swb.textContent = sides ? 'Time ' + sdName(sd).toLowerCase() + ' side' : 'Time it'; swb.classList.remove('run'); };
+  var swPut = function(sec){ v.r = sec; var ri = row.querySelector('.stp[data-k="r"] .stv'); if (ri) ri.value = sec; paintFirst(); };
+  // each-side holds: time one side, then the other; the shorter side is the set and it logs itself
+  var swStop = function(quiet){
+   if (!sw0){ if (quiet && sd){ sd = 0; swIdle(); } return; }
+   clearInterval(swT); var sec = Math.max(1, Math.round((Date.now() - sw0) / 1000)); sw0 = 0;
+   if (sides && sd === 0 && !quiet){ sd = 1; sd1 = sec; swPut(sec); swIdle(); _toast(sdName(0) + ' ' + sec + 's. Now the ' + sdName(1).toLowerCase() + ' side.'); return; }
+   var both = sides && sd === 1, low = both ? Math.min(sd1, sec) : sec, msg = both ? sdName(0) + ' ' + sd1 + 's, ' + sdName(1).toLowerCase() + ' ' + sec + 's. Logged ' + low + 's.' : sec + 's in the box — tick the circle to log it';
+   sd = 0; swPut(low); swIdle();
+   if (quiet) return;
+   if (both){ var ck = card.querySelector(':scope > .extop .chk'); if (ck && !card.classList.contains('done')) window.toggleDone(ck); } else commitEdit();
+   _toast(msg); };
   card._swStop = function(){ swStop(true); };
+  swIdle();
   swb.addEventListener('click', function(){
    if (sw0){ swStop(); return; }
-   sw0 = Date.now(); swb.classList.add('run'); swb.textContent = '0:00 · stop'; requestWakeLock();
-   swT = setInterval(function(){ if (!swb.isConnected){ clearInterval(swT); sw0 = 0; return; } var e = Math.round((Date.now() - sw0) / 1000); swb.textContent = Math.floor(e / 60) + ':' + ('0' + e % 60).slice(-2) + ' · stop'; }, 250); }); }
+   var lab = sides ? sdName(sd) + ' ' : '';
+   sw0 = Date.now(); swb.classList.add('run'); swb.textContent = lab + '0:00 · stop'; requestWakeLock();
+   swT = setInterval(function(){ if (!swb.isConnected){ clearInterval(swT); sw0 = 0; return; } var e = Math.round((Date.now() - sw0) / 1000); swb.textContent = lab + Math.floor(e / 60) + ':' + ('0' + e % 60).slice(-2) + ' · stop'; }, 250); }); }
  else card._swStop = null;
  // one note box, no length cap: mid-lift it notes the set you're on (saved as "S2: …"), after the last set it notes the lift
  var lastN = (p.filter(function(e){ return e.n; }).pop() || {}).n;
@@ -5448,7 +5467,7 @@ window.resetNumbers = resetNumbers;
 // ── Backup / restore ──────────────────────────────────────────────────
 // A single HTML page cannot sync itself anywhere. What it can do is hand iOS a file:
 // one tap, "Save to Files", and the history lands in iCloud Drive.
-var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild','bp-reset','bp-custom','bp-trip-log'];
+var BK_KEYS = ['bp-hist','bp-sess','bp-units','bp-block','bp-rungs','bp-seat','bp-week','bp-wild','bp-reset','bp-custom','bp-trip-log','bp-daynote'];
 function _bkPayload(){
  var o = { app:'bulletproof', v:1, saved:new Date().toISOString(), data:{} };
  BK_KEYS.forEach(function(k){ var v = store.get(k); if (v !== null && v !== undefined) o.data[k] = v; });
@@ -5633,7 +5652,7 @@ function _ghMerge(d){
   tr.forEach(function(x){ if (!x || !x.id || !x.d) return; if (!ti[x.id]){ tl.push(x); ti[x.id] = tl.length; added++; } else if (x.fin && !tl[ti[x.id] - 1].fin){ tl[ti[x.id] - 1] = x; added++; } });   // a session finished on the other device wins over the unfinished copy
   tl.sort(function(x, y){ return (x.s || 0) - (y.s || 0); }); _tripLogWrite(tl);
  }
- ['bp-units','bp-seat','bp-rungs'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
+ ['bp-units','bp-seat','bp-rungs','bp-daynote'].forEach(function(k){ if (d[k] && !store.get(k)) store.set(k, d[k]); });
  if (d['bp-week']){
   var rw = {}; try { rw = _asObj(JSON.parse(d['bp-week'])); } catch(e){ rw = {}; }
   var lw = {}; try { lw = _asObj(JSON.parse(store.get('bp-week') || '{}')); } catch(e){ lw = {}; }
@@ -6532,7 +6551,7 @@ function _dropBring(id){
  applyPlan(p); _afterPlan(); _toast('Off today');
 }
 function _paintPlanChips(){ document.querySelectorAll('.xchip.tm').forEach(function(x){ var sec = x.closest('.section'), on = sec && _mode(sec.id) === x.dataset.m; x.classList.toggle('on', !!on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
-function _afterPlan(){ _paintExtra(); _paintPlanChips(); _paintAddBoxes(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); try { if (typeof _paintStart === 'function') _paintStart(); else _paintBrief(); } catch(e){} }
+function _afterPlan(){ _paintExtra(); _paintPlanChips(); _paintAddBoxes(); _paintDayNotes(); updateDayComplete(); updateFabCount(); if (typeof paintJump === 'function') paintJump(); if (typeof _paintDose === 'function') _paintDose(); try { if (typeof _paintStart === 'function') _paintStart(); else _paintBrief(); } catch(e){} }
 // ── add a lift to today: any lift from another day, or one of your own ──
 function readAdds(){ try { var a = JSON.parse(store.get('bp-add') || 'null'); return a && a.d === _today() && Array.isArray(a.add) ? a.add : []; } catch(e){ return []; } }
 function writeAdds(a){ try { if (a.length) store.set('bp-add', JSON.stringify({ d: _today(), add: a })); else store.del('bp-add'); } catch(e){} }
@@ -6578,7 +6597,7 @@ function applyAdds(){
  document.querySelectorAll('.excard[data-added]').forEach(function(c){ if (ids.indexOf(c.dataset.id) < 0) _unAdd(c); });
  var made = 0; want.forEach(function(a){ var had = !!document.querySelector('.excard[data-id="' + a[0] + '"]'), c = _placeAdd(a[0], a[1]); if (c && !had) made++; });
  if (made){ buildJots(); applyState(); }
- _paintAddBoxes(); _applySkips();
+ _paintAddBoxes(); _paintDayNotes(); _applySkips();
 }
 function _axNorm(t){ return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 function _axItems(sec){
@@ -6615,6 +6634,30 @@ function _axPick(box, b){
  updateDayComplete(); updateFabCount();
  if (c){ if (document.body.classList.contains('focus')) goCard(c); else c.scrollIntoView({ behavior: _reduced() ? 'auto' : 'smooth', block: 'start' }); }
  _toast(c ? 'Added to today: ' + ((c.querySelector('.exname') || {}).textContent || '').split(' — ')[0] : 'Could not add that one');
+}
+// two free-text notes per session, before and after; they never change the plan
+function _paintDayNotes(){
+ var all = {}; try { all = _asObj(JSON.parse(store.get('bp-daynote') || '{}')); } catch(e){}
+ var t = _today();
+ document.querySelectorAll('.section[id^="d"]').forEach(function(sec){
+  var list = sec.querySelector('.exlist'); if (!list || !DAY_NAME[sec.id] || sec.querySelector('.daynote')) return;
+  var key = t + '|' + sec.id, last = Object.keys(all).filter(function(k){ return k.split('|')[1] === sec.id && k < key; }).sort().pop(), lo = last ? _asObj(all[last]) : {};
+  [['a', 'Before', 'Before you start: sleep, energy, anything sore'], ['b', 'After', 'After: how it went']].forEach(function(f){
+   var box = document.createElement('div'); box.className = 'daynote';
+   box.innerHTML = '<label>' + f[1] + '</label><textarea class="notebox" rows="1" enterkeyhint="done" placeholder="' + f[2] + '" aria-label="' + f[1] + ' the session note"></textarea>' + (lo[f[0]] ? '<p>Last time: ' + _esc(lo[f[0]]) + '</p>' : '');
+   var ta = box.querySelector('textarea'), fit = function(){ ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; ta.classList.toggle('has', !!ta.value.trim()); };
+   ta.value = (_asObj(all[key])[f[0]]) || '';
+   ta.addEventListener('input', fit);
+   ta.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.shiftKey){ ev.preventDefault(); ta.blur(); } });
+   ta.addEventListener('change', function(){ var cur = {}; try { cur = _asObj(JSON.parse(store.get('bp-daynote') || '{}')); } catch(e){}
+    var o = _asObj(cur[key]), val = ta.value.trim(); if (val) o[f[0]] = val; else delete o[f[0]];
+    if (o.a || o.b) cur[key] = o; else delete cur[key];
+    Object.keys(cur).sort().slice(0, -90).forEach(function(k){ delete cur[k]; });
+    try { store.set('bp-daynote', JSON.stringify(cur)); } catch(e){} });
+   if (f[0] === 'a') list.insertAdjacentElement('beforebegin', box); else (sec.querySelector('.addex') || list).insertAdjacentElement('afterend', box);
+   setTimeout(fit, 0);
+  });
+ });
 }
 function _paintAddBoxes(){
  document.querySelectorAll('.section[id^="d"]').forEach(function(sec){
