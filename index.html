@@ -2034,22 +2034,32 @@ body.focus .addex .ax-more button{border-color:transparent;background:#1d1d23}
 #numPat:empty{display:none}
 .pt{margin:0 0 18px;padding:14px;border-radius:14px;background:#1b1b1f}
 .pt-h{font:800 15px 'Inter',sans-serif;color:var(--txt);margin-bottom:10px}
-.pt-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pt-tile{padding:10px;border-radius:10px;background:#131316}
-.pt-tile b{display:block;font:800 22px/1.1 'Inter',sans-serif;color:var(--txt);font-variant-numeric:tabular-nums}
-.pt-tile span{display:block;margin-top:3px;font-size:11.5px;line-height:1.25;color:var(--dim)}
-.pt-sub{margin:16px 0 6px;font-size:12px;color:var(--dim)}
-.pt-cal{display:block;width:100%;height:auto;max-width:460px}
-.pt-cal text{font:500 9px 'Inter',sans-serif;fill:#8a8a94}
-.pt-dot{cursor:pointer}.pt-dot.on circle:last-child{stroke:#f5f5f4;stroke-width:2}
+.pt-lead{margin:0;max-width:460px;font:500 17px/1.4 'Inter',sans-serif;color:var(--fade)}.pt-lead b{font-weight:800;color:var(--txt)}
+.pt-sub{display:flex;justify-content:space-between;align-items:baseline;gap:10px;max-width:460px;margin:18px 0 6px;font-size:12px;line-height:1.35;color:var(--dim)}
+.pt-play{flex:none;border:0;background:none;padding:6px 0 6px 8px;font:600 12px 'Inter',sans-serif;color:var(--txt);cursor:pointer}
+.pt-cal,.pt-mov{display:block;width:100%;height:auto;max-width:460px}
+.pt-cal text,.pt-mov text{font:500 9px 'Inter',sans-serif;fill:#8a8a94}
+.pt-con{fill:none;stroke:#44444f;stroke-width:1}
+.pt-dot,.pt-lift{cursor:pointer}.pt-dot .d,.pt-lift .d{transform-box:fill-box;transform-origin:center}
+.pt-dot.on .d,.pt-lift.on .d{stroke:#f5f5f4;stroke-width:2}
+.pt.has .pt-dot:not(.in) .d{opacity:.16}.pt.has .pt-con{opacity:.3}
+.pt.go .pt-dot .d,.pt.go .pt-lift .d,.pt.go .pt-ds i{animation:ptPop .45s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(var(--i)*45ms)}
+.pt.go .pt-ds i{animation-delay:calc(var(--i)*16ms + 250ms)}
+.pt.go .pt-lift .d{animation-delay:calc(var(--i)*22ms + 350ms)}
+.pt.go .pt-con{animation:ptFade .5s both;animation-delay:calc(var(--i)*45ms + 250ms)}
+.pt.go.slow .pt-dot .d{animation-delay:calc(var(--i)*150ms)}.pt.go.slow .pt-con{animation-delay:calc(var(--i)*150ms + 250ms)}
+@keyframes ptPop{from{transform:scale(0);opacity:0}}
+@keyframes ptFade{from{opacity:0}}
 .pt-leg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:12px;color:var(--fade)}
 .pt-leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
 .pt-pick{margin:8px 0 0;min-height:18px;font-size:13px;color:var(--txt)}
-.pt-bars{max-width:460px}
-.pt-bar{display:grid;grid-template-columns:104px 1fr 30px;align-items:center;gap:8px;margin:5px 0;font-size:12.5px;color:var(--fade)}
-.pt-bar i{display:block;height:10px}.pt-bar i b{display:block;height:100%;border-radius:0 4px 4px 0;background:#3987e5}
-.pt-bar em{font-style:normal;text-align:right;color:var(--txt);font-variant-numeric:tabular-nums}
-.pt-line{margin:14px 0 0;font-size:13px;color:var(--fade)}.pt-line b{color:var(--txt)}
+.pt-tal{max-width:476px}
+@media (min-width:900px){.pt-lead{max-width:none}.pt-g{display:grid;grid-template-columns:minmax(0,460px) minmax(0,476px);column-gap:56px;align-items:start}.pt-b{grid-column:2;grid-row:1 / span 2}}
+.pt-row{display:grid;grid-template-columns:100px 1fr 30px;align-items:center;gap:8px;min-height:30px;padding:3px 8px;margin:0 -8px;border-radius:8px;font-size:12.5px;color:var(--fade);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pt-row.on{background:#131316;color:var(--txt)}
+.pt-ds{display:flex;flex-wrap:wrap;align-items:center;gap:3px}.pt-ds i{display:block;width:6px;height:6px;border-radius:50%}
+.pt-ds u{text-decoration:none;font-size:10.5px;line-height:1;color:var(--dim)}
+.pt-row em{font-style:normal;text-align:right;color:var(--txt);font-variant-numeric:tabular-nums}
 body:not(.focus) .daynote{display:none}
 .daynote{margin:10px 0 4px}
 .daynote label{display:block;font:700 11px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
@@ -3597,7 +3607,7 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.11';
+var APP_V = '2026-11-23.12';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4892,7 +4902,7 @@ function openSheet(kind, stay){
  _putLogBack(); _sheetKind = kind;
  if (kind === 'numbers'){   // the real My Numbers panel moves in, so backup, sync and delete all work from here
  var lg = document.getElementById('log'); body.innerHTML = '';
- if (lg){ _logHome = document.createComment('log'); lg.parentNode.insertBefore(_logHome, lg); body.appendChild(lg); renderNumbers(); _ghOpenIfNeeded(); _ghResume(); }
+ if (lg){ _logHome = document.createComment('log'); lg.parentNode.insertBefore(_logHome, lg); body.appendChild(lg); _ptAnim = true; renderNumbers(); _ghOpenIfNeeded(); _ghResume(); }
  } else body.innerHTML = kind === 'week' ? _weekSheet() : kind === 'rework' ? _rwSheet() : _moreSheet();
  sh.classList.add('open'); sh.setAttribute('aria-hidden', 'false'); document.getElementById('scrim').hidden = false;
  if (!stay) sh.scrollTop = 0;
@@ -5432,44 +5442,71 @@ function _rowToggle(row){ var u = row.querySelector('.srow-u'); if (!u) return; 
 var PT_COL = { d5:'#3987e5', d1:'#d95926', d3:'#199e70', d6:'#c98500' };
 var PT_AREA = { vpull:'Lats', latuni:'Lats', latiso:'Lats', hpull:'Mid-back', rdelt:'Rear shoulders', sdelt:'Side shoulders', chest:'Pressing', dip:'Pressing', ohp:'Pressing', serratus:'Shoulder care', cuff:'Shoulder care',
  bi:'Arms', tri:'Arms', quad:'Quads', hamknee:'Hamstrings', hamhip:'Hamstrings', glute:'Glutes', gmed:'Side glutes', calf:'Calves', corelat:'Trunk', corerot:'Trunk', backext:'Trunk' };
-function _paintPatterns(){
+var _ptAnim = true;
+function _ptName(k){ if (k.slice(0, 5) === 'wild:') return k.slice(5);
+ var id = k.replace(/~b$/, ''), c = document.querySelector('.excard[data-id="' + id + '"]'), n = '';
+ if (c){ var x = c.querySelector('.exname'); n = id !== k ? (c.dataset.altName || '') : c.dataset.blk === 'b' ? (x.dataset.orig || '') : x.textContent; n = String(n).replace(/<[^>]+>/g, '').split(' — ')[0].trim(); }
+ return n || (k in OLD_LIFT ? OLD_LIFT[k] : /^x-/.test(k) ? _customName(k) : ''); }
+function _paintPatterns(slow){
  var host = document.getElementById('numPat'); if (!host) return;
  var seen = {}, ss = readSess().filter(function(x){ if (!x || !x.d || !(x.n >= 3) || seen[x.d + x.day]) return false; seen[x.d + x.day] = 1; return true; });
  if (ss.length < 2){ host.innerHTML = readGH() ? '' : '<div class="pt"><div class="pt-h">Patterns</div><p class="pt-pick" style="margin:0;color:var(--mut,#a1a1aa)">Shows once two sessions are logged here. Sessions logged on another device come in when you connect your log under Backup &amp; sync below.</p></div>'; return; }
+ var anim = _ptAnim; _ptAnim = false;
  var today = _today(), D = function(str){ var a = str.split('-'); return new Date(+a[0], +a[1] - 1, +a[2]); }, t0 = D(today), ago = function(str){ return Math.round((t0 - D(str)) / 864e5); };
  var mins = function(x){ return Math.round((x.act > 0 ? x.act : Math.max(0, x.e - x.s)) / 6e4); };
  var r4 = ss.filter(function(x){ return ago(x.d) < 28; }), ml = ss.slice(-6).map(mins).filter(function(m){ return m > 0; }).sort(function(a, b){ return a - b; }), med = ml.length ? ml[Math.floor(ml.length / 2)] : 0;
- // sets per area, last 4 weeks
- var h = readHist(), area = {}, tot = 0, up = 0, lvl = 0, dn = 0;
- Object.keys(h).forEach(function(k){ var arr = _asArr(h[k]).filter(function(e){ return e && e.d && e.r > 0; }), a = PT_AREA[SLOT[k.replace(/~b$/, '')]];
-  if (a) arr.forEach(function(e){ if (ago(e.d) < 28){ var n = Array.isArray(e.s) && e.s.length ? e.s.length : 1; area[a] = (area[a] || 0) + n; tot += n; } });
-  if (arr.length > 1 && !/#\d+$/.test(k)){ var d = _score(arr[arr.length - 1]) - _score(arr[0]); if (d > 0.01) up++; else if (d < -0.01) dn++; else lvl++; } });
- var fmt1 = function(v){ return (Math.round(v * 10) / 10).toString(); };
- var tile = function(v, l){ return '<div class="pt-tile"><b>' + v + '</b><span>' + l + '</span></div>'; };
- var out = '<div class="pt"><div class="pt-h">Patterns</div><div class="pt-tiles">' + tile(r4.length, 'sessions, last 4 weeks') + tile(med ? med + ' min' : '–', 'usual active time') + tile(fmt1(tot / 4), 'sets a week') + '</div>';
- // day by day: 12 weeks, Monday on top
- var W = 12, cw = 26.5, rh = 21, x0 = 20, y0 = 16, mon = new Date(t0); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7) - (W - 1) * 7);
  var byD = {}; ss.forEach(function(x){ byD[x.d] = x; });
- var g = '<svg class="pt-cal" viewBox="0 0 340 ' + (y0 + rh * 7 + 2) + '" role="img" aria-label="One dot per session over the last twelve weeks">', lastM = -1, MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ var h = readHist(), area = {}, lifts = [];
+ Object.keys(h).forEach(function(k){ var arr = _asArr(h[k]).filter(function(e){ return e && e.d && e.r > 0; }), a = PT_AREA[SLOT[k.replace(/~b$/, '')]];
+  if (a) arr.forEach(function(e){ var o = area[a] = area[a] || { n:0, dots:[], days:{} }; o.days[e.d] = 1;
+   if (ago(e.d) < 28 && ago(e.d) >= 0){ var n = Array.isArray(e.s) && e.s.length ? e.s.length : 1; o.n += n; for (var q = 0; q < n; q++) o.dots.push([e.d, (byD[e.d] || {}).day]); } });
+  if (arr.length > 1 && !/#\d+$/.test(k)){ var f = arr[0], l = arr[arr.length - 1], s0 = _score(f), nm = _ptName(k); if (s0 > 0 && nm) lifts.push({ nm:nm, p:(_score(l) - s0) / s0, a:_fmt(f), b:_fmt(l) }); } });
+ var fmt1 = function(v){ return (Math.round(v * 10) / 10).toString(); };
+ var rows = Object.keys(area).filter(function(k){ return area[k].n > 0; }).map(function(k){ return [k, area[k]]; }).sort(function(a, b){ return b[1].n - a[1].n; });
+ var out = '<div class="pt' + (anim ? ' go' : '') + (slow ? ' slow' : '') + '"><div class="pt-h">Patterns</div><p class="pt-lead"><b>' + r4.length + ' session' + (r4.length === 1 ? '' : 's') + '</b> in the last 4 weeks' + (med ? ', about <b>' + med + ' min</b> each' : '') + '.' +
+  (rows.length && (rows.length < 2 || rows[0][1].n > rows[1][1].n) ? ' <b>' + rows[0][0] + '</b> got the most sets.' : '') + '</p>';
+ // day by day: 12 weeks, Monday on top; a week's sessions are joined by a line
+ var W = 12, cw = 26.5, rh = 21, x0 = 20, y0 = 16, mon = new Date(t0); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7) - (W - 1) * 7);
+ var g = '<svg class="pt-cal" viewBox="0 0 340 ' + (y0 + rh * 7 + 2) + '" role="img" aria-label="One dot per session over the last twelve weeks">', lastM = -1, MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], cons = '', dots = '', ix = 0;
  ['M','','W','','F','','S'].forEach(function(l, i){ if (l) g += '<text x="0" y="' + (y0 + rh * i + rh / 2 + 3.5) + '">' + l + '</text>'; });
- for (var w = 0; w < W; w++) for (var i = 0; i < 7; i++){ var dt = new Date(mon); dt.setDate(mon.getDate() + w * 7 + i); if (dt > t0) continue;
-  var key = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2), cx = x0 + cw * w + cw / 2, cy = y0 + rh * i + rh / 2, x = byD[key];
-  if (i === 0 && dt.getMonth() !== lastM && dt.getDate() <= 7 || (w === 0 && i === 0)){ lastM = dt.getMonth(); g += '<text x="' + (cx - 6) + '" y="9">' + MN[lastM] + '</text>'; }
-  if (x) g += '<g class="pt-dot" data-d="' + key + '"><circle cx="' + cx + '" cy="' + cy + '" r="12" fill="transparent"/><circle cx="' + cx + '" cy="' + cy + '" r="' + Math.min(8.5, 3.5 + x.n * 0.4).toFixed(1) + '" fill="' + (PT_COL[x.day] || '#8a8a94') + '"/></g>';
-  else g += '<circle cx="' + cx + '" cy="' + cy + '" r="1.6" fill="' + (key === today ? '#f5f5f4' : '#2e2e36') + '"/>'; }
- g += '</svg>';
+ for (var w = 0; w < W; w++){ var pts = [];
+  for (var i = 0; i < 7; i++){ var dt = new Date(mon); dt.setDate(mon.getDate() + w * 7 + i); if (dt > t0) continue;
+   var key = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2), cx = x0 + cw * w + cw / 2, cy = y0 + rh * i + rh / 2, x = byD[key];
+   if (i === 0 && dt.getMonth() !== lastM && dt.getDate() <= 7 || (w === 0 && i === 0)){ lastM = dt.getMonth(); g += '<text x="' + (cx - 6) + '" y="9">' + MN[lastM] + '</text>'; }
+   if (x){ pts.push(cy); dots += '<g class="pt-dot" data-d="' + key + '" style="--i:' + (ix++) + '"><circle cx="' + cx + '" cy="' + cy + '" r="12" fill="transparent"/><circle class="d" cx="' + cx + '" cy="' + cy + '" r="' + Math.min(8.5, 3.5 + x.n * 0.4).toFixed(1) + '" fill="' + (PT_COL[x.day] || '#8a8a94') + '"/></g>'; }
+   else dots += '<circle cx="' + cx + '" cy="' + cy + '" r="1.6" fill="' + (key === today ? '#f5f5f4' : '#2e2e36') + '"/>'; }
+  if (pts.length > 1) cons += '<path class="pt-con" style="--i:' + (ix - 1) + '" d="M' + (x0 + cw * w + cw / 2) + ' ' + pts[0] + 'V' + pts[pts.length - 1] + '"/>'; }
+ g += cons + dots + '</svg>';
  var used = {}; ss.forEach(function(x){ if (ago(x.d) < W * 7) used[x.day] = 1; });
  var leg = ['d5','d1','d3','d6'].filter(function(k){ return used[k]; }).map(function(k){ return '<span><i style="background:' + PT_COL[k] + '"></i>' + DAY_NAME[k] + '</span>'; }).join('');
- out += '<div class="pt-sub">Day by day · bigger dot, more lifts</div>' + g + '<div class="pt-leg">' + leg + '</div><p class="pt-pick" id="ptPick"></p>';
- // sets a week by area
- var rows = Object.keys(area).map(function(k){ return [k, area[k] / 4]; }).sort(function(a, b){ return b[1] - a[1]; }), mx = rows.length ? rows[0][1] : 1;
- if (rows.length) out += '<div class="pt-sub">Sets a week by area · last 4 weeks</div><div class="pt-bars">' + rows.map(function(r){ return '<div class="pt-bar"><span>' + r[0] + '</span><i><b style="width:' + Math.max(2, r[1] / mx * 100).toFixed(1) + '%"></b></i><em>' + fmt1(r[1]) + '</em></div>'; }).join('') + '</div>';
- if (up + lvl + dn) out += '<p class="pt-line">Since each lift was first logged: <b>' + up + '</b> up, <b>' + lvl + '</b> level, <b>' + dn + '</b> down.</p>';
- host.innerHTML = out + '</div>';
- var pick = host.querySelector('#ptPick'), show = function(key){ var x = byD[key]; if (!x) return; var a = ago(key), m = mins(x);
-  pick.textContent = (a === 0 ? 'Today' : a === 1 ? 'Yesterday' : MN[D(key).getMonth()] + ' ' + D(key).getDate()) + ' · ' + (DAY_NAME[x.day] || 'Other day') + ' · ' + x.n + ' lifts' + (m ? ' · ' + m + ' min' : '');
+ out += '<div class="pt-g"><div class="pt-a"><div class="pt-sub"><span>Day by day · bigger dot, more lifts</span><button type="button" class="pt-play" id="ptPlay">▸ Play the 12 weeks</button></div>' + g + '<div class="pt-leg">' + leg + '</div><p class="pt-pick" id="ptPick"></p></div>';
+ // every set a dot, by area
+ if (rows.length) out += '<div class="pt-b"><div class="pt-sub"><span>Every dot is one set · last 4 weeks · the number is sets a week · tap a row to light its days</span></div><div class="pt-tal">' + rows.map(function(r){ var o = r[1]; o.dots.sort(function(a, b){ return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0; });
+   return '<div class="pt-row" role="button" tabindex="0" data-a="' + _esc(r[0]) + '"><span>' + r[0] + '</span><span class="pt-ds">' + o.dots.slice(0, 30).map(function(x, j){ return '<i style="--i:' + j + ';background:' + (PT_COL[x[1]] || '#8a8a94') + '"></i>'; }).join('') + (o.dots.length > 30 ? '<u>+' + (o.dots.length - 30) + '</u>' : '') + '</span><em>' + fmt1(o.n / 4) + '</em></div>'; }).join('') + '</div></div>';
+ // every lift a dot, by how far it has moved
+ var up = 0, lvl = 0, dn = 0, bw = 11, cols = {}, mxs = 0;
+ lifts.sort(function(a, b){ return a.p - b.p; }).forEach(function(l){ if (l.p > 0.01) up++; else if (l.p < -0.01) dn++; else lvl++;
+  l.c = Math.abs(l.p) <= 0.01 ? 0 : Math.max(-13, Math.min(13, (l.p > 0 ? 1 : -1) * Math.max(1, Math.round(Math.abs(l.p) / 0.5 * 13)))); l.j = cols[l.c] = (cols[l.c] || 0) + 1; if (l.j > mxs) mxs = l.j; });
+ if (lifts.length){ var mh = mxs * bw + 24, base = mh - 16, m = '<svg class="pt-mov" viewBox="0 0 340 ' + mh + '" role="img" aria-label="One dot per lift, placed by how far it has moved since it was first logged"><path d="M170 0V' + (base + 4) + '" stroke="#44444f" stroke-dasharray="1 4" stroke-linecap="round"/><path d="M20 ' + (base + .5) + 'H320" stroke="#2e2e36"/>' +
+   '<text x="20" y="' + (mh - 3) + '">down</text><text x="170" y="' + (mh - 3) + '" text-anchor="middle">level</text><text x="320" y="' + (mh - 3) + '" text-anchor="end">up</text>';
+  lifts.forEach(function(l, i){ var cx = 170 + l.c * bw, cy = base - (l.j - 1) * bw - bw / 2; m += '<g class="pt-lift" data-i="' + i + '" style="--i:' + i + '"><circle cx="' + cx + '" cy="' + cy + '" r="7" fill="transparent"/><circle class="d" cx="' + cx + '" cy="' + cy + '" r="3.8" fill="#cfcfd6"/></g>'; });
+  out += '<div class="pt-c"><div class="pt-sub"><span>Every dot is one lift · how far it has moved since it was first logged · tap a dot</span></div>' + m + '</svg><p class="pt-pick" id="ptLift"></p></div>'; }
+ host.innerHTML = out + '</div></div>';
+ var box = host.querySelector('.pt'), pick = host.querySelector('#ptPick'), hlA = '', when = function(key){ var a = ago(key); return a === 0 ? 'Today' : a === 1 ? 'Yesterday' : MN[D(key).getMonth()] + ' ' + D(key).getDate(); };
+ var show = function(key){ var x = byD[key]; if (!x) return; var mi = mins(x);
+  pick.textContent = when(key) + ' · ' + (DAY_NAME[x.day] || 'Other day') + ' · ' + x.n + ' lifts' + (mi ? ' · ' + mi + ' min' : '');
   host.querySelectorAll('.pt-dot').forEach(function(n){ n.classList.toggle('on', n.dataset.d === key); }); };
- host.querySelectorAll('.pt-dot').forEach(function(n){ n.addEventListener('click', function(){ show(n.dataset.d); }); });
+ var light = function(a){ hlA = hlA === a ? '' : a; box.classList.toggle('has', !!hlA);
+  host.querySelectorAll('.pt-row').forEach(function(n){ n.classList.toggle('on', n.dataset.a === hlA); });
+  if (!hlA){ host.querySelectorAll('.pt-dot').forEach(function(n){ n.classList.remove('in'); }); show(ss[ss.length - 1].d); return; }
+  var o = area[hlA], nd = 0; host.querySelectorAll('.pt-dot').forEach(function(n){ var on = !!o.days[n.dataset.d]; n.classList.toggle('in', on); n.classList.remove('on'); if (on) nd++; });
+  pick.textContent = hlA + ' · ' + o.n + ' set' + (o.n === 1 ? '' : 's') + ' in the last 4 weeks · ' + nd + ' day' + (nd === 1 ? '' : 's') + ' lit above'; };
+ host.querySelectorAll('.pt-dot').forEach(function(n){ n.addEventListener('click', function(){ if (hlA) light(hlA); show(n.dataset.d); }); });
+ host.querySelectorAll('.pt-row').forEach(function(n){ n.addEventListener('click', function(){ light(n.dataset.a); }); n.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); light(n.dataset.a); } }); });
+ var pl = host.querySelector('#ptPlay'); if (pl) pl.addEventListener('click', function(){ _ptAnim = true; _paintPatterns(1); });
+ var lf = host.querySelector('#ptLift'); if (lf){ lf.innerHTML = '<b>' + up + '</b> up, <b>' + lvl + '</b> level, <b>' + dn + '</b> down.';
+  host.querySelectorAll('.pt-lift').forEach(function(n){ n.addEventListener('click', function(){ var l = lifts[+n.dataset.i]; host.querySelectorAll('.pt-lift').forEach(function(q){ q.classList.toggle('on', q === n); });
+   lf.innerHTML = '<b>' + _esc(l.nm) + '</b><br>' + (l.a === l.b ? _esc(l.b) + ', same as the first time' : 'First time: ' + _esc(l.a) + '<br>Now: ' + _esc(l.b)); }); }); }
  show(ss[ss.length - 1].d);
 }
 function renderNumbers(){
