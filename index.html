@@ -2790,7 +2790,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>2 sets of 3 holds, 10s each</span></div>
  <div class="prog-step"><span class="pn">Next</span><span>4 holds per set, then 6 — always 10s holds</span></div>
- <div class="prog-step"><span class="pn">Later</span><span>2 × 8 hinge reps: lower only ~30°, stop at body-line</span></div>
+ <div class="prog-step"><span class="pn">Always</span><span>Holds only. No lowering reps, no rounding, never past the straight line</span></div>
 </div></div>
 </div>
 
@@ -3526,7 +3526,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.3';
+var APP_V = '2026-11-23.4';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
