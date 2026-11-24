@@ -3597,7 +3597,7 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.10';
+var APP_V = '2026-11-23.11';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -4892,7 +4892,7 @@ function openSheet(kind, stay){
  _putLogBack(); _sheetKind = kind;
  if (kind === 'numbers'){   // the real My Numbers panel moves in, so backup, sync and delete all work from here
  var lg = document.getElementById('log'); body.innerHTML = '';
- if (lg){ _logHome = document.createComment('log'); lg.parentNode.insertBefore(_logHome, lg); body.appendChild(lg); renderNumbers(); _ghOpenIfNeeded(); }
+ if (lg){ _logHome = document.createComment('log'); lg.parentNode.insertBefore(_logHome, lg); body.appendChild(lg); renderNumbers(); _ghOpenIfNeeded(); _ghResume(); }
  } else body.innerHTML = kind === 'week' ? _weekSheet() : kind === 'rework' ? _rwSheet() : _moreSheet();
  sh.classList.add('open'); sh.setAttribute('aria-hidden', 'false'); document.getElementById('scrim').hidden = false;
  if (!stay) sh.scrollTop = 0;
@@ -5435,7 +5435,7 @@ var PT_AREA = { vpull:'Lats', latuni:'Lats', latiso:'Lats', hpull:'Mid-back', rd
 function _paintPatterns(){
  var host = document.getElementById('numPat'); if (!host) return;
  var seen = {}, ss = readSess().filter(function(x){ if (!x || !x.d || !(x.n >= 3) || seen[x.d + x.day]) return false; seen[x.d + x.day] = 1; return true; });
- if (ss.length < 2){ host.innerHTML = ''; return; }
+ if (ss.length < 2){ host.innerHTML = readGH() ? '' : '<div class="pt"><div class="pt-h">Patterns</div><p class="pt-pick" style="margin:0;color:var(--mut,#a1a1aa)">Shows once two sessions are logged here. Sessions logged on another device come in when you connect your log under Backup &amp; sync below.</p></div>'; return; }
  var today = _today(), D = function(str){ var a = str.split('-'); return new Date(+a[0], +a[1] - 1, +a[2]); }, t0 = D(today), ago = function(str){ return Math.round((t0 - D(str)) / 864e5); };
  var mins = function(x){ return Math.round((x.act > 0 ? x.act : Math.max(0, x.e - x.s)) / 6e4); };
  var r4 = ss.filter(function(x){ return ago(x.d) < 28; }), ml = ss.slice(-6).map(mins).filter(function(m){ return m > 0; }).sort(function(a, b){ return a - b; }), med = ml.length ? ml[Math.floor(ml.length / 2)] : 0;
