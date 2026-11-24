@@ -2981,7 +2981,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 <div class="cue">Lean forward, push out from the back of the hips.</div>
 <div class="feel"><b>Feel it</b>Outer hip, deeper and further back than the upright version. Not the low back.</div>
 <div class="feet">Resting on the foot pegs, relaxed. Don't push with the feet; the hips do the work.</div>
-<div class="setup"><strong>1.</strong> Sit, pads on the outer thigh, then hinge forward from the hips with a flat back until the chest is over the thighs. <strong>2.</strong> Press out in 2, short of your widest; hold 1. <strong>3.</strong> Return in 3; the stack never rests. Back rounds or you rock to finish a rep: set over.</div>
+<div class="setup"><strong>1.</strong> Sit, pads on the outer thigh, then hinge forward from the hips with a flat back, about a third of the way. Stop the lean before the low back starts to round. <strong>2.</strong> Press out in 2, short of your widest; hold 1. <strong>3.</strong> Return in 3; the stack never rests. Back rounds or you rock to finish a rep: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
  <div class="prog-step"><span class="pn">Now</span><span>Light pin, 2 × 15, 1s hold at the widest clean point</span></div>
@@ -3526,7 +3526,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.4';
+var APP_V = '2026-11-23.5';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
