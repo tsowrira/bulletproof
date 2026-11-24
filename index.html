@@ -2994,22 +2994,22 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 
 <div class="ssh"><b>C</b>lat width ↔ side glutes<span>both sets of 1, then both of 2</span></div>
 
-<div class="excard" data-id="d3-sapd" data-ss="C">
+<div class="excard" data-id="d3-seatpd" data-ss="C">
 <div class="extop">
- <div class="ex-left"><div class="ssn">C1</div><div class="exname">Single-Arm Cable Pulldown — Staggered Stance</div>
- <div class="start-l"><span>Left side first · right matches its reps</span></div></div>
- <div class="exmeta"><div class="sets">S1: 8–10 each · S2: stop 1 short</div><div class="rest-lbl">45s rest</div><div class="tempo">pull 2 · squeeze 1 · return 3</div></div>
+ <div class="ex-left"><div class="ssn">C1</div><div class="exname">Seated Cable Pulldown — Two Handles</div>
+ <div class="start-l"><span>Both arms together · log the weight on one side</span></div></div>
+ <div class="exmeta"><div class="sets">S1: 8–10 · S2: stop 1 short</div><div class="rest-lbl">45s rest</div><div class="tempo">pull 2 · squeeze 1 · return 3</div></div>
  <button class="chk" onclick="toggleDone(this)" aria-label="Mark complete">○</button>
 </div>
-<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Top pulley, one handle. Face the stack an arm's length back, working-side foot forward.</span></div>
+<div class="band-badge"><div class="band-dot" style="background:#1fe0ff"></div><span class="band-txt">Twin-pulley tower with the seat. A handle in each hand, thighs snug under the roller pads.</span></div>
 <div class="warmset">Ramp: 1 easy set</div>
-<div class="cue">Reach long, set the shoulder, elbow to back pocket.</div>
-<div class="feel"><b>Feel it</b>The lat on the working side, from the armpit down to the waist. Not the forearm or the biceps.</div>
-<div class="setup"><strong>1.</strong> Stand tall, reach up the cable, elbow soft. <strong>2.</strong> Pull the elbow to the back pocket, ribs down; squeeze 1. <strong>3.</strong> Return 3 counts to a long reach. Leaning back: set over.</div>
+<div class="cue">Chest tall, both elbows down to the back pockets.</div>
+<div class="feel"><b>Feel it</b>Both lats, from the armpits down to the waist. Not the forearms or the biceps.</div>
+<div class="setup"><strong>1.</strong> Sit tall, pads snug on the thighs, reach up long with soft elbows. <strong>2.</strong> Pull both elbows down and a little out, ribs down; squeeze 1. <strong>3.</strong> Return 3 counts to a long reach, shoulders stay set. Leaning back or arching to finish: set over.</div>
 <button class="acc-btn" onclick="toggle(this)"><span class="arr">▼</span> Level up</button>
 <div class="prog-wrap"><div class="prog-block">
- <div class="prog-step"><span class="pn">Now</span><span>Your working weight — S1: 8–10 each · S2: stop 1 short</span></div>
- <div class="prog-step"><span class="pn">10 clean</span><span>Set 1, when 10 is clean on both sides → one pin up next time</span></div>
+ <div class="prog-step"><span class="pn">Now</span><span>Your working weight — S1: 8–10 · S2: stop 1 short</span></div>
+ <div class="prog-step"><span class="pn">10 clean</span><span>Set 1, when 10 is clean → one pin up on each side next time</span></div>
  <div class="prog-step"><span class="pn">Jump too big</span><span>Stay on the old pin and stretch the return to 4 counts first</span></div>
 </div></div>
 </div>
@@ -3293,7 +3293,7 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
  <div class="t-mono" style="color:var(--b);margin-bottom:10px;font-size:11px">Swap menu — one per slot</div>
  <div style="font-size:13.5px;line-height:1.75">
  <p style="margin:0 0 6px"><strong>Row:</strong> chest-supported machine row | staggered-stance single-arm cable row</p>
- <p style="margin:0 0 6px"><strong>Lats:</strong> single-arm cable pulldown, staggered stance</p>
+ <p style="margin:0 0 6px"><strong>Lats:</strong> seated two-handle cable pulldown</p>
  <p style="margin:0 0 6px"><strong>Overhead push:</strong> pike push-up | wall handstand shoulder taps</p>
  <p style="margin:0 0 6px"><strong>Rear delt / lower trap:</strong> reverse pec-deck | low-cable Y-raise (light forever)</p>
  <p style="margin:0 0 6px"><strong>Triceps:</strong> overhead rope extension (ribs down) | rope pushdown</p>
@@ -3570,7 +3570,7 @@ body.focus .day-jump{background:#1d1d23;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.7';
+var APP_V = '2026-11-23.8';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
@@ -3610,7 +3610,7 @@ function isExpired(timestamp) {
 }
 
 function readSaved() {
- try { return _asObj(JSON.parse(store.get('bp-done') || '{}')); }
+ try { var o = _asObj(JSON.parse(store.get('bp-done') || '{}')); if (o['d3-sapd']) { if (!o['d3-seatpd']) o['d3-seatpd'] = o['d3-sapd']; delete o['d3-sapd']; } return o; }
  catch (e) { return {}; }
 }
 
@@ -4448,7 +4448,7 @@ var TRIP = {
   B: [['r-b1','One-leg bridge on the bed','2 × 10 / side','Hips level, 2-count at the top'], ['r-b2','Step-up, low stair','2 × 8 / side','Hand on the rail, lower for 3'], ['r-b3','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°'], ['r-b4','Arm lifts on the bed, face down','2 × 8 each','Chest stays on the bed. Arms out in a Y, then out to the sides in a T, then bent in a W, slowly'], ['r-b5','Incline side plank, forearm on the bed','2 × 20s / side','Long line, hips up']] },
  db: { A: [['d-a1','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w'], ['d-a2','Dumbbell bench press','2 × 10','Your usual or lighter, elbows tucked','w'], ['d-a3','Chest-supported row, incline bench','2 × 10','Chest on the pad, pull to the ribs','w'], ['d-a4','Lateral raise','2 × 12','Stop at shoulder height','w'], ['d-a5','Dumbbell RDL','2 × 10','5 lb, 3 down, 1 pause, 1 up','w']],
   B: [['d-b1','One-leg bridge, bench or bed','2 × 10 / side','Bodyweight, 2-count at the top'], ['d-b2','Step-up, low bench','2 × 8 / side','Bodyweight, lower for 3'], ['d-b3','One-arm row, hand on the bench','2 × 10 / side','Flat back, pull to the hip','w'], ['d-b4','Incline curl','2 × 10','Arms hang back, no swing','w'], ['d-b5','Pike push-up, feet on the floor','2 × 6','Stop when the elbows hit 90°']] },
- cable: { A: [['c-a1','One-arm cable pulldown','2 × 10 / side','Staggered stance, ribs down','w'], ['c-a2','Cable face pull','2 × 15','Elbows high, pull to the eyes','w'], ['c-a3','Incline dumbbell press','2 × 10','Your usual or lighter','w'], ['c-a4','Cable Pallof press','2 × 10 / side','Do not let it turn you','w'], ['c-a5','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w']],
+ cable: { A: [['c-a1','Seated two-handle pulldown','2 × 10','Chest tall, ribs down','w'], ['c-a2','Cable face pull','2 × 15','Elbows high, pull to the eyes','w'], ['c-a3','Incline dumbbell press','2 × 10','Your usual or lighter','w'], ['c-a4','Cable Pallof press','2 × 10 / side','Do not let it turn you','w'], ['c-a5','Split squat, rear foot on the bench','2 × 8 / side','One dumbbell, your usual or lighter','w']],
   B: [['c-b1','Seated wide cable row','2 × 10','Chest tall, squeeze and 3 back','w'], ['c-b2','Cable glute kickback','2 × 12 / side','Ribs down, move from the hip','w'], ['c-b3','Rope pushdown','2 × 12','Elbows pinned','w'], ['c-b4','Dumbbell RDL','2 × 10','5 lb, 3 down, 1 pause, 1 up','w'], ['c-b5','Cable anti-lean hold','2 × 20s / side','Stand tall, resist the pull','w']] }
 };
 var TRIP_SKILL = 'Chest-to-wall handstand, 3 × 15s, shoulders pushed tall. Bar around? Active hang 2 × 10s, never passive.';
@@ -5097,7 +5097,7 @@ function _lastBest(arr){
 }
 // tracked lifts only: data-id → first-ever weight (0 = bodyweight, reps only). Everything else is a plain check-off.
 var TRACK = { 'd1e1':5, 'd1e-dip':0, 'd1e3':70, 'd1-pullover':30, 'd3e3':25, 'd3e-abd':70, 'd5e-pistol':0,
- 'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
+ 'd2e-press':50, 'd1e-pld':70, 'd2e1':0, 'd3-sapd':25, 'd3-seatpd':40, 'd4b1':70, 'd4b-legext':70, 'd3-rdl':5, 'd4b-legcurl':50, 'd3-chin':0, 'd4b-calf':0,
  // skill blocks and bodyweight holds — the number that moves is reps or seconds, so they log like any other lift
  'd5e-archer':0, 'd5e1':0, 'd2e-serr':0, 'd1-backext':0, 'd3e-stir':0, 'd3e-splank':0,
  'd3-inccurl':15, 'd3-stcalf':25, 'd3-wrow':50, 'd1-latraise':10, 'd2-sled':0, 'd1-tib':0, 'd2-tib':0, 'd6-crow':0, 'd6-plank':0, 'd6-spin':0, 'd1-adduct':70, 'd3-abdlean':50 };
@@ -6232,7 +6232,7 @@ function _toast(msg){
 var PLAN_MIN = 45;
 var SLOT = {
  d1e1:'vpull', 'd1e-dip':'dip', d1e3:'hpull', 'd2e-serr':'serratus', 'd1-pullover':'latiso', d1e5:'rdelt', 'd5-erot':'cuff', 'd1e-curl':'bi', 'd5-tripush':'tri',
- 'd2e-press':'chest', 'd3-chin':'vpull', d2e1:'ohp', 'd3-sapd':'latuni', d2e3:'tri', 'd3e-stir':'corerot', d2e2:'sdelt', 'd3-wrow':'hpull', 'd3-inccurl':'bi', 'd3-stcalf':'calf',
+ 'd2e-press':'chest', 'd3-chin':'vpull', d2e1:'ohp', 'd3-sapd':'latuni', 'd3-seatpd':'latuni', d2e3:'tri', 'd3e-stir':'corerot', d2e2:'sdelt', 'd3-wrow':'hpull', 'd3-inccurl':'bi', 'd3-stcalf':'calf',
  'd4b-legext':'quad', d3e7:'hamknee', 'd1-backext':'backext', 'd3e-abd':'gmed', 'd1-hiphike':'gmed', 'd1e-carry':'corelat', d2e6:'corerot', 'd4b-calf':'calf', 'd1-latraise':'sdelt',
  'd3-rdl':'hamhip', 'd3-abdlean':'gmed', d4b1:'glute', d3e3:'quad', 'd4b-legcurl':'hamknee', 'd3e-splank':'corelat', 'd2-kick':'glute', 'd2-sled':'cond', 'd3e-scalf':'calf'
 };
@@ -6241,7 +6241,7 @@ var PRIORITY_SLOT = { vpull:1, latuni:1, hpull:1, rdelt:1, gmed:1, corelat:1, ca
 // where the page order puts a lift too low for what it does (strength and resilience first, fun last)
 var RANK = { 'd1-tib':1 };
 // long days: the third set goes to the lifts that build strength or capacity, never the fun ones
-var LONG_S3 = { d1e1:1, 'd3-chin':1, 'd2e-press':1, 'd3-sapd':1, d4b1:1, 'd3-stcalf':1, 'd4b-legext':1, 'd3e-abd':1, 'd1-latraise':1, d2e2:1, 'd1-hiphike':1 };   // the lagging muscles (lats, side delts, side glutes) get the extra set first
+var LONG_S3 = { d1e1:1, 'd3-chin':1, 'd2e-press':1, 'd3-sapd':1, 'd3-seatpd':1, d4b1:1, 'd3-stcalf':1, 'd4b-legext':1, 'd3e-abd':1, 'd1-latraise':1, d2e2:1, 'd1-hiphike':1 };   // the lagging muscles (lats, side delts, side glutes) get the extra set first
 function _ymd(ts){ var d = new Date(ts - DAY_SHIFT_MS); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 // minutes per lift, from your own sessions (working time where it was measured)
 function _pace(){
@@ -6271,7 +6271,7 @@ function _cutTier(id, dayId){
 }
 var SHORT = { 'd5e-archer':'Muscle-up drills', d1e1:'Pull-ups', 'd1e-dip':'Dips', d1e3:'Machine row', 'd2e-serr':'Push-up plus', 'd1-pullover':'Pullover', d1e5:'Face pull', 'd1-latraise':'Dumbbell side raise', 'd5-erot':'External rotation', 'd1e-curl':'Curl', 'd5-tripush':'Pushdown',
  'd5e-pistol':'Pistol drills', 'd4b-legext':'Leg extension', d3e7:'Nordic curl', 'd1-backext':'Back extension', 'd3e-abd':'Hip abductor', 'd1-adduct':'Hip adductor', 'd1-hiphike':'Hip hike', 'd1e-carry':'Anti-lean hold', d2e6:'Pallof press', 'd4b-calf':'Calf raise', 'd1-tib':'Shin raise',
- d5e1:'Handstand drills', 'd2e-press':'Chest press', 'd3-chin':'Chin-ups', d2e1:'Pike push-up', 'd3-sapd':'1-arm pulldown', d2e3:'Overhead triceps', 'd3e-stir':'Stir the pot', d2e2:'Cable side raise', 'd3-wrow':'Wide cable row', 'd3-inccurl':'Incline curl',
+ d5e1:'Handstand drills', 'd2e-press':'Chest press', 'd3-chin':'Chin-ups', d2e1:'Pike push-up', 'd3-sapd':'1-arm pulldown', 'd3-seatpd':'Seated pulldown', d2e3:'Overhead triceps', 'd3e-stir':'Stir the pot', d2e2:'Cable side raise', 'd3-wrow':'Wide cable row', 'd3-inccurl':'Incline curl',
  'd3-rdl':'RDL', 'd3-abdlean':'Leaning abductor', d4b1:'Hip thrust', d3e3:'Split squat', 'd4b-legcurl':'Leg curl', 'd3e-splank':'Copenhagen plank', 'd2-kick':'Glute kickback', 'd2-sled':'Treadmill drag', 'd3-stcalf':'Calf press', 'd3e-scalf':'Seated calf', 'd2-tib':'Shin raise',
  'd6-hs':'Handstand', 'd6-crow':'Crow', 'd6-plank':'Plank taps', 'd6-spin':'Bike' };
 var SHORT_B = { d1e3:'Cable row', 'd1-pullover':'Straight-arm pull', d1e5:'Reverse pec-deck', 'd1-latraise':'Seated side raise', 'd5-erot':'Y-raise', 'd1e-curl':'Hammer curl', 'd5-tripush':'Kickback', 'd3e-abd':'Abductor, heavy',
@@ -6965,7 +6965,7 @@ function readSkips(){ var o = { d: _today(), ids: [], sub: {}, alt: {} };
  return o; }
 function writeSkips(s){ try { if (s.ids.length || Object.keys(s.alt).length) store.set('bp-skipd', JSON.stringify(s)); else store.del('bp-skipd'); } catch(e){} }
 function _skCard(id){ return document.querySelector('.excard[data-id="' + id + '"]'); }
-var SLOT_SAY = { vpull:'lats and biceps', latuni:'lats, one side at a time', latiso:'lats', hpull:'the middle of the back', rdelt:'the back of the shoulders', cuff:'the small muscles round the shoulder', serratus:'the muscles under the shoulder blade',
+var SLOT_SAY = { vpull:'lats and biceps', latuni:'lats', latiso:'lats', hpull:'the middle of the back', rdelt:'the back of the shoulders', cuff:'the small muscles round the shoulder', serratus:'the muscles under the shoulder blade',
  chest:'chest', dip:'chest and triceps', ohp:'shoulders', tri:'triceps', bi:'biceps', sdelt:'the side of the shoulders', quad:'the front of the thighs', hamknee:'hamstrings', hamhip:'hamstrings and glutes', backext:'lower back and glutes',
  gmed:'the side of the hips', glute:'glutes', calf:'calves', corerot:'the trunk, holding against a twist', corelat:'the side of the trunk' };
 var SLOT_GRP = { vpull:'lat', latuni:'lat', latiso:'lat', hpull:'back', rdelt:'back', cuff:'cuff', serratus:'serr', chest:'press', dip:'press', ohp:'press', tri:'tri', bi:'bi', sdelt:'sdelt', quad:'quad', hamknee:'ham', hamhip:'ham',
