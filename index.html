@@ -1988,6 +1988,32 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 .ic-caret{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>") center/contain no-repeat}
 .ic-arrow{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12h16M14 6l6 6-6 6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12h16M14 6l6 6-6 6'/></svg>") center/contain no-repeat}
 .ic-swap{-webkit-mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M4 8h15M15 4l4 4-4 4M20 16H5M9 12l-4 4 4 4'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M4 8h15M15 4l4 4-4 4M20 16H5M9 12l-4 4 4 4'/></svg>") center/contain no-repeat}
+/* skin: gradient on the home screen, flat panels in a session */
+body:not(.focus){background:radial-gradient(120% 60% at 15% 0%,#3a1c5c 0%,rgba(58,28,92,0) 60%),radial-gradient(90% 50% at 100% 30%,#12305a 0%,rgba(18,48,90,0) 65%),#0e0a1e;background-attachment:fixed}
+body.focus{background:#0a0a0b}
+html.has-touch:has(body:not(.focus)){background:#0e0a1e}
+html.has-touch body:not(.focus)::before{background:radial-gradient(120% 60% at 15% 0%,#3a1c5c 0%,rgba(58,28,92,0) 60%),radial-gradient(90% 50% at 100% 30%,#12305a 0%,rgba(18,48,90,0) 65%)}
+html.has-touch:has(body.focus){background:#0a0a0b}
+html.has-touch body.focus::before{background:none}
+@media(min-width:760px){html.has-touch body:not(.focus){background:radial-gradient(120% 60% at 15% 0%,#3a1c5c 0%,rgba(58,28,92,0) 60%),radial-gradient(90% 50% at 100% 30%,#12305a 0%,rgba(18,48,90,0) 65%),#0e0a1e;background-attachment:fixed}html.has-touch body.focus{background:#0a0a0b}}
+body.focus .focusbar{background:#0a0a0b;border-bottom-color:#1b1b1f}
+body.focus .focusbar .jchip{border-color:transparent;background:#1b1b1f;box-shadow:none}
+body.focus .focusbar .jchip.now{background:#f5f5f4;color:#0a0a0b;border-color:transparent;box-shadow:none}
+body.focus .focusbar .jchip.now i{color:#0a0a0b}
+body.focus .focusbar .jchip.done{background:none}
+body.focus .focusbar .jchip.parked{border-color:var(--gld);background:none}
+.exname{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-.015em}
+.excard{background:#131316;border-bottom:0;box-shadow:none}
+.excard.now{background:#16181d;box-shadow:inset 3px 0 0 var(--b)}
+.excard .stp{border-color:transparent;background:#1d1d23}
+.excard .rest-lbl:not(.running):not(.done){border-color:transparent;background:#1d1d23}
+@media(max-width:759px){
+.excard{border-radius:16px;margin:8px -12px;padding:15px 12px 13px}
+.excard.done{margin-top:6px;margin-bottom:6px}
+}
+@media(min-width:760px){
+html:not(.dev-mobile) .exlist .excard{border-radius:16px;margin:10px 0;padding:18px 20px;border-bottom:0}
+}
 </style>
 </head>
 <body>
@@ -3526,7 +3552,7 @@ body.focus .section.cur .excard.now:not(.done):not([data-added]):not([data-r1]):
 function _asObj(v){ return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 function _asArr(v){ return Array.isArray(v) ? v.filter(function(x){ return x && typeof x === 'object'; }) : []; }
 // storage that never throws: falls back to memory when the browser blocks it
-var APP_V = '2026-11-23.5';
+var APP_V = '2026-11-23.6';
 // if anything in this file throws at load, the page would half-build with no number rows; keep the error and rebuild what we can
 var _lastErr = null;
 window.addEventListener('error', function(ev){ var m = (ev.message || 'error') + (ev.lineno ? ' @' + ev.lineno : ''); _lastErr = m; try { localStorage.setItem('bp-err', m); } catch(e){}
